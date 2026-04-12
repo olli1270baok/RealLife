@@ -2511,6 +2511,21 @@ function showGlobalPaywall(msg) {
   }
 }
 
+function initPaywallCheckout() {
+  // Option 1: Direct link (replace XXXXX with actual Stripe link)
+  // window.open('https://buy.stripe.com/XXXXX', '_blank');
+  
+  // Option 2: Show the modal (better UX as it explains more)
+  showGlobalPaywall('Sichere dir dauerhaften Zugriff auf alle Experten-Inhalte und Funktionen.');
+}
+
+function updatePricingSection() {
+  const pricingSection = document.getElementById('premium');
+  if (pricingSection && isPremium) {
+    pricingSection.style.display = 'none';
+  }
+}
+
 // ─────────────────────────────────────────────────────
 // LEGAL POPUP
 // ─────────────────────────────────────────────────────
@@ -2549,6 +2564,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGlossary();
   initSearch();
   initScrollReveal();
+  updatePricingSection();
 
   // A11y Escape Key
   document.addEventListener('keydown', (e) => {

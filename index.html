@@ -16,7 +16,7 @@
 <nav id="main-nav">
   <div class="nav-inner">
     <div class="nav-logo">
-      <img src="assets/app_logo_1775992994196.png" class="logo-img" alt="Real Life Logo" />
+      <img src="assets/logo.png" class="logo-img" alt="Real Life Logo" />
       <span class="logo-text">Real Life</span>
     </div>
     <div class="nav-search-wrap">
@@ -40,11 +40,11 @@
     <h1>Was dir die <span class="gradient-text">Schule nie</span> beigebracht hat</h1>
     <p class="hero-sub">Wohnung, Versicherungen, Steuern, Behörden, Recht & mehr – alles kompakt erklärt, mit echten Beispielen und konkreten Anlaufstellen.</p>
     <div class="hero-stats">
-      <div class="stat"><strong>15</strong><span>Kernthemen</span></div>
+      <div class="stat"><strong>15</strong><span>Themen</span></div>
       <div class="stat-sep"></div>
-      <div class="stat"><strong>80+</strong><span>Praxis-Tipps</span></div>
+      <div class="stat"><strong>80+</strong><span>Tipps</span></div>
       <div class="stat-sep"></div>
-      <div class="stat"><strong>100%</strong><span>Kostenlos</span></div>
+      <div class="stat"><strong>Fair</strong><span>Einmalkauf</span></div>
     </div>
     <div class="hero-ctas">
       <button class="btn-primary" onclick="scrollToSection('topics')">Jetzt starten ↓</button>
@@ -63,6 +63,62 @@
   <p class="section-sub">Klicke auf ein Thema um tiefer einzutauchen</p>
   <div class="topics-grid" id="topics-grid" role="list" aria-label="Wissensbereiche">
     <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- PRICING / PREMIUM SECTION -->
+<section class="pricing-section" id="premium">
+  <div class="premium-card" id="premium-card">
+    <div class="premium-content">
+      <div class="premium-badge">💎 Vollversion freischalten</div>
+      <h2>Hol dir das komplette System</h2>
+      <p>Mit der Real Life Vollversion schaltest du alle Inhalte dauerhaft frei und sicherst dir wertvolle Zusatzfunktionen.</p>
+      
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feature-check">✓</span>
+          <div>
+            <strong>Alle 15 Themenmodule</strong>
+            <span>Lies jeden einzelnen Tipp zu Steuern, Wohnung & Recht komplett.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-check">✓</span>
+          <div>
+            <strong>Speicherbare Checklisten</strong>
+            <span>Hake Aufgaben ab und speichere deinen Fortschritt für später.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-check">✓</span>
+          <div>
+            <strong>Notfall-Schnellzugriff</strong>
+            <span>Alle wichtigen Telefonnummern und Ämter sofort im Kurzwahl-Modus.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-check">✓</span>
+          <div>
+            <strong>Lebenslanger Zugriff</strong>
+            <span>Einmal kaufen, für immer nutzen. Inklusive aller Updates & neuer Themen.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="premium-action">
+      <div class="price-tag">
+        <span class="price-val">4,99 €</span>
+        <span class="price-note">Einmaliger Kauf</span>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-bottom: 20px;">Kein Abo. Keine versteckten Kosten. Dein digitaler Werkzeugkasten.</p>
+      <button class="btn-primary" style="width: 100%; padding: 16px;" onclick="initPaywallCheckout()">Jetzt freischalten</button>
+      <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px; opacity: 0.7;">
+        <span style="font-size: 1.2rem;">💳</span>
+        <span style="font-size: 1.2rem;">🅿️</span>
+        <span style="font-size: 1.2rem;">Pay</span>
+      </div>
+    </div>
   </div>
 </section>
 
