@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Real Life Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { padding: 0; margin: 0; background: var(--bg-primary); }
+    .admin-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    
+    /* Login Screen */
+    #admin-login { height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    .pin-box { background: var(--bg-secondary); padding: 40px; border-radius: 12px; border: 1px solid var(--glass-border); text-align: center; }
+    .pin-input { font-size: 2rem; width: 150px; text-align: center; letter-spacing: 10px; background: rgba(0,0,0,0.5); border: 2px solid var(--primary-color); border-radius: 8px; color: white; margin-bottom: 20px; }
+    
+    /* Dashboard */
+    .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px; margin-bottom: 30px; }
+    .admin-tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .admin-tab { background: transparent; border: none; color: #888; padding: 10px 20px; cursor: pointer; font-size: 1.1rem; }
+    .admin-tab.active { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); font-weight: bold; }
+    
+    .editor-section { display: none; }
+    .editor-section.active { display: block; }
+
+    /* Raw Code Editor */
+    .raw-editor { width: 100%; height: 500px; background: #1e1e1e; color: #d4d4d4; font-family: monospace; border: 1px solid #333; border-radius: 8px; padding: 15px; font-size: 14px; box-sizing: border-box; }
+    
+    .action-bar { display: flex; gap: 15px; margin-top: 20px; }
+    
+    /* List & Form UI */
+    .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 8px; margin-bottom: 8px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: bold; color: #888; margin-bottom: 5px; text-transform: uppercase; }
+    .form-input { width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 6px; color: #fff; font-size: 1rem; }
+    .form-toolbar { display: flex; gap: 5px; margin-bottom: 5px; }
+    .toolbar-btn { font-size: 0.75rem; padding: 4px 8px; background: #333; color: #fff; border-radius: 4px; cursor: pointer; border: none; }
+    .toolbar-btn:hover { background: var(--accent-blue); }
+    
+    #export-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
+    .export-modal { background: var(--bg-secondary); padding: 30px; border-radius: 12px; width: 100%; max-width: 600px; border: 1px solid var(--primary-color); }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="admin-login">
+    <button class="btn-ghost" style="position:absolute; top:20px; left:20px;" onclick="window.location.href='index.html'">← Zurück zur App</button>
+    <div class="pin-box">
+      <h2>Admin Panel</h2>
+      <p style="margin-bottom: 20px; color: #888;">Bitte Master-PIN eingeben</p>
+      <input type="password" id="pin-field" class="pin-input" maxlength="4" autofocus>
+      <br>
+      <button class="btn-primary" onclick="verifyPin()">Entsperren</button>
+      <p id="pin-error" style="color: #ef4444; margin-top: 15px; display: none;">Falsche PIN!</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="admin-dashboard" class="admin-container hidden">
+    
+    <div class="admin-header">
+      <div>
+        <button class="btn-ghost" style="margin-bottom: 20px; padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='index.html'">← Zurück zur App</button>
+        <h1 style="margin:0;">Real Life <span class="gradient-text">Control Room</span></h1>
+        <p style="margin: 5px 0 0 0; color: #aaa;">Daten werden im LocalStorage gespeichert. Nach Bearbeitung als Datei exportieren.</p>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-ghost" onclick="resetToFactory()">Auf Standard zurücksetzen</button>
+        <button class="btn-primary" onclick="showExport()">💾 Exportieren & Sichern</button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('topics')">1. Themenmodule</button>
+      <button class="admin-tab" onclick="switchTab('contacts')">2. Schnellreferenz (Kontakte)</button>
+      <button class="admin-tab" onclick="switchTab('checklists')">3. Checklisten</button>
+      <button class="admin-tab" onclick="switchTab('glossary')">4. Glossar</button>
+      <button class="admin-tab" onclick="switchTab('legal')">5. Rechtstexte</button>
+    </div>
+
+    <!-- EDITORS -->
+    <div id="tab-topics" class="editor-section active">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <p style="margin:0;">Verwalte die modularen Wissenskacheln (Themen).</p>
+        <button class="btn-primary" style="padding: 8px 16px;" onclick="createNew('TOPICS')">+ Neues Thema</button>
+      </div>
+      <div class="list-container" id="list-topics"></div>
+    </div>
+
+    <div id="tab-contacts" class="editor-section">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <p style="margin:0;">Notfallkontakte und Ämter.</p>
+        <button class="btn-primary" style="padding: 8px 16px;" onclick="createNew('CONTACTS')">+ Neuer Kontakt</button>
+      </div>
+      <div class="list-container" id="list-contacts"></div>
+    </div>
+
+    <div id="tab-checklists" class="editor-section">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <p style="margin:0;">Gruppen der Checklist-Elemente.</p>
+        <button class="btn-primary" style="padding: 8px 16px;" onclick="createNew('CHECKLIST_GROUPS')">+ Neue Gruppe</button>
+      </div>
+      <div class="list-container" id="list-checklists"></div>
+    </div>
+
+    <div id="tab-glossary" class="editor-section">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <p style="margin:0;">Verwalte Glossar-Begriffe.</p>
+        <button class="btn-primary" style="padding: 8px 16px;" onclick="createNew('GLOSSARY')">+ Begriff</button>
+      </div>
+      <div class="list-container" id="list-glossary"></div>
+    </div>
+
+    <div id="tab-legal" class="editor-section">
+      <div style="margin-bottom: 20px;">
+        <h3>Impressum</h3>
+        <div class="form-toolbar" style="margin-bottom:8px;">
+          <button class="toolbar-btn" onclick="document.execCommand('bold',false,null)">Fett</button>
+          <button class="toolbar-btn" onclick="document.execCommand('italic',false,null)">Kursiv</button>
+          <button class="toolbar-btn" onclick="document.execCommand('formatBlock',false,'H3')">Überschrift</button>
+          <button class="toolbar-btn" onclick="document.execCommand('insertUnorderedList',false,null)">Liste</button>
+        </div>
+        <div id="editor-impressum" contenteditable="true" style="min-height: 200px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 6px; border: 1px solid var(--glass-border); outline:none;"></div>
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <h3>Datenschutz</h3>
+        <div class="form-toolbar" style="margin-bottom:8px;">
+          <button class="toolbar-btn" onclick="document.execCommand('bold',false,null)">Fett</button>
+          <button class="toolbar-btn" onclick="document.execCommand('italic',false,null)">Kursiv</button>
+          <button class="toolbar-btn" onclick="document.execCommand('formatBlock',false,'H3')">Überschrift</button>
+          <button class="toolbar-btn" onclick="document.execCommand('insertUnorderedList',false,null)">Liste</button>
+        </div>
+        <div id="editor-datenschutz" contenteditable="true" style="min-height: 300px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 6px; border: 1px solid var(--glass-border); outline:none;"></div>
+      </div>
+      <div class="action-bar"><button class="btn-primary" onclick="saveLegal()">Rechtstexte speichern</button></div>
+    </div>
+
+  </div>
+
+  <!-- EDITOR MODAL -->
+  <div id="edit-overlay" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9000; align-items:center; justify-content:center; padding:20px;">
+    <div class="export-modal" style="display:flex; flex-direction:column; max-height:90vh; overflow-y:auto; max-width:800px; width:100%;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h2 id="edit-modal-title">Element bearbeiten</h2>
+        <button class="btn-ghost" onclick="closeEditModal()">✕</button>
+      </div>
+      
+      <div id="edit-form-container">
+        <!-- Form rendered by JS -->
+      </div>
+      
+      <div style="display:flex; gap:10px; margin-top:30px; justify-content:flex-end;">
+        <button class="btn-secondary" onclick="closeEditModal()">Abbrechen</button>
+        <button class="btn-primary" onclick="saveFormElement()">Speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORT MASK -->
+  <div id="export-overlay">
+    <div class="export-modal">
+      <h2>Daten exportieren</h2>
+      <p>Lade dir deine aktuellen Anpassungen als `update_data.json` herunter. Diese Datei dient als lokales Backup.</p>
+      <p>Um die App live für alle upzudaten (Vercel), lade die Daten herunter und lasse mich (KI) damit deine `app.js` überschreiben.</p>
+      <textarea id="export-output" class="raw-editor" style="height: 150px" title="JSON Output" readonly></textarea>
+      <div style="display:flex; gap: 10px; margin-top: 20px;">
+        <button class="btn-secondary" onclick="document.getElementById('export-overlay').style.display='none'">Schließen</button>
+        <button class="btn-primary" onclick="downloadJSON()">💾 Als JSON herunterladen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Data base constants from app.js to prepopulate if empty -->
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

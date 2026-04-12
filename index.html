@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Erwachsen werden – Der Guide für das echte Leben</title>
+  <meta name="description" content="Alles was deine Eltern wissen aber dir nie erklärt haben: Wohnung, Versicherungen, Steuern, Behörden & mehr. Kompakt, verständlich, mit Beispielen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <img src="assets/app_logo_1775992994196.png" class="logo-img" alt="Real Life Logo" />
+      <span class="logo-text">Real Life</span>
+    </div>
+    <div class="nav-search-wrap">
+      <input type="text" id="search-input" placeholder="Thema suchen... z.B. Haftpflicht" autocomplete="off" aria-label="Modul durchsuchen" />
+      <span class="search-icon">🔍</span>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button class="nav-menu-btn" id="a11y-text-toggle" aria-label="Schriftgröße vergrößern" title="Texte vergrößern">aA</button>
+      <button class="nav-menu-btn" id="theme-toggle" aria-label="Design-Modus wechseln" title="Hell/Dunkel">🌓</button>
+      <button class="nav-menu-btn" id="menu-toggle" aria-label="Menü">☰</button>
+    </div>
+  </div>
+  <div id="search-results" class="search-dropdown hidden"></div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🚀 Der Lebensguide für junge Erwachsene</div>
+    <h1>Was dir die <span class="gradient-text">Schule nie</span> beigebracht hat</h1>
+    <p class="hero-sub">Wohnung, Versicherungen, Steuern, Behörden, Recht & mehr – alles kompakt erklärt, mit echten Beispielen und konkreten Anlaufstellen.</p>
+    <div class="hero-stats">
+      <div class="stat"><strong>15</strong><span>Kernthemen</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><strong>80+</strong><span>Praxis-Tipps</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><strong>100%</strong><span>Kostenlos</span></div>
+    </div>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="scrollToSection('topics')">Jetzt starten ↓</button>
+      <button class="btn-secondary" onclick="openModule('steuern')">Steuern verstehen</button>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-dot"></div>
+  </div>
+</header>
+
+<!-- TOPIC GRID -->
+<section class="topics-section" id="topics">
+  <div class="section-label">Themenübersicht</div>
+  <h2 class="section-title">Alles was du als Erwachsener wissen musst</h2>
+  <p class="section-sub">Klicke auf ein Thema um tiefer einzutauchen</p>
+  <div class="topics-grid" id="topics-grid" role="list" aria-label="Wissensbereiche">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- MODULE VIEW (Overlay) -->
+<div id="module-overlay" class="module-overlay hidden">
+  <div class="module-panel">
+    <div class="module-header">
+      <div class="module-header-icon" id="mod-icon"></div>
+      <div>
+        <div class="module-kicker" id="mod-kicker"></div>
+        <h2 id="mod-title"></h2>
+      </div>
+      <button class="module-close" onclick="closeModule()">✕</button>
+    </div>
+    <div class="module-progress-bar"><div id="mod-progress" class="module-progress-fill"></div></div>
+    <div class="module-nav-tabs" id="mod-tabs"></div>
+    <div class="module-body" id="mod-body"></div>
+    <div class="module-footer">
+      <button class="btn-ghost" id="mod-prev" onclick="navigateSection(-1)">← Zurück</button>
+      <span id="mod-page-indicator"></span>
+      <button class="btn-primary" id="mod-next" onclick="navigateSection(1)">Weiter →</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK-REFERENCE -->
+<section class="quick-ref-section" id="quickref">
+  <div class="section-label">Schnellreferenz</div>
+  <h2 class="section-title">Wichtige Kontakte & Anlaufstellen</h2>
+  <div class="contacts-grid" id="contacts-grid" role="list" aria-label="Wichtige Adressen"></div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="checklist-section" id="checklist">
+  <div class="section-label">Mein Plan</div>
+  <h2 class="section-title">Deine persönliche Checkliste</h2>
+  <p class="section-sub">Hake ab was du bereits erledigt hast – dein Fortschritt wird gespeichert.</p>
+  <div class="checklist-container" id="checklist-container" role="list"></div>
+</section>
+
+<!-- GLOSSARY -->
+<section class="glossary-section" id="glossar">
+  <div class="section-label">Wörterbuch</div>
+  <h2 class="section-title">Behörden-Deutsch einfach erklärt</h2>
+  <div class="glossary-search-wrap">
+    <input type="text" id="glossary-search" placeholder="Begriff suchen..." />
+  </div>
+  <div class="glossary-grid" id="glossary-grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-icon">🎓</span>
+      <span class="logo-text">Real Life</span>
+      <p>Dieser Guide ersetzt keine Rechts- oder Steuerberatung. Bei konkreten Fragen wende dich an einen Fachmann.</p>
+    </div>
+    <div class="footer-links">
+      <button onclick="scrollToSection('topics')">Themen</button>
+      <button onclick="scrollToSection('quickref')">Kontakte</button>
+      <button onclick="scrollToSection('checklist')">Checkliste</button>
+      <button onclick="scrollToSection('glossar')">Glossar</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div style="margin-bottom: 10px;">
+      <a href="#" onclick="showLegalPopup('impressum'); return false;" style="color:var(--text-secondary); margin-right:15px; text-decoration:none; font-size:0.9rem;">Impressum</a>
+      <a href="#" onclick="showLegalPopup('datenschutz'); return false;" style="color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Datenschutz</a>
+    </div>
+    <span>© 2026 Real Life – Made with ❤️ for young adults in Germany & Austria</span>
+    <a href="admin.html" style="display:inline-block; width:20px; height:20px; opacity:0; position:absolute; right:0; bottom:0;">Admin</a>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
