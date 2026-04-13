@@ -65,7 +65,12 @@
         <h1 style="margin:0;">Real Life <span class="gradient-text">Control Room</span></h1>
         <p style="margin: 5px 0 0 0; color: #aaa;">Daten werden im LocalStorage gespeichert. Nach Bearbeitung als Datei exportieren.</p>
       </div>
-      <div style="display: flex; gap: 10px;">
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <div id="premium-status-box" style="padding: 8px 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 0.8rem; color: #aaa;">Status:</span>
+          <span id="premium-status-label" style="font-weight: bold; font-size: 0.9rem;">Lädt...</span>
+          <button class="toolbar-btn" style="background: var(--accent-orange);" onclick="togglePremiumStatus()">Umschalten</button>
+        </div>
         <button class="btn-ghost" onclick="resetToFactory()">Auf Standard zurücksetzen</button>
         <button class="btn-primary" onclick="showExport()">💾 Exportieren & Sichern</button>
       </div>

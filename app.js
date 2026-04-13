@@ -2406,6 +2406,7 @@ let checklistState = {};
 // ─────────────────────────────────────────────────────
 // PREMUIM & PAYWALL
 // ─────────────────────────────────────────────────────
+const STRIPE_CHECKOUT_URL = 'https://buy.stripe.com/14A5kx9Nl3gt83f7y94Ni00'; // HIER DEINEN STRIPE-LINK EINFÜGEN!
 let isPremium = localStorage.getItem('adultguide_premium') === 'true';
 
 // Auf Redirect-Parameter prüfen (?premium=true)
@@ -2430,7 +2431,7 @@ function getPaywallHTML(message = 'Dieses Feature ist exklusiv für Vollversions
         <li>✅ Interaktive Umzugs- & Finanzcheckliste</li>
         <li>✅ Kein Abo, kein Account-Zwang</li>
       </ul>
-      <button class="btn-primary" style="width: 100%; margin-bottom: 20px" onclick="window.open('https://buy.stripe.com/XXXXX', '_blank')">Jetzt für 4,99€ freischalten</button>
+      <button class="btn-primary" style="width: 100%; margin-bottom: 20px" onclick="window.open(STRIPE_CHECKOUT_URL, '_blank')">Jetzt für 4,99€ freischalten</button>
       <div class="paywall-code-area">
         <p style="font-size: 0.8rem; color: #888; text-align: center; margin-bottom: 10px;">Hast du bereits einen Code per E-Mail erhalten?</p>
         <div style="display: flex; gap: 10px;">
@@ -2512,17 +2513,32 @@ function showGlobalPaywall(msg) {
 }
 
 function initPaywallCheckout() {
-  // Option 1: Direct link (replace XXXXX with actual Stripe link)
-  // window.open('https://buy.stripe.com/XXXXX', '_blank');
+  // Option 1: Direct link (better for landing page conversion)
+  window.open(STRIPE_CHECKOUT_URL, '_blank');
   
-  // Option 2: Show the modal (better UX as it explains more)
-  showGlobalPaywall('Sichere dir dauerhaften Zugriff auf alle Experten-Inhalte und Funktionen.');
+  // Option 2: Show the modal (if you'd rather explain features again first)
+  // showGlobalPaywall('Sichere dir dauerhaften Zugriff auf alle Experten-Inhalte und Funktionen.');
 }
 
 function updatePricingSection() {
   const pricingSection = document.getElementById('premium');
-  if (pricingSection && isPremium) {
-    pricingSection.style.display = 'none';
+  const premiumCard = document.getElementById('premium-card');
+  if (!pricingSection) return;
+
+  if (isPremium) {
+    // Falls Nutzer schon Premium ist, zeigen wir einen "Aktiv" Status an
+    // statt die Sektion komplett zu verstecken (damit du sie prüfen kannst)
+    const actionArea = pricingSection.querySelector('.premium-action');
+    if (actionArea) {
+      actionArea.innerHTML = `
+        <div class="price-tag">
+          <span style="font-size: 3rem;">✅</span>
+          <span class="price-note" style="color:#10d9a0">Vollversion Aktiv</span>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Du hast bereits lebenslangen Zugriff auf alle Inhalte. Danke für deine Unterstützung!</p>
+        <button class="btn-secondary" style="width: 100%; border-color:#10d9a0; color:#10d9a0; pointer-events:none;">Premium Mitglied</button>
+      `;
+    }
   }
 }
 
@@ -2573,6 +2589,14 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('legal-modal')?.classList.add('hidden');
       document.getElementById('global-paywall')?.classList.add('hidden');
       document.body.style.overflow = '';
+    }
+  });
+
+  // Admin Shortcut: Ctrl + Shift + A
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+      e.preventDefault();
+      window.location.href = 'admin.html';
     }
   });
 });

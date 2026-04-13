@@ -432,6 +432,7 @@ a { color: var(--accent-blue); text-decoration: none; }
 
 /* ── PRICING / PREMIUM SECTION ── */
 .pricing-section {
+  display: block !important;
   padding: 60px 20px 100px;
   max-width: 1000px;
   margin: 0 auto;

@@ -27,6 +27,30 @@ function loadEditors() {
   
   document.getElementById('editor-impressum').innerHTML = LEGAL_CONTENT.impressum;
   document.getElementById('editor-datenschutz').innerHTML = LEGAL_CONTENT.datenschutz;
+
+  refreshPremiumUI();
+}
+
+function refreshPremiumUI() {
+  const isPremium = localStorage.getItem('adultguide_premium') === 'true';
+  const label = document.getElementById('premium-status-label');
+  if (isPremium) {
+    label.textContent = "🥇 VOLLVERSION";
+    label.style.color = "#f97316";
+  } else {
+    label.textContent = "🆓 GRATIS-MODUS";
+    label.style.color = "#3b82f6";
+  }
+}
+
+function togglePremiumStatus() {
+  const current = localStorage.getItem('adultguide_premium') === 'true';
+  localStorage.setItem('adultguide_premium', (!current).toString());
+  refreshPremiumUI();
+  // Optional: Kleiner Hinweis
+  const label = document.getElementById('premium-status-label');
+  label.textContent = "Wird umgeschaltet...";
+  setTimeout(() => refreshPremiumUI(), 300);
 }
 
 function switchTab(tabId) {
