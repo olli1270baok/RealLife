@@ -70,9 +70,9 @@ export default async function handler(req, res) {
     }
 
     // E-Mail versenden via Resend
-    const appUrl = process.env.APP_URL || 'https://adultguide.vercel.app';
+    const appUrl = process.env.APP_URL || 'https://reallife-digga.de';
     await resend.emails.send({
-      from: 'onboarding@resend.dev', // Standard Resend Test-E-Mail
+      from: 'Real Life <noreply@reallife-digga.de>',
       to: email,
       subject: '🎉 Dein Real Life Freischalt-Code',
       html: `
