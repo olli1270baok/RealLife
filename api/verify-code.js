@@ -22,9 +22,8 @@ export default async function handler(req, res) {
     return res.status(404).json({ error: 'Code ungültig oder nicht gefunden' });
   }
 
-  if (license.used) {
-    return res.status(400).json({ error: 'Code wurde bereits verwendet' });
-  }
+  // Code kann mehrfach verwendet werden (für Gerätewechsel oder Cache-Löschung)
+  // Wir entfernen die harte Sperre if (license.used) { ... }
 
   // Code als benutzt markieren
   const { error: updateError } = await supabase
