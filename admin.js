@@ -305,9 +305,40 @@ function saveLegal() {
   alert('Rechtstexte gespeichert!');
 }
 
-function saveLocalData() {
+async function saveLocalData() {
   const buildData = { TOPICS, CONTACTS, CHECKLIST_GROUPS, GLOSSARY, LEGAL_CONTENT };
   localStorage.setItem('adultguide_custom_data', JSON.stringify(buildData));
+  
+  // Automatisch in die Cloud sichern (Supabase)
+  await syncToSupabase(buildData);
+}
+
+async function syncToSupabase(data) {
+  const statusLabel = document.getElementById('premium-status-label');
+  const originalText = statusLabel.textContent;
+  
+  try {
+    statusLabel.textContent = "⌛ Cloud-Sync...";
+    const response = await fetch('/api/save-content', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: data,
+        pin: document.getElementById('pin-field').value // Wir nutzen die eingegebene PIN
+      })
+    });
+    
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Server Fehler');
+    
+    console.log('✅ Supabase Sync erfolgreich');
+    statusLabel.textContent = "✅ Cloud-Aktuell";
+    setTimeout(() => { statusLabel.textContent = originalText; }, 2000);
+  } catch (error) {
+    console.error('❌ Supabase Sync Fehler:', error);
+    statusLabel.textContent = "⚠️ Cloud-Fehler!";
+    setTimeout(() => { statusLabel.textContent = originalText; }, 3000);
+  }
 }
 
 // ============================================
