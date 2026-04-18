@@ -72,7 +72,7 @@ export default async function handler(req, res) {
     // E-Mail versenden via Resend
     const appUrl = process.env.APP_URL || 'https://adultguide.vercel.app';
     await resend.emails.send({
-      from: 'Real Life <noreply@deineshop.de>',
+      from: 'onboarding@resend.dev', // Standard Resend Test-E-Mail
       to: email,
       subject: '🎉 Dein Real Life Freischalt-Code',
       html: `
