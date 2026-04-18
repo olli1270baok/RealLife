@@ -13,6 +13,7 @@ let TOPICS = [
     icon: '🏠',
     color: '#4f8ef7',
     gradient: 'linear-gradient(135deg,#1e3a5f,#2d1b69)',
+    cover: 'fintech_home_cover',
     title: 'Eigene Wohnung',
     short: 'Mietvertrag, Kaution, Nebenkosten & Rechte als Mieter',
     tags: ['Mietrecht', 'Finanzen', 'Haushalt'],
@@ -165,6 +166,7 @@ let TOPICS = [
     icon: '🛡️',
     color: '#8b5cf6',
     gradient: 'linear-gradient(135deg,#2d1b69,#1a1040)',
+    cover: 'fintech_legal_cover',
     title: 'Versicherungen',
     short: 'Welche sind Pflicht, welche sind sinnvoll, was kannst du weglassen',
     tags: ['Pflicht', 'Schutz', 'Finanzen'],
@@ -314,6 +316,7 @@ let TOPICS = [
     icon: '📊',
     color: '#10d9a0',
     gradient: 'linear-gradient(135deg,#0a3d2e,#0d2a1e)',
+    cover: 'fintech_legal_cover',
     title: 'Steuern',
     short: 'Steuererklärung, Klassen, Freibeträge & Rückerstattung',
     tags: ['Finanzamt', 'Rückerstattung', 'Formulare'],
@@ -456,6 +459,7 @@ let TOPICS = [
     icon: '🏛️',
     color: '#f59e0b',
     gradient: 'linear-gradient(135deg,#3d2800,#1f1500)',
+    cover: 'fintech_legal_cover',
     title: 'Behörden & Ämter',
     short: 'Welches Amt wofür, wie melde ich mich an, was brauche ich mit',
     tags: ['Einwohnermeldeamt', 'BA', 'ELSTER'],
@@ -579,6 +583,7 @@ let TOPICS = [
     icon: '💰',
     color: '#f97316',
     gradient: 'linear-gradient(135deg,#3d1500,#200c00)',
+    cover: 'fintech_data_cover',
     title: 'Finanzen & Budgetierung',
     short: 'Haushaltsbuch, Schulden vermeiden, Sparen & Investieren',
     tags: ['Sparen', 'Budget', 'Investieren'],
@@ -709,6 +714,7 @@ let TOPICS = [
     icon: '⚖️',
     color: '#06b6d4',
     gradient: 'linear-gradient(135deg,#002030,#001525)',
+    cover: 'fintech_legal_cover',
     title: 'Rechtliches',
     short: 'Verträge, Kündigung, Rechte, Ratenzahlungen & Anwalt',
     tags: ['Verbraucherrecht', 'Kündigung', 'Anwalt'],
@@ -847,6 +853,7 @@ let TOPICS = [
     icon: '🏥',
     color: '#f43f5e',
     gradient: 'linear-gradient(135deg,#3d0015,#200010)',
+    cover: 'fintech_legal_cover',
     title: 'Gesundheit',
     short: 'Arzt, Krankschreibung, Apotheke, psychische Gesundheit',
     tags: ['Arzt', 'AU', 'Mental Health'],
@@ -936,6 +943,7 @@ let TOPICS = [
     icon: '📱',
     color: '#a78bfa',
     gradient: 'linear-gradient(135deg,#2d1458,#1a0d36)',
+    cover: 'fintech_legal_cover',
     title: 'Handy, Internet & Datenschutz',
     short: 'Handy-Vertrag, DSL, DSGVO & digitale Sicherheit',
     tags: ['Vertrag', 'Datenschutz', 'Digital'],
@@ -1028,6 +1036,7 @@ let TOPICS = [
     icon: '🌱',
     color: '#34d399',
     gradient: 'linear-gradient(135deg,#0a2e1e,#051a10)',
+    cover: 'fintech_data_cover',
     title: 'Rente & Altersvorsorge',
     short: '3-Säulen-System, Rentenpunkte, Riester, ETF & früher in Rente',
     tags: ['Rente', 'Riester', 'Zukunft'],
@@ -1098,6 +1107,7 @@ let TOPICS = [
     icon: '💼',
     color: '#e879f9',
     gradient: 'linear-gradient(135deg,#3d0050,#220030)',
+    cover: 'fintech_data_cover',
     title: 'Bewerbung & Karriere',
     short: 'Lebenslauf, Gehaltsverhandlung, Lohnabrechnung & Probezeit',
     tags: ['Bewerbung', 'Gehalt', 'Arbeitsrecht'],
@@ -1270,6 +1280,7 @@ let TOPICS = [
     icon: '🚗',
     color: '#f97316',
     gradient: 'linear-gradient(135deg,#3d1a00,#1a0b00)',
+    cover: 'fintech_data_cover',
     title: 'Mobilität & Fahrzeug',
     short: 'Auto kaufen/leasen, Kfz-Kosten, Führerschein & ÖPNV-Alternativen',
     tags: ['Auto', 'Leasing', 'ÖPNV'],
@@ -1401,6 +1412,7 @@ let TOPICS = [
     icon: '🍳',
     color: '#34d399',
     gradient: 'linear-gradient(135deg,#0a2e1a,#081a0f)',
+    cover: 'fintech_home_cover',
     title: 'Haushalt & Alltagskompetenzen',
     short: 'Waschen, Kochen, Putzen, Reparaturen & Energie sparen',
     tags: ['Alltag', 'Sparen', 'Selbstständig'],
@@ -1659,6 +1671,7 @@ let TOPICS = [
     icon: '🆘',
     color: '#ef4444',
     gradient: 'linear-gradient(135deg,#3d0000,#1a0000)',
+    cover: 'fintech_legal_cover',
     title: 'Krisensituationen & Notfallplan',
     short: 'Was tun bei Einbruch, Unfall, psychischer Krise, Obdachlosigkeit & Co.',
     tags: ['Notfall', 'Krisenplan', 'Erste Hilfe'],
@@ -1885,12 +1898,90 @@ let TOPICS = [
     ]
   },
   {
+    id: 'nebenkosten',
+    icon: '⚡',
+    color: '#fbbf24',
+    gradient: 'linear-gradient(135deg,#422006,#1b0d02)',
+    cover: 'fintech_home_cover',
+    title: 'Nebenkosten Deep-Dive',
+    short: 'Heizung, Strom, Wasser & die "zweite Miete" verstehen und sparen',
+    tags: ['Wohnen', 'Sparen', 'Check'],
+    premiumOnly: true,
+    sections: [
+      {
+        title: 'Die Nebenkostenabrechnung',
+        content: `
+          <p class="content-intro">In Deutschland ist fast jede zweite Nebenkostenabrechnung fehlerhaft. Hier lernst du worauf du achten musst.</p>
+          <div class="info-card">
+            <h4>📋 Was gehört zu den Nebenkosten?</h4>
+            <ul>
+              <li><strong>Warme Betriebskosten</strong>: Heizung und Warmwasser (ca. 50-60% der NK)</li>
+              <li><strong>Kalte Betriebskosten</strong>: Wasser, Abwasser, Müllabfuhr, Hausmeister, Gartenpflege, Aufzug, Grundsteuer, Versicherungen</li>
+            </ul>
+          </div>
+          <div class="warning-box">
+            <div class="warning-box-label">⚠️ Achtung: Was NICHT umgelegt werden darf</div>
+            <p>Instandsetzungskosten (Reparaturen an der Bausubstanz) und Verwaltungskosten (Vermieter-Bürokratie) darfst DU NICHT zahlen. Diese muss der Vermieter selbst tragen!</p>
+          </div>
+        `
+      },
+      {
+        title: 'Strom & Gas sparen',
+        content: `
+          <p class="content-intro">Ein einfacher Anbieterwechsel spart oft 200-500€ im Jahr. Mach nicht den Fehler in der Grundversorgung zu bleiben.</p>
+          <div class="tip-box">
+            <div class="tip-box-label">💡 Der Wechsel-Tipp</div>
+            <p>Check24 oder Verivox nutzen, aber Filter setzen: "Boni einrechnen" aus, wenn du nicht jedes Jahr wechseln willst. Achte auf Preisgarantien von mind. 12 Monaten.</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
+    id: 'kredite',
+    icon: '📊',
+    color: '#8b5cf6',
+    gradient: 'linear-gradient(135deg,#2e1065,#1e1b4b)',
+    cover: 'fintech_data_cover',
+    title: 'Kredite & Schuldenfalle',
+    short: 'Klarna, Dispo & Schufa – Schulden vermeiden und verstehen',
+    tags: ['Finanzen', 'Vorsorge', 'Ehrlich'],
+    premiumOnly: true,
+    sections: [
+      {
+        title: 'Buy Now Pay Later (Klarna & Co.)',
+        content: `
+          <p class="content-intro">Kleine Klicks, große Schulden. Das Geschäftsmodell von Klarna und Co. basiert darauf, dass Menschen den Überblick verlieren.</p>
+          <div class="info-card">
+            <h4>Die Klarna-Falle</h4>
+            <ul>
+              <li><strong>Zahlpause</strong>: Du zahlst erst in 30 Tagen, vergisst es aber oft.</li>
+              <li><strong>Ratenzahlung</strong>: Die Zinsen liegen oft bei 14-16% – extrem teurer als jeder Bankkredit!</li>
+              <li><strong>Mahngebühren</strong>: Werden bei Verzug sofort fällig und treiben die Kosten nach oben.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        title: 'Dispo & Schufa-Score',
+        content: `
+          <p class="content-intro">Dein Schufa-Score entscheidet ob du eine Wohnung oder einen Handyvertrag bekommst.</p>
+          <div class="tip-box">
+            <div class="tip-box-label">💡 Schufa-Killer vermeiden</div>
+            <p>Zu viele Kleinkredite (auch 0% Finanzierungen!) schaden deinem Score. Zu viele Bankkonten oder Kreditkarten ebenfalls. Zahle Rechnungen IMMER pünktlich.</p>
+          </div>
+        `
+      }
+    ]
+  },
+  {
     id: 'behoerdendeutsch',
     icon: '🏛️',
     color: '#0891b2',
     gradient: 'linear-gradient(135deg,#134e4a,#164e63)',
     title: 'Behörden-Deutsch entziffern',
     short: 'Briefe vom Amt verstehen ohne Panik zu bekommen.',
+    premiumOnly: true,
     tags: ['Amt', 'Briefe', 'Recht'],
     sections: [
       {
@@ -2373,24 +2464,35 @@ function loadAdminContent() {
   if (saved) {
     try {
       const data = JSON.parse(saved);
-      if (data.TOPICS) {
-         TOPICS.forEach(base => { if (!data.TOPICS.find(t => t.id === base.id)) data.TOPICS.push(base); });
-         TOPICS = data.TOPICS;
+      if (data.TOPICS && Array.isArray(data.TOPICS)) {
+         data.TOPICS.forEach(savedTopic => {
+           let existing = TOPICS.find(t => t.id === savedTopic.id);
+           if (existing) {
+             Object.assign(existing, savedTopic);
+           } else {
+             TOPICS.push(savedTopic);
+           }
+         });
       }
-      if (data.CONTACTS) {
-         CONTACTS.forEach(base => { if (!data.CONTACTS.find(t => t.id === base.id)) data.CONTACTS.push(base); });
-         CONTACTS = data.CONTACTS;
+      if (data.CONTACTS && Array.isArray(data.CONTACTS)) {
+         data.CONTACTS.forEach(savedContact => {
+           let existing = CONTACTS.find(c => c.id === savedContact.id);
+           if (existing) Object.assign(existing, savedContact);
+           else CONTACTS.push(savedContact);
+         });
       }
       if (data.CHECKLIST_GROUPS) CHECKLIST_GROUPS = data.CHECKLIST_GROUPS;
-      if (data.GLOSSARY) {
-         GLOSSARY.forEach(base => { if (!data.GLOSSARY.find(t => t.term === base.term)) data.GLOSSARY.push(base); });
-         GLOSSARY = data.GLOSSARY;
+      if (data.GLOSSARY && Array.isArray(data.GLOSSARY)) {
+         data.GLOSSARY.forEach(savedG => {
+           let existing = GLOSSARY.find(g => g.term === savedG.term);
+           if (existing) Object.assign(existing, savedG);
+           else GLOSSARY.push(savedG);
+         });
       }
       if (data.LEGAL_CONTENT) LEGAL_CONTENT = Object.assign(LEGAL_CONTENT, data.LEGAL_CONTENT);
-      
-      // Update local storage implicitly mapped above back to browser for safety
-      localStorage.setItem('adultguide_custom_data', JSON.stringify({TOPICS, CONTACTS, CHECKLIST_GROUPS, GLOSSARY, LEGAL_CONTENT}));
-    } catch(e) { console.error('Error parsing admin data', e); }
+    } catch(e) { 
+      console.warn('Admin data merge skipped due to error or old format', e); 
+    }
   }
 }
 loadAdminContent();
@@ -2581,6 +2683,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   initScrollReveal();
   updatePricingSection();
+  initBudgetTracker();
 
   // A11y Escape Key
   document.addEventListener('keydown', (e) => {
@@ -2607,25 +2710,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initA11yTheming() {
   const html = document.documentElement;
   
-  // 1. Load Theme preference
-  const savedTheme = localStorage.getItem('adultguide_theme');
-  if (savedTheme) {
-    html.setAttribute('data-theme', savedTheme);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    html.setAttribute('data-theme', 'light');
-  }
-
-  const themeBtn = document.getElementById('theme-toggle');
-  if(themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const current = html.getAttribute('data-theme');
-      const nextTheme = current === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', nextTheme);
-      localStorage.setItem('adultguide_theme', nextTheme);
-    });
-  }
-
-  // 2. Load Text Scale preference
+  // 1. Load Text Scale preference
   const savedScale = localStorage.getItem('adultguide_textscale');
   if (savedScale === 'large') {
     html.setAttribute('data-text-size', 'large');
@@ -2653,20 +2738,30 @@ function initA11yTheming() {
 // ─────────────────────────────────────────────────────
 function renderTopics() {
   const grid = document.getElementById('topics-grid');
-  grid.innerHTML = TOPICS.map(t => `
-    <div class="topic-card" onclick="openModule('${t.id}')" id="card-${t.id}" role="button" tabindex="0" aria-label="${t.title}">
-      <div class="topic-icon-wrap" style="background: ${t.gradient}">
-        <span>${t.icon}</span>
+  grid.innerHTML = TOPICS.map(t => {
+    const isLocked = t.premiumOnly && !isPremium;
+    return `
+      <div class="topic-card ${t.cover || ''} ${isLocked ? 'topic-locked' : ''}" onclick="openModule('${t.id}')" id="card-${t.id}" role="button" tabindex="0" aria-label="${t.title}">
+        ${isLocked ? '<div class="topic-lock-overlay"><span class="lock-icon">🔒</span></div>' : ''}
+        ${t.premiumOnly ? '<span class="premium-badge">PRO</span>' : ''}
+        <div class="topic-icon-wrap" style="background: ${t.gradient}">
+          <span>${t.icon}</span>
+        </div>
+        <h3>${t.title}</h3>
+        <p>${t.short}</p>
+        <div class="topic-tags">${t.tags.map(tag => `<span class="tag" style="color:${t.color}">${tag}</span>`).join('')}</div>
+        <span class="topic-arrow">→</span>
       </div>
-      <h3>${t.title}</h3>
-      <p>${t.short}</p>
-      <div class="topic-tags">${t.tags.map(tag => `<span class="tag" style="color:${t.color}">${tag}</span>`).join('')}</div>
-      <span class="topic-arrow">→</span>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
-  // Keyboard support
-  grid.querySelectorAll('.topic-card').forEach(card => {
+  // Apply cover images via JS style for maximum compatibility with artifact paths
+  grid.querySelectorAll('.topic-card').forEach((card, idx) => {
+    const topic = TOPICS[idx];
+    if (topic.cover) {
+       card.style.setProperty('--card-cover', `url('${topic.cover}.png')`);
+    }
+    
     card.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') card.click();
     });
@@ -2684,6 +2779,17 @@ function openModule(id) {
 
   document.getElementById('mod-icon').innerHTML = topic.icon;
   document.getElementById('mod-icon').style.background = topic.gradient;
+  
+  // Set cover image for header
+  const header = document.querySelector('.module-header');
+  if (topic.cover) {
+    header.style.backgroundImage = `linear-gradient(rgba(10, 15, 24, 0.8), rgba(10, 15, 24, 0.9)), url('${topic.cover}.png')`;
+    header.style.backgroundSize = 'cover';
+    header.style.backgroundPosition = 'center';
+  } else {
+    header.style.backgroundImage = '';
+  }
+
   document.getElementById('mod-kicker').textContent = 'Real Life';
   document.getElementById('mod-title').textContent = topic.title;
 
@@ -2711,24 +2817,31 @@ function renderModuleContent(topic, idx) {
   const section = topic.sections[idx];
   const body = document.getElementById('mod-body');
   
-  if (!isPremium && idx > 0) {
-    // User is NOT premium and trying to view slide > 0
+  const isLocked = topic.premiumOnly && !isPremium;
+  
+  if (isLocked || (!isPremium && idx > 0)) {
+    // Show vernebelte / blurred view
     body.innerHTML = `
-      <div style="position: relative; overflow: hidden; padding-bottom: 20px;">
-        <div class="content-blurred" aria-hidden="true" style="filter: blur(5px); opacity: 0.3; pointer-events: none; user-select: none;">
-          <div class="section-content">${section.content.substring(0, 500)}...</div>
+      <div class="locked-content-container">
+        <div class="content-vernebelt" aria-hidden="true">
+          <div class="section-content">${section.content.substring(0, 400)}...</div>
+          <div class="section-content">${section.content.substring(0, 400)}...</div>
+          <div class="section-content">${section.content.substring(0, 400)}...</div>
         </div>
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(10,10,15,0) 0%, rgba(10,10,15,0.9) 30%, #0a0a0f 100%); z-index: 1;"></div>
-        <div style="position: relative; z-index: 2; margin-top: -120px;">
-          ${getPaywallHTML('Um weiterlesen zu können, benötigst du die Vollversion.')}
+        <div class="vernebelungs-overlay"></div>
+        <div class="paywall-prompt">
+          <div class="paywall-icon">🔓</div>
+          <h3>Vollversion freischalten</h3>
+          <p>${isLocked ? 'Dieses Experten-Modul ist Teil der Vollversion.' : 'Um weiterlesen zu können, benötigst du die Vollversion.'}</p>
+          <button class="btn-primary btn-unlock" onclick="togglePaywall()">Jetzt für 4,99 € freischalten</button>
+          <p class="paywall-sub">Einmaliger Kauf. Kein Abo. Lebenslanger Zugriff.</p>
         </div>
       </div>
     `;
     
-    // Update tabs visually to indicate partial access mapping
     document.querySelectorAll('.mod-tab').forEach((t, i) => {
       t.classList.toggle('active', i === idx);
-      if (i > 0) {
+      if (topic.premiumOnly || i > 0) {
         if (!t.querySelector('.lock-icon')) {
             t.innerHTML += ' <span class="lock-icon" style="opacity:0.6; font-size:0.8em;">🔒</span>';
         }
@@ -2736,15 +2849,11 @@ function renderModuleContent(topic, idx) {
     });
 
     body.scrollTop = 0;
-    
     document.getElementById('mod-page-indicator').textContent = `${idx + 1} / ${topic.sections.length}`;
     document.getElementById('mod-prev').style.visibility = idx === 0 ? 'hidden' : 'visible';
-    document.getElementById('mod-next').style.display = 'none'; // hide next
-    
-    // Progress
+    document.getElementById('mod-next').style.display = 'none'; 
     const pct = ((idx + 1) / topic.sections.length) * 100;
     document.getElementById('mod-progress').style.width = pct + '%';
-    
     currentSectionIdx = idx;
     return;
   }
@@ -2947,6 +3056,30 @@ function updateChecklistUI() {
 // ─────────────────────────────────────────────────────
 function renderGlossary(filter = '') {
   const grid = document.getElementById('glossary-grid');
+  
+  if (!isPremium) {
+    grid.innerHTML = `
+      <div class="locked-content-container" style="grid-column: 1/-1; min-height: 350px;">
+        <div class="content-vernebelt" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+          ${GLOSSARY.slice(0, 6).map(g => `
+            <div class="glossary-item">
+              <div class="glossary-term">${g.term}</div>
+              <div class="glossary-def">${g.def}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="vernebelungs-overlay"></div>
+        <div class="paywall-prompt">
+          <div class="paywall-icon">📖</div>
+          <h3>Wörterbuch freischalten</h3>
+          <p>Dieses Fachwörterbuch mit über 30 Begriffen ist Teil der Vollversion.</p>
+          <button class="btn-primary btn-unlock" onclick="togglePaywall()">Jetzt für 4,99 € freischalten</button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
   const items = GLOSSARY.filter(g =>
     g.term.toLowerCase().includes(filter.toLowerCase()) ||
     g.def.toLowerCase().includes(filter.toLowerCase())
@@ -2960,6 +3093,7 @@ function renderGlossary(filter = '') {
       `).join('')
     : `<div style="color:var(--text-muted);grid-column:1/-1;padding:20px">Kein Begriff gefunden.</div>`;
 }
+
 
 document.getElementById('glossary-search').addEventListener('input', e => {
   renderGlossary(e.target.value);
@@ -3050,3 +3184,172 @@ function initScrollReveal() {
     observer.observe(el);
   });
 }
+// ─────────────────────────────────────────────────────
+// OPULENT FINANCE COCKPIT LOGIC
+// ─────────────────────────────────────────────────────
+let budgetData = {
+  income: 0,
+  savingsGoal: 0,
+  expenses: {
+    // FIXED
+    housing: 0, food: 0, transport: 0, insurance: 0, 
+    subscriptions: 0, education: 0, health: 0, 
+    // LEISURE
+    fun: 0, travel: 0, hobbies: 0, 
+    // FINANCIAL
+    emergency: 0, debt: 0, 
+    other: 0
+  },
+  notes: {}
+};
+
+function initBudgetTracker() {
+  const saved = localStorage.getItem('adultguide_budget');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    // Migration: ensure new structure exists
+    if (!parsed.notes) parsed.notes = {};
+    if (!parsed.expenses) parsed.expenses = {};
+    if (!parsed.savingsGoal) parsed.savingsGoal = 0;
+    
+    // Deep merge to keep new categories
+    budgetData = { ...budgetData, ...parsed };
+    budgetData.expenses = { ...budgetData.expenses, ...parsed.expenses };
+    budgetData.notes = { ...budgetData.notes, ...parsed.notes };
+  }
+  renderBudgetUI();
+}
+
+function updateBudgetItem(key, subkey, value) {
+  const val = parseFloat(value) || 0;
+  if (subkey) {
+    budgetData.expenses[subkey] = val;
+  } else {
+    budgetData[key] = val;
+  }
+  saveBudget();
+}
+
+function updateBudgetNote(key, text) {
+  budgetData.notes[key] = text;
+  saveBudget();
+}
+
+function saveBudget() {
+  localStorage.setItem('adultguide_budget', JSON.stringify(budgetData));
+  renderBudgetUI();
+}
+
+function renderBudgetUI() {
+  const categories = budgetData.expenses;
+  const totalExpenses = Object.values(categories).reduce((a, b) => a + b, 0);
+  const balance = budgetData.income - totalExpenses;
+  const savingsRate = budgetData.income > 0 ? ((balance / budgetData.income) * 100).toFixed(1) : 0;
+  
+  // Dashboard Elements
+  const balanceEl = document.getElementById('budget-balance');
+  const totalExpEl = document.getElementById('budget-total-expenses');
+  const savingsRateEl = document.getElementById('budget-savings-rate');
+  const progressEl = document.getElementById('budget-progress-bar');
+  const goalProgressEl = document.getElementById('budget-goal-progress');
+  const chartEl = document.getElementById('budget-donut-chart');
+  
+  if (balanceEl) {
+    balanceEl.textContent = balance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+    balanceEl.className = balance >= 0 ? 'budget-value positive' : 'budget-value negative';
+  }
+  if (totalExpEl) totalExpEl.textContent = totalExpenses.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+  if (savingsRateEl) savingsRateEl.textContent = savingsRate + '%';
+  
+  if (progressEl) {
+    const percentage = budgetData.income > 0 ? (totalExpenses / budgetData.income) * 100 : 0;
+    progressEl.style.width = Math.min(percentage, 100) + '%';
+    progressEl.style.background = percentage > 100 ? '#ef4444' : 'var(--accent-emerald)';
+  }
+
+  // Savings Goal Check
+  if (goalProgressEl) {
+    const goalPerc = budgetData.savingsGoal > 0 ? (balance / budgetData.savingsGoal) * 100 : 0;
+    goalProgressEl.style.width = Math.min(Math.max(goalPerc, 0), 100) + '%';
+  }
+
+  // DONUT CHART LOGIC
+  if (chartEl) {
+    const groups = {
+      fixed: (categories.housing || 0) + (categories.insurance || 0) + (categories.subscriptions || 0) + (categories.education || 0),
+      vital: (categories.food || 0) + (categories.transport || 0) + (categories.health || 0),
+      leisure: (categories.fun || 0) + (categories.travel || 0) + (categories.hobbies || 0),
+      financial: (categories.emergency || 0) + (categories.debt || 0) + (categories.other || 0)
+    };
+
+    if (totalExpenses > 0) {
+      const pFixed = (groups.fixed / totalExpenses) * 100;
+      const pVital = (groups.vital / totalExpenses) * 100;
+      const pLeisure = (groups.leisure / totalExpenses) * 100;
+      
+      const grad = `conic-gradient(
+        #3b82f6 0% ${pFixed}%, 
+        #10b981 ${pFixed}% ${pFixed + pVital}%, 
+        #f59e0b ${pFixed + pVital}% ${pFixed + pVital + pLeisure}%, 
+        #f43f5e ${pFixed + pVital + pLeisure}% 100%
+      )`;
+      chartEl.style.background = grad;
+    } else {
+      chartEl.style.background = 'var(--glass-border)';
+    }
+
+    // Update labels if present
+    const labels = {
+      'c-fix': groups.fixed,
+      'c-vit': groups.vital,
+      'c-lei': groups.leisure,
+      'c-fin': groups.financial
+    };
+    for (const [id, val] of Object.entries(labels)) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+    }
+  }
+
+  // Sync all inputs
+  syncInput('in-income', budgetData.income);
+  syncInput('in-savingsGoal', budgetData.savingsGoal);
+  
+  for (let k in budgetData.expenses) {
+    syncInput('in-' + k, budgetData.expenses[k]);
+  }
+  for (let k in budgetData.notes) {
+    syncInput('note-' + k, budgetData.notes[k]);
+  }
+  // Global Journal
+  syncInput('journal-global', budgetData.notes.global);
+}
+
+function syncInput(id, value) {
+  const el = document.getElementById(id);
+  if (el) {
+    if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+      el.value = value || '';
+    }
+  }
+}
+
+
+function toggleInstallModal() {
+  const modal = document.getElementById('install-modal');
+  if (modal) {
+    modal.classList.toggle('hidden');
+  }
+}
+
+function toggleBudgetTracker() {
+  const modal = document.getElementById('budget-modal');
+  modal.classList.toggle('hidden');
+  if (!modal.classList.contains('hidden')) {
+    initBudgetTracker();
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+

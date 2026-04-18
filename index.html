@@ -7,6 +7,7 @@
   <meta name="description" content="Alles was deine Eltern wissen aber dir nie erklärt haben: Wohnung, Versicherungen, Steuern, Behörden & mehr. Kompakt, verständlich, mit Beispielen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta name="color-scheme" content="dark" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -24,9 +25,9 @@
       <span class="search-icon">🔍</span>
     </div>
     <div style="display:flex; gap:8px; align-items:center;">
+      <button class="nav-menu-btn" onclick="toggleInstallModal()" style="font-size: 0.85rem; padding: 0 12px; background: rgba(59,130,246,0.15); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3);">📱 App laden</button>
       <button class="nav-menu-btn" onclick="scrollToSection('premium')" style="font-size: 0.85rem; padding: 0 12px; background: rgba(249,115,22,0.15); color: var(--accent-orange); border: 1px solid rgba(249,115,22,0.3);">💎 Preise</button>
       <button class="nav-menu-btn" id="a11y-text-toggle" aria-label="Schriftgröße vergrößern" title="Texte vergrößern">aA</button>
-      <button class="nav-menu-btn" id="theme-toggle" aria-label="Design-Modus wechseln" title="Hell/Dunkel">🌓</button>
       <button class="nav-menu-btn" id="menu-toggle" aria-label="Menü">☰</button>
     </div>
   </div>
@@ -34,28 +35,65 @@
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="home">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-badge">🚀 Der Lebensguide für junge Erwachsene</div>
+    <div class="hero-badge-wrap">
+      <div class="hero-badge">🚀 Lebensguide für junge Erwachsene</div>
+      <div class="hero-badge premium-badge-hero">💎 Einmal kaufen, für immer besitzen</div>
+    </div>
     <h1>Was dir die <span class="gradient-text">Schule nie</span> beigebracht hat</h1>
-    <p class="hero-sub">Wohnung, Versicherungen, Steuern, Behörden, Recht & mehr – alles kompakt erklärt, mit echten Beispielen und konkreten Anlaufstellen.</p>
+    <p class="hero-sub">Alles was du über Wohnung, Steuern und Recht wissen musst – kompakt, ehrlich und ohne Abo-Falle.</p>
     <div class="hero-stats">
       <div class="stat"><strong>15</strong><span>Themen</span></div>
       <div class="stat-sep"></div>
       <div class="stat"><strong>80+</strong><span>Tipps</span></div>
       <div class="stat-sep"></div>
-      <div class="stat"><strong>Fair</strong><span>Einmalkauf</span></div>
+      <div class="stat"><strong>100%</strong><span>Abo-frei</span></div>
     </div>
     <div class="hero-ctas">
       <button class="btn-primary" onclick="scrollToSection('topics')">Jetzt starten ↓</button>
-      <button class="btn-secondary" onclick="openModule('steuern')">Steuern verstehen</button>
+      <button class="btn-secondary" onclick="toggleBudgetTracker()">💰 Finanz-Cockpit</button>
     </div>
   </div>
   <div class="hero-scroll-hint">
     <div class="scroll-dot"></div>
   </div>
 </header>
+
+<!-- TRUST / NO-BS BANNER -->
+<section class="trust-banner">
+  <div class="trust-item">
+    <span class="trust-icon">💎</span>
+    <div>
+      <strong>Einmalig 4,99 €</strong>
+      <span>Vollversion ohne Abo</span>
+    </div>
+  </div>
+  <div class="trust-sep"></div>
+  <div class="trust-item">
+    <span class="trust-icon">🚫</span>
+    <div>
+      <strong>Kein Abo</strong>
+      <span>Keine monatlichen Kosten</span>
+    </div>
+  </div>
+  <div class="trust-sep"></div>
+  <div class="trust-item">
+    <span class="trust-icon">🛡️</span>
+    <div>
+      <strong>Keine Werbung</strong>
+      <span>Dein Fokus bleibt ungestört</span>
+    </div>
+  </div>
+  <div class="trust-sep"></div>
+  <div class="trust-item">
+    <span class="trust-icon">⚖️</span>
+    <div>
+      <strong>Ehrlich & Fair</strong>
+      <span>Keine versteckten Fallen</span>
+    </div>
+  </div>
+</section>
 
 <!-- TOPIC GRID -->
 <section class="topics-section" id="topics">
@@ -183,6 +221,7 @@
       <button onclick="scrollToSection('quickref')">Kontakte</button>
       <button onclick="scrollToSection('checklist')">Checkliste</button>
       <button onclick="scrollToSection('glossar')">Glossar</button>
+      <button onclick="toggleInstallModal()">📱 App installieren</button>
     </div>
   </div>
   <div class="footer-bottom">
@@ -194,6 +233,247 @@
     <a href="admin.html" style="display:inline-block; width:20px; height:20px; opacity:0; position:absolute; right:0; bottom:0;">Admin</a>
   </div>
 </footer>
+
+<!-- APP INSTALL MODAL -->
+<div id="install-modal" class="module-overlay hidden">
+  <div class="module-container budget-container" style="max-width: 600px !important;">
+    <div class="module-header budget-header" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, transparent 100%) !important;">
+       <button class="btn-close" onclick="toggleInstallModal()" style="position:absolute; right:20px; top:20px; background:var(--glass); border:none; color:var(--text-secondary); font-size:1.2rem; width:36px; height:36px; border-radius:50%; cursor:pointer;">✕</button>
+       <div class="budget-header-content">
+         <span class="budget-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); border-color: rgba(59, 130, 246, 0.2);">📱 Installation</span>
+         <h2>App auf Homescreen</h2>
+         <p>Installiere Real Life als echte App auf deinem Smartphone – ohne App Store!</p>
+       </div>
+    </div>
+    <div class="module-body budget-body" style="padding: 30px;">
+      
+      <div style="margin-bottom: 30px;">
+        <h3 style="font-family: var(--font-display); color: #fff; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">🍏 Für iPhone (iOS)</h3>
+        <ol class="steps-list" style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+          <li style="border-bottom: none; padding: 8px 0; margin-bottom: 8px;"><div class="step-num" style="width: 24px; height: 24px; font-size: 0.7rem;">1</div> <span style="font-size: 0.95rem;">Öffne diese Seite im <strong>Safari-Browser</strong>.</span></li>
+          <li style="border-bottom: none; padding: 8px 0; margin-bottom: 8px;"><div class="step-num" style="width: 24px; height: 24px; font-size: 0.7rem; background: #000; border: 1px solid var(--glass-border);">2</div> <span style="font-size: 0.95rem;">Tippe unten in der Mitte auf das <strong>Teilen-Symbol</strong> (Viereck mit Pfeil nach oben 📤).</span></li>
+          <li style="border-bottom: none; padding: 8px 0;"><div class="step-num" style="width: 24px; height: 24px; font-size: 0.7rem; background: #000; border: 1px solid var(--glass-border);">3</div> <span style="font-size: 0.95rem;">Scrolle etwas nach unten und wähle <strong>"Zum Home-Bildschirm"</strong> (➕).</span></li>
+        </ol>
+      </div>
+
+      <div>
+        <h3 style="font-family: var(--font-display); color: #fff; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">🤖 Für Android (Chrome)</h3>
+        <ol class="steps-list" style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+          <li style="border-bottom: none; padding: 8px 0; margin-bottom: 8px;"><div class="step-num" style="width: 24px; height: 24px; font-size: 0.7rem; background: #000; border: 1px solid var(--glass-border);">1</div> <span style="font-size: 0.95rem;">Öffne diese Seite im <strong>Chrome-Browser</strong>.</span></li>
+          <li style="border-bottom: none; padding: 8px 0; margin-bottom: 8px;"><div class="step-num" style="width: 24px; height: 24px; font-size: 0.7rem; background: #000; border: 1px solid var(--glass-border);">2</div> <span style="font-size: 0.95rem;">Tippe oben rechts auf die <strong>drei Punkte (Menü)</strong> (⋮).</span></li>
+          <li style="border-bottom: none; padding: 8px 0;"><div class="step-num" style="width: 24px; height: 24px; font-size: 0.7rem; background: #000; border: 1px solid var(--glass-border);">3</div> <span style="font-size: 0.95rem;">Wähle <strong>"App installieren"</strong> oder <strong>"Zum Startbildschirm hinzufügen"</strong>.</span></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BUDGET TRACKER MODAL -->
+<div id="budget-modal" class="module-overlay hidden">
+  <div class="module-container budget-container">
+    <div class="module-header budget-header">
+       <button class="btn-close" onclick="toggleBudgetTracker()" style="position:absolute; right:20px; top:20px; background:var(--glass); border:none; color:var(--text-secondary); font-size:1.2rem; width:36px; height:36px; border-radius:50%; cursor:pointer;">✕</button>
+       <div class="budget-header-content">
+         <span class="budget-badge">💰 Mein Finanz-Cockpit</span>
+         <h2>Finanz-Dashboard</h2>
+         <p>Behalte deine Finanzen auf Pro-Niveau im Griff</p>
+       </div>
+    </div>
+    
+    <div class="module-body budget-body">
+      <!-- SUMMARY DASHBOARD -->
+      <div class="budget-dashboard-summary">
+        <div class="dashboard-stat-card income">
+          <label>Monatliche Einnahmen</label>
+          <div class="input-wrap">
+            <input type="number" id="in-income" placeholder="0" oninput="updateBudgetItem('income', null, this.value)">
+            <span>€</span>
+          </div>
+        </div>
+        <div class="dashboard-stat-card expenses">
+          <label>Gesamtausgaben</label>
+          <div id="budget-total-expenses" class="stat-value">0,00 €</div>
+        </div>
+        <div class="dashboard-stat-card balance">
+          <label>Aktueller Saldo</label>
+          <div id="budget-balance" class="budget-value">0,00 €</div>
+        </div>
+        <div class="dashboard-stat-card rate">
+          <label>Sparquote</label>
+          <div id="budget-savings-rate" class="stat-value">0%</div>
+        </div>
+      </div>
+
+      <!-- VISUAL ANALYSIS -->
+      <div class="budget-visual-analysis">
+        <div class="chart-container">
+          <div id="budget-donut-chart" class="donut-chart">
+            <div class="donut-inner"></div>
+          </div>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item"><span class="dot fix"></span> Fixkosten <span id="c-fix" class="l-val">0 €</span></div>
+          <div class="legend-item"><span class="dot vit"></span> Vitales <span id="c-vit" class="l-val">0 €</span></div>
+          <div class="legend-item"><span class="dot lei"></span> Lifestyle <span id="c-lei" class="l-val">0 €</span></div>
+          <div class="legend-item"><span class="dot fin"></span> Finanzen <span id="c-fin" class="l-val">0 €</span></div>
+        </div>
+      </div>
+
+
+      <!-- PROGRESS & GOALS -->
+      <div class="budget-main-progress">
+        <div class="progress-section">
+          <div class="progress-label-wrap">
+            <span>Budget-Ausnutzung</span>
+            <span id="budget-percent-label"></span>
+          </div>
+          <div class="budget-progress-bar-wrap">
+            <div id="budget-progress-bar" class="budget-progress-fill"></div>
+          </div>
+        </div>
+        <div class="goal-section">
+          <div class="goal-input-wrap">
+            <label>🎯 Monatliches Sparziel</label>
+            <input type="number" id="in-savingsGoal" placeholder="0" oninput="updateBudgetItem('savingsGoal', null, this.value)">
+            <span>€</span>
+          </div>
+          <div class="goal-progress-wrap">
+            <div id="budget-goal-progress" class="goal-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY GROUPS -->
+      <div class="budget-categories-grid">
+        <!-- GROUP: FIXKOSTEN -->
+        <div class="category-group">
+          <h3><span class="g-icon">🔒</span> Fixkosten</h3>
+          <div class="cat-items">
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🏠 Miete & Wohnen</label>
+                <input type="number" id="in-housing" placeholder="0" oninput="updateBudgetItem('expenses', 'housing', this.value)">
+              </div>
+              <input type="text" id="note-housing" class="cat-note" placeholder="Notiz..." oninput="updateBudgetNote('housing', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🛡️ Versicherungen</label>
+                <input type="number" id="in-insurance" placeholder="0" oninput="updateBudgetItem('expenses', 'insurance', this.value)">
+              </div>
+              <input type="text" id="note-insurance" class="cat-note" placeholder="Notiz..." oninput="updateBudgetNote('insurance', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>📺 Abos & Streaming</label>
+                <input type="number" id="in-subscriptions" placeholder="0" oninput="updateBudgetItem('expenses', 'subscriptions', this.value)">
+              </div>
+              <input type="text" id="note-subscriptions" class="cat-note" placeholder="Netflix, Spotify..." oninput="updateBudgetNote('subscriptions', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🎓 Bildung & Kurse</label>
+                <input type="number" id="in-education" placeholder="0" oninput="updateBudgetItem('expenses', 'education', this.value)">
+              </div>
+              <input type="text" id="note-education" class="cat-note" placeholder="Bücher, Kurse..." oninput="updateBudgetNote('education', this.value)">
+            </div>
+          </div>
+        </div>
+
+        <!-- GROUP: VITALES -->
+        <div class="category-group">
+          <h3><span class="g-icon">🍎</span> Vitales</h3>
+          <div class="cat-items">
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🛒 Lebensmittel</label>
+                <input type="number" id="in-food" placeholder="0" oninput="updateBudgetItem('expenses', 'food', this.value)">
+              </div>
+              <input type="text" id="note-food" class="cat-note" placeholder="Einkauf..." oninput="updateBudgetNote('food', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🚗 Mobilität</label>
+                <input type="number" id="in-transport" placeholder="0" oninput="updateBudgetItem('expenses', 'transport', this.value)">
+              </div>
+              <input type="text" id="note-transport" class="cat-note" placeholder="Tanken, Ticket..." oninput="updateBudgetNote('transport', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>💊 Gesundheit</label>
+                <input type="number" id="in-health" placeholder="0" oninput="updateBudgetItem('expenses', 'health', this.value)">
+              </div>
+              <input type="text" id="note-health" class="cat-note" placeholder="Apotheke..." oninput="updateBudgetNote('health', this.value)">
+            </div>
+          </div>
+        </div>
+
+        <!-- GROUP: LIFESTYLE -->
+        <div class="category-group">
+          <h3><span class="g-icon">🍕</span> Lifestyle</h3>
+          <div class="cat-items">
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🎉 Freizeit & Gastro</label>
+                <input type="number" id="in-fun" placeholder="0" oninput="updateBudgetItem('expenses', 'fun', this.value)">
+              </div>
+              <input type="text" id="note-fun" class="cat-note" placeholder="Restaurant, Kino..." oninput="updateBudgetNote('fun', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>✈️ Reisen & Urlaub</label>
+                <input type="number" id="in-travel" placeholder="0" oninput="updateBudgetItem('expenses', 'travel', this.value)">
+              </div>
+              <input type="text" id="note-travel" class="cat-note" placeholder="Flug, Hotel..." oninput="updateBudgetNote('travel', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🎨 Hobbies</label>
+                <input type="number" id="in-hobbies" placeholder="0" oninput="updateBudgetItem('expenses', 'hobbies', this.value)">
+              </div>
+              <input type="text" id="note-hobbies" class="cat-note" placeholder="Ausrüstung..." oninput="updateBudgetNote('hobbies', this.value)">
+            </div>
+          </div>
+        </div>
+
+        <!-- GROUP: FINANZIELLES -->
+        <div class="category-group">
+          <h3><span class="g-icon">📈</span> Finanzielles</h3>
+          <div class="cat-items">
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>🛡️ Notgroschen</label>
+                <input type="number" id="in-emergency" placeholder="0" oninput="updateBudgetItem('expenses', 'emergency', this.value)">
+              </div>
+              <input type="text" id="note-emergency" class="cat-note" placeholder="Für Notfälle..." oninput="updateBudgetNote('emergency', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>📉 Schuldentilgung</label>
+                <input type="number" id="in-debt" placeholder="0" oninput="updateBudgetItem('expenses', 'debt', this.value)">
+              </div>
+              <input type="text" id="note-debt" class="cat-note" placeholder="Kredit, Klarna..." oninput="updateBudgetNote('debt', this.value)">
+            </div>
+            <div class="cat-item">
+              <div class="cat-main">
+                <label>📦 Sonstiges</label>
+                <input type="number" id="in-other" placeholder="0" oninput="updateBudgetItem('expenses', 'other', this.value)">
+              </div>
+              <input type="text" id="note-other" class="cat-note" placeholder="Kleinkram..." oninput="updateBudgetNote('other', this.value)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GLOBAL JOURNAL -->
+      <div class="budget-journal-section">
+        <h3><span class="g-icon">📓</span> Finanz-Journal & Reflexion</h3>
+        <textarea id="journal-global" placeholder="Was hast du diesen Monat über deine Finanzen gelernt? Wo konntest du sparen? Was sind deine Ziele für den nächsten Monat?..." oninput="updateBudgetNote('global', this.value)"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="app.js"></script>
 </body>
