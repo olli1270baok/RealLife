@@ -2526,14 +2526,14 @@ function getPaywallHTML(message = 'Dieses Feature ist exklusiv für Vollversions
     <div class="paywall-overlay">
       <div class="paywall-icon">🔒</div>
       <h3>Real Life Komplett freischalten</h3>
-      <p style="text-align:center; color:var(--text-secondary); line-height:1.5; margin-bottom:20px;">${message}<br><br>Alle 15 Themen freischalten, Notfallnummern nutzen und Checklisten sichern. Einmalig 4,99€ – kein Abo.</p>
+      <p style="text-align:center; color:var(--text-secondary); line-height:1.5; margin-bottom:20px;">${message}<br><br>Alle 15 Themen freischalten, Notfallnummern nutzen und Checklisten sichern. Einmalig 29€ – kein Abo.</p>
       <ul class="paywall-features">
         <li>✅ Alle 15 Themen & 80+ Praxis-Tipps komplett lesbar</li>
         <li>✅ Direkte Anlaufstellen & Notfall-Telefonnummern</li>
         <li>✅ Interaktive Umzugs- & Finanzcheckliste</li>
         <li>✅ Kein Abo, kein Account-Zwang</li>
       </ul>
-      <button class="btn-primary" style="width: 100%; margin-bottom: 20px" onclick="window.open(STRIPE_CHECKOUT_URL, '_blank')">Jetzt für 4,99€ freischalten</button>
+      <button class="btn-primary" style="width: 100%; margin-bottom: 20px" onclick="window.open(STRIPE_CHECKOUT_URL, '_blank')">Jetzt für 29€ freischalten</button>
       <div class="paywall-code-area">
         <p style="font-size: 0.8rem; color: #888; text-align: center; margin-bottom: 10px;">Hast du bereits einen Code per E-Mail erhalten?</p>
         <div style="display: flex; gap: 10px;">
@@ -2833,7 +2833,7 @@ function renderModuleContent(topic, idx) {
           <div class="paywall-icon">🔓</div>
           <h3>Vollversion freischalten</h3>
           <p>${isLocked ? 'Dieses Experten-Modul ist Teil der Vollversion.' : 'Um weiterlesen zu können, benötigst du die Vollversion.'}</p>
-          <button class="btn-primary btn-unlock" onclick="togglePaywall()">Jetzt für 4,99 € freischalten</button>
+          <button class="btn-primary btn-unlock" onclick="togglePaywall()">Jetzt für 29 € freischalten</button>
           <p class="paywall-sub">Einmaliger Kauf. Kein Abo. Lebenslanger Zugriff.</p>
         </div>
       </div>
@@ -3073,7 +3073,7 @@ function renderGlossary(filter = '') {
           <div class="paywall-icon">📖</div>
           <h3>Wörterbuch freischalten</h3>
           <p>Dieses Fachwörterbuch mit über 30 Begriffen ist Teil der Vollversion.</p>
-          <button class="btn-primary btn-unlock" onclick="togglePaywall()">Jetzt für 4,99 € freischalten</button>
+          <button class="btn-primary btn-unlock" onclick="togglePaywall()">Jetzt für 29 € freischalten</button>
         </div>
       </div>
     `;
