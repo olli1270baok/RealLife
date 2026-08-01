@@ -172,8 +172,11 @@ export default function AboKiller() {
     localStorage.setItem('abokiller_subs', JSON.stringify(newSubs));
   };
 
+  const [pendingSub, setPendingSub] = useState<Subscription | null>(null);
+
   const generateLetter = (sub: Subscription) => {
     if (!userName || !userAddress) {
+      setPendingSub(sub);
       alert("Bitte fülle zuerst deine Absenderdaten unter Einstellungen aus!");
       setActiveView('settings');
       return;
@@ -184,7 +187,7 @@ export default function AboKiller() {
 
     const html = `
       <div class="sender">${userName}<br>${userAddress.replace(/\n/g, '<br>')}</div>
-      <div class="recipient">An:<br>${sub.name}<br>${sub.address.replace(/\n/g, '<br>')}</div>
+      <div class="recipient">An:<br>${sub.name}<br>${(sub.address || '').replace(/\n/g, '<br>')}</div>
       <div class="date">${today}</div>
       <div class="subject">Kündigung meines Vertrages</div>
       <p>Sehr geehrte Damen und Herren,</p>
@@ -197,6 +200,7 @@ export default function AboKiller() {
     `;
     setLetterHtml(html);
     setActiveView('brief');
+    setPendingSub(null);
   };
 
   const printLetter = () => {
@@ -212,6 +216,9 @@ export default function AboKiller() {
     localStorage.setItem('abokiller_name', userName);
     localStorage.setItem('abokiller_addr', userAddress);
     alert('Daten gespeichert!');
+    if (pendingSub) {
+      generateLetter(pendingSub);
+    }
   };
 
   // Stats calc
