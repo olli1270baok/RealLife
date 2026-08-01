@@ -27,34 +27,58 @@ const PROVIDER_DB: Record<string, any> = {
   wow: { name: 'WOW (Sky)', category: 'Streaming', price: 9.99, cycle: 'monthly', address: 'Sky Deutschland Fernsehen GmbH & Co. KG\nMedienallee 26\n85774 Unterföhring' },
   youtube: { name: 'YouTube Premium', category: 'Streaming', price: 12.99, cycle: 'monthly', address: 'Google Ireland Limited\nGordon House, Barrow Street\nDublin 4\nIrland' },
   apple: { name: 'Apple Music', category: 'Streaming', price: 10.99, cycle: 'monthly', address: 'Apple Distribution International Ltd.\nHollyhill Industrial Estate\nHollyhill, Cork\nIrland' },
-  
+  appletv: { name: 'Apple TV+', category: 'Streaming', price: 9.99, cycle: 'monthly', address: 'Apple Distribution International Ltd.\nHollyhill Industrial Estate\nHollyhill, Cork\nIrland' },
+  joyn: { name: 'Joyn PLUS+', category: 'Streaming', price: 6.99, cycle: 'monthly', address: 'Joyn GmbH\nRidlerstraße 57\n80339 München' },
+  rtlplus: { name: 'RTL+', category: 'Streaming', price: 6.99, cycle: 'monthly', address: 'RTL interactive GmbH\nPicassoplatz 1\n50679 Köln' },
+  paramount: { name: 'Paramount+', category: 'Streaming', price: 7.99, cycle: 'monthly', address: 'Paramount Global\n1515 Broadway\nNew York, NY 10036\nUSA' },
+
   // FITNESS
   fitx: { name: 'FitX', category: 'Fitness', price: 24.00, cycle: 'monthly', address: 'FitX Deutschland GmbH\nRuhrallee 165\n45136 Essen' },
   mcfit: { name: 'McFit', category: 'Fitness', price: 24.90, cycle: 'monthly', address: 'RSG Group GmbH\nTannenberg 4\n96132 Schlüsselfeld' },
   cleverfit: { name: 'Clever Fit', category: 'Fitness', price: 29.90, cycle: 'monthly', address: 'clever fit GmbH\nAugsburger Str. 52\n86899 Landsberg am Lech' },
   johnreed: { name: 'John Reed', category: 'Fitness', price: 30.00, cycle: 'monthly', address: 'RSG Group GmbH\nTannenberg 4\n96132 Schlüsselfeld' },
   gymondo: { name: 'Gymondo', category: 'Fitness', price: 6.99, cycle: 'monthly', address: 'Gymondo GmbH\nRitterstraße 12-14\n10969 Berlin' },
+  weightwatchers: { name: 'Weight Watchers', category: 'Fitness', price: 25.00, cycle: 'monthly', address: 'WW (Deutschland) GmbH\nDerendorfer Allee 6\n40476 Düsseldorf' },
+  strava: { name: 'Strava', category: 'Fitness', price: 59.99, cycle: 'yearly', address: 'Strava, Inc.\n208 Utah Street\nSan Francisco, CA 94103\nUSA' },
 
-  // SOFTWARE
+  // SOFTWARE & CLOUD
   adobe: { name: 'Adobe CC', category: 'Software', price: 59.49, cycle: 'monthly', address: 'Adobe Systems Software Ireland Ltd.\n4-6 Riverwalk, Citywest Business Campus\nDublin 24\nIrland' },
   microsoft: { name: 'Microsoft 365', category: 'Software', price: 69.00, cycle: 'yearly', address: 'Microsoft Ireland Operations Ltd.\nOne Microsoft Place, South County Business Park\nLeopardstown, Dublin 18\nIrland' },
   icloud: { name: 'Apple iCloud', category: 'Software', price: 2.99, cycle: 'monthly', address: 'Apple Distribution International Ltd.\nHollyhill Industrial Estate\nHollyhill, Cork\nIrland' },
   google: { name: 'Google One', category: 'Software', price: 1.99, cycle: 'monthly', address: 'Google Ireland Limited\nGordon House, Barrow Street\nDublin 4\nIrland' },
+  yazio: { name: 'YAZIO', category: 'Software', price: 39.99, cycle: 'yearly', address: 'YAZIO GmbH\nLeipziger Straße 124\n99085 Erfurt' },
+  headspace: { name: 'Headspace', category: 'Software', price: 57.99, cycle: 'yearly', address: 'Headspace Inc.\n2415 Michigan Ave\nSanta Monica, CA 90404\nUSA' },
+  calm: { name: 'Calm', category: 'Software', price: 39.99, cycle: 'yearly', address: 'Calm.com, Inc.\n1355 Market Street, Suite 488\nSan Francisco, CA 94103\nUSA' },
 
-  // WOHNEN & SONSTIGES
+  // WOHNEN, LEBEN & TELEKOM
   gez: { name: 'Rundfunkbeitrag', category: 'Wohnen', price: 18.36, cycle: 'monthly', address: 'ARD ZDF Deutschlandradio\nBeitragsservice\n50656 Köln' },
-  adac: { name: 'ADAC', category: 'Sonstiges', price: 54.00, cycle: 'yearly', address: 'ADAC e.V.\nHansastraße 19\n80686 München' },
-  deutschlandticket: { name: 'Deutschlandticket', category: 'Sonstiges', price: 49.00, cycle: 'monthly', address: 'DB Vertrieb GmbH\nStephensonstraße 1\n60326 Frankfurt am Main' },
   telekom: { name: 'Telekom', category: 'Wohnen', price: 39.95, cycle: 'monthly', address: 'Telekom Deutschland GmbH\nLandgrabenweg 151\n53227 Bonn' },
   vodafone: { name: 'Vodafone', category: 'Wohnen', price: 34.99, cycle: 'monthly', address: 'Vodafone GmbH\nKundenbetreuung\n40875 Ratingen' },
   o2: { name: 'O2 (Telefónica)', category: 'Wohnen', price: 29.99, cycle: 'monthly', address: 'Telefónica Germany GmbH & Co. OHG\nKundenbetreuung\n90345 Nürnberg' },
+  einsundeins: { name: '1&1', category: 'Wohnen', price: 29.99, cycle: 'monthly', address: '1&1 Telecom GmbH\nElgendorfer Str. 57\n56410 Montabaur' },
 
-  // MEDIEN & GAMING
+  // SONSTIGES & MOBILITÄT
+  adac: { name: 'ADAC', category: 'Sonstiges', price: 54.00, cycle: 'yearly', address: 'ADAC e.V.\nHansastraße 19\n80686 München' },
+  bahncard25: { name: 'BahnCard 25', category: 'Sonstiges', price: 62.90, cycle: 'yearly', address: 'BahnCard-Service\n60643 Frankfurt am Main' },
+  deutschlandticket: { name: 'Deutschlandticket', category: 'Sonstiges', price: 49.00, cycle: 'monthly', address: 'DB Vertrieb GmbH\nStephensonstraße 1\n60326 Frankfurt am Main' },
+  tinder: { name: 'Tinder', category: 'Sonstiges', price: 14.99, cycle: 'monthly', address: 'MTCH Technology Services Limited\n10 Earlsfort Terrace\nDublin 2\nIrland' },
+  bumble: { name: 'Bumble', category: 'Sonstiges', price: 17.99, cycle: 'monthly', address: 'Bumble Holding Limited\nThe Broadgate Tower, Third Floor\n20 Primrose Street, London EC2A 2RS\nGroßbritannien' },
+
+  // MEDIEN, BÜCHER & GAMING
   audible: { name: 'Audible', category: 'Streaming', price: 9.95, cycle: 'monthly', address: 'Audible GmbH\nSchumannstraße 6\n10117 Berlin' },
   kindle: { name: 'Kindle Unlimited', category: 'Streaming', price: 11.75, cycle: 'monthly', address: 'Amazon Digital UK Limited\n1 Principal Place, Worship Street\nLondon EC2A 2FA\nGroßbritannien' },
+  spiegel: { name: 'Spiegel+', category: 'Sonstiges', price: 19.99, cycle: 'monthly', address: 'DER SPIEGEL GmbH & Co. KG\nEricusspitze 1\n20457 Hamburg' },
+  readly: { name: 'Readly', category: 'Streaming', price: 14.99, cycle: 'monthly', address: 'Readly GmbH\nKurfürstendamm 11\n10719 Berlin' },
+  blinkist: { name: 'Blinkist', category: 'Software', price: 79.99, cycle: 'yearly', address: 'Blinks Labs GmbH\nSonnenallee 223\n12059 Berlin' },
+  zeit: { name: 'ZEIT ONLINE', category: 'Sonstiges', price: 29.96, cycle: 'monthly', address: 'Zeitverlag Gerd Bucerius GmbH & Co. KG\nBuceriusstraße, Eingang Speersort 1\n20095 Hamburg' },
+  faz: { name: 'FAZ+', category: 'Sonstiges', price: 34.90, cycle: 'monthly', address: 'Frankfurter Allgemeine Zeitung GmbH\nPariser Straße 1\n60486 Frankfurt am Main' },
+  sz: { name: 'SZ Plus', category: 'Sonstiges', price: 34.90, cycle: 'monthly', address: 'Süddeutsche Zeitung GmbH\nHultschiner Straße 8\n81677 München' },
+  handelsblatt: { name: 'Handelsblatt', category: 'Sonstiges', price: 44.90, cycle: 'monthly', address: 'Handelsblatt GmbH\nToulouser Allee 27\n40211 Düsseldorf' },
   psplus: { name: 'PlayStation Plus', category: 'Streaming', price: 71.99, cycle: 'yearly', address: 'Sony Interactive Entertainment Network Europe Ltd.\n10 Great Marlborough Street\nLondon W1F 7LP\nGroßbritannien' },
   xbox: { name: 'Xbox Game Pass', category: 'Streaming', price: 14.99, cycle: 'monthly', address: 'Microsoft Ireland Operations Ltd.\nOne Microsoft Place\nLeopardstown, Dublin 18\nIrland' },
+  nintendo: { name: 'Nintendo Switch Online', category: 'Streaming', price: 19.99, cycle: 'yearly', address: 'Nintendo of Europe GmbH\nGoldsteinstraße 235\n60528 Frankfurt am Main' },
 };
+
 
 export default function AboKiller() {
   const router = useRouter();
@@ -323,22 +347,65 @@ export default function AboKiller() {
                   <label>🔍 Schnell-Auswahl (Auto-Fill)</label>
                   <select onChange={e => handleAutofill(e.target.value)} defaultValue="">
                     <option value="" disabled>Manuell eintragen...</option>
-                    <optgroup label="Streaming">
+                    <optgroup label="Streaming & Medien">
                       <option value="netflix">Netflix</option>
                       <option value="spotify">Spotify</option>
                       <option value="amazon">Amazon Prime</option>
+                      <option value="dazn">DAZN</option>
                       <option value="disney">Disney+</option>
+                      <option value="wow">WOW (Sky)</option>
                       <option value="youtube">YouTube Premium</option>
+                      <option value="apple">Apple Music</option>
+                      <option value="appletv">Apple TV+</option>
+                      <option value="joyn">Joyn PLUS+</option>
+                      <option value="rtlplus">RTL+</option>
+                      <option value="paramount">Paramount+</option>
+                      <option value="audible">Audible</option>
+                      <option value="kindle">Kindle Unlimited</option>
+                      <option value="readly">Readly</option>
                     </optgroup>
-                    <optgroup label="Fitness">
+                    <optgroup label="Gaming">
+                      <option value="psplus">PlayStation Plus</option>
+                      <option value="xbox">Xbox Game Pass</option>
+                      <option value="nintendo">Nintendo Switch Online</option>
+                    </optgroup>
+                    <optgroup label="Fitness & Gesundheit">
                       <option value="mcfit">McFit</option>
                       <option value="fitx">FitX</option>
                       <option value="cleverfit">Clever Fit</option>
+                      <option value="johnreed">John Reed</option>
+                      <option value="gymondo">Gymondo</option>
+                      <option value="weightwatchers">Weight Watchers</option>
+                      <option value="strava">Strava</option>
                     </optgroup>
-                    <optgroup label="Sonstiges">
+                    <optgroup label="Software & Cloud">
+                      <option value="adobe">Adobe Creative Cloud</option>
+                      <option value="microsoft">Microsoft 365</option>
+                      <option value="icloud">Apple iCloud</option>
+                      <option value="google">Google One</option>
+                      <option value="blinkist">Blinkist</option>
+                      <option value="yazio">YAZIO</option>
+                      <option value="headspace">Headspace</option>
+                      <option value="calm">Calm</option>
+                    </optgroup>
+                    <optgroup label="Wohnen, Leben & Mobilität">
                       <option value="gez">Rundfunkbeitrag (GEZ)</option>
-                      <option value="deutschlandticket">Deutschlandticket</option>
-                      <option value="adac">ADAC</option>
+                      <option value="deutschlandticket">Deutschlandticket (DB)</option>
+                      <option value="bahncard25">BahnCard 25</option>
+                      <option value="adac">ADAC Automobilclub</option>
+                      <option value="telekom">Telekom</option>
+                      <option value="vodafone">Vodafone</option>
+                      <option value="o2">O2 (Telefónica)</option>
+                      <option value="einsundeins">1&1</option>
+                    </optgroup>
+                    <optgroup label="Zeitschriften & Dating">
+                      <option value="spiegel">Spiegel+</option>
+                      <option value="zeit">ZEIT ONLINE</option>
+                      <option value="faz">FAZ+</option>
+                      <option value="sz">SZ Plus</option>
+                      <option value="handelsblatt">Handelsblatt</option>
+                      <option value="tinder">Tinder</option>
+                      <option value="bumble">Bumble</option>
                     </optgroup>
                   </select>
                 </div>
