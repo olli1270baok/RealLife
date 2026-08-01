@@ -163,25 +163,22 @@ export default function Home() {
 
       <main className="main-content" style={{ position: 'relative' }}>
         <div className="content-wrapper">
-          {/* PAYWALL OVERLAY */}
-          {!loadingUser && !isPro && (
+          {/* PAYWALL CLEAN EMPTY STATE */}
+          {!loadingUser && !isPro ? (
             <div style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0, bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              backdropFilter: 'blur(5px)',
-              zIndex: 100,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              padding: '40px',
-              textAlign: 'center'
+              minHeight: '60vh',
+              textAlign: 'center',
+              padding: '20px'
             }}>
               <div className="card" style={{ maxWidth: '500px', border: '1px solid var(--accent-red)' }}>
-                <h2>Master-Pass erforderlich 🔒</h2>
+                <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔒</div>
+                <h2>Premium-Werkzeug gesperrt</h2>
                 <p style={{ color: 'var(--muted)', marginBottom: '30px' }}>
-                  Die Tools sind für dich aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.
+                  Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.
                 </p>
                 <a 
                   href={`https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01?client_reference_id=${userId}`} 
@@ -191,11 +188,12 @@ export default function Home() {
                   Jetzt Master-Pass kaufen (19€)
                 </a>
                 <p style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '20px', marginBottom: 0 }}>
-                  Nach der Zahlung wird dein Account automatisch und sofort freigeschaltet. (Lade die Seite nach der Rückkehr ggf. einmal neu).
+                  Nach der Zahlung wird dein Account automatisch freigeschaltet. Lade die Seite nach der Rückkehr ggf. einmal neu.
                 </p>
               </div>
             </div>
-          )}
+          ) : (
+            <>
 
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
@@ -354,7 +352,8 @@ export default function Home() {
               )}
             </section>
           )}
-
+          </>
+          )}
         </div>
       </main>
     </div>
