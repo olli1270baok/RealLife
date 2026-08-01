@@ -469,7 +469,7 @@ export default function FlugRebell() {
                     <strong style={{ color: 'var(--accent-blue)', fontStyle: 'normal', display: 'block', marginBottom: '4px' }}>EuGH, Urteil vom 23.03.2021 – C-28/20</strong>
                     "Ein Streik des eigenen Personals der Fluggesellschaft stellt keinen außergewöhnlichen Umstand dar."
                   </div>
-                  <div className="alert alert-warning" style={{ marginTop: '16px' }}><strong>Gegenschlag:</strong> Wenn Piloten oder Kabinencrew streiken -> Airline MUSS zahlen. Bei Flughafen-Security -> Höhere Gewalt.</div>
+                  <div className="alert alert-warning" style={{ marginTop: '16px' }}><strong>Gegenschlag:</strong> Wenn Piloten oder Kabinencrew streiken -&gt; Airline MUSS zahlen. Bei Flughafen-Security -&gt; Höhere Gewalt.</div>
                 </div>
               </div>
             </section>
