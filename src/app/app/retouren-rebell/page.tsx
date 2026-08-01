@@ -121,27 +121,27 @@ export default function Home() {
       <aside className="sidebar no-print">
         <div className="nav-group">
           <span className="nav-label">Dashboard</span>
-          <a className={\`nav-item \${activeView === 'dashboard' ? 'active' : ''}\`} onClick={() => switchView('dashboard')}><span className="nav-icon">🛡️</span> Home</a>
+          <button className={`nav-item ${activeView === 'dashboard' ? 'active' : ''}`} onClick={() => switchView('dashboard')}><span className="nav-icon">🛡️</span> Home</button>
         </div>
         
         <div className="nav-group">
           <span className="nav-label">Kauf & Versand</span>
-          <a className={\`nav-item \${activeView === 'paket' ? 'active' : ''}\`} onClick={() => switchView('paket')}><span className="nav-icon">📦</span> Paket-Verlust</a>
+          <button className={`nav-item ${activeView === 'paket' ? 'active' : ''}`} onClick={() => switchView('paket')}><span className="nav-icon">📦</span> Paket-Verlust</button>
         </div>
         
         <div className="nav-group">
           <span className="nav-label">Mängel & Defekte</span>
-          <a className={\`nav-item \${activeView === 'gewaehrleistung' ? 'active' : ''}\`} onClick={() => switchView('gewaehrleistung')}><span className="nav-icon">🔍</span> Gewährleistung</a>
+          <button className={`nav-item ${activeView === 'gewaehrleistung' ? 'active' : ''}`} onClick={() => switchView('gewaehrleistung')}><span className="nav-icon">🔍</span> Gewährleistung</button>
         </div>
 
         <div className="nav-group">
           <span className="nav-label">Tech Giganten</span>
-          <a className={\`nav-item \${activeView === 'amazon' ? 'active' : ''}\`} onClick={() => switchView('amazon')}><span className="nav-icon">🛒</span> Amazon-Spezial</a>
+          <button className={`nav-item ${activeView === 'amazon' ? 'active' : ''}`} onClick={() => switchView('amazon')}><span className="nav-icon">🛒</span> Amazon-Spezial</button>
         </div>
         
         <div className="nav-group">
           <span className="nav-label">Generatoren</span>
-          <a className={\`nav-item \${activeView === 'briefe' ? 'active' : ''}\`} onClick={() => switchView('briefe')}><span className="nav-icon">📜</span> PDF-Brief-Terminal</a>
+          <button className={`nav-item ${activeView === 'briefe' ? 'active' : ''}`} onClick={() => switchView('briefe')}><span className="nav-icon">📜</span> PDF-Brief-Terminal</button>
         </div>
       </aside>
 
