@@ -2,17 +2,16 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
-// Init Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-04-10', // Or whichever version is current
-});
-
-// Init Supabase Admin Client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || '';
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
-
 export async function POST(req: Request) {
+  // Init Stripe inside handler to avoid build-time errors if env vars are missing
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
+    apiVersion: '2024-04-10',
+  });
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || '';
+  const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
   const body = await req.text();
   const signature = req.headers.get('stripe-signature') as string;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || '';
