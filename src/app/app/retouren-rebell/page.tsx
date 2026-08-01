@@ -50,6 +50,20 @@ export default function RetourenRebell() {
     checkUser();
   }, [router]);
 
+  // Load saved data on mount
+  useEffect(() => {
+    const savedName = localStorage.getItem('rebell_name');
+    const savedAdresse = localStorage.getItem('rebell_adresse');
+    if (savedName) setBName(savedName);
+    if (savedAdresse) setBAdresse(savedAdresse);
+  }, []);
+
+  // Save data on change
+  useEffect(() => {
+    localStorage.setItem('rebell_name', bName);
+    localStorage.setItem('rebell_adresse', bAdresse);
+  }, [bName, bAdresse]);
+
   const switchView = (view: string) => {
     setActiveView(view);
     window.scrollTo(0, 0);
