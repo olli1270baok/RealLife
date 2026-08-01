@@ -6,9 +6,9 @@ export default function LandingPage() {
   const router = useRouter();
 
   const handleCheckout = () => {
-    // Später: Stripe Checkout Integration
-    // Für jetzt: Direkt ins Dashboard leiten
-    router.push('/app');
+    // Leite den User zuerst zum Login/Registrierung,
+    // bevor er bezahlen oder auf das Dashboard zugreifen kann.
+    router.push('/login');
   };
 
   return (
