@@ -210,7 +210,7 @@ export default function Home() {
                 <button className="btn btn-primary" style={{width: '100%'}} onClick={checkPaket}>Rechtslage prüfen</button>
 
                 {pResult && (
-                  <div className={\`result-box \${pResult.status}\`} style={{display: 'block'}} dangerouslySetInnerHTML={{ __html: pResult.html }} />
+                  <div className={`result-box ${pResult.status}`} style={{display: 'block'}} dangerouslySetInnerHTML={{ __html: pResult.html }} />
                 )}
               </div>
             </section>
@@ -232,7 +232,7 @@ export default function Home() {
                   </div>
                   <button className="btn btn-primary" style={{width: '100%'}} onClick={checkGewaehrleistung}>Frist Berechnen</button>
                   {gResult && (
-                    <div className={\`result-box \${gResult.status}\`} style={{display: 'block'}} dangerouslySetInnerHTML={{ __html: gResult.html }} />
+                    <div className={`result-box ${gResult.status}`} style={{display: 'block'}} dangerouslySetInnerHTML={{ __html: gResult.html }} />
                   )}
                 </div>
               </div>
