@@ -22,34 +22,25 @@ export default function BahnRebell() {
 
   const [cases, setCases] = useState<TrainCase[]>([]);
 
-  // Form Fields Brief 1
-  const [b1Name, setB1Name] = useState('');
-  const [b1Iban, setB1Iban] = useState('');
-  const [b1Date, setB1Date] = useState('');
-  const [b1Train, setB1Train] = useState('');
-  const [b1From, setB1From] = useState('');
-  const [b1To, setB1To] = useState('');
-  const [b1TimePlan, setB1TimePlan] = useState('');
-  const [b1TimeReal, setB1TimeReal] = useState('');
-  const [b1Case, setB1Case] = useState('');
-  const [brief1Html, setBrief1Html] = useState('');
+  // Unified Form Fields for Brief Terminal
+  const [bName, setBName] = useState('');
+  const [bIban, setBIban] = useState('');
+  const [bArt, setBArt] = useState('verspaetung');
+  const [bDate, setBDate] = useState('');
+  const [bTrain, setBTrain] = useState('');
+  
+  // Specific Fields
+  const [bFrom, setBFrom] = useState('');
+  const [bTo, setBTo] = useState('');
+  const [bTimePlan, setBTimePlan] = useState('');
+  const [bTimeReal, setBTimeReal] = useState('');
+  const [bAmount, setBAmount] = useState('');
+  const [bKm, setBKm] = useState('');
+  const [bFlight, setBFlight] = useState('');
+  const [bTicketNr, setBTicketNr] = useState('');
 
-  // Form Fields Brief 2
-  const [b2Name, setB2Name] = useState('');
-  const [b2Iban, setB2Iban] = useState('');
-  const [b2Date, setB2Date] = useState('');
-  const [b2Train, setB2Train] = useState('');
-  const [b2Type, setB2Type] = useState('taxi');
-  const [b2Amount, setB2Amount] = useState('');
-  const [brief2Html, setBrief2Html] = useState('');
-
-  // Form Fields Brief 3
-  const [b3Name, setB3Name] = useState('');
-  const [b3Iban, setB3Iban] = useState('');
-  const [b3Date, setB3Date] = useState('');
-  const [b3Train, setB3Train] = useState('');
-  const [b3Amount, setB3Amount] = useState('');
-  const [brief3Html, setBrief3Html] = useState('');
+  const [bCaseSelection, setBCaseSelection] = useState('');
+  const [letterHtml, setLetterHtml] = useState('');
 
   // Calc Fields
   const [cTicketType, setCTicketType] = useState('einfach');
@@ -83,17 +74,13 @@ export default function BahnRebell() {
 
     const sName = localStorage.getItem('bahn_name');
     const sIban = localStorage.getItem('bahn_iban');
-    if (sName) {
-      setB1Name(sName); setB2Name(sName); setB3Name(sName);
-    }
-    if (sIban) {
-      setB1Iban(sIban); setB2Iban(sIban); setB3Iban(sIban);
-    }
+    if (sName) setBName(sName);
+    if (sIban) setBIban(sIban);
   }, []);
 
   const saveUserData = () => {
-    localStorage.setItem('bahn_name', b1Name || b2Name || b3Name);
-    localStorage.setItem('bahn_iban', b1Iban || b2Iban || b3Iban);
+    localStorage.setItem('bahn_name', bName);
+    localStorage.setItem('bahn_iban', bIban);
   };
 
   const switchView = (view: string) => {
@@ -186,100 +173,130 @@ export default function BahnRebell() {
 
   const handleCaseSelect = (e: any) => {
     const id = e.target.value;
-    setB1Case(id);
+    setBCaseSelection(id);
     const c = cases.find(x => x.id === id);
     if (c) {
-      setB1Date(c.date);
-      setB1Train(c.train);
+      setBDate(c.date);
+      setBTrain(c.train);
     }
   };
 
-  const genBrief1 = () => {
+  const generateLetter = () => {
     saveUserData();
     const today = new Date().toLocaleDateString('de-DE');
-    const name = b1Name || '[Dein Name]';
-    const iban = b1Iban || '[Deine IBAN]';
-    const date = b1Date ? new Date(b1Date).toLocaleDateString('de-DE') : '[Datum]';
-    const train = b1Train || '[Zugnummer]';
-    const from = b1From || '[Start]';
-    const to = b1To || '[Ziel]';
-    const time_plan = b1TimePlan || '[hh:mm]';
-    const time_real = b1TimeReal || '[hh:mm]';
+    const name = bName || '[Dein Name]';
+    const iban = bIban || '[Deine IBAN]';
+    const date = bDate ? new Date(bDate).toLocaleDateString('de-DE') : '[Datum]';
+    const train = bTrain || '[Zugnummer]';
+    const from = bFrom || '[Start]';
+    const to = bTo || '[Ziel]';
+    const time_plan = bTimePlan || '[hh:mm]';
+    const time_real = bTimeReal || '[hh:mm]';
+    const amount = bAmount || '[Betrag]';
+    const km = bKm || '[Kilometer]';
+    const flight = bFlight || '[Flugnummer]';
+    const ticketNr = bTicketNr || '[Ticket/Reservierungsnummer]';
 
-    setBrief1Html(`
-      <div class="sender">${name}<br>[Deine Straße]<br>[PLZ Ort]<br></div>
-      <div class="recipient">An:<br>DB Fernverkehr AG<br>Fahrgastrechte<br>60647 Frankfurt am Main</div>
-      <div class="date">${today}</div>
-      <div class="subject">Forderung von Fahrgastrechten gemäß EU-Verordnung 2021/782</div>
-      <p>Sehr geehrte Damen und Herren,</p>
+    let subj = "";
+    let body = "";
+
+    if (bArt === 'verspaetung') {
+      subj = `Forderung von Fahrgastrechten gemäß EU-Verordnung 2021/782`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
       <p>hiermit mache ich Erstattungsansprüche für meine Reise am <strong>${date}</strong> geltend.</p>
       <p>Ich war Reisender im Zug <strong>${train}</strong> von <strong>${from}</strong> nach <strong>${to}</strong>. Die planmäßige Ankunft war für ${time_plan} Uhr vorgesehen. Tatsächlich erreichte ich mein Ziel erst um ${time_real} Uhr, was eine signifikante Verspätung darstellt.</p>
       <p>Gemäß Art. 19 der EU-Fahrgastrechteverordnung 2021/782 steht mir bei einer Verspätung in diesem Ausmaß eine prozentuale Entschädigung des Ticketpreises bzw. die Pauschale für Zeitkarten zu.</p>
       <p>Kopien meiner Originalfahrkarte(n) liegen diesem Schreiben bei.</p>
       <p>Ich fordere Sie auf, den Entschädigungsbetrag innerhalb von 14 Tagen auf folgendes Konto zu überweisen:</p>
       <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
-      <p>Sollten Sie die Zahlung verweigern, behalte ich mir vor, die Schlichtungsstelle für den öffentlichen Personenverkehr (söp) bzw. das Eisenbahn-Bundesamt einzuschalten.</p>
-      <p>Mit freundlichen Grüßen,</p>
-      <p><br>[Unterschrift]</p>
-    `);
-  };
-
-  const genBrief2 = () => {
-    saveUserData();
-    const today = new Date().toLocaleDateString('de-DE');
-    const name = b2Name || '[Dein Name]';
-    const iban = b2Iban || '[Deine IBAN]';
-    const date = b2Date ? new Date(b2Date).toLocaleDateString('de-DE') : '[Datum]';
-    const train = b2Train || '[Zugnummer]';
-    const amount = b2Amount || '[Betrag]';
-    const isTaxi = b2Type === 'taxi';
-    const typeText = isTaxi ? 'Taxikosten / Beförderungskosten' : 'Hotel- / Übernachtungskosten';
-
-    setBrief2Html(`
-      <div class="sender">${name}<br>[Deine Straße]<br>[PLZ Ort]<br></div>
-      <div class="recipient">An:<br>DB Fernverkehr AG<br>Fahrgastrechte<br>60647 Frankfurt am Main</div>
-      <div class="date">${today}</div>
-      <div class="subject">Rückerstattung von Ersatzaufwendungen (${typeText}) gemäß Art. 20 EU-VO 2021/782</div>
-      <p>Sehr geehrte Damen und Herren,</p>
+      <p>Sollten Sie die Zahlung verweigern, behalte ich mir vor, die Schlichtungsstelle für den öffentlichen Personenverkehr (söp) bzw. das Eisenbahn-Bundesamt einzuschalten.</p>`;
+    } else if (bArt === 'zusatzkosten') {
+      subj = `Rückerstattung von Ersatzaufwendungen (Taxi/Hotel) gemäß Art. 20 EU-VO 2021/782`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
       <p>am <strong>${date}</strong> wollte ich den Zug <strong>${train}</strong> nutzen. Aufgrund eines Zugausfalls bzw. einer erheblichen Verspätung war es mir nicht möglich, mein Fahrtziel planmäßig oder am selben Tag zu erreichen.</p>
-      <p>Gemäß Art. 20 der EU-Fahrgastrechteverordnung (Betreuungsleistungen) ist das Eisenbahnunternehmen in einem solchen Fall verpflichtet, ${isTaxi ? 'für eine alternative Beförderung (z.B. Taxi bis zu 120 Euro) zu sorgen, da meine planmäßige Ankunft zwischen 0:00 und 5:00 Uhr lag bzw. es der letzte planmäßige Zug war.' : 'angemessene Hotel- oder andere Unterbringungskosten zu übernehmen, wenn ein Aufenthalt von einer oder mehreren Nächten notwendig wird.'}</p>
+      <p>Gemäß Art. 20 der EU-Fahrgastrechteverordnung (Betreuungsleistungen) ist das Eisenbahnunternehmen in einem solchen Fall verpflichtet, für eine alternative Beförderung (z.B. Taxi bis zu 120 Euro) zu sorgen oder angemessene Hotelkosten zu übernehmen.</p>
       <p>Da von Ihrem Personal vor Ort keine entsprechende Lösung bereitgestellt wurde, war ich gezwungen, diese Leistung selbst in Anspruch zu nehmen und in Vorleistung zu treten.</p>
       <p>Ich fordere Sie hiermit auf, meine Auslagen in Höhe von <strong>${amount} Euro</strong> zu erstatten. Die Originalquittung liegt diesem Schreiben bei.</p>
       <p>Bitte überweisen Sie den Betrag innerhalb von 14 Tagen auf mein Konto:</p>
-      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
-      <p>Mit freundlichen Grüßen,</p>
-      <p><br>[Unterschrift]</p>
-    `);
-  };
-
-  const genBrief3 = () => {
-    saveUserData();
-    const today = new Date().toLocaleDateString('de-DE');
-    const name = b3Name || '[Dein Name]';
-    const iban = b3Iban || '[Deine IBAN]';
-    const date = b3Date ? new Date(b3Date).toLocaleDateString('de-DE') : '[Datum]';
-    const train = b3Train || '[Zugnummer]';
-    const amount = b3Amount || '[Betrag]';
-
-    setBrief3Html(`
-      <div class="sender">${name}<br>[Deine Straße]<br>[PLZ Ort]<br></div>
-      <div class="recipient">An:<br>DB Fernverkehr AG<br>Fahrgastrechte<br>60647 Frankfurt am Main</div>
-      <div class="date">${today}</div>
-      <div class="subject">Fahrtverzicht & Forderung auf 100% Ticket-Erstattung</div>
-      <p>Sehr geehrte Damen und Herren,</p>
+      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>`;
+    } else if (bArt === 'abbruch') {
+      subj = `Fahrtverzicht & Forderung auf 100% Ticket-Erstattung`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
       <p>ich hatte für den <strong>${date}</strong> eine Fahrt mit dem Zug <strong>${train}</strong> gebucht.</p>
       <p>Vor oder bei der Abfahrt war absehbar, dass der Zug mit einer Verspätung von über 60 Minuten am Zielort eintreffen würde (bzw. er ist komplett ausgefallen). Da die Fahrt nach diesen Plänen sinnlos wurde, habe ich gemäß Art. 18 der EU-Verordnung 2021/782 von meinem Recht auf Fahrtverzicht Gebrauch gemacht und die Fahrt nicht angetreten.</p>
       <p>Ich fordere Sie auf, den vollen Ticketpreis in Höhe von <strong>${amount} Euro</strong> unverzüglich zu erstatten.</p>
       <p>Die ungenutzte Originalfahrkarte liegt diesem Schreiben bei.</p>
       <p>Bitte überweisen Sie den Betrag auf folgendes Konto:</p>
+      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>`;
+    } else if (bArt === 'strafe') {
+      subj = `Widerspruch gegen Erhöhtes Beförderungsentgelt (FNr: ${ticketNr})`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
+      <p>ich lege hiermit formell Widerspruch gegen die Forderung eines Erhöhten Beförderungsentgeltes in Höhe von 60 Euro vom <strong>${date}</strong> (Zug <strong>${train}</strong>) ein.</p>
+      <p>Zum Zeitpunkt der Kontrolle besaß ich einen gültigen Fahrschein / ein gültiges Abonnement für die fragliche Strecke. Lediglich aufgrund eines technischen Problems (DB Navigator App nicht ladbar / Akku leer) konnte ich das Ticket im Moment der Kontrolle nicht digital vorzeigen.</p>
+      <p>Das Ticket lag jedoch nachweislich bereits vor Antritt der Fahrt vor. Der Beförderungsvertrag wurde rechtsgültig geschlossen. Ich reiche hiermit eine Kopie meines gültigen Tickets / Abos nach.</p>
+      <p>Gemäß der Tarifbestimmungen reduziert sich die Forderung bei nachträglichem Vorzeigen eines personalisierten Tickets auf eine geringe Bearbeitungsgebühr (in der Regel 7 Euro), der ich zustimme. Die Zahlung der vollen 60 Euro weise ich jedoch vollumfänglich zurück.</p>
+      <p>Ich bitte um schriftliche Bestätigung der Stornierung des Erhöhten Beförderungsentgelts.</p>`;
+    } else if (bArt === 'sitzplatz') {
+      subj = `Rückforderung der Sitzplatzreservierung (Zugausfall/Wagenreihung)`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
+      <p>am <strong>${date}</strong> habe ich für meine Fahrt mit dem Zug <strong>${train}</strong> eine Sitzplatzreservierung gebucht (Reservierungsnummer: <strong>${ticketNr}</strong>).</p>
+      <p>Dieser reservierte Sitzplatz stand mir nicht zur Verfügung. Gründe hierfür waren entweder ein Zugausfall, eine geänderte Wagenreihung oder der vollständige Ausfall des betroffenen Waggons.</p>
+      <p>Gemäß Ihren Tarifbedingungen habe ich bei Nichtbereitstellung des reservierten Platzes Anspruch auf die volle Erstattung des Reservierungsentgelts.</p>
+      <p>Ich fordere Sie auf, mir den Betrag in Höhe von <strong>${amount} Euro</strong> auf mein untenstehendes Konto zu erstatten.</p>
+      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>`;
+    } else if (bArt === 'klima') {
+      subj = `Beschwerde & Forderung nach Entschädigung (Defekte Klimaanlage / Unzumutbare Hitze)`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
+      <p>hiermit reiche ich eine formelle Beschwerde zu meiner Fahrt am <strong>${date}</strong> im Zug <strong>${train}</strong> ein.</p>
+      <p>Während der Fahrt war die Klimaanlage in meinem Waggon defekt. Die Innentemperatur stieg auf ein unerträgliches Maß an, was zu extremen körperlichen Belastungen führte. Eine Verlegung in einen anderen Waggon war aufgrund von Überfüllung nicht möglich.</p>
+      <p>Die Beförderungsbedingungen waren unzumutbar. Es ist die Pflicht des Beförderers, für ein gesundheitlich unbedenkliches Raumklima zu sorgen. Die Rechtsprechung (u.a. AG Frankfurt am Main) hat Fahrgästen bei extremer Hitze und defekten Klimaanlagen in ICE-Zügen bereits Schmerzensgeld bzw. Minderung des Fahrpreises zugesprochen.</p>
+      <p>Ich erwarte eine angemessene finanzielle Entschädigung für diese erlittene Tortur auf mein Konto:</p>
       <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
+      <p>Sollten Sie sich weigern, eine kulante Lösung anzubieten, behalte ich mir rechtliche Schritte vor.</p>`;
+    } else if (bArt === 'pkw') {
+      subj = `Rückerstattung von Ersatzaufwendungen (Nutzung von Privat-PKW / Carsharing) gemäß Art. 20 EU-VO 2021/782`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
+      <p>am <strong>${date}</strong> wollte ich den Zug <strong>${train}</strong> nutzen, welcher komplett ausfiel oder extrem verspätet war. Da meine geplante Ankunftszeit in die Nachtstunden fiel (bzw. es die letzte Verbindung des Tages war) und von Ihnen kein Ersatzverkehr bereitgestellt wurde, war ich gezwungen, auf einen privaten PKW / Carsharing auszuweichen, um mein Ziel zu erreichen.</p>
+      <p>Gemäß ständiger Rechtsprechung und Art. 20 der EU-Fahrgastrechteverordnung haben Fahrgäste Anspruch auf Ersatz der notwendigen Fahrtkosten (bis maximal 120 Euro), wenn die Bahn keine Alternative stellt.</p>
+      <p>Da kein Taxi verfügbar war bzw. eine Fahrt mit dem PKW die wirtschaftlichste Lösung darstellte, mache ich hiermit Kilometergeld für die zurückgelegte Strecke geltend.</p>
+      <p>Gefahrene Strecke: <strong>${km} Kilometer</strong>.<br>
+      Angesetzter Satz: 0,30 Euro pro gefahrenem Kilometer (analog zum Bundesreisekostengesetz).</p>
+      <p>Daraus ergibt sich eine Forderung von <strong>${amount} Euro</strong>.</p>
+      <p>Ich fordere Sie auf, diesen Betrag auf folgendes Konto zu überweisen:</p>
+      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>`;
+    } else if (bArt === 'railfly') {
+      subj = `Schadensersatzforderung: Verpasster Flug durch Bahnverspätung (Rail&Fly)`;
+      body = `<p>Sehr geehrte Damen und Herren,</p>
+      <p>am <strong>${date}</strong> befand ich mich auf der Anreise zu meinem Flug (Flugnummer: <strong>${flight}</strong>). Ich nutzte hierfür ein gültiges Rail&Fly Ticket.</p>
+      <p>Der von mir rechtzeitig gewählte Zug <strong>${train}</strong> hatte eine derart massive Verspätung, dass ich meinen Flug nicht mehr rechtzeitig erreichen konnte.</p>
+      <p>Im Gegensatz zu normalen Bahntickets fungiert die Deutsche Bahn bei Rail&Fly Tickets juristisch als Erfüllungsgehilfe der Fluggesellschaft bzw. des Reiseveranstalters. Ein verschuldeter Verzug beim Zubringerzug haftet somit für die dadurch entstehenden Folgeschäden.</p>
+      <p>Durch das Verpassen des Fluges sind mir erhebliche Mehrkosten (Umbuchung / Neubuchung / Übernachtung) in Höhe von <strong>${amount} Euro</strong> entstanden. Die entsprechenden Belege liegen bei.</p>
+      <p>Ich fordere Sie hiermit auf, den entstandenen Schaden in voller Höhe zu erstatten und den Betrag auf folgendes Konto zu überweisen:</p>
+      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>`;
+    } else if (bArt === 'beschwerde') {
+      subj = `Formelle Dienstaufsichtsbeschwerde (Unangemessenes Verhalten des Personals)`;
+      body = `<p>An die Direktion / den Kundendialog der DB Fernverkehr AG,</p>
+      <p>hiermit reiche ich eine formelle Dienstaufsichtsbeschwerde gegen einen Mitarbeiter Ihres Unternehmens ein.</p>
+      <p>Der Vorfall ereignete sich am <strong>${date}</strong> im Zug <strong>${train}</strong> (zwischen <strong>${from}</strong> und <strong>${to}</strong>).</p>
+      <p>Ihr Mitarbeiter hat sich mir (bzw. anderen Fahrgästen) gegenüber in höchstem Maße unprofessionell, beleidigend und unangemessen verhalten. Ein solches Verhalten von Dienstleistern gegenüber zahlenden Kunden ist völlig inakzeptabel und wirft ein desaströses Licht auf Ihr Unternehmen.</p>
+      <p>Ich erwarte, dass Sie diesen Vorfall untersuchen, den betreffenden Zugbegleiter intern zur Rechenschaft ziehen und entsprechende disziplinarische Maßnahmen ergreifen. Ebenso erwarte ich eine formelle Entschuldigung für die erlittenen Unannehmlichkeiten.</p>
+      <p>Mit freundlichen Grüßen,</p>`;
+    }
+
+    setLetterHtml(`
+      <div class="sender">${name.replace(/\n/g, '<br>')}<br>[Deine Straße]<br>[PLZ Ort]<br></div>
+      <div class="recipient">An:<br>DB Fernverkehr AG / Kundendialog<br>60647 Frankfurt am Main</div>
+      <div class="date">${today}</div>
+      <div class="subject">${subj}</div>
+      ${body}
       <p>Mit freundlichen Grüßen,</p>
-      <p><br>[Unterschrift]</p>
+      <br><br><br>
+      <p>${name.split('\n')[0]}</p>
     `);
   };
 
-  const printView = (viewId: string) => {
-    const el = document.getElementById(viewId);
+  const printLetter = () => {
+    const el = document.getElementById('view-briefe');
     if (el) {
       el.classList.add('print-me');
       window.print();
@@ -297,10 +314,8 @@ export default function BahnRebell() {
         </div>
         
         <div className="nav-group">
-          <span className="nav-label">Brief-Generatoren</span>
-          <button className={`nav-item ${activeView === 'brief_verspaetung' ? 'active' : ''}`} onClick={() => switchView('brief_verspaetung')}><span className="nav-icon">⏱️</span> 25% / 50% Erstattung</button>
-          <button className={`nav-item ${activeView === 'brief_zusatzkosten' ? 'active' : ''}`} onClick={() => switchView('brief_zusatzkosten')}><span className="nav-icon">🚕</span> Taxi & Hotel (120€)</button>
-          <button className={`nav-item ${activeView === 'brief_abbruch' ? 'active' : ''}`} onClick={() => switchView('brief_abbruch')}><span className="nav-icon">🛑</span> 100% Fahrtabbruch</button>
+          <span className="nav-label">Generatoren</span>
+          <button className={`nav-item ${activeView === 'briefe' ? 'active' : ''}`} onClick={() => switchView('briefe')}><span className="nav-icon">📜</span> PDF-Brief-Terminal (9)</button>
         </div>
         
         <div className="nav-group">
@@ -319,7 +334,6 @@ export default function BahnRebell() {
               <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
                 JETZT MASTER-PASS KAUFEN (19€)
               </button>
-              <p style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '20px' }}>Nach der Zahlung wird dein Account automatisch freigeschaltet. Lade die Seite nach der Rückkehr ggf. einmal neu.</p>
             </div>
           </div>
         )}
@@ -331,18 +345,12 @@ export default function BahnRebell() {
               <div className="hero" style={{ background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-red)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
                 <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Fahrgastrechte Terminal</span>
                 <h1>Hol dir dein Geld <br/><span style={{ color: 'var(--accent-red)' }}>von der Bahn.</span></h1>
-                <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Seit Juni 2023 nutzt die Bahn neue "außergewöhnliche Umstände", um nicht zu zahlen. Dieses Terminal berechnet deine exakten Ansprüche nach der aktuellen EU-Verordnung 2021/782 und generiert druckfertige Anschreiben für 25%, 50% und 100% Erstattungen sowie Taxi- und Hotelkosten.</p>
+                <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Seit Juni 2023 nutzt die Bahn neue "außergewöhnliche Umstände", um nicht zu zahlen. Dieses Terminal berechnet deine exakten Ansprüche nach der aktuellen EU-Verordnung 2021/782 und generiert jetzt 9 verschiedene druckfertige Anschreiben.</p>
                 
                 <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>
                   <button className="btn btn-primary" onClick={() => switchView('rechner')}>Neuen Fall berechnen</button>
-                  <button className="btn btn-secondary" onClick={() => switchView('brief_verspaetung')}>Zum Brief-Generator</button>
+                  <button className="btn btn-secondary" onClick={() => switchView('briefe')}>Zum Brief-Terminal</button>
                 </div>
-
-                {!loadingUser && !isPro && (
-                  <div style={{ marginTop: '24px', background: 'rgba(255,51,102,0.1)', padding: '16px', borderRadius: '8px', borderLeft: '4px solid var(--accent-red)', display: 'inline-block' }}>
-                    <strong style={{ color: 'var(--accent-red)' }}>Dein Account ist limitiert.</strong> Du kannst aktuell nur die Übersicht betrachten.
-                  </div>
-                )}
               </div>
 
               <h3 style={{ color: 'var(--white)', marginBottom: '16px' }}>Gespeicherte Fälle</h3>
@@ -473,130 +481,113 @@ export default function BahnRebell() {
             </section>
           )}
 
-          {/* BRIEF 1: VERSAETUNG */}
-          {activeView === 'brief_verspaetung' && (
-            <section className="view active" id="view-brief_verspaetung">
+          {/* BRIEF TERMINAL */}
+          {activeView === 'briefe' && (
+            <section className="view active" id="view-briefe">
               <div className="no-print">
                 <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Formular-Ersatz</span>
-                <h2>Erstattung (25% / 50%) einfordern</h2>
-                <p>Statt das unübersichtliche Fahrgastrechte-Formular der DB zu nutzen, kannst du hier ein klares, juristisches Anschreiben generieren. (Auch für gesammelte Deutschlandticket-Fälle!).</p>
+                <h2>PDF-Brief-Terminal (9 Vorlagen)</h2>
+                <p>Generiere hier druckfertige juristische PDF-Schreiben gegen die Bahn. Wähle einfach den passenden Fall aus.</p>
 
                 <div className="card highlight" style={{ borderTop: '4px solid var(--accent-red)', marginTop: '32px' }}>
+                  
                   <div className="form-group">
-                    <label>Gespeicherten Fall laden</label>
-                    <select value={b1Case} onChange={handleCaseSelect}>
-                      <option value="">-- manuell eingeben --</option>
-                      {cases.map(c => <option key={c.id} value={c.id}>{c.train} am {c.date} ({c.amount}€)</option>)}
+                    <label>Art des Schreibens wählen</label>
+                    <select value={bArt} onChange={e => setBArt(e.target.value)} style={{ padding: '16px', background: 'var(--darker)' }}>
+                      <optgroup label="Standard-Erstattungen">
+                        <option value="verspaetung">Erstattung 25% / 50% (Verspätung)</option>
+                        <option value="abbruch">100% Erstattung (Fahrtverzicht)</option>
+                        <option value="sitzplatz">Erstattung der Sitzplatzreservierung</option>
+                      </optgroup>
+                      <optgroup label="Zusatz- & Folgekosten">
+                        <option value="zusatzkosten">Taxi & Hotelkosten (Art. 20 VO)</option>
+                        <option value="pkw">Fahrtengeld für Privat-PKW / Carsharing (Analog zu Taxi)</option>
+                        <option value="railfly">Schadensersatz: Verpasster Flug (Rail&Fly Ticket)</option>
+                      </optgroup>
+                      <optgroup label="Ärger, Strafen & Beschwerden">
+                        <option value="strafe">Widerspruch 60€ Strafe (DB App defekt / Akku leer)</option>
+                        <option value="klima">Schmerzensgeld (Defekte Klimaanlage / Hitze)</option>
+                        <option value="beschwerde">Formelle Dienstaufsichtsbeschwerde (Personal)</option>
+                      </optgroup>
                     </select>
                   </div>
+
+                  <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '24px 0' }} />
+
+                  {(bArt === 'verspaetung' || bArt === 'zusatzkosten' || bArt === 'abbruch') && (
+                    <div className="form-group">
+                      <label>Daten aus gespeichertem Fall laden (optional)</label>
+                      <select value={bCaseSelection} onChange={handleCaseSelect}>
+                        <option value="">-- manuell eingeben --</option>
+                        {cases.map(c => <option key={c.id} value={c.id}>{c.train} am {c.date} ({c.amount}€)</option>)}
+                      </select>
+                    </div>
+                  )}
+
                   <div className="form-row">
-                    <div className="form-group"><label>Reisender (Name)</label><input type="text" value={b1Name} onChange={e => setB1Name(e.target.value)} /></div>
-                    <div className="form-group"><label>IBAN</label><input type="text" value={b1Iban} onChange={e => setB1Iban(e.target.value)} /></div>
+                    <div className="form-group"><label>Reisender (Name)</label><input type="text" value={bName} onChange={e => setBName(e.target.value)} /></div>
+                    <div className="form-group"><label>Deine IBAN</label><input type="text" value={bIban} onChange={e => setBIban(e.target.value)} /></div>
                   </div>
                   <div className="form-row">
-                    <div className="form-group"><label>Datum der Fahrt</label><input type="date" value={b1Date} onChange={e => setB1Date(e.target.value)} /></div>
-                    <div className="form-group"><label>Zugnummer (z.B. ICE 123)</label><input type="text" value={b1Train} onChange={e => setB1Train(e.target.value)} /></div>
+                    <div className="form-group"><label>Datum der Fahrt/Störung</label><input type="date" value={bDate} onChange={e => setBDate(e.target.value)} /></div>
+                    <div className="form-group"><label>Zugnummer (z.B. ICE 123)</label><input type="text" value={bTrain} onChange={e => setBTrain(e.target.value)} /></div>
                   </div>
-                  <div className="form-row">
-                    <div className="form-group"><label>Abfahrtsbahnhof</label><input type="text" value={b1From} onChange={e => setB1From(e.target.value)} /></div>
-                    <div className="form-group"><label>Zielbahnhof</label><input type="text" value={b1To} onChange={e => setB1To(e.target.value)} /></div>
-                  </div>
-                  <div className="form-row">
-                    <div className="form-group"><label>Planmäßige Ankunft</label><input type="time" value={b1TimePlan} onChange={e => setB1TimePlan(e.target.value)} /></div>
-                    <div className="form-group"><label>Tatsächliche Ankunft</label><input type="time" value={b1TimeReal} onChange={e => setB1TimeReal(e.target.value)} /></div>
-                  </div>
-                  <button className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }} onClick={genBrief1}>Brief generieren</button>
+
+                  {(bArt === 'verspaetung' || bArt === 'beschwerde') && (
+                    <div className="form-row">
+                      <div className="form-group"><label>Abfahrtsbahnhof</label><input type="text" value={bFrom} onChange={e => setBFrom(e.target.value)} /></div>
+                      <div className="form-group"><label>Zielbahnhof</label><input type="text" value={bTo} onChange={e => setBTo(e.target.value)} /></div>
+                    </div>
+                  )}
+
+                  {bArt === 'verspaetung' && (
+                    <div className="form-row">
+                      <div className="form-group"><label>Planmäßige Ankunft</label><input type="time" value={bTimePlan} onChange={e => setBTimePlan(e.target.value)} /></div>
+                      <div className="form-group"><label>Tatsächliche Ankunft</label><input type="time" value={bTimeReal} onChange={e => setBTimeReal(e.target.value)} /></div>
+                    </div>
+                  )}
+
+                  {(bArt === 'zusatzkosten' || bArt === 'abbruch' || bArt === 'sitzplatz' || bArt === 'pkw' || bArt === 'railfly') && (
+                    <div className="form-group">
+                      <label>Geforderter Betrag (in €)</label>
+                      <input type="number" value={bAmount} onChange={e => setBAmount(e.target.value)} step="0.01" />
+                    </div>
+                  )}
+
+                  {bArt === 'pkw' && (
+                    <div className="form-group">
+                      <label>Gefahrene Kilometer (Auto)</label>
+                      <input type="number" value={bKm} onChange={e => setBKm(e.target.value)} />
+                    </div>
+                  )}
+
+                  {bArt === 'railfly' && (
+                    <div className="form-group">
+                      <label>Flugnummer des verpassten Flugs</label>
+                      <input type="text" value={bFlight} onChange={e => setBFlight(e.target.value)} />
+                    </div>
+                  )}
+
+                  {(bArt === 'strafe' || bArt === 'sitzplatz') && (
+                    <div className="form-group">
+                      <label>Ticket-, Fall- oder Reservierungsnummer</label>
+                      <input type="text" value={bTicketNr} onChange={e => setBTicketNr(e.target.value)} />
+                    </div>
+                  )}
+
+                  <button className="btn btn-primary" style={{ width: '100%', marginTop: '24px' }} onClick={generateLetter}>
+                    PDF-Vorschau generieren
+                  </button>
                 </div>
               </div>
 
-              {brief1Html && (
+              {letterHtml && (
                 <div style={{ marginTop: '24px' }}>
                   <div className="no-print" style={{ padding: '16px', background: 'var(--darker)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h3 style={{ margin: 0 }}>Brief-Vorschau</h3>
-                    <button className="btn btn-secondary" onClick={() => printView('view-brief_verspaetung')}>🖨️ Drucken / PDF</button>
+                    <button className="btn btn-secondary" onClick={printLetter}>🖨️ Drucken / PDF</button>
                   </div>
-                  <div className="letter-paper" dangerouslySetInnerHTML={{ __html: brief1Html }} />
-                </div>
-              )}
-            </section>
-          )}
-
-          {/* BRIEF 2: TAXI/HOTEL */}
-          {activeView === 'brief_zusatzkosten' && (
-            <section className="view active" id="view-brief_zusatzkosten">
-              <div className="no-print">
-                <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>EU 2021/782 Art. 20</span>
-                <h2>Taxi & Hotelkosten (120€)</h2>
-                <p>Einforderung von Ersatzaufwendungen. WICHTIG: Original-Belege unbedingt mitschicken!</p>
-
-                <div className="card highlight" style={{ borderTop: '4px solid var(--accent-red)', marginTop: '32px' }}>
-                  <div className="form-row">
-                    <div className="form-group"><label>Reisender (Name)</label><input type="text" value={b2Name} onChange={e => setB2Name(e.target.value)} /></div>
-                    <div className="form-group"><label>IBAN</label><input type="text" value={b2Iban} onChange={e => setB2Iban(e.target.value)} /></div>
-                  </div>
-                  <div className="form-row">
-                    <div className="form-group"><label>Datum der Störung</label><input type="date" value={b2Date} onChange={e => setB2Date(e.target.value)} /></div>
-                    <div className="form-group"><label>Ausgefallener Zug</label><input type="text" value={b2Train} onChange={e => setB2Train(e.target.value)} /></div>
-                  </div>
-                  <div className="form-group">
-                    <label>Art der Zusatzkosten</label>
-                    <select value={b2Type} onChange={e => setB2Type(e.target.value)}>
-                      <option value="taxi">Taxikosten (Zugausfall Nachts / letzter Zug)</option>
-                      <option value="hotel">Hotelübernachtung (Weiterfahrt am selben Tag nicht möglich)</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Höhe der Kosten (in €)</label>
-                    <input type="number" value={b2Amount} onChange={e => setB2Amount(e.target.value)} step="0.01" />
-                  </div>
-                  <button className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }} onClick={genBrief2}>Brief generieren</button>
-                </div>
-              </div>
-
-              {brief2Html && (
-                <div style={{ marginTop: '24px' }}>
-                  <div className="no-print" style={{ padding: '16px', background: 'var(--darker)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h3 style={{ margin: 0 }}>Brief-Vorschau</h3>
-                    <button className="btn btn-secondary" onClick={() => printView('view-brief_zusatzkosten')}>🖨️ Drucken / PDF</button>
-                  </div>
-                  <div className="letter-paper" dangerouslySetInnerHTML={{ __html: brief2Html }} />
-                </div>
-              )}
-            </section>
-          )}
-
-          {/* BRIEF 3: ABBRUCH */}
-          {activeView === 'brief_abbruch' && (
-            <section className="view active" id="view-brief_abbruch">
-              <div className="no-print">
-                <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>100% Erstattung</span>
-                <h2>Fahrtabbruch / Nichtantritt</h2>
-                <p>Wenn bei Abfahrt bereits eine Verspätung von {">"}60 Minuten am Zielort absehbar war, darfst du von der Reise zurücktreten und 100% des Preises fordern.</p>
-
-                <div className="card highlight" style={{ borderTop: '4px solid var(--accent-red)', marginTop: '32px' }}>
-                  <div className="form-row">
-                    <div className="form-group"><label>Reisender (Name)</label><input type="text" value={b3Name} onChange={e => setB3Name(e.target.value)} /></div>
-                    <div className="form-group"><label>IBAN</label><input type="text" value={b3Iban} onChange={e => setB3Iban(e.target.value)} /></div>
-                  </div>
-                  <div className="form-row">
-                    <div className="form-group"><label>Datum der Fahrt</label><input type="date" value={b3Date} onChange={e => setB3Date(e.target.value)} /></div>
-                    <div className="form-group"><label>Ticketpreis (in €)</label><input type="number" value={b3Amount} onChange={e => setB3Amount(e.target.value)} step="0.01" /></div>
-                  </div>
-                  <div className="form-group">
-                    <label>Geplanter Zug</label>
-                    <input type="text" value={b3Train} onChange={e => setB3Train(e.target.value)} />
-                  </div>
-                  <button className="btn btn-primary" style={{ width: '100%', marginTop: '16px' }} onClick={genBrief3}>Brief generieren</button>
-                </div>
-              </div>
-
-              {brief3Html && (
-                <div style={{ marginTop: '24px' }}>
-                  <div className="no-print" style={{ padding: '16px', background: 'var(--darker)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h3 style={{ margin: 0 }}>Brief-Vorschau</h3>
-                    <button className="btn btn-secondary" onClick={() => printView('view-brief_abbruch')}>🖨️ Drucken / PDF</button>
-                  </div>
-                  <div className="letter-paper" dangerouslySetInnerHTML={{ __html: brief3Html }} />
+                  <div className="letter-paper" dangerouslySetInnerHTML={{ __html: letterHtml }} />
                 </div>
               )}
             </section>
