@@ -88,10 +88,22 @@ export default function LandingPage() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '30px' }}>
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s', cursor: 'default' }}>
+          <div onClick={() => router.push('/app/retouren-rebell')} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s, borderColor 0.3s', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent-red)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
             <div style={{ fontSize: '48px', marginBottom: '20px' }}>📦</div>
             <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Retouren-Rebell</h3>
             <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>Paketverlust beim Rückversand? Der Händler weigert sich? Zerstöre den "Zusteller-Trick" sofort mit § 475 BGB und erzwinge deine Erstattung per PDF-Generator.</p>
+          </div>
+
+          <div onClick={() => router.push('/app/bahn-rebell')} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s, borderColor 0.3s', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent-red)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🚄</div>
+            <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Bahn-Rebell</h3>
+            <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>60€ Strafe trotz Ticket im DB Navigator? Verpasster Flug (Rail&Fly)? Hol dir mit 9 fertigen juristischen Schreiben dein Geld von der Bahn zurück.</p>
+          </div>
+
+          <div onClick={() => router.push('/app/flug-rebell')} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s, borderColor 0.3s', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent-red)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>✈️</div>
+            <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Flug-Rebell</h3>
+            <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>Flugverspätung oder Annullierung? Koffer weg? Zerstöre Ausreden der Airline (Wetter, Streik) mit der integrierten EuGH-Datenbank und forder 600€ ein.</p>
           </div>
           
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s', cursor: 'default' }}>
