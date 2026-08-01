@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function Login() {
+  const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -13,94 +14,137 @@ export default function Login() {
   const [message, setMessage] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     setMessage(null);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      setError(error.message);
-      setLoading(false);
+    if (isSignUp) {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      if (error) {
+        setError(error.message);
+      } else {
+        setMessage('Account erstellt! Du kannst dich jetzt einloggen.');
+        setIsSignUp(false);
+      }
     } else {
-      router.push('/app');
-    }
-  };
-
-  const handleSignUp = async () => {
-    setLoading(true);
-    setError(null);
-    setMessage(null);
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) {
-      setError(error.message);
-    } else {
-      setMessage('Registrierung erfolgreich! Du kannst dich jetzt einloggen (oder musst deine E-Mail bestätigen, falls eingestellt).');
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) {
+        setError(error.message);
+      } else {
+        router.push('/app');
+      }
     }
     setLoading(false);
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'var(--bg)' }}>
-      <div className="card" style={{ maxWidth: '400px', width: '100%', padding: '40px' }}>
-        <h1 style={{ fontSize: '24px', marginBottom: '10px' }}>Willkommen zurück</h1>
-        <p style={{ color: 'var(--muted)', marginBottom: '30px' }}>Logge dich ein, um zur Vorlagenbude zu gelangen.</p>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--bg)' }}>
+      {/* Left Branding Side */}
+      <div style={{ 
+        flex: 1, 
+        display: 'none', 
+        '@media (minWidth: 768px)': { display: 'flex' },
+        background: 'linear-gradient(135deg, #0d1117 0%, #1a0b12 100%)',
+        borderRight: '1px solid rgba(255, 30, 86, 0.2)',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '60px',
+        position: 'relative',
+        overflow: 'hidden'
+      }} className="hide-on-mobile">
         
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label>E-Mail</label>
-            <input 
-              type="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="deine@email.de"
-              required 
-            />
-          </div>
-          
-          <div className="form-group">
-            <label>Passwort</label>
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required 
-            />
-          </div>
+        <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '400px', height: '400px', background: 'rgba(255, 30, 86, 0.1)', filter: 'blur(100px)', borderRadius: '50%' }}></div>
+        <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '300px', height: '300px', background: 'rgba(255, 30, 86, 0.1)', filter: 'blur(100px)', borderRadius: '50%' }}></div>
 
-          {error && <div className="alert alert-danger" style={{ marginBottom: '20px' }}>{error}</div>}
-          {message && <div className="alert" style={{ backgroundColor: '#2a2a2a', borderLeft: '4px solid #00ff88', marginBottom: '20px' }}>{message}</div>}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ fontSize: '64px', marginBottom: '20px' }}>🛡️</div>
+          <h1 style={{ fontSize: '48px', fontWeight: 900, marginBottom: '20px', letterSpacing: '-1px' }}>
+            Betritt die <br/><span style={{ color: 'var(--accent-red)' }}>Kommandozentrale.</span>
+          </h1>
+          <p style={{ fontSize: '18px', color: 'var(--muted)', maxWidth: '400px', lineHeight: 1.6 }}>
+            Die ultimative Waffenkammer gegen E-Commerce-Trickser, Konzerne und ungerechte Bescheide. Hol dir dein Recht zurück.
+          </p>
+        </div>
+      </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '15px' }} disabled={loading}>
-            {loading ? 'Lädt...' : 'Einloggen'}
-          </button>
-        </form>
-
-        <button 
-          type="button" 
-          className="btn btn-secondary" 
-          style={{ width: '100%' }} 
-          onClick={handleSignUp}
-          disabled={loading}
-        >
-          Neuen Account erstellen
-        </button>
-
-        <div style={{ marginTop: '30px', textAlign: 'center' }}>
-          <Link href="/" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px' }}>
-            &larr; Zurück zur Startseite
+      {/* Right Form Side */}
+      <div style={{ 
+        flex: 1, 
+        display: 'flex', 
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '40px',
+        position: 'relative'
+      }}>
+        
+        <div style={{ position: 'absolute', top: '40px', right: '40px' }}>
+          <Link href="/" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>
+            &larr; Startseite
           </Link>
+        </div>
+
+        <div style={{ maxWidth: '400px', width: '100%' }}>
+          <h2 style={{ fontSize: '32px', marginBottom: '10px' }}>
+            {isSignUp ? 'Account erstellen' : 'Willkommen zurück'}
+          </h2>
+          <p style={{ color: 'var(--muted)', marginBottom: '40px' }}>
+            {isSignUp ? 'Werde Teil der Rebellion und sichere dir den Zugang.' : 'Logge dich ein, um deine Werkzeuge zu nutzen.'}
+          </p>
+          
+          <form onSubmit={handleSubmit}>
+            <div className="form-group" style={{ marginBottom: '20px' }}>
+              <label style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '8px', display: 'block' }}>E-Mail Adresse</label>
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="deine@email.de"
+                style={{ width: '100%', padding: '14px 16px', backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', fontSize: '16px', outline: 'none', transition: 'border 0.3s' }}
+                required 
+              />
+            </div>
+            
+            <div className="form-group" style={{ marginBottom: '30px' }}>
+              <label style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '8px', display: 'block' }}>Passwort</label>
+              <input 
+                type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                style={{ width: '100%', padding: '14px 16px', backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', fontSize: '16px', outline: 'none', transition: 'border 0.3s' }}
+                required 
+              />
+            </div>
+
+            {error && <div style={{ backgroundColor: 'rgba(255, 30, 86, 0.1)', border: '1px solid var(--accent-red)', color: 'white', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' }}>{error}</div>}
+            {message && <div style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)', border: '1px solid #00ff88', color: 'white', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' }}>{message}</div>}
+
+            <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '16px', fontSize: '16px', fontWeight: 600, letterSpacing: '0.5px' }} disabled={loading}>
+              {loading ? 'Lädt...' : (isSignUp ? 'Jetzt registrieren' : 'Sicher Einloggen')}
+            </button>
+          </form>
+
+          <div style={{ marginTop: '30px', textAlign: 'center' }}>
+            <p style={{ color: 'var(--muted)', fontSize: '14px' }}>
+              {isSignUp ? 'Du hast bereits einen Account?' : 'Noch kein Mitglied der Rebellion?'}
+              <button 
+                type="button" 
+                onClick={() => { setIsSignUp(!isSignUp); setError(null); setMessage(null); }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent-red)', cursor: 'pointer', fontWeight: 600, marginLeft: '8px', fontSize: '14px' }}
+              >
+                {isSignUp ? 'Hier einloggen' : 'Jetzt Account erstellen'}
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>
