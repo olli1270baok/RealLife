@@ -293,6 +293,10 @@ export default function BahnRebell() {
       <br><br><br>
       <p>${name.split('\n')[0]}</p>
     `);
+    
+    setTimeout(() => {
+      document.getElementById('view-preview')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   const printLetter = () => {
@@ -582,7 +586,7 @@ export default function BahnRebell() {
               </div>
 
               {letterHtml && (
-                <div style={{ marginTop: '24px' }}>
+                <div id="view-preview" style={{ marginTop: '24px' }}>
                   <div className="no-print" style={{ padding: '16px', background: 'var(--darker)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h3 style={{ margin: 0 }}>Brief-Vorschau</h3>
                     <button className="btn btn-secondary" onClick={printLetter}>🖨️ Drucken / PDF</button>
