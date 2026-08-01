@@ -110,6 +110,10 @@ header {
   color: var(--muted);
   text-decoration: none;
   cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
   border-left: 3px solid transparent;
   transition: all 0.2s;
   font-weight: 500;
