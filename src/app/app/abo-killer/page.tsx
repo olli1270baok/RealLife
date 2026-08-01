@@ -17,6 +17,29 @@ interface Subscription {
   status: 'active' | 'cancelled';
 }
 
+const CAT_COLORS: Record<string, string> = {
+  'Streaming': '#3498db',
+  'Fitness': '#2ecc71',
+  'Software': '#9b59b6',
+  'Versicherung': '#f1c40f',
+  'Wohnen': '#e67e22',
+  'Sonstiges': '#95a5a6'
+};
+
+const getDeadlineInfo = (endDateStr: string, noticeMonths: number) => {
+  if (!endDateStr) return null;
+  const end = new Date(endDateStr);
+  const deadline = new Date(end);
+  deadline.setMonth(deadline.getMonth() - noticeMonths);
+  const diffDays = Math.ceil((deadline.getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+  return {
+    dateStr: deadline.toLocaleDateString('de-DE'),
+    diffDays,
+    isUrgent: diffDays <= 30 && diffDays >= 0,
+    isOverdue: diffDays < 0
+  };
+};
+
 const PROVIDER_DB: Record<string, any> = {
   // STREAMING
   netflix: { name: 'Netflix', category: 'Streaming', price: 12.99, cycle: 'monthly', address: 'Netflix International B.V.\nKeizersgracht 440\n1016 GD Amsterdam\nNiederlande' },
@@ -245,6 +268,48 @@ export default function AboKiller() {
     }
   };
 
+  const exportBackup = () => {
+    const backupData = {
+      subs,
+      userName,
+      userAddress
+    };
+    const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `abokiller_backup_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const importBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target?.result as string);
+        if (data.subs) {
+          setSubs(data.subs);
+          localStorage.setItem('abokiller_subs', JSON.stringify(data.subs));
+        }
+        if (data.userName) {
+          setUserName(data.userName);
+          localStorage.setItem('abokiller_name', data.userName);
+        }
+        if (data.userAddress) {
+          setUserAddress(data.userAddress);
+          localStorage.setItem('abokiller_addr', data.userAddress);
+        }
+        alert('Backup erfolgreich importiert!');
+      } catch (err) {
+        alert('Fehler beim Importieren der Datei.');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   // Stats calc
   const activeSubs = subs.filter(s => s.status === 'active');
   const cancelledSubs = subs.filter(s => s.status === 'cancelled');
@@ -252,6 +317,12 @@ export default function AboKiller() {
   const monthlyTotal = activeSubs.reduce((acc, s) => acc + (s.cycle === 'monthly' ? s.price : s.price / 12), 0);
   const yearlyTotal = monthlyTotal * 12;
   const savedYearly = cancelledSubs.reduce((acc, s) => acc + (s.cycle === 'yearly' ? s.price : s.price * 12), 0);
+
+  const catTotals = activeSubs.reduce((acc: Record<string, number>, s) => {
+    const yearly = s.cycle === 'yearly' ? s.price : s.price * 12;
+    acc[s.category] = (acc[s.category] || 0) + yearly;
+    return acc;
+  }, {});
 
   return (
     <div className="app-container">
@@ -301,6 +372,35 @@ export default function AboKiller() {
                 </div>
               </div>
 
+              {yearlyTotal > 0 && (
+                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '40px' }}>
+                  <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px', marginBottom: '15px' }}>Kostenverteilung (Jährlich)</div>
+                  <div style={{ display: 'flex', height: '16px', borderRadius: '8px', overflow: 'hidden', marginBottom: '15px' }}>
+                    {Object.entries(catTotals).map(([cat, amount]) => {
+                      if (amount <= 0) return null;
+                      const percent = (amount / yearlyTotal) * 100;
+                      const color = CAT_COLORS[cat] || CAT_COLORS['Sonstiges'];
+                      return (
+                        <div key={cat} style={{ width: `${percent}%`, background: color }} title={`${cat}: ${amount.toFixed(2)}€`} />
+                      );
+                    })}
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', fontSize: '12px', color: 'var(--muted)' }}>
+                    {Object.entries(catTotals).map(([cat, amount]) => {
+                      if (amount <= 0) return null;
+                      const percent = (amount / yearlyTotal) * 100;
+                      const color = CAT_COLORS[cat] || CAT_COLORS['Sonstiges'];
+                      return (
+                        <div key={cat} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: color }} />
+                          {cat} ({percent.toFixed(1)}%)
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               <h2 style={{ marginBottom: '20px' }}>Meine Abos</h2>
               <div style={{ display: 'grid', gap: '12px' }}>
                 {subs.length === 0 ? (
@@ -308,16 +408,28 @@ export default function AboKiller() {
                     Noch keine Abos eingetragen. Klicke auf "Abo hinzufügen".
                   </div>
                 ) : (
-                  subs.map(s => (
-                    <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', background: 'var(--black)', border: '1px solid var(--border)', borderRadius: '8px', opacity: s.status === 'cancelled' ? 0.5 : 1 }}>
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <h3 style={{ margin: 0, fontSize: '18px', textDecoration: s.status === 'cancelled' ? 'line-through' : 'none' }}>{s.name}</h3>
-                          <span style={{ fontSize: '10px', background: 'var(--border)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>{s.category}</span>
+                  subs.map(s => {
+                    const dl = getDeadlineInfo(s.endDate, s.notice);
+                    const borderStyle = dl?.isUrgent && s.status === 'active' ? '1px solid #e74c3c' : '1px solid var(--border)';
+                    const bgStyle = dl?.isUrgent && s.status === 'active' ? 'rgba(231, 76, 60, 0.1)' : 'var(--black)';
+                    return (
+                      <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', background: bgStyle, border: borderStyle, borderRadius: '8px', opacity: s.status === 'cancelled' ? 0.5 : 1 }}>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <h3 style={{ margin: 0, fontSize: '18px', textDecoration: s.status === 'cancelled' ? 'line-through' : 'none' }}>{s.name}</h3>
+                            <span style={{ fontSize: '10px', background: 'var(--border)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>{s.category}</span>
+                            {dl?.isUrgent && s.status === 'active' && (
+                              <span style={{ fontSize: '10px', background: '#e74c3c', color: 'white', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', fontWeight: 'bold' }}>🚨 Kündigung eilt!</span>
+                            )}
+                          </div>
+                          {s.contract && <div style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px' }}>Vertrag: {s.contract}</div>}
+                          {dl && s.status === 'active' && (
+                            <div style={{ fontSize: '12px', color: dl.isUrgent ? '#e74c3c' : 'var(--muted)', marginTop: '4px', fontWeight: dl.isUrgent ? 'bold' : 'normal' }}>
+                              Stichtag: {dl.dateStr} {dl.isOverdue ? '(Frist verpasst)' : `(noch ${dl.diffDays} Tage)`}
+                            </div>
+                          )}
                         </div>
-                        {s.contract && <div style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px' }}>Vertrag: {s.contract}</div>}
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                         <div style={{ textAlign: 'right' }}>
                           <div style={{ fontSize: '20px', fontWeight: 700 }}>{s.price.toFixed(2).replace('.', ',')} €</div>
                           <div style={{ fontSize: '12px', color: 'var(--muted)' }}>{s.cycle === 'monthly' ? 'pro Monat' : 'pro Jahr'}</div>
@@ -331,7 +443,8 @@ export default function AboKiller() {
                         </div>
                       </div>
                     </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </section>
@@ -441,6 +554,17 @@ export default function AboKiller() {
                   </div>
                 </div>
 
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Vertragsende (Datum)</label>
+                    <input type="date" value={fEndDate} onChange={e => setFEndDate(e.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label>Kündigungsfrist (in Monaten)</label>
+                    <input type="number" min="0" value={fNotice} onChange={e => setFNotice(e.target.value)} placeholder="z.B. 1" />
+                  </div>
+                </div>
+
                 <div className="form-group">
                   <label>Kundennummer / Vertrags-ID (Wichtig für Kündigung)</label>
                   <input type="text" value={fContract} onChange={e => setFContract(e.target.value)} />
@@ -471,6 +595,21 @@ export default function AboKiller() {
                   <textarea value={userAddress} onChange={e => setUserAddress(e.target.value)} rows={3}></textarea>
                 </div>
                 <button className="btn btn-primary" onClick={saveSettings}>Speichern</button>
+              </div>
+
+              <h3 style={{ marginTop: '40px', marginBottom: '16px' }}>Daten sichern & wiederherstellen</h3>
+              <p style={{ color: 'var(--muted)', fontSize: '14px', marginBottom: '24px' }}>Lade alle deine Abos und Daten als Backup-Datei herunter. Du kannst sie jederzeit wieder einspielen, falls du das Gerät wechselst.</p>
+              
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <button className="btn btn-primary" style={{ background: '#3498db', borderColor: '#3498db' }} onClick={exportBackup}>
+                  ⬇️ Backup Exportieren (.json)
+                </button>
+                <div style={{ position: 'relative' }}>
+                  <input type="file" accept=".json" onChange={importBackup} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
+                  <button className="btn btn-secondary">
+                    ⬆️ Backup Importieren
+                  </button>
+                </div>
               </div>
             </section>
           )}
