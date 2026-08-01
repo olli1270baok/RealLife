@@ -33,7 +33,7 @@ export default function LandingPage() {
               background: 'linear-gradient(90deg, #ff1e56 0%, #ff8a00 100%)', 
               WebkitBackgroundClip: 'text', 
               WebkitTextFillColor: 'transparent' 
-            }}>verarschen.</span>
+            }}>hinhalten.</span>
           </h1>
           
           <p style={{ fontSize: '22px', color: 'var(--muted)', maxWidth: '650px', margin: '0 auto 40px', lineHeight: '1.6' }}>
