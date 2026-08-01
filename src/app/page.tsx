@@ -145,6 +145,18 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Footer */}
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '40px 20px', textAlign: 'center', background: 'rgba(0,0,0,0.3)' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', flexWrap: 'wrap', marginBottom: '16px' }}>
+          <a href="/impressum" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px' }}>Impressum</a>
+          <a href="/datenschutz" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px' }}>Datenschutz</a>
+          <a href="/agb" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px' }}>AGB & Widerruf</a>
+        </div>
+        <div style={{ color: 'var(--muted)', fontSize: '12px', opacity: 0.6 }}>
+          © {new Date().getFullYear()} Baokmedia. Alle Rechte vorbehalten. Die bereitgestellten Generatoren und Vorlagen ersetzen keine individuelle Rechtsberatung.
+        </div>
+      </footer>
+
     </div>
   );
 }

@@ -146,6 +146,12 @@ export default function Login() {
             </p>
           </div>
         </div>
+        {/* Footer */}
+        <div style={{ marginTop: 'auto', paddingTop: '40px', display: 'flex', justifyContent: 'center', gap: '24px' }}>
+          <a href="/impressum" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '12px' }}>Impressum</a>
+          <a href="/datenschutz" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '12px' }}>Datenschutz</a>
+          <a href="/agb" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '12px' }}>AGB & Widerruf</a>
+        </div>
       </div>
     </div>
   );
