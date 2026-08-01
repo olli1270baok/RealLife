@@ -11,6 +11,7 @@ interface TrainCase {
   amount: string;
   type: string;
   reason: string;
+  status?: 'offen' | 'eingereicht' | 'erfolgreich' | 'abgelehnt';
 }
 
 export default function BahnRebell() {
@@ -152,7 +153,7 @@ export default function BahnRebell() {
       amount: formattedAmount,
       msg: alertMsg,
       class: alertClass,
-      rawCalc: { id: Date.now().toString(), date, train, amount: formattedAmount, type: cTicketType, reason: cReason }
+      rawCalc: { id: Date.now().toString(), date, train, amount: formattedAmount, type: cTicketType, reason: cReason, status: 'offen' }
     });
   };
 
@@ -171,6 +172,16 @@ export default function BahnRebell() {
     localStorage.setItem('bahnrebell_cases', JSON.stringify(newCases));
   };
 
+  const updateCaseStatus = (id: string, newStatus: any) => {
+    const newCases = cases.map(c => c.id === id ? { ...c, status: newStatus } : c);
+    setCases(newCases);
+    localStorage.setItem('bahnrebell_cases', JSON.stringify(newCases));
+  };
+
+  const pendingAmount = cases.filter(c => c.status === 'eingereicht').reduce((acc, c) => acc + parseFloat(c.amount.replace(',', '.')), 0);
+  const successAmount = cases.filter(c => c.status === 'erfolgreich').reduce((acc, c) => acc + parseFloat(c.amount.replace(',', '.')), 0);
+  const openAmount = cases.filter(c => c.status === 'offen' || !c.status).reduce((acc, c) => acc + parseFloat(c.amount.replace(',', '.')), 0);
+
   const handleCaseSelect = (e: any) => {
     const id = e.target.value;
     setBCaseSelection(id);
@@ -179,6 +190,48 @@ export default function BahnRebell() {
       setBDate(c.date);
       setBTrain(c.train);
     }
+  };
+
+  const exportBackup = () => {
+    const backupData = {
+      cases,
+      bName,
+      bIban
+    };
+    const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bahnrebell_backup_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const importBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target?.result as string);
+        if (data.cases) {
+          setCases(data.cases);
+          localStorage.setItem('bahnrebell_cases', JSON.stringify(data.cases));
+        }
+        if (data.bName) {
+          setBName(data.bName);
+          localStorage.setItem('bahn_name', data.bName);
+        }
+        if (data.bIban) {
+          setBIban(data.bIban);
+          localStorage.setItem('bahn_iban', data.bIban);
+        }
+        alert('Backup erfolgreich importiert!');
+      } catch (err) {
+        alert('Fehler beim Importieren der Datei.');
+      }
+    };
+    reader.readAsText(file);
   };
 
   const generateLetter = () => {
@@ -281,11 +334,24 @@ export default function BahnRebell() {
       <p>Ihr Mitarbeiter hat sich mir (bzw. anderen Fahrgästen) gegenüber in höchstem Maße unprofessionell, beleidigend und unangemessen verhalten. Ein solches Verhalten von Dienstleistern gegenüber zahlenden Kunden ist völlig inakzeptabel und wirft ein desaströses Licht auf Ihr Unternehmen.</p>
       <p>Ich erwarte, dass Sie diesen Vorfall untersuchen, den betreffenden Zugbegleiter intern zur Rechenschaft ziehen und entsprechende disziplinarische Maßnahmen ergreifen. Ebenso erwarte ich eine formelle Entschuldigung für die erlittenen Unannehmlichkeiten.</p>
       <p>Mit freundlichen Grüßen,</p>`;
+    } else if (bArt === 'soep') {
+      subj = `Schlichtungsantrag: Ablehnung von Fahrgastrechten durch die Deutsche Bahn`;
+      body = `<p>Sehr geehrte Damen und Herren der Schlichtungsstelle,</p>
+      <p>hiermit rufe ich die Schlichtungsstelle für den öffentlichen Personenverkehr (söp) an, da das zuständige Eisenbahnunternehmen (DB Fernverkehr AG) meine berechtigten Forderungen aus der Reise am <strong>${date}</strong> mit dem Zug <strong>${train}</strong> abgelehnt hat.</p>
+      <p>Trotz eindeutiger Rechtslage gemäß EU-Verordnung 2021/782 weigert sich das Unternehmen, die geforderte Summe in Höhe von <strong>${amount} Euro</strong> zu erstatten.</p>
+      <p>Die gesamte vorangegangene Korrespondenz sowie Nachweise (Fahrkarten, Belege, Ablehnungsschreiben der Bahn) füge ich diesem Antrag in Kopie bei.</p>
+      <p>Ich bitte um Prüfung des Sachverhalts und Einleitung eines Schlichtungsverfahrens, um die Durchsetzung meiner gesetzlichen Fahrgastrechte zu erwirken.</p>
+      <p>Sollte die Schlichtung erfolgreich sein, bitte ich um Anweisung zur Überweisung auf folgendes Konto:</p>
+      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>`;
     }
+
+    const recipientHTML = bArt === 'soep' 
+      ? `An:<br>Schlichtungsstelle für den öffentlichen Personenverkehr e.V. (söp)<br>Fasanenstraße 81<br>10623 Berlin`
+      : `An:<br>DB Fernverkehr AG / Kundendialog<br>60647 Frankfurt am Main`;
 
     setLetterHtml(`
       <div class="sender">${name.replace(/\n/g, '<br>')}<br>[Deine Straße]<br>[PLZ Ort]<br></div>
-      <div class="recipient">An:<br>DB Fernverkehr AG / Kundendialog<br>60647 Frankfurt am Main</div>
+      <div class="recipient">${recipientHTML}</div>
       <div class="date">${today}</div>
       <div class="subject">${subj}</div>
       ${body}
@@ -326,6 +392,10 @@ export default function BahnRebell() {
           <span className="nav-label">Juristische Waffen</span>
           <button className={`nav-item ${activeView === 'ausreden' ? 'active' : ''}`} onClick={() => switchView('ausreden')}><span className="nav-icon">🛡️</span> Die neue EU-Regel (2023)</button>
         </div>
+        <div className="nav-group">
+          <span className="nav-label">Einstellungen</span>
+          <button className={`nav-item ${activeView === 'settings' ? 'active' : ''}`} onClick={() => switchView('settings')}><span className="nav-icon">⚙️</span> Backup & Restore</button>
+        </div>
       </aside>
 
       <main className="main-content relative">
@@ -357,6 +427,21 @@ export default function BahnRebell() {
                 </div>
               </div>
 
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', borderLeft: '4px solid #f39c12' }}>
+                  <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px' }}>Offene Forderungen</div>
+                  <div style={{ fontSize: '32px', fontWeight: 800, marginTop: '8px' }}>{openAmount.toFixed(2).replace('.', ',')} €</div>
+                </div>
+                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', borderLeft: '4px solid #3498db' }}>
+                  <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px' }}>Eingereicht (Wartend)</div>
+                  <div style={{ fontSize: '32px', fontWeight: 800, marginTop: '8px' }}>{pendingAmount.toFixed(2).replace('.', ',')} €</div>
+                </div>
+                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', borderLeft: '4px solid #2ecc71' }}>
+                  <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px' }}>Erfolgreich zurückgeholt</div>
+                  <div style={{ fontSize: '32px', fontWeight: 800, marginTop: '8px', color: '#2ecc71' }}>{successAmount.toFixed(2).replace('.', ',')} €</div>
+                </div>
+              </div>
+
               <h3 style={{ color: 'var(--white)', marginBottom: '16px' }}>Gespeicherte Fälle</h3>
               <div style={{ display: 'grid', gap: '12px' }}>
                 {cases.length === 0 ? (
@@ -364,11 +449,24 @@ export default function BahnRebell() {
                 ) : (
                   cases.map(c => (
                     <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', background: 'var(--black)', border: '1px solid var(--border)', borderRadius: '8px' }}>
-                      <div>
-                        <div style={{ fontWeight: 700, fontSize: '16px', color: 'var(--accent-red)', marginBottom: '4px' }}>{c.amount} €</div>
-                        <div style={{ fontSize: '13px', color: 'var(--muted)' }}>{c.train} — {c.date}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <div style={{ width: '4px', height: '40px', borderRadius: '2px', background: c.status === 'erfolgreich' ? '#2ecc71' : c.status === 'eingereicht' ? '#3498db' : c.status === 'abgelehnt' ? '#e74c3c' : '#f39c12' }}></div>
+                        <div>
+                          <div style={{ fontWeight: 700, fontSize: '18px', color: 'var(--accent-red)', marginBottom: '4px' }}>{c.amount} €</div>
+                          <div style={{ fontSize: '13px', color: 'var(--muted)' }}>{c.train} — {c.date}</div>
+                        </div>
                       </div>
-                      <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <select 
+                          value={c.status || 'offen'} 
+                          onChange={(e) => updateCaseStatus(c.id, e.target.value)}
+                          style={{ padding: '6px 12px', fontSize: '12px', background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '4px', color: 'var(--white)' }}
+                        >
+                          <option value="offen">🟡 Offen</option>
+                          <option value="eingereicht">🔵 Eingereicht</option>
+                          <option value="erfolgreich">🟢 Erfolgreich</option>
+                          <option value="abgelehnt">🔴 Abgelehnt</option>
+                        </select>
                         <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '12px', borderColor: 'rgba(255,82,82,0.3)', color: '#ff5252' }} onClick={() => deleteCase(c.id)}>Löschen</button>
                       </div>
                     </div>
@@ -490,7 +588,7 @@ export default function BahnRebell() {
             <section className="view active" id="view-briefe">
               <div className="no-print">
                 <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Formular-Ersatz</span>
-                <h2>PDF-Brief-Terminal (9 Vorlagen)</h2>
+                <h2>PDF-Brief-Terminal (10 Vorlagen)</h2>
                 <p>Generiere hier druckfertige juristische PDF-Schreiben gegen die Bahn. Wähle einfach den passenden Fall aus.</p>
 
                 <div className="card highlight" style={{ borderTop: '4px solid var(--accent-red)', marginTop: '32px' }}>
@@ -512,6 +610,9 @@ export default function BahnRebell() {
                         <option value="strafe">Widerspruch 60€ Strafe (DB App defekt / Akku leer)</option>
                         <option value="klima">Schmerzensgeld (Defekte Klimaanlage / Hitze)</option>
                         <option value="beschwerde">Formelle Dienstaufsichtsbeschwerde (Personal)</option>
+                      </optgroup>
+                      <optgroup label="Eskalation (Letzte Instanz)">
+                        <option value="soep">SÖP Schlichtungsstelle (Eskalation nach Ablehnung)</option>
                       </optgroup>
                     </select>
                   </div>
@@ -594,6 +695,29 @@ export default function BahnRebell() {
                   <div className="letter-paper" dangerouslySetInnerHTML={{ __html: letterHtml }} />
                 </div>
               )}
+            </section>
+          )}
+
+          {/* SETTINGS (BACKUP) */}
+          {activeView === 'settings' && (
+            <section className="view active">
+              <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Datenverwaltung</span>
+              <h2>Backup & Wiederherstellung</h2>
+              <p style={{ color: 'var(--muted)' }}>Lade alle deine Bahn-Fälle und Standard-Absenderdaten als Backup-Datei (.json) herunter. Du kannst sie jederzeit auf einem anderen Gerät (oder nach einem Browser-Reset) wieder einspielen.</p>
+              
+              <div className="card highlight" style={{ borderTop: '4px solid var(--accent-red)', marginTop: '32px' }}>
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <button className="btn btn-primary" style={{ background: '#3498db', borderColor: '#3498db' }} onClick={exportBackup}>
+                    ⬇️ Backup Exportieren (.json)
+                  </button>
+                  <div style={{ position: 'relative' }}>
+                    <input type="file" accept=".json" onChange={importBackup} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
+                    <button className="btn btn-secondary">
+                      ⬆️ Backup Importieren
+                    </button>
+                  </div>
+                </div>
+              </div>
             </section>
           )}
 
