@@ -1,9 +1,25 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function Home() {
   const [activeView, setActiveView] = useState('dashboard');
+  const [isPro, setIsPro] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [loadingUser, setLoadingUser] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        setUserId(session.user.id);
+        setIsPro(session.user.app_metadata?.is_pro === true);
+      }
+      setLoadingUser(false);
+    };
+    fetchUser();
+  }, []);
 
   // Paket State
   const [pKaeufer, setPKaeufer] = useState('privat');
@@ -145,8 +161,41 @@ export default function Home() {
         </div>
       </aside>
 
-      <main className="main-content">
+      <main className="main-content" style={{ position: 'relative' }}>
         <div className="content-wrapper">
+          {/* PAYWALL OVERLAY */}
+          {!loadingUser && !isPro && (
+            <div style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0, bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              backdropFilter: 'blur(5px)',
+              zIndex: 100,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '40px',
+              textAlign: 'center'
+            }}>
+              <div className="card" style={{ maxWidth: '500px', border: '1px solid var(--accent-red)' }}>
+                <h2>Master-Pass erforderlich 🔒</h2>
+                <p style={{ color: 'var(--muted)', marginBottom: '30px' }}>
+                  Die Tools sind für dich aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.
+                </p>
+                <a 
+                  href={`https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01?client_reference_id=${userId}`} 
+                  className="btn btn-primary" 
+                  style={{ width: '100%', fontSize: '18px', padding: '16px', display: 'block', textDecoration: 'none' }}
+                >
+                  Jetzt Master-Pass kaufen (19€)
+                </a>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '20px', marginBottom: 0 }}>
+                  Nach der Zahlung wird dein Account automatisch und sofort freigeschaltet. (Lade die Seite nach der Rückkehr ggf. einmal neu).
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
