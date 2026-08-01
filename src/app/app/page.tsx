@@ -76,6 +76,39 @@ export default function AppDashboard() {
                 )}
               </div>
               
+              <div className={`card ${!loading && !isPro ? '' : 'highlight'}`} style={{cursor: 'pointer', position: 'relative'}} onClick={() => router.push('/app/bahn-rebell')}>
+                {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
+                <h3 style={{color: !loading && !isPro ? 'var(--muted)' : 'var(--accent-red)'}}>🚄 Bahn-Rebell</h3>
+                <p style={{color: !loading && !isPro ? 'var(--muted)' : 'white'}}>60€ Strafe? Zug verspätet? 9 juristische Brief-Vorlagen.</p>
+                {!loading && !isPro ? (
+                  <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
+                ) : (
+                  <div style={{marginTop: '16px', color: 'var(--accent-blue)', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
+                )}
+              </div>
+
+              <div className={`card ${!loading && !isPro ? '' : 'highlight'}`} style={{cursor: 'pointer', position: 'relative'}} onClick={() => router.push('/app/flug-rebell')}>
+                {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
+                <h3 style={{color: !loading && !isPro ? 'var(--muted)' : 'var(--accent-red)'}}>✈️ Flug-Rebell</h3>
+                <p style={{color: !loading && !isPro ? 'var(--muted)' : 'white'}}>EU 261/2004 Entschädigungs-Rechner und Ausreden-Buster.</p>
+                {!loading && !isPro ? (
+                  <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
+                ) : (
+                  <div style={{marginTop: '16px', color: 'var(--accent-blue)', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
+                )}
+              </div>
+
+              <div className={`card ${!loading && !isPro ? '' : 'highlight'}`} style={{cursor: 'pointer', position: 'relative'}} onClick={() => router.push('/app/abo-killer')}>
+                {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
+                <h3 style={{color: !loading && !isPro ? 'var(--muted)' : 'var(--accent-red)'}}>💸 Abo-Killer</h3>
+                <p style={{color: !loading && !isPro ? 'var(--muted)' : 'white'}}>Fixkosten-Dashboard und Kündigungs-PDF Generator für über 40 Dienste.</p>
+                {!loading && !isPro ? (
+                  <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
+                ) : (
+                  <div style={{marginTop: '16px', color: 'var(--accent-blue)', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
+                )}
+              </div>
+              
               <div className="card" style={{opacity: 0.5, position: 'relative'}}>
                 {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
                 <h3>🏥 Patienten-Bollwerk</h3>
