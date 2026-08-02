@@ -986,3 +986,59 @@ body.theme-retouren h2 {
 body.theme-retouren h3 {
   color: #ffffff;
 }
+
+/* Glow Yellow */
+.glow-yellow:hover {
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Theme: Launcher (Soft Midnight Blue & Cool Teal/Indigo) */
+body.theme-launcher {
+  --bg: #0b1120; /* Friendly soft midnight blue */
+  --card: rgba(255, 255, 255, 0.02);
+  --card-hover: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.06);
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --accent-blue: #00f0ff;
+  --accent-red: #ff3b6f;
+}
+
+body.theme-launcher .bg-blob-container {
+  background: #0b1120;
+}
+
+body.theme-launcher .bg-blob-1 {
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, transparent 85%);
+}
+
+body.theme-launcher .bg-blob-2 {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 85%);
+}
+
+body.theme-launcher .bg-blob-3 {
+  background: radial-gradient(circle, rgba(192, 64, 255, 0.08) 0%, transparent 85%);
+}
+
+body.theme-launcher header {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 17, 32, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.theme-launcher h2 {
+  color: #a5b4fc; /* Soft indigo title */
+  border-bottom-color: var(--border);
+}
+
+body.theme-launcher h3 {
+  color: #ffffff;
+}
+
+body.theme-launcher .gradient-title {
+  background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
