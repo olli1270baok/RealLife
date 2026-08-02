@@ -116,6 +116,7 @@ export default function AboKiller() {
   const [letterHtml, setLetterHtml] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [scanStep, setScanStep] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Form
   const [fName, setFName] = useState('');
@@ -150,6 +151,7 @@ export default function AboKiller() {
     const uAddr = localStorage.getItem('abokiller_addr');
     if (uName) setUserName(uName);
     if (uAddr) setUserAddress(uAddr);
+    setIsLoaded(true);
   }, []);
 
   const handleCheckout = async () => {
@@ -369,31 +371,41 @@ export default function AboKiller() {
         <div className="content-wrapper">
           {activeView === 'dashboard' && (
             <section className="view active">
+              <div className="tech-anim-container no-print" style={{ height: '90px', marginBottom: '32px' }}>
+                <svg width="100%" height="90" viewBox="0 0 800 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 30 70 Q 200 20 400 60 T 770 30" stroke="rgba(16, 185, 129, 0.1)" strokeWidth="4" />
+                  <path d="M 30 70 Q 200 20 400 60 T 770 30" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" className="timeline-path" />
+                  <circle cx="30" cy="70" r="6" fill="#030712" stroke="#10b981" strokeWidth="2.5" className="timeline-dot" style={{ color: '#10b981' }} />
+                  <circle cx="400" cy="60" r="5" fill="#030712" stroke="var(--accent-purple)" strokeWidth="2" className="timeline-dot" style={{ color: 'var(--accent-purple)', animationDelay: '0.6s' }} />
+                  <circle cx="770" cy="30" r="7" fill="#030712" stroke="#10b981" strokeWidth="3" className="timeline-dot" style={{ color: '#10b981', animationDelay: '1.2s' }} />
+                </svg>
+              </div>
+
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', borderLeft: '4px solid #3498db' }}>
+                <div className="card glow-blue" style={{ borderLeft: '4px solid var(--accent-blue)', padding: '24px' }}>
                   <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px' }}>Fixkosten / Monat</div>
                   <div style={{ fontSize: '32px', fontWeight: 800, marginTop: '8px' }}>{monthlyTotal.toFixed(2).replace('.', ',')} €</div>
                 </div>
-                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', borderLeft: '4px solid #f39c12' }}>
+                <div className="card glow-purple" style={{ borderLeft: '4px solid var(--accent-purple)', padding: '24px' }}>
                   <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px' }}>Fixkosten / Jahr</div>
                   <div style={{ fontSize: '32px', fontWeight: 800, marginTop: '8px' }}>{yearlyTotal.toFixed(2).replace('.', ',')} €</div>
                 </div>
-                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', borderLeft: '4px solid #27ae60' }}>
+                <div className="card glow-emerald" style={{ borderLeft: '4px solid #10b981', padding: '24px' }}>
                   <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px' }}>Gekündigt (Gespart/Jahr)</div>
-                  <div style={{ fontSize: '32px', fontWeight: 800, marginTop: '8px', color: '#27ae60' }}>{savedYearly.toFixed(2).replace('.', ',')} €</div>
+                  <div className="text-emerald" style={{ fontSize: '32px', fontWeight: 800, marginTop: '8px' }}>{savedYearly.toFixed(2).replace('.', ',')} €</div>
                 </div>
               </div>
 
               {yearlyTotal > 0 && (
-                <div style={{ background: 'var(--card)', padding: '24px', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '40px' }}>
+                <div className="card" style={{ padding: '24px', marginBottom: '40px' }}>
                   <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600, letterSpacing: '1px', marginBottom: '15px' }}>Kostenverteilung (Jährlich)</div>
-                  <div style={{ display: 'flex', height: '16px', borderRadius: '8px', overflow: 'hidden', marginBottom: '15px' }}>
+                  <div style={{ display: 'flex', height: '16px', borderRadius: '8px', overflow: 'hidden', marginBottom: '15px', background: 'rgba(255,255,255,0.03)' }}>
                     {Object.entries(catTotals).map(([cat, amount]) => {
                       if (amount <= 0) return null;
                       const percent = (amount / yearlyTotal) * 100;
                       const color = CAT_COLORS[cat] || CAT_COLORS['Sonstiges'];
                       return (
-                        <div key={cat} style={{ width: `${percent}%`, background: color }} title={`${cat}: ${amount.toFixed(2)}€`} />
+                        <div key={cat} style={{ width: isLoaded ? `${percent}%` : '0%', transition: 'width 1s cubic-bezier(0.16, 1, 0.3, 1)', background: color }} title={`${cat}: ${amount.toFixed(2)}€`} />
                       );
                     })}
                   </div>

@@ -637,4 +637,21 @@ input:focus, select:focus, textarea:focus {
   justify-content: center;
 }
 
+/* Emerald Styles */
+.glow-emerald:hover {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4) !important;
+}
+
+.text-emerald {
+  color: #10b981 !important;
+}
+
+.gradient-title-emerald {
+  background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
 
