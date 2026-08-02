@@ -306,13 +306,13 @@ export default function FlugRebell() {
     <div className="app-container">
       <aside className="sidebar no-print">
         <div className="nav-group">
-          <span className="nav-label">Zentrale</span>
+          <span className="nav-label">Cockpit</span>
           <button className={`nav-item ${activeView === 'dashboard' ? 'active' : ''}`} onClick={() => switchView('dashboard')}><span className="nav-icon">📊</span> Dashboard</button>
           <button className={`nav-item ${activeView === 'rechner' ? 'active' : ''}`} onClick={() => switchView('rechner')}><span className="nav-icon">🧮</span> Entschädigungs-Rechner</button>
         </div>
         
         <div className="nav-group">
-          <span className="nav-label">Waffenarsenal</span>
+          <span className="nav-label">Hilfe & Tools</span>
           <button className={`nav-item ${activeView === 'briefe' ? 'active' : ''}`} onClick={() => switchView('briefe')}><span className="nav-icon">📜</span> PDF-Brief-Terminal (5)</button>
           <button className={`nav-item ${activeView === 'ausreden' ? 'active' : ''}`} onClick={() => switchView('ausreden')}><span className="nav-icon">🛡️</span> Ausreden-Buster (EuGH)</button>
         </div>

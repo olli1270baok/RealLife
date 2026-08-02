@@ -346,13 +346,13 @@ export default function AboKiller() {
     <div className="app-container">
       <aside className="sidebar no-print">
         <div className="nav-group">
-          <span className="nav-label">Zentrale</span>
+          <span className="nav-label">Cockpit</span>
           <button className={`nav-item ${activeView === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveView('dashboard')}><span className="nav-icon">📊</span> Dashboard</button>
           <button className={`nav-item ${activeView === 'neu' ? 'active' : ''}`} onClick={() => setActiveView('neu')}><span className="nav-icon">➕</span> Abo hinzufügen</button>
         </div>
         
         <div className="nav-group">
-          <span className="nav-label">Waffenarsenal</span>
+          <span className="nav-label">Hilfe & Tools</span>
           <button className={`nav-item ${activeView === 'ghost' ? 'active' : ''}`} onClick={() => setActiveView('ghost')}><span className="nav-icon">🕵️</span> Ghost Detektiv</button>
           <button className={`nav-item ${activeView === 'settings' ? 'active' : ''}`} onClick={() => setActiveView('settings')}><span className="nav-icon">⚙️</span> Einstellungen (Absender)</button>
         </div>

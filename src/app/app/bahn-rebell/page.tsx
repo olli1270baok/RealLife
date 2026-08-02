@@ -395,7 +395,7 @@ export default function BahnRebell() {
     <div className="app-container">
       <aside className="sidebar no-print">
         <div className="nav-group">
-          <span className="nav-label">Kommando</span>
+          <span className="nav-label">Cockpit</span>
           <button className={`nav-item ${activeView === 'dashboard' ? 'active' : ''}`} onClick={() => switchView('dashboard')}><span className="nav-icon">🚄</span> Dashboard</button>
           <button className={`nav-item ${activeView === 'rechner' ? 'active' : ''}`} onClick={() => switchView('rechner')}><span className="nav-icon">🧮</span> Entschädigungs-Rechner</button>
         </div>
@@ -406,7 +406,7 @@ export default function BahnRebell() {
         </div>
         
         <div className="nav-group">
-          <span className="nav-label">Juristische Waffen</span>
+          <span className="nav-label">Hilfe & Tools</span>
           <button className={`nav-item ${activeView === 'ausreden' ? 'active' : ''}`} onClick={() => switchView('ausreden')}><span className="nav-icon">🛡️</span> Die neue EU-Regel (2023)</button>
         </div>
         <div className="nav-group">

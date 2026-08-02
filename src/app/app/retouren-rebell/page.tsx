@@ -242,7 +242,7 @@ export default function RetourenRebell() {
     <div className="app-container">
       <aside className="sidebar no-print">
         <div className="nav-group">
-          <span className="nav-label">Dashboard</span>
+          <span className="nav-label">Cockpit</span>
           <button className={`nav-item ${activeView === 'dashboard' ? 'active' : ''}`} onClick={() => switchView('dashboard')}><span className="nav-icon">🛡️</span> Home</button>
         </div>
         
@@ -266,7 +266,7 @@ export default function RetourenRebell() {
         </div>
 
         <div className="nav-group">
-          <span className="nav-label">Spezial-Abwehr</span>
+          <span className="nav-label">Sonderfälle</span>
           <button className={`nav-item ${activeView === 'schufa' ? 'active' : ''}`} onClick={() => switchView('schufa')}><span className="nav-icon">🛑</span> Inkasso- & Schufa-Blocker</button>
           <button className={`nav-item ${activeView === 'tickets' ? 'active' : ''}`} onClick={() => switchView('tickets')}><span className="nav-icon">🎟️</span> Ticket-Mafia & Dark-Patterns</button>
         </div>

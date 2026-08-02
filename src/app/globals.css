@@ -504,7 +504,7 @@ input:focus, select:focus, textarea:focus {
   position: absolute;
   border-radius: 50%;
   filter: blur(140px);
-  opacity: 0.08;
+  opacity: 0.14;
   animation: float 20s infinite ease-in-out alternate;
 }
 
@@ -761,7 +761,7 @@ body.theme-bahn .alert-danger {
 
 /* Theme: Flug-Rebell (Deep Sky Navy & Sky-Cyan) */
 body.theme-flug {
-  --bg: #030a1e;
+  --bg: #0b1224;
   --card: rgba(10, 25, 60, 0.3);
   --card-hover: rgba(10, 25, 60, 0.55);
   --border: rgba(0, 240, 255, 0.1);
@@ -771,7 +771,7 @@ body.theme-flug {
 }
 
 body.theme-flug .bg-blob-container {
-  background: #030a1e;
+  background: #0b1224;
 }
 
 body.theme-flug .bg-blob-1 {
@@ -839,7 +839,7 @@ body.theme-flug h3 {
 
 /* Theme: Abo-Killer (Charcoal Black & Cyber Emerald) */
 body.theme-abo {
-  --bg: #030712;
+  --bg: #090e17;
   --card: rgba(255, 255, 255, 0.02);
   --card-hover: rgba(255, 255, 255, 0.05);
   --border: rgba(255, 255, 255, 0.06);
@@ -849,7 +849,7 @@ body.theme-abo {
 }
 
 body.theme-abo .bg-blob-container {
-  background: #030712;
+  background: #090e17;
 }
 
 body.theme-abo .bg-blob-1 {
@@ -911,7 +911,7 @@ body.theme-abo h3 {
 
 /* Theme: Retouren-Rebell (Carbon Slate & Warning Orange) */
 body.theme-retouren {
-  --bg: #07090e;
+  --bg: #0e111a;
   --card: rgba(30, 35, 45, 0.2);
   --card-hover: rgba(30, 35, 45, 0.4);
   --border: rgba(245, 158, 11, 0.1);
@@ -921,7 +921,7 @@ body.theme-retouren {
 }
 
 body.theme-retouren .bg-blob-container {
-  background: #07090e;
+  background: #0e111a;
 }
 
 body.theme-retouren .bg-blob-1 {
