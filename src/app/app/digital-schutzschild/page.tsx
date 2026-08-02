@@ -19,7 +19,7 @@ export default function DigitalSchutzschild() {
   const [userName, setUserName] = useState('');
   const [userAddr, setUserAddr] = useState('');
 
-  // 12 Brief-Generator Inputs
+  // 12 Original Brief-Generator Inputs
   // Brief 1: DSGVO Auskunft
   const [b1Firma, setB1Firma] = useState('');
   const [b1FirmaAdr, setB1FirmaAdr] = useState('');
@@ -73,7 +73,7 @@ export default function DigitalSchutzschild() {
   const [b7Details, setB7Details] = useState('');
   const [b7Tone, setB7Tone] = useState('firm');
 
-  // Brief 8-11: Social Media Sperren (Instagram, Facebook, YouTube, TikTok)
+  // Brief 8-11: Social Media Sperren
   const [smUsername, setSmUsername] = useState('');
   const [smEmail, setSmEmail] = useState('');
   const [smDatum, setSmDatum] = useState('');
@@ -102,6 +102,48 @@ export default function DigitalSchutzschild() {
   const [b14Werk, setB14Werk] = useState('');
   const [b14UrlOriginal, setB14UrlOriginal] = useState('');
   const [b14UrlKopie, setB14UrlKopie] = useState('');
+
+  // NEW FEATURES INPUTS
+  // 1. Datenleck-Schadensersatz
+  const [dlPlatform, setDlPlatform] = useState('meta');
+  const [dlPlatformAdr, setDlPlatformAdr] = useState('Meta Platforms Ireland Limited\n4 Grand Canal Square, Grand Canal Harbour\nDublin 2, Irland');
+  const [dlComp, setDlComp] = useState('500');
+  const [dlDate, setDlDate] = useState('');
+  const [dlTone, setDlTone] = useState('firm');
+
+  // 2. Schufa Auskunft & Löschung
+  const [schufaAuskunftTone, setSchufaAuskunftTone] = useState('firm');
+  const [schufaLoeschungProvider, setSchufaLoeschungProvider] = useState('schufa');
+  const [schufaLoeschungProviderAdr, setSchufaLoeschungProviderAdr] = useState('SCHUFA Holding AG\nReferat Verbraucherschutz\nKormoranweg 5, 65201 Wiesbaden');
+  const [schufaLoeschungGlaeubiger, setSchufaLoeschungGlaeubiger] = useState('');
+  const [schufaLoeschungAz, setSchufaLoeschungAz] = useState('');
+  const [schufaLoeschungDatum, setSchufaLoeschungDatum] = useState('');
+
+  // 3. KI Opt-Out
+  const [kiWebsite, setKiWebsite] = useState('');
+  const [kiOwner, setKiOwner] = useState('');
+  const [kiTone, setKiTone] = useState('firm');
+
+  // 4. WLAN-Haftungsausschluss
+  const [wlanHost, setWlanHost] = useState('');
+  const [wlanGuest, setWlanGuest] = useState('');
+  const [wlanGuestId, setWlanGuestId] = useState('');
+  const [wlanAddr, setWlanAddr] = useState('');
+
+  // 5. Cybersecurity Toolkit (Passwort Generator & Checklist)
+  const [pwLength, setPwLength] = useState(16);
+  const [pwUpper, setPwUpper] = useState(true);
+  const [pwNumbers, setPwNumbers] = useState(true);
+  const [pwSymbols, setPwSymbols] = useState(true);
+  const [generatedPassword, setGeneratedPassword] = useState('');
+  const [secChecklist, setSecChecklist] = useState<Record<string, boolean>>({
+    google2fa: false,
+    insta2fa: false,
+    paypal2fa: false,
+    apple2fa: false,
+    pwManager: false,
+    backupFristen: false
+  });
 
   // 3 Calculators States
   const [calcGw, setCalcGw] = useState(5000);
@@ -153,6 +195,9 @@ export default function DigitalSchutzschild() {
           setUserName(parsed.profile.name || '');
           setUserAddr(parsed.profile.addr || '');
         }
+        if (parsed.secChecklist) {
+          setSecChecklist(parsed.secChecklist);
+        }
       } else {
         // Set default date to today for tracker
         setFristStart(new Date().toISOString().split('T')[0]);
@@ -167,12 +212,19 @@ export default function DigitalSchutzschild() {
   }, [router]);
 
   // Sync state to local storage
-  const saveState = (updatedFristen = fristen, count = statBriefe, name = userName, addr = userAddr) => {
+  const saveState = (
+    updatedFristen = fristen,
+    count = statBriefe,
+    name = userName,
+    addr = userAddr,
+    chk = secChecklist
+  ) => {
     try {
       localStorage.setItem('vb_schuetzschild_v1', JSON.stringify({
         fristen: updatedFristen,
         counters: { briefe: count },
-        profile: { name, addr }
+        profile: { name, addr },
+        secChecklist: chk
       }));
     } catch (e) {
       console.error(e);
@@ -220,7 +272,9 @@ export default function DigitalSchutzschild() {
     ebay: { name: 'eBay GmbH', adr: 'Albert-Einstein-Ring 2-6\n14532 Kleinmachnow' },
     jameda: { name: 'Jameda GmbH', adr: 'Balcke-Dürr-Allee 2\n40882 Ratingen' },
     trustpilot: { name: 'Trustpilot A/S', adr: 'Pilestræde 58, 5. Stock\n1112 Kopenhagen, Dänemark' },
-    amazon: { name: 'Amazon Europe Core S.à r.l.', adr: '38 avenue John F. Kennedy\nL-1855 Luxemburg' }
+    amazon: { name: 'Amazon Europe Core S.à r.l.', adr: '38 avenue John F. Kennedy\nL-1855 Luxemburg' },
+    linkedin: { name: 'LinkedIn Ireland Unlimited Company', adr: 'Wilton Place, Wilton Terrace\nDublin 2, Irland' },
+    deezer: { name: 'Deezer S.A.', adr: '24 rue de Calais\n75009 Paris, Frankreich' }
   };
 
   const applyFirmaPreset = (targetBrief: string, presetKey: string) => {
@@ -230,6 +284,21 @@ export default function DigitalSchutzschild() {
     if (targetBrief === 'b2') { setB2Firma(p.name); setB2FirmaAdr(p.adr); }
     if (targetBrief === 'b3') { setB3Firma(p.name); }
     if (targetBrief === 'b14') { setB14Plattform(p.name); setB14PlattformAdr(p.adr); }
+    if (targetBrief === 'dl') { setDlPlatform(p.name); setDlPlatformAdr(p.adr); }
+  };
+
+  // Preset for Schufa & Credit Bureaus
+  const BONI_PRESETS: Record<string, { name: string, adr: string }> = {
+    schufa: { name: 'SCHUFA Holding AG', adr: 'Referat Verbraucherschutz\nKormoranweg 5, 65201 Wiesbaden' },
+    crif: { name: 'CRIF Bürgel GmbH', adr: 'Friesenweg 4, Haus 12\n22763 Hamburg' },
+    infoscore: { name: 'Infoscore Consumer Data GmbH', adr: 'Rheinstraße 99\n76532 Baden-Baden' }
+  };
+
+  const applyBoniPreset = (presetKey: string) => {
+    const p = BONI_PRESETS[presetKey];
+    if (!p) return;
+    setSchufaLoeschungProvider(p.name);
+    setSchufaLoeschungProviderAdr(p.adr);
   };
 
   // Frist-Tracker Actions
@@ -273,7 +342,6 @@ export default function DigitalSchutzschild() {
     saveState(updated);
   };
 
-  // Calculate functions
   // 1. Abmahnkosten (RVG)
   const basisGebTab = [
     { value: 500, geb: 49 },
@@ -308,7 +376,7 @@ export default function DigitalSchutzschild() {
     for (let row of basisGebTab) {
       if (gw <= row.value) return row.geb;
     }
-    return Math.round(110 + (gw * 0.015)); // rough estimate for extremely high values
+    return Math.round(110 + (gw * 0.015)); 
   };
 
   const calcAbmahnTotal = () => {
@@ -358,6 +426,26 @@ export default function DigitalSchutzschild() {
     return { min: baseSchaden, max: baseSchaden * 2 };
   };
 
+  // Password Generator function
+  const generateNewPassword = () => {
+    let chars = 'abcdefghijklmnopqrstuvwxyz';
+    if (pwUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (pwNumbers) chars += '0123456789';
+    if (pwSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+    let result = '';
+    for (let i = 0; i < pwLength; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setGeneratedPassword(result);
+  };
+
+  const handleCopyPassword = () => {
+    if (!generatedPassword) return;
+    navigator.clipboard.writeText(generatedPassword);
+    alert('Passwort in die Zwischenablage kopiert!');
+  };
+
   // PDF / Print action
   const handlePrint = (briefId: string) => {
     setStatBriefe(prev => {
@@ -384,6 +472,12 @@ export default function DigitalSchutzschild() {
     e.preventDefault();
     saveState(fristen, statBriefe, userName, userAddr);
     alert('Absenderdaten erfolgreich lokal gespeichert!');
+  };
+
+  const toggleChecklist = (key: string) => {
+    const updated = { ...secChecklist, [key]: !secChecklist[key] };
+    setSecChecklist(updated);
+    saveState(fristen, statBriefe, userName, userAddr, updated);
   };
 
   // Helper date formatter
@@ -413,6 +507,13 @@ export default function DigitalSchutzschild() {
         </div>
 
         <div className="nav-group">
+          <span className="nav-label">🚨 Datenlecks & Bonität</span>
+          <button className={`nav-item ${activeView === 'dl_schadensersatz' ? 'active' : ''}`} onClick={() => setActiveView('dl_schadensersatz')}>💸 Datenleck Schaden</button>
+          <button className={`nav-item ${activeView === 'schufa_auskunft' ? 'active' : ''}`} onClick={() => setActiveView('schufa_auskunft')}>📈 Schufa Gratis-Kopie</button>
+          <button className={`nav-item ${activeView === 'schufa_loeschung' ? 'active' : ''}`} onClick={() => setActiveView('schufa_loeschung')}>🗑️ Schufa Löschung</button>
+        </div>
+
+        <div className="nav-group">
           <span className="nav-label">⭐ Bewertungen</span>
           <button className={`nav-item ${activeView === 'bew_google' ? 'active' : ''}`} onClick={() => setActiveView('bew_google')}>🔍 Google löschen</button>
           <button className={`nav-item ${activeView === 'bew_jameda' ? 'active' : ''}`} onClick={() => setActiveView('bew_jameda')}>🩺 Jameda entfernen</button>
@@ -429,7 +530,9 @@ export default function DigitalSchutzschild() {
         </div>
 
         <div className="nav-group">
-          <span className="nav-label">⚖️ Urheberrecht</span>
+          <span className="nav-label">⚖️ Urheberrecht & KI</span>
+          <button className={`nav-item ${activeView === 'ki_optout' ? 'active' : ''}`} onClick={() => setActiveView('ki_optout')}>🤖 KI Training Opt-Out</button>
+          <button className={`nav-item ${activeView === 'wlan_schutz' ? 'active' : ''}`} onClick={() => setActiveView('wlan_schutz')}>🌐 WLAN Haftungsausschl.</button>
           <button className={`nav-item ${activeView === 'urh_abmahnung' ? 'active' : ''}`} onClick={() => setActiveView('urh_abmahnung')}>🚨 Erste Hilfe Abmahn</button>
           <button className={`nav-item ${activeView === 'urh_unterlassung' ? 'active' : ''}`} onClick={() => setActiveView('urh_unterlassung')}>✍️ Mod. Unterlassung</button>
           <button className={`nav-item ${activeView === 'urh_counter' ? 'active' : ''}`} onClick={() => setActiveView('urh_counter')}>🛡️ Gegenabmahnung</button>
@@ -437,7 +540,8 @@ export default function DigitalSchutzschild() {
         </div>
 
         <div className="nav-group">
-          <span className="nav-label">Einstellungen</span>
+          <span className="nav-label">Sicherheit & FAQ</span>
+          <button className={`nav-item ${activeView === 'security_toolkit' ? 'active' : ''}`} onClick={() => setActiveView('security_toolkit')}>🔐 Cybersecurity Tool</button>
           <button className={`nav-item ${activeView === 'faq' ? 'active' : ''}`} onClick={() => setActiveView('faq')}>❓ Rechtsinfos & FAQ</button>
           <button className={`nav-item ${activeView === 'einstellungen' ? 'active' : ''}`} onClick={() => setActiveView('einstellungen')}>⚙️ Absender (Profile)</button>
         </div>
@@ -446,7 +550,7 @@ export default function DigitalSchutzschild() {
       {/* Main Content Area */}
       <main className="main-content relative">
         {/* Blurry paywall overlay for non-pro users */}
-        {!loadingUser && !isPro && activeView !== 'dashboard' && activeView !== 'rechner' && activeView !== 'faq' && (
+        {!loadingUser && !isPro && activeView !== 'dashboard' && activeView !== 'rechner' && activeView !== 'faq' && activeView !== 'security_toolkit' && (
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(9, 11, 20, 0.85)', backdropFilter: 'blur(20px)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
@@ -477,9 +581,9 @@ export default function DigitalSchutzschild() {
             <div className="grid-4" style={{ marginTop: '32px' }}>
               <div className="card">
                 <div style={{ fontSize: '32px', marginBottom: '12px' }}>🛡️</div>
-                <h3>Aktive Schutzschilde</h3>
-                <div className="stat" style={{ fontSize: '36px', fontWeight: 800, color: 'var(--accent-blue)' }}>12</div>
-                <p style={{ fontSize: '12px', color: 'var(--muted)' }}>Dokumenten-Generatoren</p>
+                <h3>Schutzwerkzeuge</h3>
+                <div className="stat" style={{ fontSize: '36px', fontWeight: 800, color: 'var(--accent-blue)' }}>18</div>
+                <p style={{ fontSize: '12px', color: 'var(--muted)' }}>Offline Generatoren & Tools</p>
               </div>
               <div className="card">
                 <div style={{ fontSize: '32px', marginBottom: '12px' }}>⏳</div>
@@ -509,20 +613,20 @@ export default function DigitalSchutzschild() {
                 <h3>Schnellstart: Was ist passiert?</h3>
                 <p style={{ fontSize: '13px', color: 'var(--muted)', marginBottom: '16px' }}>Wähle dein aktuelles Problem aus, um direkt zum passenden Tool zu gelangen.</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('dsgvo_auskunft')}>
-                    <span>🔒 "Ich will wissen, was X über mich speichert"</span> ➔
+                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('dl_schadensersatz')}>
+                    <span>💸 "Ich bin Opfer eines Facebook- oder Deezer-Datenlecks"</span> ➔
                   </button>
-                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('dsgvo_loeschung')}>
-                    <span>🗑️ "Unternehmen X soll meine Daten löschen"</span> ➔
+                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('schufa_auskunft')}>
+                    <span>📈 "Ich will meine kostenlose Schufa-Selbstauskunft anfordern"</span> ➔
                   </button>
-                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('bew_google')}>
-                    <span>⭐ "Eine Google-Bewertung schädigt meinen Ruf"</span> ➔
+                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('schufa_loeschung')}>
+                    <span>🗑️ "Die Schufa speichert falsche oder alte Einträge über mich"</span> ➔
                   </button>
-                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('sm_instagram')}>
-                    <span>📱 "Mein Social-Media-Konto wurde grundlos gesperrt"</span> ➔
+                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('ki_optout')}>
+                    <span>🤖 "Ich will das Scraping meiner Bilder/Texte für KI verbieten"</span> ➔
                   </button>
-                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('urh_abmahnung')}>
-                    <span>⚖️ "Ich habe eine Urheberrechts-Abmahnung erhalten"</span> ➔
+                  <button className="btn btn-secondary" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between' }} onClick={() => setActiveView('wlan_schutz')}>
+                    <span>🌐 "Ich teile mein WLAN mit Gästen und brauche Schutz"</span> ➔
                   </button>
                 </div>
               </div>
@@ -1164,217 +1268,59 @@ export default function DigitalSchutzschild() {
           </section>
         )}
 
-        {/* 7. BEWERTUNGEN: GOOGLE LÖSCHEN */}
-        {activeView === 'bew_google' && (
+        {/* NEW FEATURE: DATENLECK SCHADENSERSATZ */}
+        {activeView === 'dl_schadensersatz' && (
           <section className="view active">
             <div className="grid-2">
               <div className="card">
-                <h3>Google-Bewertung löschen lassen</h3>
-                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>Google haftet als Host-Provider ab Kenntnisnahme für rufschädigende, unwahre oder beleidigende Rezensionen auf Google Maps.</p>
+                <h3>Schadensersatz-Forderung (Art. 82 DSGVO Datenleck)</h3>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>
+                  Nach ständiger EuGH-Rechtsprechung führt ein Datenleck (wie das von Facebook oder Deezer) zu einem immateriellen Kontrollverlust, der schadensersatzpflichtig ist.
+                </p>
                 <div className="form-grid-1">
                   <div className="form-group">
-                    <label>URL der Google-Bewertung / deines Eintrags</label>
-                    <input type="text" value={b4Url} onChange={e => setB4Url(e.target.value)} placeholder="z. B. https://maps.google.com/..." />
-                  </div>
-                  <div className="form-group">
-                    <label>Name des Rezensenten</label>
-                    <input type="text" value={b4Name} onChange={e => setB4Name(e.target.value)} placeholder="z. B. 'Max M.' oder Pseudonym" />
-                  </div>
-                  <div className="form-group">
-                    <label>Verstoß-Begründung</label>
-                    <select value={b4Grund} onChange={e => setB4Grund(e.target.value)}>
-                      <option value="kein_kontakt">Kein Kundenkontakt (Fake-Bewertung)</option>
-                      <option value="unwahrheit">Rufschädigende Unwahrheiten (Tatsachenbehauptung)</option>
-                      <option value="beleidigung">Beleidigung / Schmähkritik</option>
-                      <option value="mitarbeiter">Ehemaliger Mitarbeiter (Interessenskonflikt)</option>
+                    <label>Betroffene Plattform (Preset)</label>
+                    <select onChange={e => applyFirmaPreset('dl', e.target.value)}>
+                      <option value="meta">Meta (Facebook Leak 2021)</option>
+                      <option value="deezer">Deezer Leak 2023</option>
+                      <option value="linkedin">LinkedIn Leak 2021</option>
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Beschreibung des genauen Inhalts der Bewertung</label>
-                    <textarea rows={3} value={b4Details} onChange={e => setB4Details(e.target.value)} placeholder="z. B. Der Nutzer schreibt, ich hätte ihn 'betrogen'. Dies ist eine unwahre Tatsachenbehauptung. Es gab nie eine vertragliche Beziehung."></textarea>
+                    <label>Firmenname</label>
+                    <input type="text" value={dlPlatform} onChange={e => setDlPlatform(e.target.value)} />
                   </div>
                   <div className="form-group">
-                    <label>Tonalität des Schreibens</label>
-                    <select value={b4Tone} onChange={e => setB4Tone(e.target.value)}>
-                      <option value="friendly">Sachlich (Standard)</option>
-                      <option value="firm">Bestimmt (BGH Rechtsprechung)</option>
-                      <option value="lawyer">Sehr streng (Haftungs-Androhung)</option>
-                    </select>
+                    <label>Anschrift der Plattform</label>
+                    <textarea rows={2} value={dlPlatformAdr} onChange={e => setDlPlatformAdr(e.target.value)} style={{ resize: 'none' }}></textarea>
                   </div>
-                  <button className="btn btn-primary" onClick={() => handlePrint('b4-preview')}>📄 PDF generieren / Drucken</button>
-                </div>
-              </div>
-
-              {/* Brief Vorschau */}
-              <div className="card">
-                <h3>Brief-Vorschau</h3>
-                <div id="b4-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
-                  <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
-                    <div>DIGITAL-SCHUTZSCHILD · Google-Bewertung Beanstandung</div>
-                    <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
-                  </div>
-                  <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-                    <strong>{userName || '[Dein Name]'}</strong><br/>
-                    {userAddr ? nl2br(userAddr) : '[Deine Anschrift]'}
-                  </div>
-                  <div style={{ textAlign: 'left', marginBottom: '30px' }}>
-                    An:<br/>
-                    <strong>Google Ireland Limited</strong><br/>
-                    Gordon House, Barrow Street<br/>
-                    Dublin 4, Irland
-                  </div>
-                  <div style={{ textAlign: 'right', marginBottom: '20px' }}>Datum: {new Date().toLocaleDateString('de-DE')}</div>
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Rüge einer rechtsverletzenden Bewertung (Google Maps / Google Business)</div>
-                  
-                  <p>Sehr geehrte Damen und Herren,</p>
-                  <p>hiermit rüge ich die rechtsverletzende Bewertung des Nutzers <strong>"{b4Name || '[Name des Rezensenten]'}"</strong> auf meiner Google Business / Google Maps Seite.</p>
-                  <p>URL des Eintrags: <strong>{b4Url || '[URL]'}</strong></p>
-                  
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Begründung und Rügegegenstand</h4>
-                  <p>
-                    {b4Grund === 'kein_kontakt' && 'Es besteht kein Kundenkontakt. Der Rezensent stand zu keinem Zeitpunkt in einer geschäftlichen Beziehung zu meinem Unternehmen. Es handelt sich um eine Fake-Bewertung.'}
-                    {b4Grund === 'unwahrheit' && 'Die Bewertung enthält unwahre Tatsachenbehauptungen, die geeignet sind, den Ruf meines Gewerbebetriebs massiv zu schädigen.'}
-                    {b4Grund === 'beleidigung' && 'Die Formulierung überschreitet die Grenze zur Schmähkritik und stellt eine unzulässige Beleidigung dar.'}
-                    {b4Grund === 'mitarbeiter' && 'Der Rezensent ist ein ehemaliger Mitarbeiter, welcher durch die Bewertung wettbewerbswidrige Rache übt.'}
-                  </p>
-                  
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Konkreter Verstoß</h4>
-                  <p>{b4Details || '[Details]'}</p>
-
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Rechtlicher Hebel</h4>
-                  <p>Gemäß der ständigen BGH-Rechtsprechung (u.a. BGH VI ZR 34/15) sind Sie als Host-Provider verpflichtet, nach Erhalt einer solchen substanziierten Rüge das Stellungnahmeverfahren einzuleiten und die Bewertung zu entfernen, falls der Verfasser die geschäftliche Beziehung oder den Wahrheitsgehalt nicht nachweist.</p>
-                  <p>Ich fordere Sie auf, die Bewertung innerhalb von <strong>{getToneObj(b4Tone).frist}</strong> zu löschen oder zu sperren.</p>
-
-                  <div dangerouslySetInnerHTML={{ __html: getToneObj(b4Tone).eskal }}></div>
-                  <p style={{ marginTop: '20px' }}>Mit freundlichen Grüßen,</p>
-                  <p style={{ marginTop: '40px' }}>___________________________<br/>{userName || '[Dein Name]'}</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* 8. BEWERTUNGEN: JAMEDA */}
-        {activeView === 'bew_jameda' && (
-          <section className="view active">
-            <div className="grid-2">
-              <div className="card">
-                <h3>Jameda-Profil & Bewertungen entfernen</h3>
-                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>Ärzte und Heilberufler können unliebsame Bewertungen oder sogar das gesamte Profil auf Jameda löschen lassen (BGH 2018).</p>
-                <div className="form-grid-1">
-                  <div className="form-group">
-                    <label>URL deines Jameda-Profils</label>
-                    <input type="text" value={b5Url} onChange={e => setB5Url(e.target.value)} placeholder="z. B. https://www.jameda.de/..." />
-                  </div>
-                  <div className="form-group">
-                    <label>Name des Rezensenten (falls spezifische Bewertung)</label>
-                    <input type="text" value={b5Name} onChange={e => setB5Name(e.target.value)} placeholder="z. B. 'Anonym' oder Name" />
-                  </div>
-                  <div className="form-group">
-                    <label>Sachverhalt / Unwahrheiten</label>
-                    <textarea rows={3} value={b5Details} onChange={e => setB5Details(e.target.value)} placeholder="z. B. Patient behauptet, ich hätte eine Falschbehandlung vorgenommen. Dieser Patient war nie in meiner Praxis registriert."></textarea>
-                  </div>
-                  <div className="form-group">
-                    <label>Tonalität</label>
-                    <select value={b5Tone} onChange={e => setB5Tone(e.target.value)}>
-                      <option value="friendly">Sachlich (Standard)</option>
-                      <option value="firm">Bestimmt (BGH-Urteil zitiert)</option>
-                      <option value="lawyer">Sehr streng (Anwalts-Drohung)</option>
-                    </select>
-                  </div>
-                  <button className="btn btn-primary" onClick={() => handlePrint('b5-preview')}>📄 PDF generieren / Drucken</button>
-                </div>
-              </div>
-
-              {/* Brief Vorschau */}
-              <div className="card">
-                <h3>Brief-Vorschau</h3>
-                <div id="b5-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
-                  <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
-                    <div>DIGITAL-SCHUTZSCHILD · Jameda Rüge</div>
-                    <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
-                  </div>
-                  <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-                    <strong>{userName || '[Dein Name]'}</strong><br/>
-                    {userAddr ? nl2br(userAddr) : '[Deine Anschrift]'}
-                  </div>
-                  <div style={{ textAlign: 'left', marginBottom: '30px' }}>
-                    An:<br/>
-                    <strong>Jameda GmbH</strong><br/>
-                    Balcke-Dürr-Allee 2<br/>
-                    40882 Ratingen
-                  </div>
-                  <div style={{ textAlign: 'right', marginBottom: '20px' }}>Datum: {new Date().toLocaleDateString('de-DE')}</div>
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Rüge einer unzulässigen Bewertung auf Jameda</div>
-                  
-                  <p>Sehr geehrte Damen und Herren,</p>
-                  <p>hiermit rüge ich die auf Ihrem Portal veröffentlichte Bewertung des Rezensenten <strong>"{b5Name || 'Anonym'}"</strong> auf meinem Profil.</p>
-                  <p>URL des Arztprofils: <strong>{b5Url || '[URL]'}</strong></p>
-                  
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Begründung</h4>
-                  <p>Der geschilderte Vorfall entspricht nicht der Wahrheit. Ein Behandlungsverhältnis mit dem Verfasser der Bewertung hat zu keinem Zeitpunkt bestanden.</p>
-                  <p>{b5Details || '[Details]'}</p>
-
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Rechtlicher Hintergrund</h4>
-                  <p>Nach dem wegweisenden BGH-Urteil (Az. I ZR 109/17) haben Ärzte das Recht, Profile auf Bewertungssystemen entfernen zu lassen, wenn die Plattform ihre Neutralitätsrolle verletzt. Zudem sind Sie verpflichtet, die Identität und das Behandlungsverhältnis des Bewerters im Rügeverfahren streng zu prüfen.</p>
-                  <p>Ich fordere Sie auf, die Bewertung innerhalb von <strong>{getToneObj(b5Tone).frist}</strong> zu löschen.</p>
-
-                  <div dangerouslySetInnerHTML={{ __html: getToneObj(b5Tone).eskal }}></div>
-                  <p style={{ marginTop: '20px' }}>Mit freundlichen Grüßen,</p>
-                  <p style={{ marginTop: '40px' }}>___________________________<br/>{userName || '[Dein Name]'}</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* 9. BEWERTUNGEN: EBAY / AMAZON */}
-        {activeView === 'bew_ebay' && (
-          <section className="view active">
-            <div className="grid-2">
-              <div className="card">
-                <h3>eBay/Amazon Bewertung anfechten</h3>
-                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>Schütze deine Händler-Reputation vor Erpressungen, Beleidigungen oder unberechtigten Negativ-Bewertungen.</p>
-                <div className="form-grid-1">
                   <div className="form-grid-2">
                     <div className="form-group">
-                      <label>Plattform</label>
-                      <select value={b6Plattform} onChange={e => setB6Plattform(e.target.value)}>
-                        <option value="ebay">eBay</option>
-                        <option value="amazon">Amazon</option>
-                      </select>
+                      <label>Schadensersatz-Höhe (€)</label>
+                      <input type="number" value={dlComp} onChange={e => setDlComp(e.target.value)} min={100} step={100} />
                     </div>
                     <div className="form-group">
-                      <label>Artikelnummer / ASIN</label>
-                      <input type="text" value={b6Item} onChange={e => setB6Item(e.target.value)} placeholder="z. B. Item-ID: 1294819" />
+                      <label>Erhalt der Kenntnis (Datum)</label>
+                      <input type="date" value={dlDate} onChange={e => setDlDate(e.target.value)} />
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <label>Käufername / Transaktions-ID</label>
-                    <input type="text" value={b6Name} onChange={e => setB6Name(e.target.value)} placeholder="z. B. 'buyer_99' / Transaktion: TX-900" />
-                  </div>
-                  <div className="form-group">
-                    <label>Verstoß-Details</label>
-                    <textarea rows={3} value={b6Details} onChange={e => setB6Details(e.target.value)} placeholder="z. B. Der Käufer hat mich negativ bewertet, weil ich mich geweigert habe, ihm nachträglich 50% Rabatt zu erstatten. Das ist Erpressung."></textarea>
                   </div>
                   <div className="form-group">
                     <label>Tonalität</label>
-                    <select value={b6Tone} onChange={e => setB6Tone(e.target.value)}>
-                      <option value="friendly">Sachlich (Standard)</option>
-                      <option value="firm">Bestimmt</option>
-                      <option value="lawyer">Streng</option>
+                    <select value={dlTone} onChange={e => setDlTone(e.target.value)}>
+                      <option value="firm">Bestimmt (Frist 14 Tage)</option>
+                      <option value="lawyer">Sehr streng (Klage-Drohung)</option>
                     </select>
                   </div>
-                  <button className="btn btn-primary" onClick={() => handlePrint('b6-preview')}>📄 PDF generieren / Drucken</button>
+                  <button className="btn btn-primary" onClick={() => handlePrint('dl-preview')}>📄 PDF generieren / Drucken</button>
                 </div>
               </div>
 
               {/* Brief Vorschau */}
               <div className="card">
                 <h3>Brief-Vorschau</h3>
-                <div id="b6-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
+                <div id="dl-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
                   <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
-                    <div>DIGITAL-SCHUTZSCHILD · Händlerbewertung Rüge</div>
+                    <div>DIGITAL-SCHUTZSCHILD · Art. 82 DSGVO Datenleck</div>
                     <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
                   </div>
                   <div style={{ textAlign: 'left', marginBottom: '20px' }}>
@@ -1383,23 +1329,25 @@ export default function DigitalSchutzschild() {
                   </div>
                   <div style={{ textAlign: 'left', marginBottom: '30px' }}>
                     An:<br/>
-                    <strong>{b6Plattform === 'ebay' ? 'eBay GmbH' : 'Amazon Europe Core S.à r.l.'}</strong><br/>
-                    {b6Plattform === 'ebay' ? 'Albert-Einstein-Ring 2-6\n14532 Kleinmachnow' : '38 avenue John F. Kennedy\nL-1855 Luxemburg'}
+                    <strong>{dlPlatform || '[Plattform]'}</strong><br/>
+                    {dlPlatformAdr ? nl2br(dlPlatformAdr) : '[Anschrift]'}
                   </div>
                   <div style={{ textAlign: 'right', marginBottom: '20px' }}>Datum: {new Date().toLocaleDateString('de-DE')}</div>
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Meldung einer unzulässigen Händlerbewertung ({b6Plattform === 'ebay' ? 'eBay' : 'Amazon'})</div>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Schadensersatz-Forderung wegen Sicherheitsvorfall & DSGVO-Verstoß nach Art. 82 DSGVO</div>
                   
                   <p>Sehr geehrte Damen und Herren,</p>
-                  <p>hiermit beanstande ich eine unberechtigte, geschäftsschädigende Bewertung durch den Käufer <strong>"{b6Name || '[Käufername]'}"</strong>.</p>
-                  <p>Betroffener Artikel / Transaktion: <strong>{b6Item || '[Artikel-ID]'}</strong></p>
+                  <p>ich wende mich an Sie bezüglich des schwerwiegenden Datenlecks auf Ihrer Plattform, von dem auch meine personenbezogenen Daten betroffen sind. Ich habe am <strong>{formatDateStr(dlDate) || '[Datum]'}</strong> gesicherte Kenntnis darüber erhalten.</p>
+                  <p>Durch unzureichende Sicherheitsmaßnahmen (Verstoß gegen Art. 32 DSGVO) konnten Unbefugte Zugriff auf meine Daten (u.a. Telefonnummer, Name, E-Mail-Adresse) erlangen. Dieser unbefugte Zugriff führte bei mir zu einem erheblichen Kontrollverlust, vermehrtem Spam und Phishing-Versuchen sowie erheblichem emotionalen Stress (immaterieller Schaden).</p>
                   
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Begründung</h4>
-                  <p>Der Käufer verstößt mit dieser Bewertung gegen Ihre Händler- und Community-Richtlinien. Die Bewertung beruht auf sachfremden Motiven oder unzulässigen Forderungen.</p>
-                  <p>{b6Details || '[Details]'}</p>
-
-                  <p>Ich fordere Sie auf, die Bewertung im Rahmen Ihres internen Prüfungsverfahrens unverzüglich, spätestens jedoch innerhalb von <strong>{getToneObj(b6Tone).frist}</strong> zu löschen.</p>
-
-                  <div dangerouslySetInnerHTML={{ __html: getToneObj(b6Tone).eskal }}></div>
+                  <p>Nach **Art. 82 Abs. 1 DSGVO** hat jede Person, der wegen eines Verstoßes gegen diese Verordnung ein materieller oder immaterieller Schaden entstanden ist, Anspruch auf Schadensersatz gegen den Verantwortlichen. Die Schwere des Schadens ist dabei nach der Rechtsprechung des EuGH (u.a. Urteil vom 14.12.2023 - C-340/21) unerheblich; der Kontrollverlust allein begründet bereits den Anspruch.</p>
+                  
+                  <p>Ich fordere Sie daher auf, mir eine angemessene Entschädigung für diesen immateriellen Schaden in Höhe von:</p>
+                  <p style={{ padding: '12px', background: '#f9f9f9', borderLeft: '3px solid #8b5cf6', margin: '14px 0', fontSize: '16px', fontWeight: 'bold' }}>
+                    {dlComp} €
+                  </p>
+                  <p>auf mein Konto zu überweisen. Ich setze Ihnen hierfür eine Frist von <strong>{getToneObj(dlTone).frist}</strong>.</p>
+                  
+                  <div dangerouslySetInnerHTML={{ __html: getToneObj(dlTone).eskal }}></div>
                   <p style={{ marginTop: '20px' }}>Mit freundlichen Grüßen,</p>
                   <p style={{ marginTop: '40px' }}>___________________________<br/>{userName || '[Dein Name]'}</p>
                 </div>
@@ -1408,44 +1356,49 @@ export default function DigitalSchutzschild() {
           </section>
         )}
 
-        {/* 10. BEWERTUNGEN: TRUSTPILOT */}
-        {activeView === 'bew_trustpilot' && (
+        {/* NEW FEATURE: SCHUFA GRATIS KOPIE */}
+        {activeView === 'schufa_auskunft' && (
           <section className="view active">
             <div className="grid-2">
               <div className="card">
-                <h3>Trustpilot-Bewertung löschen</h3>
-                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>Trustpilot reagiert empfindlich auf falsche Bewertungen ohne Kaufbeleg. Nutze dies aus, um unberechtigte Rufschädigung zu stoppen.</p>
+                <h3>Kostenlose Datenkopie (Art. 15 DSGVO) anfordern</h3>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>
+                  Auskunfteien sind verpflichtet, dir einmal jährlich eine vollständige Übersicht deiner Daten (die sogenannte Datenkopie nach Art. 15 DSGVO) völlig kostenfrei zuzusenden.
+                </p>
                 <div className="form-grid-1">
                   <div className="form-group">
-                    <label>URL der Trustpilot-Seite / der Bewertung</label>
-                    <input type="text" value={b7Url} onChange={e => setB7Url(e.target.value)} placeholder="z. B. https://de.trustpilot.com/review/..." />
+                    <label>Auskunftei (Preset)</label>
+                    <select onChange={e => applyBoniPreset(e.target.value)}>
+                      <option value="schufa">SCHUFA Holding AG</option>
+                      <option value="crif">CRIF Bürgel GmbH</option>
+                      <option value="infoscore">Infoscore Consumer Data</option>
+                    </select>
                   </div>
                   <div className="form-group">
-                    <label>Name des Rezensenten</label>
-                    <input type="text" value={b7Name} onChange={e => setB7Name(e.target.value)} placeholder="z. B. 'Gast' oder Name" />
+                    <label>Auskunftei Name</label>
+                    <input type="text" value={schufaLoeschungProvider} onChange={e => setSchufaLoeschungProvider(e.target.value)} />
                   </div>
                   <div className="form-group">
-                    <label>Begründung der Rüge</label>
-                    <textarea rows={3} value={b7Details} onChange={e => setB7Details(e.target.value)} placeholder="z. B. Der Bewerter behauptet fälschlicherweise, wir würden Kundengelder veruntreuen. Dies ist strafbare Verleumdung."></textarea>
+                    <label>Anschrift</label>
+                    <textarea rows={3} value={schufaLoeschungProviderAdr} onChange={e => setSchufaLoeschungProviderAdr(e.target.value)} style={{ resize: 'none' }}></textarea>
                   </div>
                   <div className="form-group">
                     <label>Tonalität</label>
-                    <select value={b7Tone} onChange={e => setB7Tone(e.target.value)}>
-                      <option value="friendly">Sachlich (Standard)</option>
-                      <option value="firm">Bestimmt</option>
-                      <option value="lawyer">Streng</option>
+                    <select value={schufaAuskunftTone} onChange={e => setSchufaAuskunftTone(e.target.value)}>
+                      <option value="firm">Bestimmt (Frist 1 Monat)</option>
+                      <option value="lawyer">Strikte Aufforderung</option>
                     </select>
                   </div>
-                  <button className="btn btn-primary" onClick={() => handlePrint('b7-preview')}>📄 PDF generieren / Drucken</button>
+                  <button className="btn btn-primary" onClick={() => handlePrint('schufa-ausk-preview')}>📄 PDF generieren / Drucken</button>
                 </div>
               </div>
 
               {/* Brief Vorschau */}
               <div className="card">
                 <h3>Brief-Vorschau</h3>
-                <div id="b7-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
+                <div id="schufa-ausk-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
                   <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
-                    <div>DIGITAL-SCHUTZSCHILD · Trustpilot Rüge</div>
+                    <div>DIGITAL-SCHUTZSCHILD · Schufa Gratis-Auskunft</div>
                     <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
                   </div>
                   <div style={{ textAlign: 'left', marginBottom: '20px' }}>
@@ -1454,24 +1407,22 @@ export default function DigitalSchutzschild() {
                   </div>
                   <div style={{ textAlign: 'left', marginBottom: '30px' }}>
                     An:<br/>
-                    <strong>Trustpilot A/S</strong><br/>
-                    Pilestræde 58, 5. Stock<br/>
-                    1112 Kopenhagen, Dänemark
+                    <strong>{schufaLoeschungProvider || '[Auskunftei]'}</strong><br/>
+                    {schufaLoeschungProviderAdr ? nl2br(schufaLoeschungProviderAdr) : '[Anschrift]'}
                   </div>
                   <div style={{ textAlign: 'right', marginBottom: '20px' }}>Datum: {new Date().toLocaleDateString('de-DE')}</div>
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Rüge wegen rechtswidriger Fake-Bewertung auf Trustpilot</div>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Antrag auf Erteilung einer kostenlosen Datenkopie gemäß Art. 15 DSGVO</div>
                   
                   <p>Sehr geehrte Damen und Herren,</p>
-                  <p>hiermit rüge ich die auf Ihrem Portal veröffentlichte Bewertung des Rezensenten <strong>"{b7Name || '[Name Rezensent]'}"</strong>.</p>
-                  <p>Link zur Bewertungsseite: <strong>{b7Url || '[URL]'}</strong></p>
+                  <p>hiermit fordere ich Sie auf, mir unentgeltlich Auskunft über die zu meiner Person gespeicherten Daten gemäß **Art. 15 DSGVO** zu erteilen.</p>
+                  <p>Bitte senden Sie mir eine vollständige **Datenkopie nach Art. 15 Abs. 3 DSGVO** zu. Diese muss alle Daten enthalten, die Sie über meine Person gespeichert haben, inklusive:</p>
+                  <ul style={{ marginLeft: '20px', marginBottom: '14px' }}>
+                    <li>Meines aktuellen und der historischen Score-Werte der letzten 12 Monate</li>
+                    <li>Sämtlicher Angaben zu deren Berechnung (Wahrscheinlichkeitswerte)</li>
+                    <li>Der Herkunft aller Datensätze sowie eventueller Empfänger</li>
+                  </ul>
+                  <p>Ich weise darauf hin, dass diese Auskunft gemäß Art. 12 Abs. 3 DSGVO unverzüglich, spätestens jedoch innerhalb eines Monats nach Antragstellung zu erteilen ist.</p>
                   
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Sachverhalt</h4>
-                  <p>Der Bewerter war nie Kunde unseres Unternehmens und verstößt durch haltlose Schmähungen gegen Ihre Nutzungsbedingungen.</p>
-                  <p>{b7Details || '[Details]'}</p>
-
-                  <p>Ich fordere Sie auf, die Bewertung im Rahmen Ihrer Prüfpflichten unverzüglich, spätestens jedoch innerhalb von <strong>{getToneObj(b7Tone).frist}</strong> zu löschen.</p>
-
-                  <div dangerouslySetInnerHTML={{ __html: getToneObj(b7Tone).eskal }}></div>
                   <p style={{ marginTop: '20px' }}>Mit freundlichen Grüßen,</p>
                   <p style={{ marginTop: '40px' }}>___________________________<br/>{userName || '[Dein Name]'}</p>
                 </div>
@@ -1480,100 +1431,341 @@ export default function DigitalSchutzschild() {
           </section>
         )}
 
-        {/* 11. SOCIAL MEDIA SPERREN: GENERAL TEMPLATE */}
-        {(activeView === 'sm_instagram' || activeView === 'sm_facebook' || activeView === 'sm_youtube' || activeView === 'sm_tiktok') && (
+        {/* NEW FEATURE: SCHUFA LÖSCHUNG */}
+        {activeView === 'schufa_loeschung' && (
           <section className="view active">
-            <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '11px', fontWeight: 800, color: 'var(--accent-blue)', marginBottom: '8px', display: 'block' }}>Social Media Sperren</span>
-            <h2>Widerspruch gegen Account-Sperrung ({activeView === 'sm_instagram' ? 'Instagram' : activeView === 'sm_facebook' ? 'Facebook' : activeView === 'sm_youtube' ? 'YouTube' : 'TikTok'})</h2>
-            <p className="lead">Fälschliche Accountsperren verstoßen gegen das vertragliche Willkürverbot. Zwinge die Plattform zur Freischaltung.</p>
+            <div className="grid-2">
+              <div className="card">
+                <h3>Löschung veralteter/falscher Einträge beantragen</h3>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>
+                  Nach EuGH-Rechtsprechung und Verbraucherschutzrichtlinien dürfen Einträge über Insolvenzverfahren oder Restschuldbefreiung nur noch maximal 6 Monate gespeichert werden.
+                </p>
+                <div className="form-grid-1">
+                  <div className="form-group">
+                    <label>Auskunftei (Preset)</label>
+                    <select onChange={e => applyBoniPreset(e.target.value)}>
+                      <option value="schufa">SCHUFA Holding AG</option>
+                      <option value="crif">CRIF Bürgel GmbH</option>
+                      <option value="infoscore">Infoscore Consumer Data</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Auskunftei Name</label>
+                    <input type="text" value={schufaLoeschungProvider} onChange={e => setSchufaLoeschungProvider(e.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label>Anschrift</label>
+                    <textarea rows={2} value={schufaLoeschungProviderAdr} onChange={e => setSchufaLoeschungProviderAdr(e.target.value)} style={{ resize: 'none' }}></textarea>
+                  </div>
+                  <div className="form-grid-2">
+                    <div className="form-group">
+                      <label>Gläubiger des Eintrags</label>
+                      <input type="text" value={schufaLoeschungGlaeubiger} onChange={e => setSchufaLoeschungGlaeubiger(e.target.value)} placeholder="z. B. Musterbank AG" />
+                    </div>
+                    <div className="form-group">
+                      <label>Aktenzeichen / Kto-Nummer</label>
+                      <input type="text" value={schufaLoeschungAz} onChange={e => setSchufaLoeschungAz(e.target.value)} placeholder="z. B. Kto 12894819" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Datum der Erledigung / Befreiung</label>
+                    <input type="date" value={schufaLoeschungDatum} onChange={e => setSchufaLoeschungDatum(e.target.value)} />
+                  </div>
+                  <button className="btn btn-primary" onClick={() => handlePrint('schufa-del-preview')}>📄 PDF generieren / Drucken</button>
+                </div>
+              </div>
+
+              {/* Brief Vorschau */}
+              <div className="card">
+                <h3>Brief-Vorschau</h3>
+                <div id="schufa-del-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
+                  <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
+                    <div>DIGITAL-SCHUTZSCHILD · Schufa Löschantrag</div>
+                    <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
+                  </div>
+                  <div style={{ textAlign: 'left', marginBottom: '20px' }}>
+                    <strong>{userName || '[Dein Name]'}</strong><br/>
+                    {userAddr ? nl2br(userAddr) : '[Deine Anschrift]'}
+                  </div>
+                  <div style={{ textAlign: 'left', marginBottom: '30px' }}>
+                    An:<br/>
+                    <strong>{schufaLoeschungProvider || '[Auskunftei]'}</strong><br/>
+                    {schufaLoeschungProviderAdr ? nl2br(schufaLoeschungProviderAdr) : '[Anschrift]'}
+                  </div>
+                  <div style={{ textAlign: 'right', marginBottom: '20px' }}>Datum: {new Date().toLocaleDateString('de-DE')}</div>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Antrag auf Löschung eines unberechtigten / veralteten Eintrags nach Art. 17 DSGVO</div>
+                  
+                  <p>Sehr geehrte Damen und Herren,</p>
+                  <p>hiermit beantrage ich die Löschung des folgenden Eintrags in meiner Bonitätsdatenbank:</p>
+                  <ul style={{ marginLeft: '20px', marginBottom: '14px' }}>
+                    <li>Gläubiger: <strong>{schufaLoeschungGlaeubiger || '[Gläubiger]'}</strong></li>
+                    <li>Aktenzeichen / Kennzeichen: <strong>{schufaLoeschungAz || '[Aktenzeichen]'}</strong></li>
+                    <li>Erledigt-Datum: <strong>{formatDateStr(schufaLoeschungDatum)}</strong></li>
+                  </ul>
+                  
+                  <p><strong>Rechtliche Begründung:</strong></p>
+                  <p>Gemäß der Rechtsprechung des Europäischen Gerichtshofs (EuGH - Urteile C-26/22 und C-64/22) ist die Speicherung von Einträgen über Restschuldbefreiungen oder abbezahlte Kredite über einen Zeitraum von 6 Monaten hinaus unzulässig. Es verstößt gegen den Grundsatz der Zweckbindung und Datenminimierung (Art. 5 DSGVO).</p>
+                  <p>Da der besagte Eintrag seit mehr als 6 Monaten erledigt ist, entfällt jede Rechtsgrundlage für eine Fortführung des Eintrags. Ich fordere Sie hiermit auf, den Eintrag unverzüglich, spätestens jedoch innerhalb von 14 Tagen, zu löschen.</p>
+                  
+                  <p style={{ marginTop: '20px' }}>Mit freundlichen Grüßen,</p>
+                  <p style={{ marginTop: '40px' }}>___________________________<br/>{userName || '[Dein Name]'}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* NEW FEATURE: KI OPT OUT */}
+        {activeView === 'ki_optout' && (
+          <section className="view active">
+            <div className="grid-2">
+              <div className="card">
+                <h3>KI-Training Opt-Out (UrhG § 44b & robots.txt)</h3>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>
+                  Widerspreche der Nutzung deiner Werke für das Training von KI-Modellen und erstelle die technischen Einträge, um KI-Crawler auszusperren.
+                </p>
+                <div className="form-grid-1">
+                  <div className="form-group">
+                    <label>Eigene Website (URL)</label>
+                    <input type="text" value={kiWebsite} onChange={e => setKiWebsite(e.target.value)} placeholder="z.B. https://meine-seite.de" />
+                  </div>
+                  <div className="form-group">
+                    <label>Urheber / Rechteinhaber</label>
+                    <input type="text" value={kiOwner} onChange={e => setKiOwner(e.target.value)} placeholder="z. B. Max Mustermann" />
+                  </div>
+                  
+                  {/* Technical robots.txt generation output */}
+                  <div className="form-group">
+                    <label>robots.txt Code (In Root-Verzeichnis kopieren)</label>
+                    <div style={{ position: 'relative', marginTop: '6px' }}>
+                      <pre style={{ background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '11px', overflowX: 'auto', margin: 0 }}>
+{`# KI-Crawler aussperren
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: CCBot
+Disallow: /`}
+                      </pre>
+                      <button className="btn btn-secondary" style={{ position: 'absolute', top: '8px', right: '8px', padding: '4px 8px', fontSize: '10px' }} onClick={() => {
+                        navigator.clipboard.writeText(`# KI-Crawler aussperren\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: ChatGPT-User\nDisallow: /\n\nUser-agent: Google-Extended\nDisallow: /\n\nUser-agent: Anthropic-ai\nDisallow: /\n\nUser-agent: Claude-Web\nDisallow: /\n\nUser-agent: CCBot\nDisallow: /`);
+                        alert('Robots.txt-Code kopiert!');
+                      }}>Kopieren</button>
+                    </div>
+                  </div>
+
+                  <button className="btn btn-primary" onClick={() => handlePrint('ki-preview')}>📄 PDF generieren / Drucken</button>
+                </div>
+              </div>
+
+              {/* Brief Vorschau */}
+              <div className="card">
+                <h3>Brief-Vorschau</h3>
+                <div id="ki-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
+                  <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
+                    <div>DIGITAL-SCHUTZSCHILD · KI Opt-Out UrhG</div>
+                    <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
+                  </div>
+                  <div style={{ textAlign: 'left', marginBottom: '20px' }}>
+                    <strong>{userName || '[Dein Name]'}</strong><br/>
+                    {userAddr ? nl2br(userAddr) : '[Deine Anschrift]'}
+                  </div>
+                  <div style={{ textAlign: 'left', marginBottom: '30px' }}>
+                    An:<br/>
+                    <strong>OpenAI Ireland Limited / Google LLC / Stability AI</strong><br/>
+                    Verbraucherschutz & Urheberrecht Opt-Out
+                  </div>
+                  <div style={{ textAlign: 'right', marginBottom: '20px' }}>Datum: {new Date().toLocaleDateString('de-DE')}</div>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>Widerspruch gegen Text and Data Mining (UrhG § 44b Abs. 3)</div>
+                  
+                  <p>Sehr geehrte Damen und Herren,</p>
+                  <p>hiermit widerspreche ich, <strong>{kiOwner || userName || '[Name]'}</strong>, als Urheber und Rechteinhaber der auf der Website <strong>{kiWebsite || '[URL]'}</strong> veröffentlichten Werke ausdrücklich der Nutzung meiner Inhalte für Text and Data Mining im Sinne von **§ 44b UrhG**.</p>
+                  <p>Dieser Nutzungsvorbehalt gilt insbesondere für das Training von KI-Modellen (Large Language Models, Bildgeneratoren) und umfasst alle Texte, Grafiken, Fotografien und Code-Bestandteile der besagten Internetpräsenz.</p>
+                  <p>Ich weise darauf hin, dass ein solcher Nutzungsvorbehalt maschinenlesbar erklärt sein muss. Diesen habe ich durch entsprechende Kennzeichnungen im Quellcode der Website sowie in der Datei `robots.txt` implementiert. Ich erwarte, dass Sie meine Daten unverzüglich aus Ihren Trainingsdatenbeständen entfernen.</p>
+                  
+                  <p style={{ marginTop: '20px' }}>Mit freundlichen Grüßen,</p>
+                  <p style={{ marginTop: '40px' }}>___________________________<br/>{userName || '[Dein Name]'}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* NEW FEATURE: WLAN HAFTUNGSAUSSCHLUSS */}
+        {activeView === 'wlan_schutz' && (
+          <section className="view active">
+            <div className="grid-2">
+              <div className="card">
+                <h3>WLAN-Nutzungsvereinbarung (Gäste-Schutz)</h3>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>
+                  Lass deine WG-Mitbewohner, AirBnB-Gäste oder Freunde diese Vereinbarung unterschreiben, um dich vollständig vor der Störerhaftung bei Filesharing zu schützen.
+                </p>
+                <div className="form-grid-1">
+                  <div className="form-group">
+                    <label>WLAN-Inhaber (Host)</label>
+                    <input type="text" value={wlanHost || userName} onChange={e => setWlanHost(e.target.value)} placeholder="z. B. Max Mustermann" />
+                  </div>
+                  <div className="form-group">
+                    <label>Name des Gastes / Nutzers</label>
+                    <input type="text" value={wlanGuest} onChange={e => setWlanGuest(e.target.value)} placeholder="z. B. Jane Doe" />
+                  </div>
+                  <div className="form-group">
+                    <label>Gast Personalausweis / Passnummer (optional)</label>
+                    <input type="text" value={wlanGuestId} onChange={e => setWlanGuestId(e.target.value)} placeholder="z. B. ID-90028198" />
+                  </div>
+                  <div className="form-group">
+                    <label>WG- oder Wohnungs-Adresse</label>
+                    <input type="text" value={wlanAddr} onChange={e => setWlanAddr(e.target.value)} placeholder="Musterstraße 1, 12345 Stadt" />
+                  </div>
+                  <button className="btn btn-primary" onClick={() => handlePrint('wlan-preview')}>📄 PDF generieren / Drucken</button>
+                </div>
+              </div>
+
+              {/* Brief Vorschau */}
+              <div className="card">
+                <h3>Vereinbarungs-Vorschau</h3>
+                <div id="wlan-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
+                  <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
+                    <div>DIGITAL-SCHUTZSCHILD · WLAN Nutzungsvereinbarung</div>
+                    <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
+                  </div>
+                  <h3 style={{ textAlign: 'center', marginBottom: '24px', fontSize: '16px', color: 'black' }}>Nutzungsvereinbarung über die Bereitstellung eines WLAN-Gastzugangs</h3>
+                  
+                  <p>Zwischen dem Anschlussinhaber:<br/>
+                  <strong>{wlanHost || userName || '[Name Host]'}</strong>, wohnhaft in {wlanAddr || '[Wohnadresse]'}</p>
+                  
+                  <p>und dem Gast:<br/>
+                  <strong>{wlanGuest || '[Name Gast]'}</strong> {wlanGuestId && `(Ausweisnr: ${wlanGuestId})`}</p>
+                  
+                  <h4 style={{ fontSize: '12px', margin: '14px 0 6px 0' }}>§ 1 Gestattung der Mitnutzung</h4>
+                  <p>Der Inhaber gestattet dem Gast die Mitbenutzung des Internetanschlusses über das WLAN. Die Mitbenutzung ist jederzeit widerruflich.</p>
+
+                  <h4 style={{ fontSize: '12px', margin: '14px 0 6px 0' }}>§ 2 Pflichten des Gastes</h4>
+                  <p>Der Gast verpflichtet sich, das WLAN ausschließlich legal zu nutzen. Dem Gast ist es insbesondere untersagt:</p>
+                  <ul style={{ marginLeft: '20px' }}>
+                    <li>illegales Filesharing (Peer-to-Peer Tauschbörsen) zu betreiben,</li>
+                    <li>urheberrechtlich geschützte Werke unbefugt herunter- oder hochzuladen,</li>
+                    <li>strafbare Inhalte abzurufen oder zu verbreiten.</li>
+                  </ul>
+
+                  <h4 style={{ fontSize: '12px', margin: '14px 0 6px 0' }}>§ 3 Freistellung & Haftung</h4>
+                  <p>Sollte der Inhaber wegen Pflichtverletzungen des Gastes von Dritten (z. B. durch Abmahnungen wegen Urheberrechtsverletzungen) in Anspruch genommen werden, verpflichtet sich der Gast, den Inhaber von sämtlichen Kosten der Rechtsverteidigung und Schadensersatzansprüchen freizustellen.</p>
+                  
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '60px' }}>
+                    <div>
+                      <p>___________________________</p>
+                      <p style={{ fontSize: '10px' }}>Datum & Unterschrift Inhaber</p>
+                    </div>
+                    <div>
+                      <p>___________________________</p>
+                      <p style={{ fontSize: '10px' }}>Datum & Unterschrift Gast</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* NEW FEATURE: CYBERSECURITY TOOLKIT */}
+        {activeView === 'security_toolkit' && (
+          <section className="view active">
+            <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '11px', fontWeight: 800, color: 'var(--accent-blue)', marginBottom: '8px', display: 'block' }}>Security Toolkit</span>
+            <h2>Cybersecurity Werkzeugkiste</h2>
+            <p className="lead">Erzeuge sichere Passwörter clientseitig und schütze deine wichtigsten Accounts mit unserer Checkliste.</p>
 
             <div className="grid-2" style={{ marginTop: '32px' }}>
+              {/* Passwort Generator */}
               <div className="card">
-                <h3>Account-Daten eingeben</h3>
+                <h3>Sicherer Passwort-Generator</h3>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>Generiere kryptografisch sichere Passwörter lokal im Browser. Es werden keinerlei Passwörter über das Internet übertragen.</p>
+                
                 <div className="form-grid-1">
-                  <div className="form-grid-2">
-                    <div className="form-group">
-                      <label>Benutzername / Handle</label>
-                      <input type="text" value={smUsername} onChange={e => setSmUsername(e.target.value)} placeholder="z. B. @max_mustermann" />
+                  <div className="form-group">
+                    <label>Länge: {pwLength} Zeichen</label>
+                    <input type="range" min={8} max={32} value={pwLength} onChange={e => setPwLength(parseInt(e.target.value))} style={{ width: '100%', accentColor: 'var(--accent-blue)' }} />
+                  </div>
+                  <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+                      <input type="checkbox" checked={pwUpper} onChange={e => setPwUpper(e.target.checked)} /> Großbuchstaben (A-Z)
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+                      <input type="checkbox" checked={pwNumbers} onChange={e => setPwNumbers(e.target.checked)} /> Zahlen (0-9)
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+                      <input type="checkbox" checked={pwSymbols} onChange={e => setPwSymbols(e.target.checked)} /> Sonderzeichen (!@#$...)
+                    </label>
+                  </div>
+                  <button type="button" className="btn btn-primary" onClick={generateNewPassword} style={{ width: '100%', marginTop: '8px' }}>Passwort generieren</button>
+                  
+                  {generatedPassword && (
+                    <div style={{ marginTop: '16px', padding: '16px', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <code style={{ fontSize: '14px', color: 'white', letterSpacing: '0.05em' }}>{generatedPassword}</code>
+                      <button className="btn btn-secondary" onClick={handleCopyPassword} style={{ padding: '6px 12px', fontSize: '12px' }}>Kopieren</button>
                     </div>
-                    <div className="form-group">
-                      <label>Registrierte E-Mail Adresse</label>
-                      <input type="email" value={smEmail} onChange={e => setSmEmail(e.target.value)} placeholder="z. B. max@mustermann.de" />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label>Datum der Sperrung</label>
-                    <input type="date" value={smDatum} onChange={e => setSmDatum(e.target.value)} />
-                  </div>
-                  <div className="form-group">
-                    <label>Details / Begründung der Plattform (falls bekannt)</label>
-                    <textarea rows={3} value={smDetails} onChange={e => setSmDetails(e.target.value)} placeholder="z. B. Es wird behauptet, ich hätte gegen die 'Gemeinschaftsrichtlinien' verstoßen. Konkrete Postings oder Beweise wurden mir nicht genannt."></textarea>
-                  </div>
-                  <div className="form-group">
-                    <label>Tonalität des Schreibens</label>
-                    <select value={smTone} onChange={e => setSmTone(e.target.value)}>
-                      <option value="friendly">Sachlich (Standard)</option>
-                      <option value="firm">Bestimmt (Vertragsbruch)</option>
-                      <option value="lawyer">Sehr streng (Anwalts-Drohung / LfDI-Meldung)</option>
-                    </select>
-                  </div>
-                  <button className="btn btn-primary" onClick={() => handlePrint('sm-preview')}>📄 PDF generieren / Drucken</button>
+                  )}
                 </div>
               </div>
 
-              {/* Brief Vorschau */}
+              {/* Account-Härtung Checkliste */}
               <div className="card">
-                <h3>Brief-Vorschau</h3>
-                <div id="sm-preview" className="letter-preview" style={{ padding: '30px', background: 'white', color: 'black', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '13px', lineHeight: '1.5' }}>
-                  <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '8px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
-                    <div>DIGITAL-SCHUTZSCHILD · Widerspruch Accountsperre</div>
-                    <div>Generiert {new Date().toLocaleDateString('de-DE')}</div>
-                  </div>
-                  <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-                    <strong>{userName || '[Dein Name]'}</strong><br/>
-                    {userAddr ? nl2br(userAddr) : '[Deine Anschrift]'}
-                  </div>
-                  <div style={{ textAlign: 'left', marginBottom: '30px' }}>
-                    An:<br/>
-                    <strong>
-                      {activeView === 'sm_tiktok' ? 'TikTok Technology Limited' : activeView === 'sm_youtube' ? 'Google Ireland Limited (YouTube)' : 'Meta Platforms Ireland Limited'}
-                    </strong><br/>
-                    {activeView === 'sm_tiktok' && '10 Earlsfort Terrace\nDublin, D02 T380, Irland'}
-                    {activeView === 'sm_youtube' && 'Gordon House, Barrow Street\nDublin 4, Irland'}
-                    {(activeView === 'sm_instagram' || activeView === 'sm_facebook') && '4 Grand Canal Square, Grand Canal Harbour\nDublin 2, Irland'}
-                  </div>
-                  <div style={{ textAlign: 'right', marginBottom: '20px' }}>Datum: {new Date().toLocaleDateString('de-DE')}</div>
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '20px' }}>
-                    Formeller Widerspruch gegen die Sperrung des Accounts "{smUsername || '[Benutzername]'}"
-                  </div>
-                  
-                  <p>Sehr geehrte Damen und Herren,</p>
-                  <p>hiermit lege ich formell Widerspruch gegen die am <strong>{formatDateStr(smDatum)}</strong> vorgenommene Sperrung meines Nutzerkontos ein.</p>
-                  
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Account-Informationen:</h4>
-                  <p>
-                    • Plattform:{' '}
-                    {activeView === 'sm_instagram' ? 'Instagram' : activeView === 'sm_facebook' ? 'Facebook' : activeView === 'sm_youtube' ? 'YouTube' : 'TikTok'}<br/>
-                    • Benutzername: <strong>{smUsername || '[Name]'}</strong><br/>
-                    • E-Mail: <strong>{smEmail || '[E-Mail]'}</strong>
-                  </p>
-                  
-                  <h4 style={{ margin: '14px 0 6px 0', fontSize: '13px' }}>Begründung</h4>
-                  <p>Die Sperrung erfolgte ohne Angabe eines konkreten Verstoßes oder Beweisen. Ich habe mich zu jedem Zeitpunkt an die geltenden Gesetze und die Nutzungsbedingungen Ihrer Plattform gehalten. Eine willkürliche Sperrung stellt einen eklatanten Verstoß gegen das Plattform-Vertragsrecht dar.</p>
-                  <p>{smDetails || '[Details]'}</p>
-
-                  <p>Ich fordere Sie auf, den Account unverzüglich, spätestens jedoch innerhalb von <strong>{getToneObj(smTone).frist}</strong> wieder vollständig freizugeben.</p>
-
-                  <div dangerouslySetInnerHTML={{ __html: getToneObj(smTone).eskal }}></div>
-                  <p style={{ marginTop: '20px' }}>Mit freundlichen Grüßen,</p>
-                  <p style={{ marginTop: '40px' }}>___________________________<br/>{userName || '[Dein Name]'}</p>
+                <h3>Sicherheits-Checkliste zur Härtung</h3>
+                <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '16px' }}>Schütze deine Identität im Netz, indem du 2-Faktor-Authentisierung (2FA) für die kritischsten Accounts aktivierst.</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={secChecklist.google2fa} onChange={() => toggleChecklist('google2fa')} />
+                    <span style={{ textDecoration: secChecklist.google2fa ? 'line-through' : 'none', color: secChecklist.google2fa ? 'var(--muted)' : 'white' }}>
+                      Google-Konto mit 2FA & Authenticator-App schützen
+                    </span>
+                  </label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={secChecklist.insta2fa} onChange={() => toggleChecklist('insta2fa')} />
+                    <span style={{ textDecoration: secChecklist.insta2fa ? 'line-through' : 'none', color: secChecklist.insta2fa ? 'var(--muted)' : 'white' }}>
+                      Instagram/Facebook Login-Genehmigung aktivieren
+                    </span>
+                  </label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={secChecklist.paypal2fa} onChange={() => toggleChecklist('paypal2fa')} />
+                    <span style={{ textDecoration: secChecklist.paypal2fa ? 'line-through' : 'none', color: secChecklist.paypal2fa ? 'var(--muted)' : 'white' }}>
+                      PayPal SMS-Sicherheitscode beim Login erzwingen
+                    </span>
+                  </label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={secChecklist.apple2fa} onChange={() => toggleChecklist('apple2fa')} />
+                    <span style={{ textDecoration: secChecklist.apple2fa ? 'line-through' : 'none', color: secChecklist.apple2fa ? 'var(--muted)' : 'white' }}>
+                      Apple ID Zwei-Faktor-Authentisierung einschalten
+                    </span>
+                  </label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={secChecklist.pwManager} onChange={() => toggleChecklist('pwManager')} />
+                    <span style={{ textDecoration: secChecklist.pwManager ? 'line-through' : 'none', color: secChecklist.pwManager ? 'var(--muted)' : 'white' }}>
+                      Passwort-Manager verwenden (1Password / Bitwarden)
+                    </span>
+                  </label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={secChecklist.backupFristen} onChange={() => toggleChecklist('backupFristen')} />
+                    <span style={{ textDecoration: secChecklist.backupFristen ? 'line-through' : 'none', color: secChecklist.backupFristen ? 'var(--muted)' : 'white' }}>
+                      Wöchentliches Backup deiner Vorlagenbude-Fristen exportieren
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>
           </section>
         )}
 
-        {/* 12. URHEBERRECHT: ERSTE HILFE */}
+        {/* 12. ORIGINAL URHEBERRECHT: ERSTE HILFE */}
         {activeView === 'urh_abmahnung' && (
           <section className="view active">
             <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '11px', fontWeight: 800, color: 'var(--accent-blue)', marginBottom: '8px', display: 'block' }}>Erste-Hilfe</span>
@@ -1615,7 +1807,7 @@ export default function DigitalSchutzschild() {
           </section>
         )}
 
-        {/* 13. URHEBERRECHT: MOD. UNTERLASSUNG */}
+        {/* 13. ORIGINAL URHEBERRECHT: MOD. UNTERLASSUNG */}
         {activeView === 'urh_unterlassung' && (
           <section className="view active">
             <div className="grid-2">
@@ -1685,7 +1877,7 @@ export default function DigitalSchutzschild() {
                     Unterlassungsverpflichtungserklärung (Modifiziert nach Hamburger Brauch)
                   </div>
                   
-                  <p>Ohne Anerkennung einer rechtlichen Pflicht, jedoch rechtsverbindlich, verpflichtet sich der Unterzeichnende gegenüber der Firma <strong>{b12Abmahner || '[Gläubiger]'}</strong>:</p>
+                  <p>Ohne Anerkennung einer rechtlichen Pflicht, jedoch rechtsverbindlich, verpflichtet sich der Unterzeichnende gegenüber der firma <strong>{b12Abmahner || '[Gläubiger]'}</strong>:</p>
                   
                   <p style={{ padding: '12px', background: '#f9f9f9', borderLeft: '3px solid #8b5cf6', margin: '14px 0' }}>
                     es bei Meidung einer für jeden Fall der schuldhaften Zuwiderhandlung vom Gläubiger festzusetzenden, im Streitfall vom zuständigen Gericht auf ihre Angemessenheit hin zu überprüfenden Vertragsstrafe (gemäß Hamburger Brauch) zu unterlassen,<br/>
@@ -1701,7 +1893,7 @@ export default function DigitalSchutzschild() {
           </section>
         )}
 
-        {/* 14. URHEBERRECHT: GEGENABMAHNUNG */}
+        {/* 14. ORIGINAL URHEBERRECHT: GEGENABMAHNUNG */}
         {activeView === 'urh_counter' && (
           <section className="view active">
             <div className="grid-2">
@@ -1769,7 +1961,7 @@ export default function DigitalSchutzschild() {
           </section>
         )}
 
-        {/* 15. URHEBERRECHT: DMCA NOTICE */}
+        {/* 15. ORIGINAL URHEBERRECHT: DMCA NOTICE */}
         {activeView === 'urh_dmca' && (
           <section className="view active">
             <div className="grid-2">
