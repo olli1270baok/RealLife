@@ -30,6 +30,11 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
+        <div className="bg-blob-container no-print">
+          <div className="bg-blob bg-blob-1"></div>
+          <div className="bg-blob bg-blob-2"></div>
+          <div className="bg-blob bg-blob-3"></div>
+        </div>
         <header className="no-print">
           <div className="logo">VORLAGENBUDE <span>// SaaS</span></div>
           <div className="badge">100% ABO-FREI</div>

@@ -316,10 +316,10 @@ export default function FlugRebell() {
 
       <main className="main-content relative">
         {!loadingUser && !isPro && activeView !== 'dashboard' && (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--bg)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ background: 'var(--card)', border: '1px solid var(--accent-red)', borderRadius: '12px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(3, 7, 18, 0.8)', backdropFilter: 'blur(20px)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)', backdropFilter: 'blur(16px)' }}>
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
-              <h2 style={{ color: 'var(--accent-blue)', marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
+              <h2 className="gradient-title" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
               <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.</p>
               <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
                 JETZT MASTER-PASS KAUFEN (19€)
@@ -332,16 +332,19 @@ export default function FlugRebell() {
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
             <section className="view active" id="view-dashboard">
-              <div className="flight-track-container no-print">
-                <svg className="plane-svg" width="30" height="30" viewBox="0 0 24 24" fill="var(--accent-blue)">
-                  <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
+              <div className="tech-anim-container no-print" style={{ height: '100px' }}>
+                <svg width="100%" height="100" viewBox="0 0 800 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 20 80 Q 200 10 400 80 T 780 80" stroke="rgba(0, 240, 255, 0.12)" strokeWidth="3" className="flight-path-line" />
+                  <g className="flight-trace-dot">
+                    <path d="M-8,-8 L8,0 L-8,8 L-4,0 Z" fill="var(--accent-blue)" transform="rotate(-15)" />
+                    <circle cx="0" cy="0" r="2.5" fill="var(--accent-blue)" />
+                  </g>
                 </svg>
-                <div style={{ position: 'absolute', bottom: '15px', left: '10px', right: '10px', height: '1px', borderBottom: '1px dashed var(--border)' }} />
               </div>
 
-              <div className="hero glow-blue" style={{ transition: 'all 0.3s', background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-blue)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-                <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-blue)', marginBottom: '12px', display: 'block' }}>Fluggastrechte Terminal</span>
-                <h1>Hol dir dein Geld <br/><span style={{ color: 'var(--accent-blue)' }}>zurück.</span></h1>
+              <div className="hero glow-blue" style={{ transition: 'all 0.3s', borderLeft: '4px solid var(--accent-blue)', padding: '40px', marginBottom: '40px' }}>
+                <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '11px', fontWeight: 800, color: 'var(--accent-blue)', marginBottom: '12px', display: 'block' }}>Fluggastrechte Terminal</span>
+                <h1 className="gradient-title" style={{ fontSize: '3.2rem', lineHeight: '1.1', marginBottom: '16px' }}>Hol dir dein Geld <br/>zurück.</h1>
                 <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Airlines spekulieren darauf, dass du aufgibst. Portale wie Flightright nehmen 30% deiner Entschädigung. Der Flug-Rebell liefert dir die exakten Berechnungen und 5 juristische Werkzeuge — du behältst 100%.</p>
                 
                 <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>

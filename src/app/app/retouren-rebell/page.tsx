@@ -275,10 +275,10 @@ export default function RetourenRebell() {
 
       <main className="main-content relative">
         {!loadingUser && !isPro && activeView !== 'dashboard' && (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--bg)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ background: 'var(--card)', border: '1px solid var(--accent-red)', borderRadius: '12px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(3, 7, 18, 0.8)', backdropFilter: 'blur(20px)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)', backdropFilter: 'blur(16px)' }}>
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
-              <h2 style={{ color: 'var(--accent-blue)', marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
+              <h2 className="gradient-title" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
               <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.</p>
               <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
                 JETZT MASTER-PASS KAUFEN (19€)
@@ -292,14 +292,20 @@ export default function RetourenRebell() {
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
             <section className="view active" id="view-dashboard">
-              <div className="hero glow-red" style={{ transition: 'all 0.3s', background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-red)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+              <div className="hero glow-red" style={{ transition: 'all 0.3s', borderLeft: '4px solid var(--accent-red)', padding: '40px', marginBottom: '40px' }}>
                 <div style={{ display: 'flex', gap: '30px', alignItems: 'center', flexWrap: 'wrap' }}>
-                  <div className="package-container no-print">
-                    <div className="laser-line"></div>
-                    <div style={{ zIndex: 10, fontSize: '48px' }}>📦</div>
+                  <div className="tech-anim-container no-print" style={{ width: '130px', height: '130px' }}>
+                    <div className="holo-stage">
+                      <div className="holo-grid">
+                        <div style={{ position: 'absolute', transform: 'rotateY(90deg) translateZ(40px)', width: '80px', height: '80px', border: '1px solid rgba(255, 59, 111, 0.2)' }} />
+                        <div style={{ position: 'absolute', transform: 'rotateX(90deg) translateZ(40px)', width: '80px', height: '80px', border: '1px solid rgba(255, 59, 111, 0.2)' }} />
+                        <div className="holo-line" />
+                      </div>
+                      <div style={{ position: 'absolute', fontSize: '36px', zIndex: 10, transform: 'translateZ(20px)' }}>📦</div>
+                    </div>
                   </div>
                   <div style={{ flex: 1, minWidth: '250px' }}>
-                    <h1>E-Commerce Bossen <br/>den <span style={{ color: 'var(--accent-red)' }}>Krieg erklären.</span></h1>
+                    <h1 className="gradient-title" style={{ fontSize: '3.2rem', lineHeight: '1.1', marginBottom: '16px' }}>E-Commerce Bossen <br/>den Krieg erklären.</h1>
                     <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Die PRO-Version des Retouren-Rebells. Vom verlorenen DHL-Paket über illegale Schufa-Drohungen durch Klarna & Co. bis hin zu versehentlichen In-App-Käufen durch Kinder. Dieses Werkzeug liefert die harte BGB-Logik, um dein Geld zurückzuholen.</p>
                   </div>
                 </div>

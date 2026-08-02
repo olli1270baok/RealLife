@@ -354,12 +354,12 @@ export default function AboKiller() {
 
       <main className="main-content relative">
         {!loadingUser && !isPro && (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--bg)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ background: 'var(--card)', border: '1px solid var(--accent-red)', borderRadius: '12px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(3, 7, 18, 0.8)', backdropFilter: 'blur(20px)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)', backdropFilter: 'blur(16px)' }}>
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
-              <h2 style={{ color: '#27ae60', marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
+              <h2 className="gradient-title" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
               <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.</p>
-              <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px', background: '#27ae60', borderColor: '#27ae60' }} onClick={handleCheckout}>
+              <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
                 JETZT MASTER-PASS KAUFEN (19€)
               </button>
             </div>
@@ -629,13 +629,19 @@ export default function AboKiller() {
           {activeView === 'ghost' && (
             <section className="view active">
               <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: '#3498db', marginBottom: '12px', display: 'block' }}>Die Kostenfallen</span>
-              <div style={{ display: 'flex', gap: '30px', alignItems: 'center', marginTop: '24px', flexWrap: 'wrap' }}>
-                <div className="radar-container no-print">
-                  <div className="radar-sweep"></div>
-                  <div style={{ zIndex: 10, fontSize: '32px' }}>🕵️</div>
+              <div style={{ display: 'flex', gap: '35px', alignItems: 'center', marginTop: '28px', flexWrap: 'wrap' }}>
+                <div className="tech-anim-container no-print" style={{ width: '120px', height: '120px', borderRadius: '50%' }}>
+                  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="60" cy="60" r="45" stroke="rgba(0, 240, 255, 0.08)" strokeWidth="8" />
+                    <circle cx="60" cy="60" r="45" stroke="var(--accent-blue)" strokeWidth="6" strokeDasharray="283" strokeDashoffset="80" strokeLinecap="round" />
+                    <circle cx="60" cy="60" r="45" stroke="var(--accent-purple)" strokeWidth="6" strokeDasharray="283" strokeDashoffset="210" strokeLinecap="round" />
+                    <circle cx="15" cy="60" r="4" fill="var(--accent-blue)" className="timeline-dot" style={{ color: 'var(--accent-blue)' }} />
+                    <circle cx="60" cy="15" r="4" fill="var(--accent-purple)" className="timeline-dot" style={{ color: 'var(--accent-purple)', animationDelay: '0.8s' }} />
+                  </svg>
+                  <div style={{ position: 'absolute', fontSize: '28px', zIndex: 10 }}>🕵️</div>
                 </div>
                 <div style={{ flex: 1, minWidth: '250px' }}>
-                  <p style={{ color: 'var(--muted)', marginBottom: 0 }}>Wir haben die häufigsten, heimlichen Geldfresser identifiziert. Gehe diese Checkliste durch – zahlst du für einen dieser Dienste, ohne es zu merken?</p>
+                  <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7', marginBottom: 0 }}>Wir haben die häufigsten, heimlichen Geldfresser identifiziert. Gehe diese Checkliste durch – zahlst du für einen dieser Dienste, ohne es zu merken?</p>
                 </div>
               </div>
 

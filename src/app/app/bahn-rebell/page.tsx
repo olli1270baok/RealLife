@@ -413,10 +413,10 @@ export default function BahnRebell() {
 
       <main className="main-content relative">
         {!loadingUser && !isPro && activeView !== 'dashboard' && (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--bg)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ background: 'var(--card)', border: '1px solid var(--accent-red)', borderRadius: '12px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(3, 7, 18, 0.8)', backdropFilter: 'blur(20px)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)', backdropFilter: 'blur(16px)' }}>
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
-              <h2 style={{ color: 'var(--accent-blue)', marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
+              <h2 className="gradient-title" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
               <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.</p>
               <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
                 JETZT MASTER-PASS KAUFEN (19€)
@@ -429,21 +429,20 @@ export default function BahnRebell() {
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
             <section className="view active" id="view-dashboard">
-              <div className="train-track no-print">
-                <svg className="train-svg" width="80" height="24" viewBox="0 0 80 24" fill="var(--accent-red)">
-                  <rect x="0" y="8" width="55" height="12" rx="2" />
-                  <path d="M55,8 L70,12 L70,20 L55,20 Z" />
-                  <rect x="15" y="12" width="10" height="4" fill="var(--bg)" />
-                  <rect x="30" y="12" width="10" height="4" fill="var(--bg)" />
-                  <rect x="45" y="12" width="8" height="4" fill="var(--bg)" />
-                  <circle cx="20" cy="22" r="2" fill="var(--muted)" />
-                  <circle cx="50" cy="22" r="2" fill="var(--muted)" />
+              <div className="tech-anim-container no-print">
+                <svg width="100%" height="80" viewBox="0 0 800 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 50 40 L 750 40" stroke="rgba(255, 59, 111, 0.12)" strokeWidth="4" />
+                  <path d="M 50 40 L 750 40" stroke="var(--accent-red)" strokeWidth="2" className="timeline-path" />
+                  <circle cx="50" cy="40" r="8" fill="#030712" stroke="var(--accent-red)" strokeWidth="3" className="timeline-dot" style={{ color: 'var(--accent-red)' }} />
+                  <circle cx="283" cy="40" r="6" fill="#030712" stroke="var(--accent-blue)" strokeWidth="2" className="timeline-dot" style={{ color: 'var(--accent-blue)', animationDelay: '0.5s' }} />
+                  <circle cx="516" cy="40" r="6" fill="#030712" stroke="var(--accent-purple)" strokeWidth="2" className="timeline-dot" style={{ color: 'var(--accent-purple)', animationDelay: '1s' }} />
+                  <circle cx="750" cy="40" r="8" fill="#030712" stroke="var(--accent-red)" strokeWidth="3" className="timeline-dot" style={{ color: 'var(--accent-red)', animationDelay: '1.5s' }} />
                 </svg>
               </div>
 
-              <div className="hero glow-red" style={{ transition: 'all 0.3s', background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-red)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-                <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Fahrgastrechte Terminal</span>
-                <h1>Hol dir dein Geld <br/><span style={{ color: 'var(--accent-red)' }}>von der Bahn.</span></h1>
+              <div className="hero glow-red" style={{ transition: 'all 0.3s', borderLeft: '4px solid var(--accent-red)', padding: '40px', marginBottom: '40px' }}>
+                <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '11px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Fahrgastrechte Terminal</span>
+                <h1 className="gradient-title" style={{ fontSize: '3.2rem', lineHeight: '1.1', marginBottom: '16px' }}>Hol dir dein Geld <br/>von der Bahn.</h1>
                 <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Seit Juni 2023 nutzt die Bahn neue "außergewöhnliche Umstände", um nicht zu zahlen. Dieses Terminal berechnet deine exakten Ansprüche nach der aktuellen EU-Verordnung 2021/782 und generiert jetzt 10 verschiedene druckfertige Anschreiben.</p>
                 
                 <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>

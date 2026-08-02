@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700&display=swap');
 
 :root {
-  --bg: #0A1128;
-  --card: #111C3A;
-  --card-hover: #1A264A;
-  --accent-red: #FF3366;
-  --accent-blue: #00E5FF;
-  --accent-purple: #B533FF;
-  --brown: #C08457;
-  --text: #E2E8F0;
-  --muted: #94A3B8;
-  --border: rgba(255, 255, 255, 0.1);
+  --bg: #030712; /* Extreme dark */
+  --card: rgba(255, 255, 255, 0.02); /* Translucent glass */
+  --card-hover: rgba(255, 255, 255, 0.05);
+  --accent-red: #ff3b6f; /* Sleek magenta-red */
+  --accent-blue: #00f0ff;
+  --accent-purple: #c040ff;
+  --brown: #cfa17d;
+  --text: #f3f4f6;
+  --muted: #6b7280;
+  --border: rgba(255, 255, 255, 0.06);
   --font-main: 'Inter', sans-serif;
   --font-head: 'Space Grotesk', sans-serif;
 }
@@ -31,6 +31,7 @@ body {
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
 
 header {
@@ -80,7 +81,9 @@ header {
 /* Sidebar */
 .sidebar {
   width: 280px;
-  background: #060A1A;
+  background: rgba(3, 7, 18, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -280,16 +283,31 @@ input:focus, select:focus, textarea:focus {
 
 .card {
   background: var(--card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 30px;
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  overflow: hidden;
 }
 
-.card:hover { border-color: var(--muted); }
-.card.highlight { border-color: var(--accent-blue); background: linear-gradient(180deg, rgba(0,229,255,0.03) 0%, var(--card) 100%); }
-.card.purple { border-color: var(--accent-purple); background: linear-gradient(180deg, rgba(181,51,255,0.03) 0%, var(--card) 100%); }
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--card-hover);
+  transform: translateY(-2px);
+}
+
+.card.highlight {
+  border-color: rgba(0, 240, 255, 0.2);
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
+}
+
+.card.purple {
+  border-color: rgba(192, 64, 255, 0.2);
+  background: linear-gradient(180deg, rgba(192, 64, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
+}
 
 /* Alerts */
 .alert {
@@ -430,32 +448,38 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
-/* Custom Premium Animations & Glows */
-@keyframes trainDrive {
-  0% { transform: translateX(-100px); }
-  100% { transform: translateX(100%); }
+/* Custom Premium Animations & Glows (SaaS 3.0) */
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.1); }
+  100% { transform: translate(-30px, -20px) scale(0.95); }
 }
 
-@keyframes radarSweep {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes drawPath {
+  0% { stroke-dashoffset: 600; }
+  100% { stroke-dashoffset: 0; }
 }
 
-@keyframes laserScan {
-  0%, 100% { transform: translateY(0); opacity: 0.3; }
-  50% { transform: translateY(120px); opacity: 1; }
-}
-
-@keyframes flightTakeoff {
-  0% { transform: translate(-20px, 20px) scale(0.8); opacity: 0; }
-  20% { transform: translate(0, 0) scale(1); opacity: 1; }
-  80% { transform: translate(120px, -60px) scale(1.1); opacity: 1; }
-  100% { transform: translate(180px, -90px) scale(1.2); opacity: 0; }
+@keyframes lightTrace {
+  0% { offset-distance: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
 }
 
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
+  0%, 100% { opacity: 0.25; filter: drop-shadow(0 0 5px currentColor); }
+  50% { opacity: 0.8; filter: drop-shadow(0 0 15px currentColor); }
+}
+
+@keyframes holoRotate {
+  0% { transform: rotateX(60deg) rotateZ(0deg); }
+  100% { transform: rotateX(60deg) rotateZ(360deg); }
+}
+
+@keyframes holoScan {
+  0%, 100% { transform: translateY(-20px); opacity: 0.1; }
+  50% { transform: translateY(40px); opacity: 0.8; }
 }
 
 @keyframes scanProgress {
@@ -463,92 +487,139 @@ input:focus, select:focus, textarea:focus {
   100% { width: 100%; }
 }
 
-.glow-red:hover {
-  box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
-  border-color: var(--accent-red) !important;
-}
-
-.glow-blue:hover {
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-  border-color: var(--accent-blue) !important;
-}
-
-.glow-purple:hover {
-  box-shadow: 0 0 20px rgba(181, 51, 255, 0.4);
-  border-color: var(--accent-purple) !important;
-}
-
-.train-track {
-  position: relative;
-  height: 40px;
-  background: linear-gradient(to bottom, transparent 90%, var(--border) 90%);
+/* Background Blobs */
+.bg-blob-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  margin-bottom: 20px;
-  border-radius: 4px;
+  z-index: -1;
+  pointer-events: none;
+  background: #030712;
 }
 
-.train-svg {
+.bg-blob {
   position: absolute;
-  bottom: 0;
-  animation: trainDrive 15s linear infinite;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.08;
+  animation: float 20s infinite ease-in-out alternate;
 }
 
-.radar-container {
+.bg-blob-1 {
+  top: -10%;
+  left: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-red) 0%, transparent 85%);
+  animation-duration: 25s;
+}
+
+.bg-blob-2 {
+  bottom: -15%;
+  right: -5%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--accent-blue) 0%, transparent 85%);
+  animation-duration: 30s;
+}
+
+.bg-blob-3 {
+  top: 30%;
+  left: 40%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-purple) 0%, transparent 85%);
+  animation-duration: 22s;
+}
+
+/* Gradient text */
+.gradient-title {
+  background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Redesigned animations container */
+.tech-anim-container {
   position: relative;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 229, 255, 0.3);
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+  width: 100%;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.radar-sweep {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: conic-gradient(from 0deg, rgba(0, 229, 255, 0.15) 0deg, transparent 90deg);
-  border-radius: 50%;
-  animation: radarSweep 4s linear infinite;
-  transform-origin: center;
+/* Timeline/Route Path styles */
+.timeline-path {
+  stroke-dasharray: 6;
+  animation: drawPath 30s linear infinite;
 }
 
-.package-container {
-  position: relative;
+.timeline-dot {
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Flight route light trace */
+.flight-path-line {
+  stroke-dasharray: 4 4;
+}
+
+.flight-trace-dot {
+  animation: lightTrace 6s infinite linear;
+  offset-path: path("M 20 80 Q 200 10 400 80 T 780 80");
+}
+
+/* Hologram Box Scanner styles */
+.holo-stage {
+  perspective: 400px;
   width: 120px;
   height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--border);
-  border-radius: 8px;
 }
 
-.laser-line {
+.holo-grid {
+  width: 80px;
+  height: 80px;
+  border: 1px solid rgba(255, 59, 111, 0.3);
+  background: radial-gradient(circle, rgba(255, 59, 111, 0.05) 0%, transparent 80%);
+  transform-style: preserve-3d;
+  animation: holoRotate 8s linear infinite;
+}
+
+.holo-line {
   position: absolute;
-  left: 0;
   width: 100%;
-  height: 3px;
+  height: 2px;
   background: var(--accent-red);
-  box-shadow: 0 0 8px var(--accent-red);
-  animation: laserScan 3s ease-in-out infinite;
-  pointer-events: none;
+  box-shadow: 0 0 12px var(--accent-red);
+  animation: holoScan 3s ease-in-out infinite;
 }
 
-.flight-track-container {
-  position: relative;
-  width: 100%;
-  height: 100px;
-  overflow: hidden;
+/* Glow Borders */
+.glow-red:hover {
+  box-shadow: 0 0 30px rgba(255, 59, 111, 0.15);
+  border-color: rgba(255, 59, 111, 0.4) !important;
 }
 
-.plane-svg {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  animation: flightTakeoff 8s ease-in-out infinite;
+.glow-blue:hover {
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+  border-color: rgba(0, 240, 255, 0.4) !important;
+}
+
+.glow-purple:hover {
+  box-shadow: 0 0 30px rgba(192, 64, 255, 0.15);
+  border-color: rgba(192, 64, 255, 0.4) !important;
 }
 
 .brief-scanner-overlay {
@@ -557,11 +628,13 @@ input:focus, select:focus, textarea:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(10, 17, 40, 0.95);
-  backdrop-filter: blur(8px);
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 
