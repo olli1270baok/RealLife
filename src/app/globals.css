@@ -4,7 +4,7 @@
   --bg: #030712; /* Extreme dark */
   --card: rgba(255, 255, 255, 0.02); /* Translucent glass */
   --card-hover: rgba(255, 255, 255, 0.05);
-  --accent-red: #ff3b6f; /* Sleek magenta-red */
+  --accent-red: #EC0016; /* Deutsche Bahn Traffic Red */
   --accent-blue: #00f0ff;
   --accent-purple: #c040ff;
   --brown: #cfa17d;
@@ -591,8 +591,8 @@ input:focus, select:focus, textarea:focus {
 .holo-grid {
   width: 80px;
   height: 80px;
-  border: 1px solid rgba(255, 59, 111, 0.3);
-  background: radial-gradient(circle, rgba(255, 59, 111, 0.05) 0%, transparent 80%);
+  border: 1px solid rgba(236, 0, 22, 0.3);
+  background: radial-gradient(circle, rgba(236, 0, 22, 0.05) 0%, transparent 80%);
   transform-style: preserve-3d;
   animation: holoRotate 8s linear infinite;
 }
@@ -608,8 +608,8 @@ input:focus, select:focus, textarea:focus {
 
 /* Glow Borders */
 .glow-red:hover {
-  box-shadow: 0 0 30px rgba(255, 59, 111, 0.15);
-  border-color: rgba(255, 59, 111, 0.4) !important;
+  box-shadow: 0 0 30px rgba(236, 0, 22, 0.15);
+  border-color: rgba(236, 0, 22, 0.4) !important;
 }
 
 .glow-blue:hover {
@@ -649,6 +649,13 @@ input:focus, select:focus, textarea:focus {
 
 .gradient-title-emerald {
   background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.gradient-title-db {
+  background: linear-gradient(135deg, #ffffff 40%, #ff8c94 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 800;

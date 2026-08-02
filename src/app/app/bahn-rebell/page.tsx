@@ -416,7 +416,7 @@ export default function BahnRebell() {
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(3, 7, 18, 0.8)', backdropFilter: 'blur(20px)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)', backdropFilter: 'blur(16px)' }}>
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
-              <h2 className="gradient-title" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
+              <h2 className="gradient-title-db" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
               <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.</p>
               <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
                 JETZT MASTER-PASS KAUFEN (19€)
@@ -442,7 +442,7 @@ export default function BahnRebell() {
 
               <div className="hero glow-red" style={{ transition: 'all 0.3s', borderLeft: '4px solid var(--accent-red)', padding: '40px', marginBottom: '40px' }}>
                 <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '11px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Fahrgastrechte Terminal</span>
-                <h1 className="gradient-title" style={{ fontSize: '3.2rem', lineHeight: '1.1', marginBottom: '16px' }}>Hol dir dein Geld <br/>von der Bahn.</h1>
+                <h1 className="gradient-title-db" style={{ fontSize: '3.2rem', lineHeight: '1.1', marginBottom: '16px' }}>Hol dir dein Geld <br/>von der Bahn.</h1>
                 <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Seit Juni 2023 nutzt die Bahn neue "außergewöhnliche Umstände", um nicht zu zahlen. Dieses Terminal berechnet deine exakten Ansprüche nach der aktuellen EU-Verordnung 2021/782 und generiert jetzt 10 verschiedene druckfertige Anschreiben.</p>
                 
                 <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>
