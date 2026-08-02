@@ -19,6 +19,8 @@ export default function RetourenRebell() {
   const [bBestellnr, setBBestellnr] = useState('');
   const [bArt, setBArt] = useState('paket');
   const [letterHtml, setLetterHtml] = useState('');
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanStep, setScanStep] = useState(0);
 
   // States for Paket Logic
   const [pKaeufer, setPKaeufer] = useState('privat');
@@ -136,86 +138,95 @@ export default function RetourenRebell() {
     }
   };
 
-  // === BRIEF GENERATOR LOGIK ===
   const generateLetter = () => {
-    const name = bName || '[Vor- und Nachname]';
-    const adresse = bAdresse || '[Straße, PLZ, Ort]';
-    const haendler = bHaendler || '[Gegenseite]';
-    const bestellnr = bBestellnr || '[Aktenzeichen]';
-    const today = new Date().toLocaleDateString('de-DE');
-    
-    let subj = "";
-    let body = "";
+    setIsScanning(true);
+    setScanStep(0);
 
-    if (bArt === 'paket') {
-      subj = `Mahnung bei Nichtlieferung / Verlust der Sendung - Nr: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>ich habe bei Ihnen Ware gekauft. Diese ist nicht bei mir eingetroffen.</p>
-      <p>Der Paketdienstleister behauptet fälschlicherweise, das Paket sei zugestellt worden. Die Gefahr des zufälligen Untergangs der Sache geht gemäß <strong>§ 475 Abs. 2 BGB</strong> (Verbrauchsgüterkauf) erst dann auf mich über, wenn mir die Sache physisch übergeben wurde. Ein Verweis auf den Versanddienstleister weise ich zurück.</p>
-      <p>Ich fordere Sie auf, mir die bezahlte Ware bis spätestens in <strong>10 Tagen</strong> zukommen zu lassen oder den Kaufbetrag zu erstatten.</p>`;
-    } else if (bArt === 'gewaehrleistung') {
-      subj = `Aufforderung zur Nacherfüllung (Sachmangel) - Nr: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>der bei Ihnen gekaufte Artikel weist einen Sachmangel auf, der nicht durch mich verschuldet wurde. Da der Mangel innerhalb der ersten 12 Monate nach Übergabe aufgetreten ist, greift zu meinen Gunsten die <strong>Beweislastumkehr gem. § 477 BGB</strong>.</p>
-      <p>Ich fordere Sie zur Nacherfüllung gemäß <strong>§ 439 BGB</strong> auf. Bitte tauschen Sie den Artikel gegen einen mangelfreien aus oder reparieren Sie ihn kostenfrei. Frist: <strong>14 Tage</strong>.</p>`;
-    } else if (bArt === 'verzug') {
-      subj = `Lieferverzug: Fristsetzung und Rücktrittsvorbehalt - Nr: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>ich warte nun bereits seit mehreren Wochen auf die Lieferung meiner bezahlten Ware. Hiermit setze ich Ihnen eine letzte Nachfrist zur Lieferung bis spätestens <strong>10 Tage ab heute</strong>.</p>
-      <p>Sollte die Frist fruchtlos verstreichen, erkläre ich bereits jetzt hilfsweise den <strong>Rücktritt vom Kaufvertrag gemäß § 323 BGB</strong> und fordere Sie auf, mir den Kaufpreis umgehend zu erstatten.</p>`;
-    } else if (bArt === 'reparatur') {
-      subj = `Recht auf Reparatur (EU-Richtlinie 2026) - Nr: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>das bei Ihnen gekaufte Gerät ist defekt. Anstelle eines Neukaufs mache ich hiermit mein gesetzliches <strong>Recht auf Reparatur</strong> (gemäß der 2026 in Kraft getretenen nationalen Umsetzung der EU-Reparatur-Richtlinie) geltend.</p>
-      <p>Sie sind verpflichtet, die Instandsetzung des Produkts zu zumutbaren Bedingungen anzubieten und die erforderlichen Ersatzteile vorzuhalten. Ich erwarte Ihren Kostenvoranschlag innerhalb von 14 Tagen.</p>`;
-    } else if (bArt === 'inapp') {
-      subj = `Widerruf: Unwirksamer Vertrag durch Minderjährigen (§§ 108, 110 BGB) - Nr: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>die oben genannten Transaktionen (In-App-Käufe) wurden ohne meine Zustimmung von meinem minderjährigen Kind getätigt. Da die getätigten Summen den Rahmen des üblichen Taschengeldes bei Weitem überschreiten, findet der sogenannte Taschengeldparagraph (§ 110 BGB) keine Anwendung.</p>
-      <p>Gemäß <strong>§ 108 Abs. 1 BGB</strong> sind Verträge, die von beschränkt Geschäftsfähigen ohne die erforderliche Einwilligung der gesetzlichen Vertreter geschlossen werden, schwebend unwirksam. Hiermit verweigere ich als gesetzlicher Vertreter offiziell und endgültig die Genehmigung zu diesen Vertragsabschlüssen.</p>
-      <p>Die Verträge sind somit von Anfang an nichtig. Ich fordere Sie auf, den abgebuchten Betrag umgehend auf mein Konto zurückzuerstatten.</p>`;
-    } else if (bArt === 'amazon_sperre') {
-      subj = `Widerspruch gegen Kontosperrung / Auszahlung Guthaben - Konto: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>Sie haben mein Kundenkonto ohne nachvollziehbare Begründung gesperrt. Auf diesem Konto befindet sich noch mein rechtmäßiges Eigentum in Form von Geschenkkarten-Guthaben / Kontostand.</p>
-      <p>Ich fordere Sie hiermit auf, das eingefrorene Guthaben innerhalb von 14 Tagen auf mein Bankkonto auszuzahlen. Ein Einbehalt dieses Guthabens erfüllt den Tatbestand der ungerechtfertigten Bereicherung (§ 812 BGB).</p>
-      <p>Zudem fordere ich gemäß <strong>Art. 15 DSGVO</strong> vollumfängliche Auskunft über alle zu meiner Person gespeicherten Daten, insbesondere über das interne "Scoring" und die genauen maschinellen Gründe (Algorithmus), die zur Kontosperrung führten.</p>`;
-    } else if (bArt === 'amazon_eides') {
-      subj = `Eidesstattliche Versicherung - Rücksendung / Falscher Artikel - Bestellnr: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>Sie werfen mir vor, bei meiner Retoure zu der oben genannten Bestellung einen falschen Artikel oder ein leeres Paket zurückgesendet zu haben. Dies weise ich aufs Schärfste zurück. Das Paket wurde von mir mit dem korrekten Original-Artikel verpackt und an den Versanddienstleister übergeben.</p>
-      <p>Zur Glaubhaftmachung gebe ich hiermit folgende <strong>Eidesstattliche Versicherung</strong> ab:</p>
-      <p style="font-style:italic; padding-left:20px; border-left:3px solid #ccc">"Ich versichere hiermit an Eides statt, dass ich den zur Bestellung gehörenden Original-Artikel in unbeschädigtem Zustand in das Retouren-Paket gelegt und dieses ordnungsgemäß an den Versanddienstleister übergeben habe. Mir ist bekannt, dass die Abgabe einer falschen eidesstattlichen Versicherung gemäß § 156 StGB strafbar ist."</p>
-      <p>Ich erwarte nunmehr die sofortige und vollständige Erstattung des Kaufpreises.</p>`;
-    } else if (bArt === 'inkasso') {
-      subj = `Bestreiten der Forderung & Untersagung der Schufa-Meldung - Aktenzeichen: ${bestellnr}`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>hiermit weise ich die von Ihnen geltend gemachte Hauptforderung in vollem Umfang zurück und bestreite diese ausdrücklich. Ein rechtsgültiger Vertrag bzw. ein offener Rechnungsbetrag, der diese Forderung rechtfertigen würde, liegt nicht vor.</p>
-      <p>Ich weise Sie in aller Deutlichkeit auf <strong>§ 31 Abs. 2 BDSG</strong> hin: Da die Forderung hiermit offiziell bestritten ist, untersage ich Ihnen jegliche Übermittlung von Daten zu dieser Forderung an Auskunfteien (wie die SCHUFA Holding AG).</p>
-      <p>Eine Zuwiderhandlung oder eine unberechtigte Einmeldung stellt einen gravierenden Verstoß gegen die DSGVO sowie das BDSG dar, was ich unmittelbar mit einer Beschwerde beim Landesdatenschutzbeauftragten sowie Schadensersatzforderungen sanktionieren werde.</p>`;
-    } else if (bArt === 'kleinanzeigen') {
-      subj = `Rücktritt vom Kaufvertrag wegen arglistiger Täuschung - Vorgang: ${bestellnr}`;
-      body = `<p>Sehr geehrte/r Verkäufer/in,</p>
-      <p>der von Ihnen verkaufte Artikel weist erhebliche, verschwiegene Mängel auf. Der in Ihrem Inserat/Kaufvertrag formulierte Haftungsausschluss ("Gekauft wie gesehen" / "Unter Ausschluss jeglicher Gewährleistung") ist gemäß <strong>§ 444 BGB</strong> unwirksam, da Sie einen wesentlichen Mangel arglistig verschwiegen bzw. eine Beschaffenheitsgarantie übernommen haben.</p>
-      <p>Ich erkläre hiermit den Rücktritt vom Kaufvertrag und fordere Sie auf, den Kaufpreis innerhalb von 7 Tagen Zug-um-Zug gegen Rückgabe des Artikels zu erstatten.</p>`;
-    }
+    setTimeout(() => setScanStep(1), 400);
+    setTimeout(() => setScanStep(2), 800);
+    setTimeout(() => setScanStep(3), 1200);
 
-    const html = `
-      <div class="sender">${name.replace(/\n/g, '<br>')}<br>${adresse.replace(/\n/g, '<br>')}</div>
-      <div class="recipient">An:<br>${haendler.replace(/\n/g, '<br>')}</div>
-      <div class="date">${today}</div>
-      <div class="subject">${subj}</div>
-      ${body}
-      <p>Mit freundlichen Grüßen,</p>
-      <br><br><br>
-      <p>${name.split('\n')[0]}</p>
-    `;
+    setTimeout(() => {
+      const name = bName || '[Vor- und Nachname]';
+      const adresse = bAdresse || '[Straße, PLZ, Ort]';
+      const haendler = bHaendler || '[Gegenseite]';
+      const bestellnr = bBestellnr || '[Aktenzeichen]';
+      const today = new Date().toLocaleDateString('de-DE');
+      
+      let subj = "";
+      let body = "";
 
-    setLetterHtml(html);
+      if (bArt === 'paket') {
+        subj = `Mahnung bei Nichtlieferung / Verlust der Sendung - Nr: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>ich habe bei Ihnen Ware gekauft. Diese ist nicht bei mir eingetroffen.</p>
+        <p>Der Paketdienstleister behauptet fälschlicherweise, das Paket sei zugestellt worden. Die Gefahr des zufälligen Untergangs der Sache geht gemäß <strong>§ 475 Abs. 2 BGB</strong> (Verbrauchsgüterkauf) erst dann auf mich über, wenn mir die Sache physisch übergeben wurde. Ein Verweis auf den Versanddienstleister weise ich zurück.</p>
+        <p>Ich fordere Sie auf, mir die bezahlte Ware bis spätestens in <strong>10 Tagen</strong> zukommen zu lassen oder den Kaufbetrag zu erstatten.</p>`;
+      } else if (bArt === 'gewaehrleistung') {
+        subj = `Aufforderung zur Nacherfüllung (Sachmangel) - Nr: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>der bei Ihnen gekaufte Artikel weist einen Sachmangel auf, der nicht durch mich verschuldet wurde. Da der Mangel innerhalb der ersten 12 Monate nach Übergabe aufgetreten ist, greift zu meinen Gunsten die <strong>Beweislastumkehr gem. § 477 BGB</strong>.</p>
+        <p>Ich fordere Sie zur Nacherfüllung gemäß <strong>§ 439 BGB</strong> auf. Bitte tauschen Sie den Artikel gegen einen mangelfreien aus oder reparieren Sie ihn kostenfrei. Frist: <strong>14 Tage</strong>.</p>`;
+      } else if (bArt === 'verzug') {
+        subj = `Lieferverzug: Fristsetzung und Rücktrittsvorbehalt - Nr: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>ich warte nun bereits seit mehreren Wochen auf die Lieferung meiner bezahlten Ware. Hiermit setze ich Ihnen eine letzte Nachfrist zur Lieferung bis spätestens <strong>10 Tage ab heute</strong>.</p>
+        <p>Sollte die Frist fruchtlos verstreichen, erkläre ich bereits jetzt hilfsweise den <strong>Rücktritt vom Kaufvertrag gemäß § 323 BGB</strong> und fordere Sie auf, mir den Kaufpreis umgehend zu erstatten.</p>`;
+      } else if (bArt === 'reparatur') {
+        subj = `Recht auf Reparatur (EU-Richtlinie 2026) - Nr: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>das bei Ihnen gekaufte Gerät ist defekt. Anstelle eines Neukaufs mache ich hiermit mein gesetzliches <strong>Recht auf Reparatur</strong> (gemäß der 2026 in Kraft getretenen nationalen Umsetzung der EU-Reparatur-Richtlinie) geltend.</p>
+        <p>Sie sind verpflichtet, die Instandsetzung des Produkts zu zumutbaren Bedingungen anzubieten und die erforderlichen Ersatzteile vorzuhalten. Ich erwarte Ihren Kostenvoranschlag innerhalb von 14 Tagen.</p>`;
+      } else if (bArt === 'inapp') {
+        subj = `Widerruf: Unwirksamer Vertrag durch Minderjährigen (§§ 108, 110 BGB) - Nr: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>die oben genannten Transaktionen (In-App-Käufe) wurden ohne meine Zustimmung von meinem minderjährigen Kind getätigt. Da die getätigten Summen den Rahmen des üblichen Taschengeldes bei Weitem überschreiten, findet der sogenannte Taschengeldparagraph (§ 110 BGB) keine Anwendung.</p>
+        <p>Gemäß <strong>§ 108 Abs. 1 BGB</strong> sind Verträge, die von beschränkt Geschäftsfähigen ohne die erforderliche Einwilligung der gesetzlichen Vertreter geschlossen werden, schwebend unwirksam. Hiermit verweigere ich als gesetzlicher Vertreter offiziell und endgültig die Genehmigung zu diesen Vertragsabschlüssen.</p>
+        <p>Die Verträge sind somit von Anfang an nichtig. Ich fordere Sie auf, den abgebuchten Betrag umgehend auf mein Konto zurückzuerstatten.</p>`;
+      } else if (bArt === 'amazon_sperre') {
+        subj = `Widerspruch gegen Kontosperrung / Auszahlung Guthaben - Konto: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>Sie haben mein Kundenkonto ohne nachvollziehbare Begründung gesperrt. Auf diesem Konto befindet sich noch mein rechtmäßiges Eigentum in Form von Geschenkkarten-Guthaben / Kontostand.</p>
+        <p>Ich fordere Sie hiermit auf, das eingefrorene Guthaben innerhalb von 14 Tagen auf mein Bankkonto auszuzahlen. Ein Einbehalt dieses Guthabens erfüllt den Tatbestand der ungerechtfertigten Bereicherung (§ 812 BGB).</p>
+        <p>Zudem fordere ich gemäß <strong>Art. 15 DSGVO</strong> vollumfängliche Auskunft über alle zu meiner Person gespeicherten Daten, insbesondere über das interne "Scoring" und die genauen maschinellen Gründe (Algorithmus), die zur Kontosperrung führten.</p>`;
+      } else if (bArt === 'amazon_eides') {
+        subj = `Eidesstattliche Versicherung - Rücksendung / Falscher Artikel - Bestellnr: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>Sie werfen mir vor, bei meiner Retoure zu der oben genannten Bestellung einen falschen Artikel oder ein leeres Paket zurückgesendet zu haben. Dies weise ich aufs Schärfste zurück. Das Paket wurde von mir mit dem korrekten Original-Artikel verpackt und an den Versanddienstleister übergeben.</p>
+        <p>Zur Glaubhaftmachung gebe ich hiermit folgende <strong>Eidesstattliche Versicherung</strong> ab:</p>
+        <p style="font-style:italic; padding-left:20px; border-left:3px solid #ccc">"Ich versichere hiermit an Eides statt, dass ich den zur Bestellung gehörenden Original-Artikel in unbeschädigtem Zustand in das Retouren-Paket gelegt und dieses ordnungsgemäß an den Versanddienstleister übergeben habe. Mir ist bekannt, dass die Abgabe einer falschen eidesstattlichen Versicherung gemäß § 156 StGB strafbar ist."</p>
+        <p>Ich erwarte nunmehr die sofortige und vollständige Erstattung des Kaufpreises.</p>`;
+      } else if (bArt === 'inkasso') {
+        subj = `Bestreiten der Forderung & Untersagung der Schufa-Meldung - Aktenzeichen: ${bestellnr}`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>hiermit weise ich die von Ihnen geltend gemachte Hauptforderung in vollem Umfang zurück und bestreite diese ausdrücklich. Ein rechtsgültiger Vertrag bzw. ein offener Rechnungsbetrag, der diese Forderung rechtfertigen würde, liegt nicht vor.</p>
+        <p>Ich weise Sie in aller Deutlichkeit auf <strong>§ 31 Abs. 2 BDSG</strong> hin: Da die Forderung hiermit offiziell bestritten ist, untersage ich Ihnen jegliche Übermittlung von Daten zu dieser Forderung an Auskunfteien (wie die SCHUFA Holding AG).</p>
+        <p>Eine Zuwiderhandlung oder eine unberechtigte Einmeldung stellt einen gravierenden Verstoß gegen die DSGVO sowie das BDSG dar, was ich unmittelbar mit einer Beschwerde beim Landesdatenschutzbeauftragten sowie Schadensersatzforderungen sanktionieren werde.</p>`;
+      } else if (bArt === 'kleinanzeigen') {
+        subj = `Rücktritt vom Kaufvertrag wegen arglistiger Täuschung - Vorgang: ${bestellnr}`;
+        body = `<p>Sehr geehrte/r Verkäufer/in,</p>
+        <p>der von Ihnen verkaufte Artikel weist erhebliche, verschwiegene Mängel auf. Der in Ihrem Inserat/Kaufvertrag formulierte Haftungsausschluss ("Gekauft wie gesehen" / "Unter Ausschluss jeglicher Gewährleistung") ist gemäß <strong>§ 444 BGB</strong> unwirksam, da Sie einen wesentlichen Mangel arglistig verschwiegen bzw. eine Beschaffenheitsgarantie übernommen haben.</p>
+        <p>Ich erkläre hiermit den Rücktritt vom Kaufvertrag und fordere Sie auf, den Kaufpreis innerhalb von 7 Tagen Zug-um-Zug gegen Rückgabe des Artikels zu erstatten.</p>`;
+      }
+
+      const html = `
+        <div class="sender">${name.replace(/\n/g, '<br>')}<br>${adresse.replace(/\n/g, '<br>')}</div>
+        <div class="recipient">An:<br>${haendler.replace(/\n/g, '<br>')}</div>
+        <div class="date">${today}</div>
+        <div class="subject">${subj}</div>
+        ${body}
+        <p>Mit freundlichen Grüßen,</p>
+        <br><br><br>
+        <p>${name.split('\n')[0]}</p>
+      `;
+
+      setLetterHtml(html);
+      setIsScanning(false);
+    }, 1600);
   };
 
   const printLetter = () => {
-    const el = document.getElementById('view-briefe');
+    const el = document.getElementById('view-briefe') || document.getElementById('view-preview');
     if (el) {
       el.classList.add('print-me');
       window.print();
@@ -281,9 +292,17 @@ export default function RetourenRebell() {
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
             <section className="view active" id="view-dashboard">
-              <div className="hero" style={{ background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-red)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-                <h1>E-Commerce Bossen <br/>den <span style={{ color: 'var(--accent-red)' }}>Krieg erklären.</span></h1>
-                <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Die PRO-Version des Retouren-Rebells. Vom verlorenen DHL-Paket über illegale Schufa-Drohungen durch Klarna & Co. bis hin zu versehentlichen In-App-Käufen durch Kinder. Dieses Werkzeug liefert die harte BGB-Logik, um dein Geld zurückzuholen.</p>
+              <div className="hero glow-red" style={{ transition: 'all 0.3s', background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-red)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+                <div style={{ display: 'flex', gap: '30px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <div className="package-container no-print">
+                    <div className="laser-line"></div>
+                    <div style={{ zIndex: 10, fontSize: '48px' }}>📦</div>
+                  </div>
+                  <div style={{ flex: 1, minWidth: '250px' }}>
+                    <h1>E-Commerce Bossen <br/>den <span style={{ color: 'var(--accent-red)' }}>Krieg erklären.</span></h1>
+                    <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Die PRO-Version des Retouren-Rebells. Vom verlorenen DHL-Paket über illegale Schufa-Drohungen durch Klarna & Co. bis hin zu versehentlichen In-App-Käufen durch Kinder. Dieses Werkzeug liefert die harte BGB-Logik, um dein Geld zurückzuholen.</p>
+                  </div>
+                </div>
                 {!loadingUser && !isPro && (
                   <div style={{ marginTop: '24px', background: 'rgba(255,51,102,0.1)', padding: '16px', borderRadius: '8px', borderLeft: '4px solid var(--accent-red)', display: 'inline-block' }}>
                     <strong style={{ color: 'var(--accent-red)' }}>Dein Account ist limitiert.</strong> Du kannst aktuell nur die Übersicht betrachten.
@@ -614,20 +633,41 @@ export default function RetourenRebell() {
                 </div>
               </div>
 
-              {letterHtml && (
-                <>
-                  <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '40px', marginBottom: '10px' }}>
-                    <h3>VORSCHAU-DOKUMENT</h3>
-                    <button className="btn btn-secondary" onClick={printLetter}>🖨️ PDF / Drucken</button>
+              {letterHtml && activeView === 'briefe' && (
+                <section className="view active" id="view-preview" style={{ marginTop: '24px' }}>
+                  <div className="no-print" style={{ padding: '16px', background: 'var(--darker)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h3 style={{ margin: 0 }}>Brief-Vorschau</h3>
+                    <button className="btn btn-secondary" onClick={printLetter}>🖨️ Drucken / PDF</button>
                   </div>
                   <div className="letter-paper" dangerouslySetInnerHTML={{ __html: letterHtml }} />
-                </>
+                </section>
               )}
             </section>
           )}
 
         </div>
       </main>
+
+      {isScanning && (
+        <div className="brief-scanner-overlay">
+          <div style={{ background: 'var(--card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--accent-red)', maxWidth: '400px', width: '90%', textAlign: 'center', boxShadow: '0 0 30px rgba(255, 51, 102, 0.3)' }}>
+            <div style={{ fontSize: '40px', marginBottom: '20px', animation: 'pulseGlow 1.5s infinite' }}>📦⚖️</div>
+            <h3 style={{ color: 'var(--accent-red)' }}>Retouren-Rebell Scan</h3>
+            <p style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '24px' }}>Generiere Mahnung...</p>
+            
+            <div style={{ height: '4px', background: 'var(--border)', borderRadius: '2px', overflow: 'hidden', marginBottom: '20px' }}>
+              <div style={{ height: '100%', background: 'var(--accent-red)', width: '0%', animation: 'scanProgress 1.5s linear forwards' }} />
+            </div>
+
+            <div style={{ fontSize: '13px', textAlign: 'left', minHeight: '40px', color: 'var(--text)' }}>
+              {scanStep === 0 && "🔍 Prüfe Gefahrübergang nach § 475 BGB..."}
+              {scanStep === 1 && "📖 Lese Fristen für Lieferverzug aus..."}
+              {scanStep === 2 && "📝 Setze eidesstattliche Erklärung auf..."}
+              {scanStep === 3 && "✍️ Generiere rechtssicheres Schreiben..."}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

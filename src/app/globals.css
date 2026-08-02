@@ -429,3 +429,139 @@ input:focus, select:focus, textarea:focus {
     font-size: 10pt;
   }
 }
+
+/* Custom Premium Animations & Glows */
+@keyframes trainDrive {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes laserScan {
+  0%, 100% { transform: translateY(0); opacity: 0.3; }
+  50% { transform: translateY(120px); opacity: 1; }
+}
+
+@keyframes flightTakeoff {
+  0% { transform: translate(-20px, 20px) scale(0.8); opacity: 0; }
+  20% { transform: translate(0, 0) scale(1); opacity: 1; }
+  80% { transform: translate(120px, -60px) scale(1.1); opacity: 1; }
+  100% { transform: translate(180px, -90px) scale(1.2); opacity: 0; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes scanProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.glow-red:hover {
+  box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+  border-color: var(--accent-red) !important;
+}
+
+.glow-blue:hover {
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+  border-color: var(--accent-blue) !important;
+}
+
+.glow-purple:hover {
+  box-shadow: 0 0 20px rgba(181, 51, 255, 0.4);
+  border-color: var(--accent-purple) !important;
+}
+
+.train-track {
+  position: relative;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent 90%, var(--border) 90%);
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.train-svg {
+  position: absolute;
+  bottom: 0;
+  animation: trainDrive 15s linear infinite;
+}
+
+.radar-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-sweep {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(from 0deg, rgba(0, 229, 255, 0.15) 0deg, transparent 90deg);
+  border-radius: 50%;
+  animation: radarSweep 4s linear infinite;
+  transform-origin: center;
+}
+
+.package-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+.laser-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+  animation: laserScan 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.flight-track-container {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+
+.plane-svg {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  animation: flightTakeoff 8s ease-in-out infinite;
+}
+
+.brief-scanner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 17, 40, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

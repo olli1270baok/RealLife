@@ -42,6 +42,8 @@ export default function BahnRebell() {
 
   const [bCaseSelection, setBCaseSelection] = useState('');
   const [letterHtml, setLetterHtml] = useState('');
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanStep, setScanStep] = useState(0);
 
   // Calc Fields
   const [cTicketType, setCTicketType] = useState('einfach');
@@ -236,6 +238,16 @@ export default function BahnRebell() {
 
   const generateLetter = () => {
     saveUserData();
+    setIsScanning(true);
+    setScanStep(0);
+    setTimeout(() => setScanStep(1), 400);
+    setTimeout(() => setScanStep(2), 800);
+    setTimeout(() => setScanStep(3), 1200);
+    setTimeout(runActualGeneration, 1600);
+  };
+
+  const runActualGeneration = () => {
+    saveUserData();
     const today = new Date().toLocaleDateString('de-DE');
     const name = bName || '[Dein Name]';
     const iban = bIban || '[Deine IBAN]';
@@ -360,6 +372,7 @@ export default function BahnRebell() {
       <p>${name.split('\n')[0]}</p>
     `);
     
+    setIsScanning(false);
     setTimeout(() => {
       document.getElementById('view-preview')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
@@ -416,10 +429,22 @@ export default function BahnRebell() {
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
             <section className="view active" id="view-dashboard">
-              <div className="hero" style={{ background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-red)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+              <div className="train-track no-print">
+                <svg className="train-svg" width="80" height="24" viewBox="0 0 80 24" fill="var(--accent-red)">
+                  <rect x="0" y="8" width="55" height="12" rx="2" />
+                  <path d="M55,8 L70,12 L70,20 L55,20 Z" />
+                  <rect x="15" y="12" width="10" height="4" fill="var(--bg)" />
+                  <rect x="30" y="12" width="10" height="4" fill="var(--bg)" />
+                  <rect x="45" y="12" width="8" height="4" fill="var(--bg)" />
+                  <circle cx="20" cy="22" r="2" fill="var(--muted)" />
+                  <circle cx="50" cy="22" r="2" fill="var(--muted)" />
+                </svg>
+              </div>
+
+              <div className="hero glow-red" style={{ transition: 'all 0.3s', background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-red)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
                 <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-red)', marginBottom: '12px', display: 'block' }}>Fahrgastrechte Terminal</span>
                 <h1>Hol dir dein Geld <br/><span style={{ color: 'var(--accent-red)' }}>von der Bahn.</span></h1>
-                <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Seit Juni 2023 nutzt die Bahn neue "außergewöhnliche Umstände", um nicht zu zahlen. Dieses Terminal berechnet deine exakten Ansprüche nach der aktuellen EU-Verordnung 2021/782 und generiert jetzt 9 verschiedene druckfertige Anschreiben.</p>
+                <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Seit Juni 2023 nutzt die Bahn neue "außergewöhnliche Umstände", um nicht zu zahlen. Dieses Terminal berechnet deine exakten Ansprüche nach der aktuellen EU-Verordnung 2021/782 und generiert jetzt 10 verschiedene druckfertige Anschreiben.</p>
                 
                 <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>
                   <button className="btn btn-primary" onClick={() => switchView('rechner')}>Neuen Fall berechnen</button>
@@ -723,6 +748,27 @@ export default function BahnRebell() {
 
         </div>
       </main>
+
+      {isScanning && (
+        <div className="brief-scanner-overlay">
+          <div style={{ background: 'var(--card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--accent-red)', maxWidth: '400px', width: '90%', textAlign: 'center', boxShadow: '0 0 30px rgba(255, 51, 102, 0.3)' }}>
+            <div style={{ fontSize: '40px', marginBottom: '20px', animation: 'pulseGlow 1.5s infinite' }}>🚄⚖️</div>
+            <h3 style={{ color: 'var(--accent-red)' }}>Bahn-Rebell Buster</h3>
+            <p style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '24px' }}>Generiere rechtssicheren PDF-Brief...</p>
+            
+            <div style={{ height: '4px', background: 'var(--border)', borderRadius: '2px', overflow: 'hidden', marginBottom: '20px' }}>
+              <div style={{ height: '100%', background: 'var(--accent-red)', width: '0%', animation: 'scanProgress 1.5s linear forwards' }} />
+            </div>
+
+            <div style={{ fontSize: '13px', textAlign: 'left', minHeight: '40px', color: 'var(--text)' }}>
+              {scanStep === 0 && "🔍 Analysiere Fahrplandaten & Verspätung..."}
+              {scanStep === 1 && "📖 Gleiche ab mit EU-VO 2021/782..."}
+              {scanStep === 2 && "📝 Setze Fristen & Paragrafen auf..."}
+              {scanStep === 3 && "✍️ Fertigstellung der PDF-Vorschau..."}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

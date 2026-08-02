@@ -114,6 +114,8 @@ export default function AboKiller() {
   const [userName, setUserName] = useState('');
   const [userAddress, setUserAddress] = useState('');
   const [letterHtml, setLetterHtml] = useState('');
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanStep, setScanStep] = useState(0);
 
   // Form
   const [fName, setFName] = useState('');
@@ -229,25 +231,35 @@ export default function AboKiller() {
       return;
     }
 
-    const today = new Date().toLocaleDateString('de-DE');
-    const contractInfo = sub.contract ? `(Vertrags-/Kundennummer: ${sub.contract})` : '';
+    setIsScanning(true);
+    setScanStep(0);
 
-    const html = `
-      <div class="sender">${userName}<br>${userAddress.replace(/\n/g, '<br>')}</div>
-      <div class="recipient">An:<br>${sub.name}<br>${(sub.address || '').replace(/\n/g, '<br>')}</div>
-      <div class="date">${today}</div>
-      <div class="subject">Kündigung meines Vertrages</div>
-      <p>Sehr geehrte Damen und Herren,</p>
-      <p>hiermit kündige ich meinen oben genannten Vertrag ${contractInfo} fristgerecht zum nächstmöglichen Zeitpunkt.</p>
-      <p>Bitte senden Sie mir eine schriftliche Bestätigung der Kündigung unter Angabe des Beendigungszeitpunktes zu.</p>
-      <p>Gleichzeitig widerrufe ich hiermit eine Ihnen erteilte Einzugsermächtigung für mein Bankkonto zum Zeitpunkt des Vertragsendes.</p>
-      <p>Mit freundlichen Grüßen,</p>
-      <br><br><br>
-      <p>${userName}</p>
-    `;
-    setLetterHtml(html);
-    setActiveView('brief');
-    setPendingSub(null);
+    setTimeout(() => setScanStep(1), 400);
+    setTimeout(() => setScanStep(2), 800);
+    setTimeout(() => setScanStep(3), 1200);
+
+    setTimeout(() => {
+      const today = new Date().toLocaleDateString('de-DE');
+      const contractInfo = sub.contract ? `(Vertrags-/Kundennummer: ${sub.contract})` : '';
+
+      const html = `
+        <div class="sender">${userName}<br>${userAddress.replace(/\n/g, '<br>')}</div>
+        <div class="recipient">An:<br>${sub.name}<br>${(sub.address || '').replace(/\n/g, '<br>')}</div>
+        <div class="date">${today}</div>
+        <div class="subject">Kündigung meines Vertrages</div>
+        <p>Sehr geehrte Damen und Herren,</p>
+        <p>hiermit kündige ich meinen oben genannten Vertrag ${contractInfo} fristgerecht zum nächstmöglichen Zeitpunkt.</p>
+        <p>Bitte senden Sie mir eine schriftliche Bestätigung der Kündigung unter Angabe des Beendigungszeitpunktes zu.</p>
+        <p>Gleichzeitig widerrufe ich hiermit eine Ihnen erteilte Einzugsermächtigung für mein Bankkonto zum Zeitpunkt des Vertragsendes.</p>
+        <p>Mit freundlichen Grüßen,</p>
+        <br><br><br>
+        <p>${userName}</p>
+      `;
+      setLetterHtml(html);
+      setIsScanning(false);
+      setActiveView('brief');
+      setPendingSub(null);
+    }, 1600);
   };
 
   const printLetter = () => {
@@ -617,8 +629,15 @@ export default function AboKiller() {
           {activeView === 'ghost' && (
             <section className="view active">
               <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: '#3498db', marginBottom: '12px', display: 'block' }}>Die Kostenfallen</span>
-              <h2>🕵️ Der Ghost-Abo Detektiv</h2>
-              <p style={{ color: 'var(--muted)' }}>Wir haben die häufigsten, heimlichen Geldfresser identifiziert. Gehe diese Checkliste durch – zahlst du für einen dieser Dienste, ohne es zu merken?</p>
+              <div style={{ display: 'flex', gap: '30px', alignItems: 'center', marginTop: '24px', flexWrap: 'wrap' }}>
+                <div className="radar-container no-print">
+                  <div className="radar-sweep"></div>
+                  <div style={{ zIndex: 10, fontSize: '32px' }}>🕵️</div>
+                </div>
+                <div style={{ flex: 1, minWidth: '250px' }}>
+                  <p style={{ color: 'var(--muted)', marginBottom: 0 }}>Wir haben die häufigsten, heimlichen Geldfresser identifiziert. Gehe diese Checkliste durch – zahlst du für einen dieser Dienste, ohne es zu merken?</p>
+                </div>
+              </div>
 
               <div className="card" style={{ marginTop: '24px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -645,6 +664,27 @@ export default function AboKiller() {
 
         </div>
       </main>
+
+      {isScanning && (
+        <div className="brief-scanner-overlay">
+          <div style={{ background: 'var(--card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--accent-blue)', maxWidth: '400px', width: '90%', textAlign: 'center', boxShadow: '0 0 30px rgba(0, 229, 255, 0.3)' }}>
+            <div style={{ fontSize: '40px', marginBottom: '20px', animation: 'pulseGlow 1.5s infinite' }}>🕵️⚖️</div>
+            <h3 style={{ color: 'var(--accent-blue)' }}>Abo-Killer Scan</h3>
+            <p style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '24px' }}>Erstelle Kündigungsschreiben...</p>
+            
+            <div style={{ height: '4px', background: 'var(--border)', borderRadius: '2px', overflow: 'hidden', marginBottom: '20px' }}>
+              <div style={{ height: '100%', background: 'var(--accent-blue)', width: '0%', animation: 'scanProgress 1.5s linear forwards' }} />
+            </div>
+
+            <div style={{ fontSize: '13px', textAlign: 'left', minHeight: '40px', color: 'var(--text)' }}>
+              {scanStep === 0 && "🔍 Validiere Vertragsnummer & Fristen..."}
+              {scanStep === 1 && "📖 Formuliere BGB-konforme Kündigung..."}
+              {scanStep === 2 && "📝 Entziehe Einzugsermächtigung..."}
+              {scanStep === 3 && "✍️ Fertigstellung der PDF-Vorschau..."}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

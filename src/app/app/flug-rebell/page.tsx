@@ -42,6 +42,8 @@ export default function FlugRebell() {
 
   const [bCaseSelection, setBCaseSelection] = useState('');
   const [letterHtml, setLetterHtml] = useState('');
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanStep, setScanStep] = useState(0);
 
   // Calc Fields
   const [cType, setCType] = useState('verspaetung');
@@ -192,90 +194,99 @@ export default function FlugRebell() {
 
   const generateLetter = () => {
     saveUserData();
-    const today = new Date().toLocaleDateString('de-DE');
-    const name = bName || '[Dein Name]';
-    const iban = bIban || '[Deine IBAN]';
-    const date = bDate ? new Date(bDate).toLocaleDateString('de-DE') : '[Flugdatum]';
-    const airline = bAirline || '[Fluggesellschaft]';
-    const flight = bFlight || '[Flugnummer]';
-    const pnr = bPnr || '[Buchungscode/PNR]';
-    const paxNames = bPaxNames || '[Passagier-Namen]';
-    const amount = bAmount || '[Betrag]';
-    const pir = bPir || '[PIR-Referenznummer]';
-    const from = bFrom || '[Abflugort]';
-    const to = bTo || '[Zielort]';
+    setIsScanning(true);
+    setScanStep(0);
 
-    let subj = "";
-    let body = "";
+    setTimeout(() => setScanStep(1), 400);
+    setTimeout(() => setScanStep(2), 800);
+    setTimeout(() => setScanStep(3), 1200);
 
-    const frist = new Date();
-    frist.setDate(frist.getDate() + (bArt === 'stufe2' ? 7 : 14));
-    const fristStr = frist.toLocaleDateString('de-DE');
-
-    if (bArt === 'stufe1') {
-      subj = `Forderung von Ausgleichsleistungen nach Art. 7 der Fluggastrechte-Verordnung (EG) Nr. 261/2004`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>hiermit mache ich Ansprüche auf Ausgleichsleistungen gemäß Art. 7 der EU-Verordnung 261/2004 geltend.</p>
-      <p>Am <strong>${date}</strong> war ich/waren wir auf den Flug <strong>${flight}</strong> gebucht (Buchungscode: <strong>${pnr}</strong>). Passagiere: ${paxNames}.</p>
-      <p>Dieser Flug erreichte sein Ziel mit einer erheblichen Verspätung bzw. wurde annulliert. Gemäß der Verordnung steht mir/uns daher eine pauschale Ausgleichszahlung zu.</p>
-      <p>Ich fordere Sie auf, den mir/uns zustehenden Betrag in Höhe von <strong>${amount} €</strong> bis spätestens zum</p>
-      <p style="text-align:center;font-weight:bold;font-size:14pt">${fristStr}</p>
-      <p>auf folgendes Konto zu überweisen:</p>
-      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
-      <p>Sollte die Frist fruchtlos verstreichen, werde ich rechtliche Schritte einleiten und mich an die Schlichtungsstelle für den öffentlichen Personenverkehr (söp) wenden. Die dadurch entstehenden Kosten gehen zu Ihren Lasten.</p>`;
-    } else if (bArt === 'stufe2') {
-      subj = `LETZTE MAHNUNG: Forderung von Ausgleichsleistungen (Verordnung (EG) Nr. 261/2004)`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>auf mein Schreiben bezüglich des Fluges <strong>${flight}</strong> am <strong>${date}</strong> (Buchungscode: <strong>${pnr}</strong>) haben Sie den fälligen Betrag bisher nicht überwiesen.</p>
-      <p>Daher setze ich Ihnen hiermit eine <strong>letzte Nachfrist</strong> bis zum</p>
-      <p style="text-align:center;font-weight:bold;font-size:14pt;color:red">${fristStr}</p>
-      <p>um den Betrag von <strong>${amount} €</strong> auf folgendes Konto zu zahlen:</p>
-      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
-      <p>Da Sie sich bereits in Verzug befinden, behalte ich mir vor, ab sofort Verzugszinsen geltend zu machen. Nach fruchtlosem Ablauf dieser letzten Frist werde ich ohne weitere Vorwarnung gerichtliche Schritte einleiten oder meine Forderung an einen Rechtsanwalt übergeben.</p>`;
-    } else if (bArt === 'stufe3') {
-      subj = `Widerspruch gegen Ihre Ablehnung / Technischer Defekt ist kein außergewöhnlicher Umstand`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>ich nehme Bezug auf Ihre Ablehnung meiner Forderung zu Flug <strong>${flight}</strong> am <strong>${date}</strong>.</p>
-      <p>Sie berufen sich auf "außergewöhnliche Umstände" (z.B. technischer Defekt). Ich weise diese Begründung hiermit rechtlich entschieden zurück.</p>
-      <p>Nach ständiger Rechtsprechung des Europäischen Gerichtshofs (EuGH, Urteil vom 22.12.2008 – C-549/07, Wallentin-Hermann) stellen technische Probleme, die bei der Wartung oder im laufenden Betrieb zutage treten, <strong>keine</strong> außergewöhnlichen Umstände dar, da sie Teil der normalen Ausübung der Tätigkeit eines Luftfahrtunternehmens sind.</p>
-      <p>Ihre pauschale Ablehnung ist daher rechtlich haltlos. Ich erwarte den Eingang meiner Ausgleichszahlung in Höhe von <strong>${amount} €</strong> auf folgendes Konto (IBAN: ${iban}) bis spätestens:</p>
-      <p style="text-align:center;font-weight:bold;font-size:14pt">${fristStr}</p>
-      <p>Sollte die Zahlung ausbleiben, reiche ich umgehend Klage ein.</p>`;
-    } else if (bArt === 'gepaeck') {
-      subj = `Schadensersatzforderung nach dem Montrealer Übereinkommen (Gepäckverspätung/-verlust)`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>am <strong>${date}</strong> flog ich mit Ihrer Gesellschaft von <strong>${from}</strong> nach <strong>${to}</strong> (Flugnummer: <strong>${flight}</strong>, Buchungscode: <strong>${pnr}</strong>).</p>
-      <p>Leider ist mein aufgegebenes Gepäck (PIR-Referenznummer: <strong>${pir}</strong>) nicht rechtzeitig am Zielort eingetroffen. Aufgrund dieser Verspätung war ich gezwungen, notwendige Ersatzkäufe (Hygieneartikel, Kleidung) zu tätigen, um die Zeit bis zum Eintreffen meines Gepäcks zu überbrücken.</p>
-      <p>Gemäß Art. 19 des Montrealer Übereinkommens haftet der Luftfrachtführer für Schäden durch Verspätung bei der Luftbeförderung von Reisegepäck bis zu einer Höhe von 1.288 SZR.</p>
-      <p>Ich fordere Sie hiermit auf, die mir entstandenen Kosten in Höhe von insgesamt <strong>${amount} Euro</strong> zu erstatten. Eine detaillierte Aufstellung sowie Kopien der Kaufbelege liegen diesem Schreiben bei.</p>
-      <p>Bitte überweisen Sie den Betrag bis spätestens zum <strong>${fristStr}</strong> auf folgendes Konto:</p>
-      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
-      <p>Sollte die Frist fruchtlos verstreichen, werde ich rechtliche Schritte einleiten.</p>`;
-    } else if (bArt === 'storno') {
-      subj = `Rückforderung von Steuern und Gebühren wegen nicht angetretenem Flug`;
-      body = `<p>Sehr geehrte Damen und Herren,</p>
-      <p>ich hatte für den <strong>${date}</strong> einen Flug von <strong>${from}</strong> nach <strong>${to}</strong> (Flugnummer: <strong>${flight}</strong>, Buchungscode: <strong>${pnr}</strong>) gebucht.</p>
-      <p>Diesen Flug konnte ich nicht antreten. Wie Ihnen bekannt ist, fallen Steuern, Flughafengebühren und flugabhängige Zuschläge nur dann an, wenn der Passagier den Flug auch tatsächlich antritt. Da ich nicht geflogen bin, mussten Sie diese Beträge nicht an Dritte (z.B. Flughafenbetreiber) abführen.</p>
-      <p>Ein Einbehalt dieser Beträge stellt eine ungerechtfertigte Bereicherung im Sinne des § 812 BGB dar. Auch eventuelle Klauseln in Ihren AGB, die eine Erstattung ausschließen oder hohe Bearbeitungsgebühren dafür vorsehen, sind nach ständiger deutscher Rechtsprechung (u.a. LG Frankfurt a.M., Az. 2-24 O 100/13) unwirksam.</p>
-      <p>Ich fordere Sie hiermit auf, mir die im Ticketpreis enthaltenen Steuern und Gebühren in Höhe von <strong>${amount} Euro</strong> bis spätestens zum <strong>${fristStr}</strong> auf folgendes Konto zu erstatten:</p>
-      <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
-      <p>Sollte die Zahlung ausbleiben, werde ich meine Forderung rechtlich durchsetzen.</p>`;
-    }
-
-    setLetterHtml(`
-      <div class="sender">${name.replace(/\n/g, '<br>')}<br>[Deine Straße]<br>[PLZ Ort]<br></div>
-      <div class="recipient">An:<br>${airline}<br>Kundenservice / Fluggastrechte<br>[Adresse der Airline]</div>
-      <div class="date">${today}</div>
-      <div class="subject">${subj}</div>
-      ${body}
-      <p>Mit freundlichen Grüßen,</p>
-      <br><br><br>
-      <p>${name.split('\n')[0]}</p>
-    `);
-    
     setTimeout(() => {
-      document.getElementById('view-preview')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+      const today = new Date().toLocaleDateString('de-DE');
+      const name = bName || '[Dein Name]';
+      const iban = bIban || '[Deine IBAN]';
+      const date = bDate ? new Date(bDate).toLocaleDateString('de-DE') : '[Flugdatum]';
+      const airline = bAirline || '[Fluggesellschaft]';
+      const flight = bFlight || '[Flugnummer]';
+      const pnr = bPnr || '[Buchungscode/PNR]';
+      const paxNames = bPaxNames || '[Passagier-Namen]';
+      const amount = bAmount || '[Betrag]';
+      const pir = bPir || '[PIR-Referenznummer]';
+      const from = bFrom || '[Abflugort]';
+      const to = bTo || '[Zielort]';
+
+      let subj = "";
+      let body = "";
+
+      const frist = new Date();
+      frist.setDate(frist.getDate() + (bArt === 'stufe2' ? 7 : 14));
+      const fristStr = frist.toLocaleDateString('de-DE');
+
+      if (bArt === 'stufe1') {
+        subj = `Forderung von Ausgleichsleistungen nach Art. 7 der Fluggastrechte-Verordnung (EG) Nr. 261/2004`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>hiermit mache ich Ansprüche auf Ausgleichsleistungen gemäß Art. 7 der EU-Verordnung 261/2004 geltend.</p>
+        <p>Am <strong>${date}</strong> war ich/waren wir auf den Flug <strong>${flight}</strong> gebucht (Buchungscode: <strong>${pnr}</strong>). Passagiere: ${paxNames}.</p>
+        <p>Dieser Flug erreichte sein Ziel mit einer erheblichen Verspätung bzw. wurde annulliert. Gemäß der Verordnung steht mir/uns daher eine pauschale Ausgleichszahlung zu.</p>
+        <p>Ich fordere Sie auf, den mir/uns zustehenden Betrag in Höhe von <strong>${amount} €</strong> bis spätestens zum</p>
+        <p style="text-align:center;font-weight:bold;font-size:14pt">${fristStr}</p>
+        <p>auf folgendes Konto zu überweisen:</p>
+        <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
+        <p>Sollte die Frist fruchtlos verstreichen, werde ich rechtliche Schritte einleiten und mich an die Schlichtungsstelle für den öffentlichen Personenverkehr (söp) wenden. Die dadurch entstehenden Kosten gehen zu Ihren Lasten.</p>`;
+      } else if (bArt === 'stufe2') {
+        subj = `LETZTE MAHNUNG: Forderung von Ausgleichsleistungen (Verordnung (EG) Nr. 261/2004)`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>auf mein Schreiben bezüglich des Fluges <strong>${flight}</strong> am <strong>${date}</strong> (Buchungscode: <strong>${pnr}</strong>) haben Sie den fälligen Betrag bisher nicht überwiesen.</p>
+        <p>Daher setze ich Ihnen hiermit eine <strong>letzte Nachfrist</strong> bis zum</p>
+        <p style="text-align:center;font-weight:bold;font-size:14pt;color:red">${fristStr}</p>
+        <p>um den Betrag von <strong>${amount} €</strong> auf folgendes Konto zu zahlen:</p>
+        <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
+        <p>Da Sie sich bereits in Verzug befinden, behalte ich mir vor, ab sofort Verzugszinsen geltend zu machen. Nach fruchtlosem Ablauf dieser letzten Frist werde ich ohne weitere Vorwarnung gerichtliche Schritte einleiten oder meine Forderung an einen Rechtsanwalt übergeben.</p>`;
+      } else if (bArt === 'stufe3') {
+        subj = `Widerspruch gegen Ihre Ablehnung / Technischer Defekt ist kein außergewöhnlicher Umstand`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>ich nehme Bezug auf Ihre Ablehnung meiner Forderung zu Flug <strong>${flight}</strong> am <strong>${date}</strong>.</p>
+        <p>Sie berufen sich auf "außergewöhnliche Umstände" (z.B. technischer Defekt). Ich weise diese Begründung hiermit rechtlich entschieden zurück.</p>
+        <p>Nach ständiger Rechtsprechung des Europäischen Gerichtshofs (EuGH, Urteil vom 22.12.2008 – C-549/07, Wallentin-Hermann) stellen technische Probleme, die bei der Wartung oder im laufenden Betrieb zutage treten, <strong>keine</strong> außergewöhnlichen Umstände dar, da sie Teil der normalen Ausübung der Tätigkeit eines Luftfahrtunternehmens sind.</p>
+        <p>Ihre pauschale Ablehnung ist daher rechtlich haltlos. Ich erwarte den Eingang meiner Ausgleichszahlung in Höhe von <strong>${amount} €</strong> auf folgendes Konto (IBAN: ${iban}) bis spätestens:</p>
+        <p style="text-align:center;font-weight:bold;font-size:14pt">${fristStr}</p>
+        <p>Sollte die Zahlung ausbleiben, reiche ich umgehend Klage ein.</p>`;
+      } else if (bArt === 'gepaeck') {
+        subj = `Schadensersatzforderung nach dem Montrealer Übereinkommen (Gepäckverspätung/-verlust)`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>am <strong>${date}</strong> flog ich mit Ihrer Gesellschaft von <strong>${from}</strong> nach <strong>${to}</strong> (Flugnummer: <strong>${flight}</strong>, Buchungscode: <strong>${pnr}</strong>).</p>
+        <p>Leider ist mein aufgegebenes Gepäck (PIR-Referenznummer: <strong>${pir}</strong>) nicht rechtzeitig am Zielort eingetroffen. Aufgrund dieser Verspätung war ich gezwungen, notwendige Ersatzkäufe (Hygieneartikel, Kleidung) zu tätigen, um die Zeit bis zum Eintreffen meines Gepäcks zu überbrücken.</p>
+        <p>Gemäß Art. 19 des Montrealer Übereinkommens haftet der Luftfrachtführer für Schäden durch Verspätung bei der Luftbeförderung von Reisegepäck bis zu einer Höhe von 1.288 SZR.</p>
+        <p>Ich fordere Sie hiermit auf, die mir entstandenen Kosten in Höhe von insgesamt <strong>${amount} Euro</strong> zu erstatten. Eine detaillierte Aufstellung sowie Kopien der Kaufbelege liegen diesem Schreiben bei.</p>
+        <p>Bitte überweisen Sie den Betrag bis spätestens zum <strong>${fristStr}</strong> auf folgendes Konto:</p>
+        <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
+        <p>Sollte die Frist fruchtlos verstreichen, werde ich rechtliche Schritte einleiten.</p>`;
+      } else if (bArt === 'storno') {
+        subj = `Rückforderung von Steuern und Gebühren wegen nicht angetretenem Flug`;
+        body = `<p>Sehr geehrte Damen und Herren,</p>
+        <p>ich hatte für den <strong>${date}</strong> einen Flug von <strong>${from}</strong> nach <strong>${to}</strong> (Flugnummer: <strong>${flight}</strong>, Buchungscode: <strong>${pnr}</strong>) gebucht.</p>
+        <p>Diesen Flug konnte ich nicht antreten. Wie Ihnen bekannt ist, fallen Steuern, Flughafengebühren und flugabhängige Zuschläge nur dann an, wenn der Passagier den Flug auch tatsächlich antritt. Da ich nicht geflogen bin, mussten Sie diese Beträge nicht an Dritte (z.B. Flughafenbetreiber) abführen.</p>
+        <p>Ein Einbehalt dieser Beträge stellt eine ungerechtfertigte Bereicherung im Sinne des § 812 BGB dar. Auch eventuelle Klauseln in Ihren AGB, die eine Erstattung ausschließen oder hohe Bearbeitungsgebühren dafür vorsehen, sind nach ständiger deutscher Rechtsprechung (u.a. LG Frankfurt a.M., Az. 2-24 O 100/13) unwirksam.</p>
+        <p>Ich fordere Sie hiermit auf, mir die im Ticketpreis enthaltenen Steuern und Gebühren in Höhe von <strong>${amount} Euro</strong> bis spätestens zum <strong>${fristStr}</strong> auf folgendes Konto zu erstatten:</p>
+        <p>Kontoinhaber: ${name}<br>IBAN: ${iban}</p>
+        <p>Sollte die Zahlung ausbleiben, werde ich meine Forderung rechtlich durchsetzen.</p>`;
+      }
+
+      setLetterHtml(`
+        <div class="sender">${name.replace(/\n/g, '<br>')}<br>[Deine Straße]<br>[PLZ Ort]<br></div>
+        <div class="recipient">An:<br>${airline}<br>Kundenservice / Fluggastrechte<br>[Adresse der Airline]</div>
+        <div class="date">${today}</div>
+        <div class="subject">${subj}</div>
+        ${body}
+        <p>Mit freundlichen Grüßen,</p>
+        <br><br><br>
+        <p>${name.split('\n')[0]}</p>
+      `);
+      setIsScanning(false);
+      setTimeout(() => {
+        document.getElementById('view-preview')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }, 1600);
   };
 
   const printLetter = () => {
@@ -321,7 +332,14 @@ export default function FlugRebell() {
           {/* DASHBOARD */}
           {activeView === 'dashboard' && (
             <section className="view active" id="view-dashboard">
-              <div className="hero" style={{ background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-blue)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+              <div className="flight-track-container no-print">
+                <svg className="plane-svg" width="30" height="30" viewBox="0 0 24 24" fill="var(--accent-blue)">
+                  <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
+                </svg>
+                <div style={{ position: 'absolute', bottom: '15px', left: '10px', right: '10px', height: '1px', borderBottom: '1px dashed var(--border)' }} />
+              </div>
+
+              <div className="hero glow-blue" style={{ transition: 'all 0.3s', background: 'linear-gradient(135deg, var(--card) 0%, #060A1A 100%)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent-blue)', padding: '40px', borderRadius: '8px', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
                 <span style={{ textTransform: 'uppercase', letterSpacing: '.2em', fontSize: '12px', fontWeight: 800, color: 'var(--accent-blue)', marginBottom: '12px', display: 'block' }}>Fluggastrechte Terminal</span>
                 <h1>Hol dir dein Geld <br/><span style={{ color: 'var(--accent-blue)' }}>zurück.</span></h1>
                 <p style={{ fontSize: '16px', maxWidth: '700px', marginBottom: 0 }}>Airlines spekulieren darauf, dass du aufgibst. Portale wie Flightright nehmen 30% deiner Entschädigung. Der Flug-Rebell liefert dir die exakten Berechnungen und 5 juristische Werkzeuge — du behältst 100%.</p>
@@ -558,7 +576,8 @@ export default function FlugRebell() {
                 </div>
               </div>
 
-              {letterHtml && (
+              {/* BRIEF PREVIEW */}
+              {letterHtml && activeView === 'briefe' && (
                 <div id="view-preview" style={{ marginTop: '24px' }}>
                   <div className="no-print" style={{ padding: '16px', background: 'var(--darker)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h3 style={{ margin: 0 }}>Brief-Vorschau</h3>
