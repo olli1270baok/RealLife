@@ -34,6 +34,7 @@ export default function RetourenRebell() {
   const [gResult, setGResult] = useState<{status: 'success' | 'fail' | 'warn', html: string} | null>(null);
 
   useEffect(() => {
+    document.body.className = 'theme-retouren';
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       
@@ -50,6 +51,9 @@ export default function RetourenRebell() {
     };
 
     checkUser();
+    return () => {
+      document.body.className = '';
+    };
   }, [router]);
 
   // Load saved data on mount

@@ -129,6 +129,7 @@ export default function AboKiller() {
   const [fAddress, setFAddress] = useState('');
 
   useEffect(() => {
+    document.body.className = 'theme-abo';
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -142,6 +143,9 @@ export default function AboKiller() {
       setLoadingUser(false);
     };
     checkUser();
+    return () => {
+      document.body.className = '';
+    };
   }, [router]);
 
   useEffect(() => {

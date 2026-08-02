@@ -56,6 +56,7 @@ export default function FlugRebell() {
   const [cResult, setCResult] = useState<{amount: number, total: number, msg: string, class: string, rawCalc: any} | null>(null);
 
   useEffect(() => {
+    document.body.className = 'theme-flug';
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -69,6 +70,9 @@ export default function FlugRebell() {
       setLoadingUser(false);
     };
     checkUser();
+    return () => {
+      document.body.className = '';
+    };
   }, [router]);
 
   useEffect(() => {

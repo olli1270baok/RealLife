@@ -661,4 +661,274 @@ input:focus, select:focus, textarea:focus {
   font-weight: 800;
 }
 
+/* Theme: Bahn-Rebell (Warm-White & DB-Rot) */
+body.theme-bahn {
+  --bg: #F5F4F0; /* Warm sand/cream white background */
+  --card: rgba(255, 255, 255, 0.55);
+  --card-hover: rgba(255, 255, 255, 0.85);
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #1F2937;
+  --muted: #4B5563;
+  --accent-red: #EC0016;
+}
+
+body.theme-bahn .bg-blob-container {
+  background: #F5F4F0;
+}
+
+body.theme-bahn .bg-blob-1 {
+  background: radial-gradient(circle, rgba(236, 0, 22, 0.06) 0%, transparent 80%);
+}
+
+body.theme-bahn .bg-blob-2 {
+  background: radial-gradient(circle, rgba(210, 205, 195, 0.5) 0%, transparent 80%);
+}
+
+body.theme-bahn .bg-blob-3 {
+  background: radial-gradient(circle, rgba(165, 180, 252, 0.1) 0%, transparent 80%);
+}
+
+body.theme-bahn header {
+  border-bottom: 2px solid var(--accent-red);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--accent-red) !important;
+}
+
+body.theme-bahn .sidebar {
+  background: rgba(239, 238, 234, 0.6);
+  border-right-color: var(--border);
+}
+
+body.theme-bahn .nav-item {
+  color: var(--muted);
+}
+
+body.theme-bahn .nav-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--text);
+}
+
+body.theme-bahn .nav-item.active {
+  background: rgba(236, 0, 22, 0.06);
+  color: var(--accent-red);
+  border-left-color: var(--accent-red);
+}
+
+body.theme-bahn .gradient-title-db {
+  background: linear-gradient(135deg, #111827 30%, #EC0016 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.theme-bahn .logo {
+  color: #111827;
+}
+
+body.theme-bahn .badge {
+  background: rgba(236, 0, 22, 0.1);
+  color: var(--accent-red);
+}
+
+/* Theme: Flug-Rebell (Deep Sky Navy & Sky-Cyan) */
+body.theme-flug {
+  --bg: #030a1e;
+  --card: rgba(10, 25, 60, 0.3);
+  --card-hover: rgba(10, 25, 60, 0.55);
+  --border: rgba(0, 240, 255, 0.1);
+  --text: #e0f2fe;
+  --muted: #7dd3fc;
+  --accent-blue: #00f0ff;
+}
+
+body.theme-flug .bg-blob-container {
+  background: #030a1e;
+}
+
+body.theme-flug .bg-blob-1 {
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, transparent 85%);
+}
+
+body.theme-flug .bg-blob-2 {
+  background: radial-gradient(circle, rgba(192, 64, 255, 0.08) 0%, transparent 85%);
+}
+
+body.theme-flug .bg-blob-3 {
+  background: radial-gradient(circle, rgba(3, 10, 30, 0.5) 0%, transparent 85%);
+}
+
+body.theme-flug header {
+  border-bottom: 2px solid var(--accent-blue);
+  background: rgba(10, 25, 60, 0.4);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--accent-blue) !important;
+}
+
+body.theme-flug .sidebar {
+  background: rgba(3, 10, 30, 0.5);
+  border-right-color: var(--border);
+}
+
+body.theme-flug .nav-item {
+  color: var(--muted);
+}
+
+body.theme-flug .nav-item:hover {
+  background: rgba(0, 240, 255, 0.04);
+  color: var(--text);
+}
+
+body.theme-flug .nav-item.active {
+  background: rgba(0, 240, 255, 0.06);
+  color: var(--accent-blue);
+  border-left-color: var(--accent-blue);
+}
+
+body.theme-flug .gradient-title {
+  background: linear-gradient(135deg, #ffffff 40%, #00f0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.theme-flug .logo {
+  color: #ffffff;
+}
+
+body.theme-flug .badge {
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--accent-blue);
+}
+
+/* Theme: Abo-Killer (Charcoal Black & Cyber Emerald) */
+body.theme-abo {
+  --bg: #030712;
+  --card: rgba(255, 255, 255, 0.02);
+  --card-hover: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.06);
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --accent-blue: #10b981;
+}
+
+body.theme-abo .bg-blob-container {
+  background: #030712;
+}
+
+body.theme-abo .bg-blob-1 {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 85%);
+}
+
+body.theme-abo .bg-blob-2 {
+  background: radial-gradient(circle, rgba(192, 64, 255, 0.08) 0%, transparent 85%);
+}
+
+body.theme-abo .bg-blob-3 {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 85%);
+}
+
+body.theme-abo header {
+  border-bottom: 2px solid #10b981;
+  background: rgba(3, 7, 18, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom-color: #10b981 !important;
+}
+
+body.theme-abo .sidebar {
+  background: rgba(3, 7, 18, 0.6);
+  border-right-color: var(--border);
+}
+
+body.theme-abo .nav-item {
+  color: var(--muted);
+}
+
+body.theme-abo .nav-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+}
+
+body.theme-abo .nav-item.active {
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+  border-left-color: #10b981;
+}
+
+body.theme-abo .logo {
+  color: #ffffff;
+}
+
+body.theme-abo .badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+/* Theme: Retouren-Rebell (Carbon Slate & Warning Orange) */
+body.theme-retouren {
+  --bg: #07090e;
+  --card: rgba(30, 35, 45, 0.2);
+  --card-hover: rgba(30, 35, 45, 0.4);
+  --border: rgba(245, 158, 11, 0.1);
+  --text: #fef3c7;
+  --muted: #f59e0b;
+  --accent-red: #f59e0b;
+}
+
+body.theme-retouren .bg-blob-container {
+  background: #07090e;
+}
+
+body.theme-retouren .bg-blob-1 {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 85%);
+}
+
+body.theme-retouren .bg-blob-2 {
+  background: radial-gradient(circle, rgba(236, 0, 22, 0.05) 0%, transparent 85%);
+}
+
+body.theme-retouren .bg-blob-3 {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 85%);
+}
+
+body.theme-retouren header {
+  border-bottom: 2px solid #f59e0b;
+  background: rgba(7, 9, 14, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom-color: #f59e0b !important;
+}
+
+body.theme-retouren .sidebar {
+  background: rgba(7, 9, 14, 0.6);
+  border-right-color: var(--border);
+}
+
+body.theme-retouren .nav-item {
+  color: #d97706;
+}
+
+body.theme-retouren .nav-item:hover {
+  background: rgba(245, 158, 11, 0.04);
+  color: var(--text);
+}
+
+body.theme-retouren .nav-item.active {
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+  border-left-color: #f59e0b;
+}
+
+body.theme-retouren .gradient-title {
+  background: linear-gradient(135deg, #ffffff 40%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.theme-retouren .logo {
+  color: #ffffff;
+}
+
+body.theme-retouren .badge {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
 

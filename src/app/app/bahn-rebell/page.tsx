@@ -55,6 +55,7 @@ export default function BahnRebell() {
   const [cResult, setCResult] = useState<{amount: string, msg: string, class: string, rawCalc: any} | null>(null);
 
   useEffect(() => {
+    document.body.className = 'theme-bahn';
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -68,6 +69,9 @@ export default function BahnRebell() {
       setLoadingUser(false);
     };
     checkUser();
+    return () => {
+      document.body.className = '';
+    };
   }, [router]);
 
   useEffect(() => {
