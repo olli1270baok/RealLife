@@ -112,6 +112,17 @@ export default function AppDashboard() {
                   <div style={{marginTop: '16px', color: '#10b981', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
                 )}
               </div>
+
+              <div className="card glow-violet" style={{cursor: 'pointer', position: 'relative'}} onClick={() => router.push('/app/digital-schutzschild')}>
+                {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
+                <h3 style={{color: '#a855f7'}}>🛡️ Digital-Schutzschild</h3>
+                <p style={{color: 'white'}}>Dein Schutzschild für digitale Rechte. DSGVO-Auskunft, Google-Löschungen, Sperren, Urheberrecht.</p>
+                {!loading && !isPro ? (
+                  <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
+                ) : (
+                  <div style={{marginTop: '16px', color: '#a855f7', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
+                )}
+              </div>
               
               <div className="card" style={{opacity: 0.5, position: 'relative'}}>
                 {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
