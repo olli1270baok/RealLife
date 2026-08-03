@@ -733,6 +733,10 @@ export default function LebenslagenLotse() {
     <div className="lotse-app-wrapper" data-theme={theme} data-palette={palette}>
       {/* Scope CSS 1:1 from standalone app */}
       <style dangerouslySetInnerHTML={{__html: `
+        body {
+          overflow-y: auto !important;
+          height: auto !important;
+        }
         .lotse-app-wrapper {
           --bg:#eef2f6;--paper:#fff;--paper2:#f7f9fc;--ink:#142033;--muted:#667287;--line:#d9e0ea;
           --nav:#10243f;--nav2:#173a61;--accent:#1768e5;--accent2:#71a8ff;--gold:#e8b43f;--good:#16845b;
