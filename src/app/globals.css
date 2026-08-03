@@ -1127,3 +1127,73 @@ body.theme-digital h2 {
 body.theme-digital h3 {
   color: #ffffff;
 }
+
+/* Theme: Lebenslagen-Lotse (Berry Purple & Rose) */
+body.theme-lotse {
+  --bg: #0b0c10; /* Dark slate */
+  --card: rgba(255, 255, 255, 0.02);
+  --card-hover: rgba(255, 255, 255, 0.05);
+  --border: rgba(192, 64, 255, 0.1);
+  --text: #f1f5f9;
+  --muted: #c084fc; /* Soft purple */
+  --accent-blue: #a855f7; /* Berry Purple */
+  --accent-red: #f43f5e;  /* Berry Red */
+}
+
+body.theme-lotse .bg-blob-container {
+  background: #0b0c10;
+}
+
+body.theme-lotse .bg-blob-1 {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 85%);
+}
+
+body.theme-lotse .bg-blob-2 {
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.1) 0%, transparent 85%);
+}
+
+body.theme-lotse .bg-blob-3 {
+  background: radial-gradient(circle, rgba(11, 12, 16, 0.5) 0%, transparent 85%);
+}
+
+body.theme-lotse header {
+  border-bottom: 2px solid #a855f7;
+  background: rgba(11, 12, 16, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom-color: #a855f7 !important;
+}
+
+body.theme-lotse .sidebar {
+  background: rgba(11, 12, 16, 0.6);
+  border-right-color: var(--border);
+}
+
+body.theme-lotse .nav-item {
+  color: #d8b4fe;
+}
+
+body.theme-lotse .nav-item:hover {
+  background: rgba(168, 85, 247, 0.04);
+  color: var(--text);
+}
+
+body.theme-lotse .nav-item.active {
+  background: rgba(168, 85, 247, 0.08);
+  color: #c084fc;
+  border-left-color: #c084fc;
+}
+
+body.theme-lotse .gradient-title {
+  background: linear-gradient(135deg, #ffffff 40%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.theme-lotse h2 {
+  color: #c084fc;
+  border-bottom-color: var(--border);
+}
+
+body.theme-lotse h3 {
+  color: #ffffff;
+}

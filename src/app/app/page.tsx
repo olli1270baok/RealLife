@@ -18,7 +18,7 @@ export default function AppDashboard() {
         setUserId(session.user.id);
         setIsPro(session.user.app_metadata?.is_pro === true);
       }
-      setLoadingUser(false);
+      setLoading(false);
     };
     fetchUser();
     return () => {
@@ -121,6 +121,17 @@ export default function AppDashboard() {
                   <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
                 ) : (
                   <div style={{marginTop: '16px', color: '#a855f7', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
+                )}
+              </div>
+
+              <div className="card glow-purple" style={{cursor: 'pointer', position: 'relative'}} onClick={() => router.push('/app/lebenslagen-lotse')}>
+                {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
+                <h3 style={{color: '#c084fc'}}>📋 Lebenslagen-Lotse Pro</h3>
+                <p style={{color: 'white'}}>Der Faden durch das Lebenschaos. Planer für Geburt, Krankheit, Trennung, Umzug, Rente.</p>
+                {!loading && !isPro ? (
+                  <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
+                ) : (
+                  <div style={{marginTop: '16px', color: '#c084fc', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
                 )}
               </div>
               
