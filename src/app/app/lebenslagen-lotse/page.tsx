@@ -309,6 +309,40 @@ export default function LebenslagenLotse() {
     return DICTIONARIES[lang][key as keyof typeof DICTIONARIES['de']] || DICTIONARIES['de'][key as keyof typeof DICTIONARIES['de']] || key;
   };
 
+  const normalizeState = (x: any) => {
+    const defaultsObj = {
+      person: { name: '', street: '', city: '', email: '', phone: '' },
+      lifeSelections: [],
+      lifeTasks: [],
+      cases: [],
+      deadlines: [],
+      documents: [],
+      contacts: [],
+      chronicle: [],
+      letters: [],
+      moduleItems: [],
+      checkStates: {},
+      activeCase: '',
+      meta: { theme: 'light', palette: 'civic', lang: 'de', terms: false, pinHash: '', locked: false }
+    };
+    const clean = x && typeof x === 'object' ? x : {};
+    return {
+      person: { ...defaultsObj.person, ...(clean.person || {}) },
+      lifeSelections: Array.isArray(clean.lifeSelections) ? clean.lifeSelections : [],
+      lifeTasks: Array.isArray(clean.lifeTasks) ? clean.lifeTasks : [],
+      cases: Array.isArray(clean.cases) ? clean.cases : [],
+      deadlines: Array.isArray(clean.deadlines) ? clean.deadlines : [],
+      documents: Array.isArray(clean.documents) ? clean.documents : [],
+      contacts: Array.isArray(clean.contacts) ? clean.contacts : [],
+      chronicle: Array.isArray(clean.chronicle) ? clean.chronicle : [],
+      letters: Array.isArray(clean.letters) ? clean.letters : [],
+      moduleItems: Array.isArray(clean.moduleItems) ? clean.moduleItems : [],
+      checkStates: clean.checkStates && typeof clean.checkStates === 'object' ? clean.checkStates : {},
+      activeCase: typeof clean.activeCase === 'string' ? clean.activeCase : '',
+      meta: { ...defaultsObj.meta, ...(clean.meta || {}) }
+    };
+  };
+
   // Mount effects
   useEffect(() => {
     const checkUser = async () => {
@@ -330,29 +364,27 @@ export default function LebenslagenLotse() {
     try {
       const raw = localStorage.getItem('vorlagenbude_lebenslagen_lotse_v1');
       if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed.person) setPerson(parsed.person);
-        if (parsed.lifeSelections) setLifeSelections(parsed.lifeSelections);
-        if (parsed.lifeTasks) setLifeTasks(parsed.lifeTasks);
-        if (parsed.cases) setCases(parsed.cases);
-        if (parsed.deadlines) setDeadlines(parsed.deadlines);
-        if (parsed.documents) setDocuments(parsed.documents);
-        if (parsed.contacts) setContacts(parsed.contacts);
-        if (parsed.chronicle) setChronicle(parsed.chronicle);
-        if (parsed.letters) setLetters(parsed.letters);
-        if (parsed.moduleItems) setModuleItems(parsed.moduleItems);
-        if (parsed.checkStates) setCheckStates(parsed.checkStates);
-        if (parsed.activeCase) setActiveCase(parsed.activeCase);
+        const parsed = normalizeState(JSON.parse(raw));
+        setPerson(parsed.person);
+        setLifeSelections(parsed.lifeSelections);
+        setLifeTasks(parsed.lifeTasks);
+        setCases(parsed.cases);
+        setDeadlines(parsed.deadlines);
+        setDocuments(parsed.documents);
+        setContacts(parsed.contacts);
+        setChronicle(parsed.chronicle);
+        setLetters(parsed.letters);
+        setModuleItems(parsed.moduleItems);
+        setCheckStates(parsed.checkStates);
+        setActiveCase(parsed.activeCase);
         
-        if (parsed.meta) {
-          if (parsed.meta.theme) setTheme(parsed.meta.theme);
-          if (parsed.meta.palette) setPalette(parsed.meta.palette);
-          if (parsed.meta.lang) setLang(parsed.meta.lang);
-          if (parsed.meta.terms !== undefined) setTermsAccepted(parsed.meta.terms);
-          if (parsed.meta.pinHash) {
-            setPinHash(parsed.meta.pinHash);
-            setIsLocked(parsed.meta.locked ?? false);
-          }
+        setTheme(parsed.meta.theme);
+        setPalette(parsed.meta.palette);
+        setLang(parsed.meta.lang);
+        setTermsAccepted(parsed.meta.terms);
+        if (parsed.meta.pinHash) {
+          setPinHash(parsed.meta.pinHash);
+          setIsLocked(parsed.meta.locked ?? false);
         }
       } else {
         setShowTermsModal(true);
@@ -361,6 +393,12 @@ export default function LebenslagenLotse() {
       console.error("Failed to load local storage", e);
     }
   }, [router]);
+
+  const handleSaveProfile = (e: React.FormEvent) => {
+    e.preventDefault();
+    saveState({ person });
+    alert(lang === 'de' ? 'Absenderdaten erfolgreich lokal gespeichert!' : 'Sender details saved locally!');
+  };
 
   // Sync to local storage
   const saveState = (updates: Partial<{
