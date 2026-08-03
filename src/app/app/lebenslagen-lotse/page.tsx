@@ -446,7 +446,7 @@ export default function LebenslagenLotse() {
       const selectedCaseObj = cases.find(x => x.id === activeCase);
       const contactObj = contacts.find(x => x.id === selectedCaseObj?.contactId);
 
-      const senderStr = [person.name, person.street, person.city, person.email, person.phone].filter(Boolean).join('\n');
+      const senderStr = [person?.name, person?.street, person?.city, person?.email, person?.phone].filter(Boolean).join('\n');
       const recipientStr = contactObj 
         ? [contactObj.name, contactObj.department, contactObj.address].filter(Boolean).join('\n')
         : "[Empfänger / Behörde]\n[Anschrift]";
@@ -1789,23 +1789,23 @@ export default function LebenslagenLotse() {
                     <form onSubmit={handleSaveProfile} className="formgrid">
                       <div className="field wide">
                         <label>Name</label>
-                        <input value={person.name} onChange={e => setPerson({ ...person, name: e.target.value })} />
+                        <input value={person?.name || ''} onChange={e => setPerson(prev => ({ ...prev, name: e.target.value }))} />
                       </div>
                       <div className="field wide">
                         <label>Straße</label>
-                        <input value={person.street} onChange={e => setPerson({ ...person, street: e.target.value })} />
+                        <input value={person?.street || ''} onChange={e => setPerson(prev => ({ ...prev, street: e.target.value }))} />
                       </div>
                       <div className="field wide">
                         <label>PLZ und Ort</label>
-                        <input value={person.city} onChange={e => setPerson({ ...person, city: e.target.value })} />
+                        <input value={person?.city || ''} onChange={e => setPerson(prev => ({ ...prev, city: e.target.value }))} />
                       </div>
                       <div className="field">
                         <label>E-Mail</label>
-                        <input type="email" value={person.email} onChange={e => setPerson({ ...person, email: e.target.value })} />
+                        <input type="email" value={person?.email || ''} onChange={e => setPerson(prev => ({ ...prev, email: e.target.value }))} />
                       </div>
                       <div className="field">
                         <label>Telefon</label>
-                        <input value={person.phone} onChange={e => setPerson({ ...person, phone: e.target.value })} />
+                        <input value={person?.phone || ''} onChange={e => setPerson(prev => ({ ...prev, phone: e.target.value }))} />
                       </div>
                       <div className="field wide">
                         <button type="submit" className="btn primary">Angaben speichern</button>
