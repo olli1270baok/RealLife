@@ -248,6 +248,11 @@ const I18N = {
     kita_leitung: "Kita-Leitung", rettung: "Rettungsdienst / Notaufnahme", aerzte: "Ärztlicher Dienst",
     kasse: "Kasse / Einzelhandel", buero: "Büro / Verwaltung", oeffentlich: "Öffentlicher Dienst",
     handwerk: "Handwerk / Produktion", lager: "Lager / Kommissionierung", bus_bahn: "ÖPNV",
+    ord_falschparker: "Falschparker", ord_muell: "Illegale Müllentsorgung",
+    dsgvo_auskunft: "Auskunft (Art. 15)", dsgvo_loeschung: "Löschung (Art. 17)",
+    gew_arbeitsschutz: "Arbeitsschutzverstoß",
+    tier_quaelerei: "Tierquälerei",
+    fin_schwarzarbeit: "Schwarzarbeit / Steuer",
     lehrkraefte: "Lehrkräfte", erzieher: "Erzieher / Hort", soziale_arbeit: "Soziale Arbeit",
     gastronomie: "Gastronomie", sicherheit: "Sicherheitsdienst",
     kind_vernachlaessigung: "Kindeswohlgefährdung — Vernachlässigung",
@@ -1160,22 +1165,24 @@ Frist: Ich widerspreche der Kündigung innerhalb der gesetzlichen Frist von 2 Mo
 Wichtiger Hinweis: Kündigung nur dann wirksam, wenn Gericht auf Räumungsklage entscheidet. Bis dahin Mietverhältnis fortbestehend.
 
 Bitte um Rücknahme der Kündigung. Andernfalls werde ich mich an das zuständige Amtsgericht wenden und Räumungsschutz beantragen.` },
-    mie_mietminderung: { icon:"💸", body: `Sehr geehrte Damen und Herren,
-
-hiermit zeige ich gemäß §§ 536, 536c BGB Mängel der Mietsache an, die eine Mietminderung rechtfertigen.
-
-Mietobjekt: [Adresse]
-Mängel:
-1. [Beschreibung, Mangel besteht seit Datum]
-2. [Beschreibung, Mangel besteht seit Datum]
-
-Mietminderung gemäß Mietminderungstabelle (Burkhard/Walther):
-1. Mangel: ca. [X]% Mietminderung
-2. Mangel: ca. [X]% Mietminderung
-
-Gesamtmietminderung: ca. [X]% der Bruttomiete = [Betrag] € monatlich
-
-Ich werde die Miete ab dem [Datum] um diesen Betrag mindern. Bitte um Kenntnisnahme.` }
+    mie_mietminderung: { icon:"💸", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich gemäß §§ 536, 536c BGB Mängel der Mietsache an, die eine Mietminderung rechtfertigen.\n\nMietobjekt: [Adresse]\nMängel:\n1. [Beschreibung, Mangel besteht seit Datum]\n2. [Beschreibung, Mangel besteht seit Datum]\n\nMietminderung gemäß Mietminderungstabelle (Burkhard/Walther):\n1. Mangel: ca. [X]% Mietminderung\n2. Mangel: ca. [X]% Mietminderung\n\nGesamtmietminderung: ca. [X]% der Bruttomiete = [Betrag] € monatlich\n\nIch werde die Miete ab dem [Datum] um diesen Betrag mindern. Bitte um Kenntnisnahme.` }
+  },
+  ordnungsamt: {
+    ord_falschparker: { icon:"🚗", body: `Sehr geehrte Damen und Herren,\n\nhiermit erstatte ich Anzeige wegen einer Ordnungswidrigkeit im ruhenden Verkehr.\n\nFahrzeug: [Kennzeichen, Marke, Farbe]\nTatzeit: [Datum, Uhrzeit]\nTatort: [Straße, Hausnummer, Ort]\nVerstoß: [z.B. Parken auf dem Gehweg, Parken im Halteverbot, Blockieren einer Ausfahrt]\n\nBeweismittel: [Fotos liegen bei]\nZeuge: [Mein Name, Adresse]\n\nIch bitte um Verfolgung der Ordnungswidrigkeit.` },
+    ord_muell: { icon:"🗑️", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich eine illegale Müllentsorgung / Verunreinigung des öffentlichen Raums.\n\nOrt: [Genaue Ortsangabe]\nZeitpunkt der Feststellung: [Datum, Uhrzeit]\nArt des Mülls: [Sperrmüll, Bauschutt, Hausmüll]\n\nGgf. Hinweise auf den Verursacher: [Kennzeichen, Personenbeschreibung, falls beobachtet]\n\nBeweismittel: [Fotos liegen bei]\n\nIch bitte um umgehende Beseitigung und Ermittlung des Verursachers.` }
+  },
+  datenschutz: {
+    dsgvo_auskunft: { icon:"ℹ️", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 15 DSGVO fordere ich Sie hiermit auf, mir Auskunft über die zu meiner Person gespeicherten personenbezogenen Daten zu erteilen.\n\nDies umfasst:\n- Verarbeitungszwecke\n- Kategorien der Daten\n- Empfänger\n- Geplante Speicherdauer\n- Herkunft der Daten\n\nIch setze Ihnen hierfür eine Frist von einem Monat.` },
+    dsgvo_loeschung: { icon:"🗑️", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 17 DSGVO fordere ich Sie hiermit auf, alle zu meiner Person gespeicherten personenbezogenen Daten unverzüglich zu löschen.\n\nInsbesondere beziehe ich mich auf: [Kundenkonto, Newsletter-Eintrag, etc.]\n\nSollten Sie der Löschung nicht nachkommen, erbitte ich eine schriftliche Begründung. Andernfalls behalte ich mir eine Beschwerde beim zuständigen Landesdatenschutzbeauftragten vor.` }
+  },
+  gewerbe: {
+    gew_arbeitsschutz: { icon:"👷", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich massive Verstöße gegen den Arbeitsschutz bei folgendem Unternehmen:\n\nUnternehmen: [Name, Adresse]\n\nFolgende Verstöße liegen vor:\n- [z.B. Keine Schutzausrüstung vorhanden]\n- [z.B. Arbeitszeiten werden massiv überschritten]\n- [z.B. Keine Notausgänge / Fluchtwege blockiert]\n\nIch bitte um umgehende Überprüfung durch die Gewerbeaufsicht, um Gefahren für die Mitarbeiter abzuwenden.` }
+  },
+  tier: {
+    tier_quaelerei: { icon:"🐶", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich einen Verstoß gegen das Tierschutzgesetz.\n\nOrt: [Genaue Adresse, Wohnung, Grundstück]\nTierhalter: [Name, falls bekannt]\nArt des Tieres: [Hund, Katze, etc.]\n\nBeobachtung:\n- [z.B. Tier wird ununterbrochen auf engstem Raum gehalten]\n- [z.B. Tier ist stark abgemagert, hat kein Wasser/Futter]\n- [z.B. Sichtbare Verletzungen oder Misshandlungen]\n\nBeweismittel: [Fotos/Videos, Zeugen]\n\nBitte prüfen Sie die Haltungsbedingungen unverzüglich.` }
+  },
+  finanzamt: {
+    fin_schwarzarbeit: { icon:"💸", body: `Sehr geehrte Damen und Herren,\n\nhiermit möchte ich einen Hinweis auf mögliche Steuerhinterziehung / Schwarzarbeit geben.\n\nBetroffene Person / Unternehmen: [Name, Adresse]\n\nSachverhalt:\n- [z.B. Handwerkliche Tätigkeiten werden regelmäßig ohne Rechnung ("bar auf die Hand") durchgeführt]\n- [z.B. Mitarbeiter sind offensichtlich nicht angemeldet]\n\nZeitraum: [Seit wann, wie oft]\n\nIch bitte Sie, diesen Hinweis vertraulich zu behandeln und den Sachverhalt zu überprüfen.` }
   }
 };
 
