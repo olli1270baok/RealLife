@@ -37,14 +37,13 @@ export default function PatientenRebell() {
   const [view, setView] = useState<'matrix' | 'form'>('matrix');
   const [activeId, setActiveId] = useState('');
   
-  // Generic form data
   const [formData, setFormData] = useState({
     name: '',
     address: '',
-    gegenseite: '', // Arzt, Krankenhaus, Kasse
+    gegenseite: '',
     datum: new Date().toLocaleDateString('de-DE'),
     versichertennummer: '',
-    text1: '', // Flexible fields depending on template
+    text1: '',
     text2: '',
     text3: ''
   });
@@ -54,16 +53,16 @@ export default function PatientenRebell() {
   };
 
   const handlePrint = () => {
-    const el = document.getElementById(`pdf-${activeId}`);
+    const el = document.getElementById('pdf-active-preview');
     if (!el) return;
     
     // @ts-ignore
     if (window.html2pdf) {
       const opt = {
-        margin:       10,
+        margin:       0,
         filename:     `${activeId}_Rebell_Dokument.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
+        html2canvas:  { scale: 2, useCORS: true },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
       // @ts-ignore
@@ -92,24 +91,20 @@ export default function PatientenRebell() {
       <div className="graffiti-tag tag-1">GASLIGHTING<br/>SHIELD</div>
       <div className="graffiti-tag tag-2">REBELL<br/>01</div>
 
-      <aside className="rebell-sidebar no-print">
-        <div className="rebell-brand">PATIENTEN <span>REBELL v2.0</span></div>
-        <button className="rebell-navbtn active" onClick={() => setView('matrix')}>
-          ⚔️ Das Arsenal (Alle 20)
-        </button>
-        {activeTemplate && view === 'form' && (
-          <div style={{marginTop: '20px', padding: '15px', background: 'var(--panel)', borderRadius: '8px', border: '1px solid var(--accent)'}}>
-            <h4 style={{color: '#fff', marginBottom: '5px', fontSize: '13px'}}>Aktuelle Waffe:</h4>
-            <p style={{color: 'var(--accent)', fontSize: '12px', fontWeight: 'bold'}}>{activeTemplate.title}</p>
-          </div>
-        )}
-      </aside>
+      {view === 'matrix' && (
+        <aside className="rebell-sidebar no-print">
+          <div className="rebell-brand">PATIENTEN <span>REBELL v2.0</span></div>
+          <button className="rebell-navbtn active" onClick={() => setView('matrix')}>
+            ⚔️ Das Arsenal (Alle 20)
+          </button>
+        </aside>
+      )}
 
-      <main className="rebell-main no-print">
+      <main className={`rebell-main no-print ${view === 'form' ? 'form-mode' : ''}`}>
         
         {/* MATRIX VIEW */}
         {view === 'matrix' && (
-          <div>
+          <div style={{padding: '40px 60px'}}>
             <h1 className="rebell-title">Wähle deine Waffe.</h1>
             <p className="rebell-subtitle">20 juristische Generatoren für Ärzte, Kliniken und Krankenkassen. Keine Kompromisse mehr.</p>
             
@@ -136,121 +131,121 @@ export default function PatientenRebell() {
           </div>
         )}
 
-        {/* FORM VIEW */}
+        {/* SPLIT FORM VIEW (Live Preview) */}
         {view === 'form' && activeTemplate && (
-          <div>
-            <button 
-              style={{background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '5px'}}
-              onClick={() => setView('matrix')}
-            >
-              ← Zurück zum Arsenal
-            </button>
-            <h1 className="rebell-title">{activeTemplate.title}</h1>
-            <p className="rebell-subtitle">{activeTemplate.desc}</p>
-
-            <div className="rebell-panel">
-              <div className="form-row">
+          <div className="split-layout">
+            <div className="split-form">
+              <div className="split-form-header">
+                <button 
+                  style={{background: 'transparent', border: 'none', color: 'var(--accent)', cursor: 'pointer', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '13px', fontWeight: 'bold'}}
+                  onClick={() => setView('matrix')}
+                >
+                  ← Zurück zum Arsenal
+                </button>
+                <h2 style={{color: '#fff', fontSize: '20px', fontFamily: 'Outfit, sans-serif'}}>{activeTemplate.title}</h2>
+              </div>
+              
+              <div className="split-form-body">
                 <div className="form-group">
-                  <label className="rebell-label">Dein Name & Anschrift</label>
+                  <label className="rebell-label">1. Absender (Dein Name & Anschrift)</label>
                   <textarea className="rebell-textarea" style={{minHeight: '80px'}} name="name" value={formData.name} onChange={handleChange} placeholder="Maria Muster&#10;Musterstraße 1&#10;12345 Stadt" />
                 </div>
                 <div className="form-group">
-                  <label className="rebell-label">Gegenseite (Arzt / Kasse / Kammer)</label>
+                  <label className="rebell-label">2. Empfänger (Arzt / Kasse / Kammer)</label>
                   <textarea className="rebell-textarea" style={{minHeight: '80px'}} name="gegenseite" value={formData.gegenseite} onChange={handleChange} placeholder="Dr. Med. Mustermann&#10;Krankenkasse XY" />
                 </div>
-              </div>
 
-              {activeTemplate.cat === 2 && (
+                {activeTemplate.cat === 2 && (
+                  <div className="form-group">
+                    <label className="rebell-label">Versichertennummer</label>
+                    <input className="rebell-input" name="versichertennummer" value={formData.versichertennummer} onChange={handleChange} />
+                  </div>
+                )}
+
                 <div className="form-group">
-                  <label className="rebell-label">Versichertennummer</label>
-                  <input className="rebell-input" name="versichertennummer" value={formData.versichertennummer} onChange={handleChange} />
+                  <label className="rebell-label">
+                    3. {activeTemplate.id === 't1' ? 'Symptome & Auswirkungen' : 
+                     activeTemplate.id === 't2' ? 'Welche Untersuchung wurde mit welcher Begründung verweigert?' :
+                     activeTemplate.id === 't17' ? 'Was ist exakt passiert?' :
+                     activeTemplate.id === 't8' ? 'Welche Leistung wurde abgelehnt (Aktenzeichen)?' :
+                     'Kern-Fakten / Begründung für dieses Schreiben'}
+                  </label>
+                  <textarea className="rebell-textarea" style={{minHeight: '150px'}} name="text1" value={formData.text1} onChange={handleChange} placeholder="Bitte ausführlich beschreiben..." />
                 </div>
-              )}
-
-              {/* Dynamic specific fields */}
-              <div className="form-group">
-                <label className="rebell-label">
-                  {activeTemplate.id === 't1' ? 'Symptome & Auswirkungen' : 
-                   activeTemplate.id === 't2' ? 'Welche Untersuchung wurde mit welcher Begründung verweigert?' :
-                   activeTemplate.id === 't17' ? 'Was ist exakt passiert?' :
-                   activeTemplate.id === 't8' ? 'Welche Leistung wurde abgelehnt (Aktenzeichen)?' :
-                   'Kern-Fakten / Begründung für dieses Schreiben'}
-                </label>
-                <textarea className="rebell-textarea" name="text1" value={formData.text1} onChange={handleChange} placeholder="Bitte ausführlich beschreiben..." />
               </div>
 
-              <button className="rebell-btn" onClick={handlePrint}>
-                🖨️ {activeTemplate.title} PDF Erzeugen
-              </button>
+              <div className="split-form-footer">
+                <button className="rebell-btn" style={{width: '100%', justifyContent: 'center'}} onClick={handlePrint}>
+                  🖨️ PDF ERZEUGEN
+                </button>
+              </div>
+            </div>
+
+            <div className="split-preview">
+              {/* LIVE PDF PAPER */}
+              <div id="pdf-active-preview" className="doc-paper">
+                
+                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '40px'}}>
+                  <div style={{width: '250px', whiteSpace: 'pre-wrap'}}>{formData.name || 'Max Mustermann\nMusterstraße 1\n12345 Stadt'}</div>
+                  <div style={{textAlign: 'right'}}>{formData.datum}</div>
+                </div>
+                
+                <div style={{whiteSpace: 'pre-wrap', marginBottom: '40px', fontWeight: 'bold'}}>{formData.gegenseite || 'Empfänger / Praxis / Krankenkasse'}</div>
+                
+                {activeTemplate.cat === 2 && (
+                  <div style={{marginBottom: '20px'}}><strong>Versichertennummer:</strong> {formData.versichertennummer || '______________________'}</div>
+                )}
+
+                {/* Custom Titles */}
+                {activeTemplate.id === 't1' && <h1>Symptom-Dossier & Vorbericht</h1>}
+                {activeTemplate.id === 't2' && <h1>Formelle Aufforderung zur Dokumentation einer verweigerten Diagnostik</h1>}
+                {activeTemplate.id === 't3' && <h1>Geltendmachung des Rechts auf Akteneinsicht gem. § 630g BGB</h1>}
+                {activeTemplate.id === 't4' && <h1>Anforderung einer ärztlichen Zweitmeinung gem. § 27b SGB V</h1>}
+                {activeTemplate.id === 't5' && <h1>Ablehnung von Individuellen Gesundheitsleistungen (IGeL)</h1>}
+                {activeTemplate.id === 't6' && <h1>Forderung einer schriftlichen Bestätigung der Abweisung (Notaufnahme/Facharzt)</h1>}
+                {activeTemplate.id === 't7' && <h1>Akteneinsicht: Anforderung des vollständigen Geburtsberichts & CTG-Protokolle</h1>}
+                {activeTemplate.id === 't8' && <h1>Widerspruch gegen den Ablehnungsbescheid</h1>}
+                {activeTemplate.id === 't9' && <h1>Widerspruch gegen die Einstellung der Krankengeldzahlung (MDK-Aktenlage)</h1>}
+                {activeTemplate.id === 't10' && <h1>Widerspruch gegen die Ablehnung der Mutter-Kind-Kur / Vater-Kind-Kur</h1>}
+                {activeTemplate.id === 't11' && <h1>Widerspruch gegen die Ablehnung der Rehabilitationsmaßnahme</h1>}
+                {activeTemplate.id === 't12' && <h1>Antrag auf Härtefall-Zuzahlungsbefreiung</h1>}
+                {activeTemplate.id === 't13' && <h1>Antrag auf Kostenübernahme im Off-Label-Use</h1>}
+                {activeTemplate.id === 't14' && <h1>Antrag auf Erstattung von Fahrkosten gem. § 60 SGB V</h1>}
+                {activeTemplate.id === 't15' && <h1>Offizielle Beschwerde bei der zuständigen Ärztekammer</h1>}
+                {activeTemplate.id === 't16' && <h1>Rüge wegen Verdachts auf Verstoß gegen das AGG (Diskriminierung)</h1>}
+                {activeTemplate.id === 't17' && <h1>Gedächtnisprotokoll: Verdacht auf Behandlungsfehler</h1>}
+                {activeTemplate.id === 't18' && <h1>Antrag auf Durchführung eines Schlichtungsverfahrens bei der Gutachterkommission</h1>}
+                {activeTemplate.id === 't19' && <h1>Aufforderung zur kostenlosen Nachbesserung (Mängel beim Zahnersatz)</h1>}
+                {activeTemplate.id === 't20' && <h1>Patientenverfügung & Vorsorgevollmacht (Express-Dokumentation)</h1>}
+
+                <p>Sehr geehrte Damen und Herren,</p>
+
+                {/* Template Specific Body Logic */}
+                {activeTemplate.id === 't1' && <p>zur Vorbereitung auf die Behandlung / Diagnostik überreiche ich Ihnen hiermit mein Symptom-Dossier, um eine evidenzbasierte und effiziente Anamnese zu gewährleisten.</p>}
+                {activeTemplate.id === 't2' && <p>ich fordere Sie hiermit nachdrücklich auf, gem. § 630f BGB Ihre Verweigerung der gewünschten Diagnostik haftbar in meiner Patientenakte zu dokumentieren.</p>}
+                {activeTemplate.id === 't3' && <p>ich mache hiermit von meinem gesetzlichen Recht auf Akteneinsicht gem. § 630g BGB (sowie Art. 15 DSGVO) Gebrauch und fordere eine vollständige, kostenlose Kopie meiner Behandlungsdokumentation.</p>}
+                {(activeTemplate.cat === 2 && activeTemplate.id !== 't12' && activeTemplate.id !== 't13' && activeTemplate.id !== 't14') && <p>hiermit lege ich fristgerecht Widerspruch gegen Ihren Ablehnungsbescheid ein.</p>}
+                
+                <br/>
+                <strong>Sachverhalt / Begründung:</strong>
+                <p style={{whiteSpace: 'pre-wrap', marginTop: '10px'}}>{formData.text1 || 'Es wurde kein spezifischer Sachverhalt angegeben.'}</p>
+                <br/>
+
+                {activeTemplate.id === 't17' && <p>Dieses Protokoll wurde zeitnah und nach bestem Wissen und Gewissen erstellt, um den Sachverhalt gerichtsfest zu dokumentieren.</p>}
+                
+                {(activeTemplate.id === 't8' || activeTemplate.id === 't9' || activeTemplate.id === 't10' || activeTemplate.id === 't11') && <p>Ich fordere eine erneute Prüfung unter Einbeziehung des Medizinischen Dienstes (MD) in Form einer persönlichen Begutachtung, da eine Entscheidung rein nach "Aktenlage" meiner komplexen gesundheitlichen Situation nicht gerecht wird.</p>}
+
+                <br/><br/><br/>
+                <p>Mit freundlichen Grüßen</p>
+                <br/><br/><br/>
+                <p>__________________________________<br/>({formData.name ? formData.name.split('\n')[0] : 'Unterschrift'})</p>
+
+              </div>
             </div>
           </div>
         )}
+
       </main>
-
-      {/* OFF-SCREEN PDF TEMPLATES (Hidden in UI) */}
-      <div style={{ position: 'absolute', top: '-10000px', left: '-10000px' }}>
-        
-        {TEMPLATES.map(t => (
-          <div key={`pdf-${t.id}`} id={`pdf-${t.id}`} className="doc-paper">
-            
-            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '40px'}}>
-              <div style={{width: '250px', whiteSpace: 'pre-wrap'}}>{formData.name || 'Max Mustermann\nMusterstraße 1\n12345 Stadt'}</div>
-              <div style={{textAlign: 'right'}}>{formData.datum}</div>
-            </div>
-            
-            <div style={{whiteSpace: 'pre-wrap', marginBottom: '40px', fontWeight: 'bold'}}>{formData.gegenseite || 'Empfänger / Praxis / Krankenkasse'}</div>
-            
-            {t.cat === 2 && (
-              <div style={{marginBottom: '20px'}}><strong>Versichertennummer:</strong> {formData.versichertennummer || '______________________'}</div>
-            )}
-
-            {/* Custom Titles and Body per template */}
-            {t.id === 't1' && <h1>Symptom-Dossier & Vorbericht</h1>}
-            {t.id === 't2' && <h1>Formelle Aufforderung zur Dokumentation einer verweigerten Diagnostik</h1>}
-            {t.id === 't3' && <h1>Geltendmachung des Rechts auf Akteneinsicht gem. § 630g BGB</h1>}
-            {t.id === 't4' && <h1>Anforderung einer ärztlichen Zweitmeinung gem. § 27b SGB V</h1>}
-            {t.id === 't5' && <h1>Ablehnung von Individuellen Gesundheitsleistungen (IGeL)</h1>}
-            {t.id === 't6' && <h1>Forderung einer schriftlichen Bestätigung der Abweisung (Notaufnahme/Facharzt)</h1>}
-            {t.id === 't7' && <h1>Akteneinsicht: Anforderung des vollständigen Geburtsberichts & CTG-Protokolle</h1>}
-            {t.id === 't8' && <h1>Widerspruch gegen den Ablehnungsbescheid</h1>}
-            {t.id === 't9' && <h1>Widerspruch gegen die Einstellung der Krankengeldzahlung (MDK-Aktenlage)</h1>}
-            {t.id === 't10' && <h1>Widerspruch gegen die Ablehnung der Mutter-Kind-Kur / Vater-Kind-Kur</h1>}
-            {t.id === 't11' && <h1>Widerspruch gegen die Ablehnung der Rehabilitationsmaßnahme</h1>}
-            {t.id === 't12' && <h1>Antrag auf Härtefall-Zuzahlungsbefreiung</h1>}
-            {t.id === 't13' && <h1>Antrag auf Kostenübernahme im Off-Label-Use</h1>}
-            {t.id === 't14' && <h1>Antrag auf Erstattung von Fahrkosten gem. § 60 SGB V</h1>}
-            {t.id === 't15' && <h1>Offizielle Beschwerde bei der zuständigen Ärztekammer</h1>}
-            {t.id === 't16' && <h1>Rüge wegen Verdachts auf Verstoß gegen das AGG (Diskriminierung)</h1>}
-            {t.id === 't17' && <h1>Gedächtnisprotokoll: Verdacht auf Behandlungsfehler</h1>}
-            {t.id === 't18' && <h1>Antrag auf Durchführung eines Schlichtungsverfahrens bei der Gutachterkommission</h1>}
-            {t.id === 't19' && <h1>Aufforderung zur kostenlosen Nachbesserung (Mängel beim Zahnersatz)</h1>}
-            {t.id === 't20' && <h1>Patientenverfügung & Vorsorgevollmacht (Express-Dokumentation)</h1>}
-
-            <p>Sehr geehrte Damen und Herren,</p>
-
-            {/* Template Specific Body Logic */}
-            {t.id === 't1' && <p>zur Vorbereitung auf die Behandlung / Diagnostik überreiche ich Ihnen hiermit mein Symptom-Dossier, um eine evidenzbasierte und effiziente Anamnese zu gewährleisten.</p>}
-            {t.id === 't2' && <p>ich fordere Sie hiermit nachdrücklich auf, gem. § 630f BGB Ihre Verweigerung der gewünschten Diagnostik haftbar in meiner Patientenakte zu dokumentieren.</p>}
-            {t.id === 't3' && <p>ich mache hiermit von meinem gesetzlichen Recht auf Akteneinsicht gem. § 630g BGB (sowie Art. 15 DSGVO) Gebrauch und fordere eine vollständige, kostenlose Kopie meiner Behandlungsdokumentation.</p>}
-            {(t.cat === 2 && t.id !== 't12' && t.id !== 't13' && t.id !== 't14') && <p>hiermit lege ich fristgerecht Widerspruch gegen Ihren Ablehnungsbescheid ein.</p>}
-            
-            <br/>
-            <strong>Sachverhalt / Begründung:</strong>
-            <p style={{whiteSpace: 'pre-wrap', marginTop: '10px'}}>{formData.text1 || 'Es wurde kein spezifischer Sachverhalt angegeben.'}</p>
-            <br/>
-
-            {t.id === 't17' && <p>Dieses Protokoll wurde zeitnah und nach bestem Wissen und Gewissen erstellt, um den Sachverhalt gerichtsfest zu dokumentieren.</p>}
-            
-            {(t.id === 't8' || t.id === 't9' || t.id === 't10' || t.id === 't11') && <p>Ich fordere eine erneute Prüfung unter Einbeziehung des Medizinischen Dienstes (MD) in Form einer persönlichen Begutachtung, da eine Entscheidung rein nach "Aktenlage" meiner komplexen gesundheitlichen Situation nicht gerecht wird.</p>}
-
-            <br/><br/><br/>
-            <p>Mit freundlichen Grüßen</p>
-            <br/><br/><br/>
-            <p>__________________________________<br/>({formData.name ? formData.name.split('\n')[0] : 'Unterschrift'})</p>
-
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
