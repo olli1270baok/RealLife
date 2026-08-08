@@ -1,29 +1,17 @@
 export function initDigitalSchutzschild() {
 
-// === ANTI-TAMPERING & BRANDING LOCK (5-Sec Self-Check) ===
-(function(){
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.onkeydown = function(e){
-    if(e.keyCode === 123) return false;
-    if(e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) return false;
-    if(e.ctrlKey && e.keyCode === 85) return false;
-    if(e.ctrlKey && e.keyCode === 83) return false;
-  };
-  setInterval(function(){(new Function("debugger"))();},500);
-  setInterval(function(){
-    const checks = {
-      '1_brand': ((document.querySelector('[data-brand-token]')?.dataset.brandToken) || (document.querySelector('.logo')?.textContent || document.title) || '').replace(/[\s_]+/g, '-').toUpperCase().includes('VORLAGENBUDE-SCHUTZSCHILD'),
-      '2_nav': document.querySelectorAll('.navbtn, [data-view]').length >= 5,
-      '3_views': document.querySelectorAll('.view, [data-tab]').length >= 3,
-      '4_funcs': typeof calcAbmahn === 'function' && typeof calcSchaden === 'function' && typeof renderBrief === 'function',
-      '5_style': (getComputedStyle(document.body).backgroundColor !== 'rgba(0, 0, 0, 0)') || (getComputedStyle(document.documentElement).backgroundColor !== 'rgba(0, 0, 0, 0)')
-    };
-    const allOk = Object.values(checks).every(v => v);
-    if(!allOk){
-      document.body.innerHTML = '<h1 style="color:red;text-align:center;margin-top:20%;font-family:Inter,sans-serif">⚠️ Lizenz-Verstoß erkannt. Die App wurde manipuliert.</h1>';
-    }
-  },5000);
-})();
+// === ANTI-TAMPERING & BRANDING LOCK (Deaktiviert für native React-App) ===
+// (function(){
+//   document.addEventListener('contextmenu', e => e.preventDefault());
+//   document.onkeydown = function(e){
+//     if(e.keyCode === 123) return false;
+//     if(e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) return false;
+//     if(e.ctrlKey && e.keyCode === 85) return false;
+//     if(e.ctrlKey && e.keyCode === 83) return false;
+//   };
+//   // setInterval(function(){(new Function("debugger"))();},500);
+//   // Anti-Tamper check removed for Next.js compatibility
+// })();
 
 // === LANGUAGE TOGGLE (DE/EN) ===
 let lang = localStorage.getItem('ds_lang') || 'de';
