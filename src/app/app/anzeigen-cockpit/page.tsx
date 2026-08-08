@@ -49,10 +49,10 @@ export default function AnzeigenCockpitNative() {
     
     <!-- THEME SWITCHER -->
     <div class="theme-selector">
-      <button class="theme-dot t-midnight" onclick="document.body.className='theme-midnight'" title="Midnight Stealth"></button>
-      <button class="theme-dot t-cyber" onclick="document.body.className='theme-cyber'" title="Cyber Rebell"></button>
-      <button class="theme-dot t-alert" onclick="document.body.className='theme-alert'" title="Alert Danger"></button>
-      <button class="theme-dot t-minimal" onclick="document.body.className='theme-minimal'" title="Minimal Light"></button>
+      <button class="theme-dot t-dark" data-set-theme="dark" title="Dark Mode (Aktuell)"></button>
+      <button class="theme-dot t-blue" data-set-theme="blue" title="Classic Blue (Seriös)"></button>
+      <button class="theme-dot t-green" data-set-theme="green" title="Behörden-Grün"></button>
+      <button class="theme-dot t-red" data-set-theme="red" title="Alarm-Rot"></button>
     </div>
 
     <button class="head-btn" id="langToggle" title="Sprache">DE</button>

@@ -547,6 +547,66 @@ const I18N = {
     stage5: "5 — External body (union / authority)",
 
     fristTemplate: (days, dueDate) => `Deadline expires on <b>${dueDate}</b> (${days} business days from shipping).`
+  },
+  ordnungsamt: {
+    ord_falschparker: { icon: "🚗", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich eine Ordnungswidrigkeit wegen verkehrsbehinderndem Falschparken an.\nDas Fahrzeug blockierte maßgeblich den Verkehrsfluss und stellte eine konkrete Behinderung dar.\n\nIch bitte um Einleitung eines Bußgeldverfahrens.` },
+    ord_gehweg: { icon: "🚶", body: `Sehr geehrte Damen und Herren,\n\nhiermit erstatte ich Anzeige, da das beschriebene Fahrzeug den Gehweg vollständig blockierte.\nFußgänger, insbesondere mit Kinderwagen oder Rollstuhl, wurden gefährdet und mussten auf die Fahrbahn ausweichen.\n\nBeweisfotos liegen bei.` },
+    ord_radweg: { icon: "🚲", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich ein vorschriftswidriges Parken auf dem ausgewiesenen Radweg.\nDies zwingt Radfahrer zu gefährlichen Ausweichmanövern in den fließenden Verkehr.\n\nIch bitte um Ahndung des Verstoßes.` },
+    ord_schlagloch: { icon: "🕳️", body: `Sehr geehrte Damen und Herren,\n\nhiermit weise ich auf einen erheblichen Straßenschaden (tiefes Schlagloch) hin.\nEs besteht akute Unfall- und Verletzungsgefahr für Zweiradfahrer und Fußgänger.\n\nIch bitte um umgehende Absicherung und zeitnahe Instandsetzung der Gefahrenstelle.` },
+    ord_verkehrswege: { icon: "🌿", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich eine massive Sicht- und Wegbehinderung durch überhängenden Bewuchs (Hecken/Bäume).\nDer Geh-/Radweg ist stark verengt, Straßenschilder sind nicht mehr erkennbar.\n\nBitte fordern Sie den Eigentümer zum Rückschnitt auf.` },
+    ord_muell: { icon: "🗑️", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich eine illegale Müllentsorgung im öffentlichen Raum.\nDer Abfall (Sperrmüll/Hausmüll) stellt nicht nur eine optische Beeinträchtigung dar, sondern birgt auch gesundheitliche Risiken (Ungeziefer).\n\nIch bitte um rasche Beseitigung.` },
+    ord_laerm: { icon: "🔊", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich eine unzumutbare Lärmbelästigung und Ruhestörung im öffentlichen Raum an.\nDie gesetzlichen Ruhezeiten werden massiv und wiederholt missachtet.\n\nIch bitte um entsprechende Überprüfung und Maßnahmen.` },
+    ord_schrott: { icon: "🚙", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich ein nicht zugelassenes Schrottfahrzeug ohne gültige Kennzeichen, das im öffentlichen Verkehrsraum abgestellt wurde.\n\nIch bitte um Anbringung einer amtlichen Entfernungsaufforderung.` },
+    ord_beleuchtung: { icon: "💡", body: `Sehr geehrte Damen und Herren,\n\nhiermit weise ich auf den Ausfall der öffentlichen Straßenbeleuchtung hin.\nDurch die Dunkelheit entsteht eine erhebliche Gefahrenquelle für alle Verkehrsteilnehmer und die Kriminalitätsprävention leidet.\n\nIch bitte um zeitnahe Reparatur.` },
+    ord_hundekot: { icon: "💩", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich massive Verunreinigungen durch Hundekot auf Gehwegen bzw. Spielplätzen.\nDies stellt ein Hygienerisiko, insbesondere für spielende Kinder, dar.\n\nIch bitte um vermehrte Kontrollen in diesem Bereich.` }
+  },
+  datenschutz: {
+    dsgvo_auskunft: { icon: "ℹ️", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 15 DSGVO fordere ich Sie hiermit auf, mir unentgeltlich eine umfassende Auskunft über alle zu meiner Person gespeicherten personenbezogenen Daten zu erteilen.\n\nBitte stellen Sie mir diese Daten in einem strukturierten, gängigen Format zur Verfügung.` },
+    dsgvo_loeschung: { icon: "🗑️", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 17 DSGVO ("Recht auf Vergessenwerden") fordere ich Sie auf, sämtliche zu meiner Person gespeicherten personenbezogenen Daten unverzüglich zu löschen.\n\nBitte bestätigen Sie mir die vollständige Löschung schriftlich.` },
+    dsgvo_widerruf: { icon: "🚫", body: `Sehr geehrte Damen und Herren,\n\nhiermit widerrufe ich meine erteilte Einwilligung zur Verarbeitung meiner Daten, insbesondere für Werbe- und Newsletter-Zwecke, mit sofortiger Wirkung gem. Art. 7 Abs. 3 DSGVO.\n\nIch fordere Sie auf, meine Daten unverzüglich aus Ihren Verteilern zu entfernen.` },
+    dsgvo_meldung: { icon: "🏛️", body: `Sehr geehrte/r Landesbeauftragte/r für den Datenschutz,\n\nhiermit melde ich einen mutmaßlichen Datenschutzverstoß durch das genannte Unternehmen.\nDas Unternehmen verarbeitet personenbezogene Daten ohne ausreichende Rechtsgrundlage bzw. missachtet meine Betroffenenrechte.\n\nIch bitte um aufsichtsrechtliche Prüfung.` },
+    dsgvo_spam: { icon: "📧", body: `Sehr geehrte Damen und Herren,\n\nhiermit beschwere ich mich über unerlaubte Werbekontaktaufnahme (Spam-Mails / Werbeanrufe) ohne meine vorherige ausdrückliche Einwilligung (Cold Calling).\n\nDies stellt einen klaren Verstoß gegen das UWG und die DSGVO dar.` },
+    dsgvo_berichtigung: { icon: "✏️", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 16 DSGVO fordere ich Sie auf, die zu meiner Person gespeicherten, unrichtigen Daten unverzüglich zu berichtigen.\n\nDie korrekten Daten lauten wie folgt: [HIER KORREKTE DATEN EINTRAGEN]. Bitte bestätigen Sie die Berichtigung.` },
+    dsgvo_export: { icon: "💾", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 20 DSGVO (Recht auf Datenübertragbarkeit) fordere ich Sie auf, mir meine personenbezogenen Daten in einem strukturierten, gängigen und maschinenlesbaren Format bereitzustellen.\n\nIch erwarte die Zusendung innerhalb der gesetzlichen Frist von einem Monat.` },
+    dsgvo_sperrung: { icon: "🔒", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 18 DSGVO fordere ich die Einschränkung der Verarbeitung meiner personenbezogenen Daten (Sperrung).\n\nBis zur Klärung des Sachverhalts dürfen meine Daten nicht weiter verarbeitet oder an Dritte weitergegeben werden.` },
+    dsgvo_scoring: { icon: "📊", body: `Sehr geehrte Damen und Herren,\n\ngemäß Art. 21 DSGVO lege ich hiermit ausdrücklich Widerspruch gegen die Verarbeitung meiner Daten zum Zwecke von Profiling und automatisiertem Scoring ein.\n\nIch fordere die Offenlegung der Scoring-Algorithmen bezüglich meiner Person.` },
+    dsgvo_weitergabe: { icon: "🤝", body: `Sehr geehrte Damen und Herren,\n\nhiermit fordere ich detaillierte Auskunft darüber, an welche Dritte Sie meine personenbezogenen Daten weitergegeben oder verkauft haben.\n\nBitte nennen Sie alle Empfänger namentlich und geben Sie die Rechtsgrundlage für die Übermittlung an.` }
+  },
+  gewerbe: {
+    gew_arbeitszeit: { icon: "⏱️", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich systematische Verstöße gegen das Arbeitszeitgesetz (ArbZG).\nEs kommt regelmäßig zu massiven Überstunden ohne Ausgleich, die gesetzlichen Ruhepausen sowie Ruhezeiten zwischen den Schichten werden nicht eingehalten.\n\nIch bitte um Überprüfung der Arbeitszeitdokumentation.` },
+    gew_arbeitsschutz: { icon: "👷", body: `Sehr geehrte Damen und Herren,\n\nhiermit weise ich auf erhebliche Mängel im betrieblichen Arbeitsschutz hin.\nNotwendige persönliche Schutzausrüstung fehlt, Maschinen sind defekt oder Sicherheitsvorkehrungen wurden deaktiviert.\n\nEs besteht akute Unfallgefahr für die Beschäftigten.` },
+    gew_hygiene: { icon: "🧼", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich gravierende Hygienemängel im genannten Betrieb (z.B. Gastronomie).\nDie Zustände (Schmutz, Schimmelbildung, Verdacht auf Ungeziefer) verstoßen massiv gegen die Lebensmittelhygieneverordnung.\n\nIch bitte um unangekündigte Kontrolle durch die zuständigen Prüfer.` },
+    gew_sonntag: { icon: "📅", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich einen Verstoß gegen die gesetzliche Sonn- und Feiertagsruhe an.\nArbeitnehmer werden regelmäßig an diesen Tagen beschäftigt, ohne dass eine entsprechende behördliche Ausnahmegenehmigung vorliegt.` },
+    gew_gefahrstoff: { icon: "🛢️", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich eine unsachgemäße Lagerung und Handhabung von Gefahrstoffen (giftige/brennbare Substanzen).\nSicherheitsdatenblätter fehlen und Mitarbeiter sind nicht entsprechend unterwiesen.\n\nEs drohen Umweltschäden und Gesundheitsgefahren.` },
+    gew_fluchtwege: { icon: "🚪", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich an, dass wesentliche Flucht- und Rettungswege im Betrieb blockiert, zugestellt oder gar verschlossen sind.\n\nIm Brand- oder Notfall ist eine sichere Evakuierung der Mitarbeiter nicht gewährleistet. Sofortiges Handeln ist geboten.` },
+    gew_sanitaer: { icon: "🚽", body: `Sehr geehrte Damen und Herren,\n\nhiermit beschwere ich mich über die unzumutbaren Zustände der Sanitäranlagen für Mitarbeiter.\nDiese sind entweder in unzureichender Zahl vorhanden, dauerhaft defekt oder verstoßen gegen grundlegende Hygienestandards der Arbeitsstättenverordnung.` },
+    gew_jugend: { icon: "🧒", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich einen Verstoß gegen das Jugendarbeitsschutzgesetz (JArbSchG).\nMinderjährige Beschäftigte / Auszubildende arbeiten zu lange, zu spät abends oder ohne die gesetzlich vorgeschriebenen verlängerten Pausenzeiten.` },
+    gew_klima: { icon: "🌡️", body: `Sehr geehrte Damen und Herren,\n\nhiermit weise ich auf unzumutbare Raumtemperaturen am Arbeitsplatz hin.\nDie Arbeitsstättenregel ASR A3.5 wird massiv verletzt (keine ausreichende Beheizung im Winter bzw. unerträgliche Hitze im Sommer ohne Maßnahmen).` },
+    gew_laerm: { icon: "🙉", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich eine gesundheitsgefährdende Lärm- und Schadstoffbelastung am Arbeitsplatz.\nDie Grenzwerte werden überschritten, Lärmschutzmaßnahmen fehlen und es mangelt an entsprechender Absaugung von Schadstoffen.` }
+  },
+  tier: {
+    tier_gewalt: { icon: "🛑", body: `Sehr geehrte Damen und Herren,\n\nhiermit erstatte ich Anzeige wegen aktiver Tierquälerei und Misshandlung (§ 17 TierSchG).\nIch habe beobachtet, wie dem Tier erhebliche Schmerzen und Leiden absichtlich zugefügt wurden.\n\nIch bitte um sofortige Überprüfung und Sicherstellung des Tieres.` },
+    tier_futter: { icon: "🥣", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich eine grobe Vernachlässigung der artgerechten Tierhaltung.\nDem Tier stehen weder ausreichend frisches Trinkwasser noch angemessene Nahrung zur Verfügung, was zu einer sichtbaren Abmagerung geführt hat.` },
+    tier_platz: { icon: "⛓️", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich tierwidrige Haltungsbedingungen an.\nDas Tier wird in einem viel zu engen Käfig bzw. in permanenter, kurzer Anbindehaltung gehalten. Ein artgerechtes Verhalten oder ausreichende Bewegung sind ausgeschlossen.` },
+    tier_arzt: { icon: "🚑", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich, dass ein Tier offensichtlich an einer schweren Krankheit oder schmerzhaften Verletzung leidet, der Halter jedoch jegliche tierärztliche Behandlung verweigert.\n\nBitte ordnen Sie eine tiermedizinische Untersuchung an.` },
+    tier_zucht: { icon: "🐾", body: `Sehr geehrte Damen und Herren,\n\nhiermit teile ich meinen dringenden Verdacht auf illegale Welpenzucht und gewerbsmäßigen Hundehandel ("Vermehrer") mit.\nDie Umstände deuten auf fehlende Genehmigungen, fehlende Impfungen und unhygienische Zustände hin.` },
+    tier_ausgesetzt: { icon: "📦", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich das vorsätzliche Aussetzen eines Haustieres an.\nDas Zurücklassen eines Tieres stellt einen Straftatbestand dar. Das Tier wurde in obhutsloser Lage aufgefunden.` },
+    tier_gefahrhund: { icon: "🐕", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich einen potenziell gefährlichen Hund, der wiederholt ohne Leine und Maulkorb geführt wird und bereits Menschen oder andere Tiere bedroht hat.\n\nIch bitte um Überprüfung der Halterzuverlässigkeit.` },
+    tier_hoarding: { icon: "🏚️", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich einen schweren Fall von Animal Hoarding (Tierhortung).\nDer Halter ist offensichtlich überfordert, die hygienischen Zustände in der Wohnung sind katastrophal und die Tiere leiden unter Verwahrlosung.` },
+    tier_wetter: { icon: "❄️", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich, dass Tiere schutzlos extremen Witterungsbedingungen (Hitze im geschlossenen Auto / Kälte ohne Schutzhütte) ausgesetzt sind.\n\nEs besteht akute Lebensgefahr für die betroffenen Tiere.` },
+    tier_wilderei: { icon: "🪤", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich den Verdacht auf Wilderei bzw. das illegale Aufstellen von Fallen und Giftködern an.\nDiese Praktiken gefährden heimische Wildtiere sowie Hunde und Katzen massiv.\n\nIch bitte um polizeiliche Ermittlungen.` }
+  },
+  finanzamt: {
+    fin_schwarz: { icon: "💰", body: `Sehr geehrte Damen und Herren,\n\nhiermit erstatte ich Anzeige wegen Verdachts auf gewerbsmäßige Schwarzarbeit.\nPersonen werden ohne ordnungsgemäße Anmeldung zur Sozialversicherung und ohne Abführung von Lohnsteuer beschäftigt.\n\nIch bitte um Prüfung durch die Finanzkontrolle Schwarzarbeit.` },
+    fin_steuer: { icon: "📉", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich einen fundierten Verdacht auf Steuerhinterziehung an.\nEinnahmen, insbesondere aus Bargeldgeschäften, werden systematisch an der Finanzbuchhaltung vorbeigeschleust und nicht in der Umsatzsteuererklärung angegeben.` },
+    fin_kasse: { icon: "🧾", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich den dringenden Verdacht auf Kassenmanipulation.\nEs werden regelmäßig keine Kassenbons ausgegeben und das Kassensystem (TSE) scheint nicht gesetzeskonform betrieben zu werden.` },
+    fin_scheinselbst: { icon: "🕴️", body: `Sehr geehrte Damen und Herren,\n\nhiermit weise ich auf illegale Arbeitnehmerüberlassung und Scheinselbstständigkeit hin.\nDie "Auftragnehmer" sind weisungsgebunden, in den Betrieb eingegliedert und tragen kein unternehmerisches Risiko.\n\nIch rege eine Statusfeststellung an.` },
+    fin_mindestlohn: { icon: "💶", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich systematischen Betrug beim gesetzlichen Mindestlohn.\nDurch nicht erfasste, unbezahlte Überstunden oder falsche Stundenzettel liegt der tatsächliche Stundenlohn deutlich unter dem gesetzlichen Minimum.` },
+    fin_buergergeld: { icon: "💸", body: `Sehr geehrte Damen und Herren,\n\nhiermit erstatte ich Anzeige wegen Leistungsbetrug (Doppelbezug).\nDie genannte Person bezieht staatliche Transferleistungen (Bürgergeld/Arbeitslosengeld), geht aber gleichzeitig einer nicht gemeldeten Schwarzarbeit nach.` },
+    fin_schmuggel: { icon: "🚬", body: `Sehr geehrte Damen und Herren,\n\nhiermit teile ich dem Zoll mit, dass unversteuerte oder geschmuggelte Waren (z.B. Zigaretten, Alkohol) illegal und gewerbsmäßig weiterverkauft werden.\n\nIch bitte um eine entsprechende Zollprüfung.` },
+    fin_briefkasten: { icon: "📬", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich den Verdacht auf Betrieb einer Scheinfirma / Briefkastengesellschaft.\nUnter der angegebenen Adresse findet keine wirtschaftliche Tätigkeit statt. Es besteht der Verdacht auf Geldwäsche oder Steuerflucht.` },
+    fin_firmenwagen: { icon: "🚗", body: `Sehr geehrte Damen und Herren,\n\nhiermit zeige ich an, dass Firmenfahrzeuge systematisch für private Zwecke genutzt werden, ohne dass dies als geldwerter Vorteil ordnungsgemäß (1%-Regelung/Fahrtenbuch) versteuert wird.\n\nDies stellt eine Steuerhinterziehung dar.` },
+    fin_gewinn: { icon: "🍷", body: `Sehr geehrte Damen und Herren,\n\nhiermit melde ich den Verdacht auf verdeckte Gewinnausschüttung.\nPrivate Lebenshaltungskosten (Urlaube, Luxusgüter, private Umbauten) des Geschäftsführers werden systematisch als Betriebsausgaben der GmbH abgerechnet.` }
   }
 };
 
@@ -1892,6 +1952,10 @@ function applyI18n() {
 
 function applyMode() {
   document.body.dataset.mode = state.meta.mode;
+  document.body.dataset.theme = state.meta.mode;
+  $$('.theme-dot').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.setTheme === state.meta.mode);
+  });
 }
 
 /* === TEMPLATE SELECT === */
@@ -2404,6 +2468,14 @@ $$('.tabbtn').forEach(btn => btn.addEventListener('click', () => {
 }));
 
 /* === HEADER BUTTONS === */
+$$('[data-set-theme]').forEach(btn => {
+  btn.onclick = () => {
+    state.meta.mode = btn.dataset.setTheme;
+    saveState();
+    applyMode();
+  };
+});
+// Fallback if modeToggle button is still present
 if ($('#modeToggle')) $('#modeToggle').onclick = () => { state.meta.mode = state.meta.mode === 'dark' ? 'light' : 'dark'; saveState(); applyMode(); };
 if ($('#langToggle')) $('#langToggle').onclick = () => { state.meta.language = state.meta.language === 'de' ? 'en' : 'de'; saveState(); applyI18n(); };
 if ($('#resetBtn')) $('#resetBtn').onclick = () => { if (!confirm('Alle Daten zurücksetzen?')) return; state = defaultState(); saveState(); init(); toast('✅ Zurückgesetzt', 'success'); };

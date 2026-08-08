@@ -1,6 +1,7 @@
 
         :root {
             --bg-dark: #0f172a;
+            --bg-darker: #0b1120;
             --bg-panel: #1e293b;
             --bg-light: #f8fafc;
             --text-light: #f8fafc;
@@ -18,8 +19,37 @@
             --radius: 8px;
             --radius-sm: 4px;
         }
+
+        [data-theme="blue"] {
+            --bg-dark: #020617;
+            --bg-darker: #0f172a;
+            --bg-panel: #1e3a8a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #1e40af;
+        }
+
+        [data-theme="green"] {
+            --bg-dark: #022c22;
+            --bg-darker: #064e3b;
+            --bg-panel: #065f46;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --border: #047857;
+        }
+
+        [data-theme="red"] {
+            --bg-dark: #2a0a0a;
+            --bg-darker: #450a0a;
+            --bg-panel: #7f1d1d;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --border: #991b1b;
+        }
+
         [data-mode="light"] {
             --bg-dark: #f1f5f9;
+            --bg-darker: #e2e8f0;
             --bg-panel: #ffffff;
             --text-light: #0f172a;
             --text-muted: #64748b;
@@ -48,7 +78,7 @@
 
         /* === MODULE-STRIP (Top) === */
         .module-strip {
-            background: #0b1120;
+            background: var(--bg-darker);
             border-bottom: 1px solid var(--border);
             padding: 10px 16px;
             display: flex; align-items: center; gap: 10px;
@@ -116,7 +146,7 @@
 
         .sidebar-header {
             padding: 14px 22px;
-            background: #0b1120;
+            background: var(--bg-darker);
             border-bottom: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center;
             flex-wrap: wrap; gap: 8px;
@@ -136,7 +166,7 @@
 
         .tabbar {
             display: flex;
-            background: #0b1120;
+            background: var(--bg-darker);
             border-bottom: 1px solid var(--border);
             overflow-x: auto;
             flex-shrink: 0;
@@ -175,7 +205,7 @@
 
         .sidebar-footer {
             padding: 14px 22px;
-            background: #0b1120;
+            background: var(--bg-darker);
             border-top: 1px solid var(--border);
             display: flex;
             gap: 8px;
@@ -590,37 +620,13 @@
   padding: 0;
 }
 .theme-dot:hover { transform: scale(1.1); }
-.theme-dot.t-midnight { background: #0f172a; border-color: #3b82f6; }
-.theme-dot.t-cyber { background: #09090b; border-color: #f43f5e; }
-.theme-dot.t-alert { background: #450a0a; border-color: #fca5a5; }
-.theme-dot.t-minimal { background: #ffffff; border-color: #cbd5e1; }
+.theme-dot.t-dark { background: #0f172a; border-color: #475569; }
+.theme-dot.t-blue { background: #1e3a8a; border-color: #3b82f6; }
+.theme-dot.t-green { background: #064e3b; border-color: #10b981; }
+.theme-dot.t-red { background: #450a0a; border-color: #ef4444; }
 
-/* THEMES */
-body.theme-midnight .cockpit-wrapper {
-  --bg-dark: #0f172a; --bg-panel: #1e293b; --text-light: #f8fafc; --text-muted: #94a3b8;
-  --accent: #3b82f6; --border: #334155;
-}
-body.theme-cyber .cockpit-wrapper {
-  --bg-dark: #09090b; --bg-panel: #18181b; --text-light: #fafafa; --text-muted: #a1a1aa;
-  --accent: #f43f5e; --border: #27272a;
-}
-body.theme-alert .cockpit-wrapper {
-  --bg-dark: #450a0a; --bg-panel: #7f1d1d; --text-light: #fecaca; --text-muted: #fca5a5;
-  --accent: #f87171; --border: #991b1b;
-}
-body.theme-minimal .cockpit-wrapper {
-  --bg-dark: #f8fafc; --bg-panel: #ffffff; --text-light: #0f172a; --text-muted: #64748b;
-  --accent: #0f172a; --border: #cbd5e1;
-}
-body.theme-minimal .module-chip { color: #0f172a; }
-body.theme-minimal .doc-paper { border: 1px solid #ccc; box-shadow: none; }
-
-/* MODULE CHIP COLORS FOR NEW MODULES */
-.module-chip[data-mod="ordnungsamt"].active { background: #0ea5e9; border-color: #0ea5e9; }
-.module-chip[data-mod="datenschutz"].active { background: #8b5cf6; border-color: #8b5cf6; }
-.module-chip[data-mod="gewerbe"].active { background: #f97316; border-color: #f97316; }
-.module-chip[data-mod="tier"].active { background: #14b8a6; border-color: #14b8a6; }
-.module-chip[data-mod="finanzamt"].active { background: #84cc16; border-color: #84cc16; }
+/* Active state for dots */
+.theme-dot.active { transform: scale(1.2); box-shadow: 0 0 5px rgba(255,255,255,0.5); }
 
 @media print {
   .theme-selector, .no-print { display: none !important; }
