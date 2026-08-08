@@ -1803,7 +1803,8 @@ function switchModuleUI(mod) {
   const titleSpan = $('#moduleTitleText');
   titleSpan.classList.remove('accent','kind','str','mie');
   const clsMap = { ueberlastung: 'accent', kindeswohl: 'kind', strafanzeige: 'str', mietmangel: 'mie' };
-  titleSpan.classList.add(clsMap[mod] || '');
+  const cls = clsMap[mod];
+  if (cls) titleSpan.classList.add(cls);
   // Update module stamp class
   const stamp = $('#moduleStamp');
   stamp.classList.remove('ueberlastung','kindeswohl','strafanzeige','mietmangel');
@@ -1818,27 +1819,33 @@ function switchModuleUI(mod) {
   if (currentModule === 'mietmangel') {
     $('#moduleTitleIcon').innerText = '🏠';
     $('#moduleTitleText').innerText = 'Mietmangel';
-    $('[data-i18n="sidebarSubtitle"]').innerText = 'Mängelanzeige & Minderung';
+    const subEl = document.querySelector('[data-i18n="sidebarSubtitle"]') || document.querySelector('.sidebar-header h2 small');
+    if (subEl) subEl.innerText = 'Mängelanzeige & Minderung';
   } else if (currentModule === 'ordnungsamt') {
     $('#moduleTitleIcon').innerText = '📸';
     $('#moduleTitleText').innerText = 'Ordnungsamt';
-    $('[data-i18n="sidebarSubtitle"]').innerText = 'Anzeige Ordnungswidrigkeit';
+    const subEl = document.querySelector('[data-i18n="sidebarSubtitle"]') || document.querySelector('.sidebar-header h2 small');
+    if (subEl) subEl.innerText = 'Anzeige Ordnungswidrigkeit';
   } else if (currentModule === 'datenschutz') {
     $('#moduleTitleIcon').innerText = '🛡️';
     $('#moduleTitleText').innerText = 'DSGVO-Beschwerde';
-    $('[data-i18n="sidebarSubtitle"]').innerText = 'Meldung an Landesbeauftragten';
+    const subEl = document.querySelector('[data-i18n="sidebarSubtitle"]') || document.querySelector('.sidebar-header h2 small');
+    if (subEl) subEl.innerText = 'Meldung an Landesbeauftragten';
   } else if (currentModule === 'gewerbe') {
     $('#moduleTitleIcon').innerText = '👷';
     $('#moduleTitleText').innerText = 'Gewerbeaufsicht';
-    $('[data-i18n="sidebarSubtitle"]').innerText = 'Meldung Arbeitsschutz';
+    const subEl = document.querySelector('[data-i18n="sidebarSubtitle"]') || document.querySelector('.sidebar-header h2 small');
+    if (subEl) subEl.innerText = 'Meldung Arbeitsschutz';
   } else if (currentModule === 'tier') {
     $('#moduleTitleIcon').innerText = '🐶';
     $('#moduleTitleText').innerText = 'Veterinäramt';
-    $('[data-i18n="sidebarSubtitle"]').innerText = 'Meldung Tierquälerei';
+    const subEl = document.querySelector('[data-i18n="sidebarSubtitle"]') || document.querySelector('.sidebar-header h2 small');
+    if (subEl) subEl.innerText = 'Meldung Tierquälerei';
   } else if (currentModule === 'finanzamt') {
     $('#moduleTitleIcon').innerText = '💸';
     $('#moduleTitleText').innerText = 'Finanzamt-Tipp';
-    $('[data-i18n="sidebarSubtitle"]').innerText = 'Meldung Steuervergehen';
+    const subEl = document.querySelector('[data-i18n="sidebarSubtitle"]') || document.querySelector('.sidebar-header h2 small');
+    if (subEl) subEl.innerText = 'Meldung Steuervergehen';
   }
 }
 
@@ -2444,7 +2451,6 @@ window.anonymize = anonymize;
 window.copyLetter = copyLetter;
 window.exportPDF = exportPDF;
 window.toast = toast;
-window.copyText = copyText;
 window.generatePDF = generatePDF;
 window.switchTab = switchTab;
 
