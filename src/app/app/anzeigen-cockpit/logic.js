@@ -2252,10 +2252,9 @@ $$('.tabbtn').forEach(btn => btn.addEventListener('click', () => {
 }));
 
 /* === HEADER BUTTONS === */
-$('#modeToggle').onclick = () => { state.meta.mode = state.meta.mode === 'dark' ? 'light' : 'dark'; saveState(); applyMode(); };
-$('#langToggle').onclick = () => { state.meta.language = state.meta.language === 'de' ? 'en' : 'de'; saveState(); applyI18n(); };
-$('#resetBtn').onclick = () => { if (!confirm('Alle Daten zurücksetzen?')) return; state = defaultState(); saveState(); init(); toast('✅ Zurückgesetzt', 'success'); };
-
+if ($('#modeToggle')) $('#modeToggle').onclick = () => { state.meta.mode = state.meta.mode === 'dark' ? 'light' : 'dark'; saveState(); applyMode(); };
+if ($('#langToggle')) $('#langToggle').onclick = () => { state.meta.language = state.meta.language === 'de' ? 'en' : 'de'; saveState(); applyI18n(); };
+if ($('#resetBtn')) $('#resetBtn').onclick = () => { if (!confirm('Alle Daten zurücksetzen?')) return; state = defaultState(); saveState(); init(); toast('✅ Zurückgesetzt', 'success'); };
 /* === START === */
 init();
 
