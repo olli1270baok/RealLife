@@ -1286,6 +1286,28 @@ const ARSENAL = {
     { cat:'cat_miesonstige', icon:'📋', key:'wofg', title:{de:'WoFG — Wohnraumförderung',en:'WoFG — Housing promotion'}, preview:{de:'Förderung Wohnungsbau',en:'Housing construction promotion'}, text:'Das Wohnraumförderungsgesetz regelt die Förderung von Sozialwohnungen und bezahlbarem Wohnraum.' },
     { cat:'cat_miet', icon:'🏠', key:'bgb552', title:{de:'§ 552 BGB — Schönheitsreparaturen',en:'§ 552 BGB — Cosmetic repairs'}, preview:{de:'Renovierungspflicht',en:'Renovation duty'}, text:'Der Mieter hat Schönheitsreparaturen nur zu tragen, wenn dies vertraglich wirksam vereinbart wurde. Unwirksame Klauseln führen zu Pflichten des Vermieters.' },
     { cat:'cat_miet', icon:'🏠', key:'bgb553', title:{de:'§ 553 BGB — Untervermietung',en:'§ 553 BGB — Subletting'}, preview:{de:'Recht auf Untervermietung',en:'Right to sublet'}, text:'Der Mieter kann vom Vermieter die Erlaubnis zur Untervermietung verlangen, wenn ein berechtigtes Interesse vorliegt (z.B. Partner, finanzielle Gründe).' }
+  ],
+  ordnungsamt: [
+    { cat:'cat_ord', icon:'🚗', key:'stvo12', title:{de:'§ 12 StVO — Halten und Parken',en:'§ 12 StVO'}, preview:{de:'Halte- und Parkverbot',en:'Parking'}, text:'Das Halten und Parken ist unzulässig an engen und unübersichtlichen Straßenstellen, im Bereich von scharfen Kurven, auf Fußgängerüberwegen sowie bis zu 5 Meter davor.' },
+    { cat:'cat_ord', icon:'🗑️', key:'krwg', title:{de:'§ 28 KrWG — Abfallentsorgung',en:'§ 28 KrWG'}, preview:{de:'Illegale Müllentsorgung',en:'Waste'}, text:'Abfälle dürfen zum Zweck der Beseitigung nur in den dafür zugelassenen Anlagen oder Einrichtungen (Abfallbeseitigungsanlagen) behandelt, gelagert oder abgelagert werden.' },
+    { cat:'cat_ord', icon:'🚨', key:'owig117', title:{de:'§ 117 OWiG — Unzulässiger Lärm',en:'§ 117 OWiG'}, preview:{de:'Lärmbelästigung',en:'Noise'}, text:'Ordnungswidrig handelt, wer ohne berechtigten Anlass oder in einem unzulässigen oder nach den Umständen vermeidbaren Ausmaß Lärm erregt, der geeignet ist, die Allgemeinheit oder die Nachbarschaft erheblich zu belästigen.' }
+  ],
+  datenschutz: [
+    { cat:'cat_dsgvo', icon:'ℹ️', key:'dsgvo15', title:{de:'Art. 15 DSGVO — Auskunftsrecht',en:'Art. 15 GDPR'}, preview:{de:'Recht auf Datenauskunft',en:'Access'}, text:'Die betroffene Person hat das Recht, von dem Verantwortlichen eine Bestätigung darüber zu verlangen, ob betreffende personenbezogene Daten verarbeitet werden; ist dies der Fall, so hat sie ein Recht auf Auskunft über diese Daten.' },
+    { cat:'cat_dsgvo', icon:'🗑️', key:'dsgvo17', title:{de:'Art. 17 DSGVO — Recht auf Löschung',en:'Art. 17 GDPR'}, preview:{de:'Recht auf Vergessenwerden',en:'Erasure'}, text:'Die betroffene Person hat das Recht, von dem Verantwortlichen zu verlangen, dass sie betreffende personenbezogene Daten unverzüglich gelöscht werden, sofern einer der Gründe zutrifft (z.B. Zweckerreichung).' },
+    { cat:'cat_dsgvo', icon:'🛡️', key:'dsgvo77', title:{de:'Art. 77 DSGVO — Beschwerde bei Aufsicht',en:'Art. 77 GDPR'}, preview:{de:'Beschwerderecht',en:'Complaint'}, text:'Jede betroffene Person hat unbeschadet eines anderweitigen verwaltungsrechtlichen oder gerichtlichen Rechtsbehelfs das Recht auf Beschwerde bei einer Aufsichtsbehörde.' }
+  ],
+  gewerbe: [
+    { cat:'cat_gew', icon:'⏱️', key:'arbzg3', title:{de:'§ 3 ArbZG — Arbeitszeit',en:'§ 3 ArbZG'}, preview:{de:'Maximale Arbeitszeit',en:'Working time'}, text:'Die werktägliche Arbeitszeit der Arbeitnehmer darf acht Stunden nicht überschreiten. Sie kann auf bis zu zehn Stunden nur verlängert werden, wenn innerhalb von sechs Kalendermonaten im Durchschnitt acht Stunden nicht überschritten werden.' },
+    { cat:'cat_gew', icon:'👷', key:'arbschg', title:{de:'§ 4 ArbSchG — Allgemeine Grundsätze',en:'§ 4 ArbSchG'}, preview:{de:'Sicherheit bei der Arbeit',en:'Safety'}, text:'Der Arbeitgeber hat die Arbeit so zu gestalten, dass eine Gefährdung für das Leben sowie die physische und die psychische Gesundheit möglichst vermieden wird.' }
+  ],
+  tier: [
+    { cat:'cat_tier', icon:'🐶', key:'tierschg2', title:{de:'§ 2 TierSchG — Tierhaltung',en:'§ 2 TierSchG'}, preview:{de:'Pflichten Tierhalter',en:'Owner duties'}, text:'Wer ein Tier hält, betreut oder zu betreuen hat, muss das Tier seiner Art und seinen Bedürfnissen entsprechend angemessen ernähren, pflegen und verhaltensgerecht unterbringen.' },
+    { cat:'cat_tier', icon:'🚫', key:'tierschg17', title:{de:'§ 17 TierSchG — Straftat',en:'§ 17 TierSchG'}, preview:{de:'Tötung/Quälerei',en:'Cruelty'}, text:'Mit Freiheitsstrafe bis zu drei Jahren oder mit Geldstrafe wird bestraft, wer ein Wirbeltier ohne vernünftigen Grund tötet oder ihm aus Rohheit erhebliche Schmerzen oder Leiden zufügt.' }
+  ],
+  finanzamt: [
+    { cat:'cat_fin', icon:'💸', key:'schwarzarbg', title:{de:'§ 1 SchwarzArbG',en:'§ 1 SchwarzArbG'}, preview:{de:'Verbot der Schwarzarbeit',en:'Illicit work'}, text:'Zweck dieses Gesetzes ist die Bekämpfung der Schwarzarbeit. Schwarzarbeit leistet, wer steuerrechtliche Pflichten, sozialversicherungsrechtliche Pflichten oder Mitteilungspflichten nicht erfüllt.' },
+    { cat:'cat_fin', icon:'📉', key:'ao370', title:{de:'§ 370 AO — Steuerhinterziehung',en:'§ 370 AO'}, preview:{de:'Straftatbestand',en:'Tax evasion'}, text:'Mit Freiheitsstrafe bis zu fünf Jahren oder mit Geldstrafe wird bestraft, wer den Finanzbehörden über steuerlich erhebliche Tatsachen unrichtige oder unvollständige Angaben macht.' }
   ]
 };
 
@@ -1295,7 +1317,11 @@ const EVIDENCE = {
   kindeswohl: ['ev_kind_schulnoten','ev_kind_zeugen','ev_kind_arztbericht','ev_kind_kindergarten','ev_kind_chatverlauf','ev_kind_soforthilfe','ev_foto','ev_email'],
   strafanzeige: ['ev_str_diebstahl','ev_str_zeuge','ev_str_beweis','ev_str_ip','ev_str_auszug','ev_foto'],
   mietmangel: ['ev_mie_foto','ev_mie_messung','ev_mie_arzt','ev_mie_zeuge','ev_mie_korrespondenz','ev_mie_abrechnung','ev_mie_modernisierung','ev_mie_vertrag'],
-  ordnungsamt: [], datenschutz: [], gewerbe: [], tier: [], finanzamt: []
+  ordnungsamt: ['ev_ord_foto', 'ev_ord_zeuge', 'ev_ord_notiz', 'ev_ord_korrespondenz', 'ev_ord_sonstiges'],
+  datenschutz: ['ev_dsgvo_korrespondenz', 'ev_dsgvo_screenshot', 'ev_dsgvo_vertrag', 'ev_dsgvo_zeuge', 'ev_dsgvo_sonstiges'],
+  gewerbe: ['ev_gew_foto', 'ev_gew_zeuge', 'ev_gew_vertrag', 'ev_gew_dokumente', 'ev_gew_sonstiges'],
+  tier: ['ev_tier_foto', 'ev_tier_video', 'ev_tier_zeuge', 'ev_tier_tierarzt', 'ev_tier_sonstiges'],
+  finanzamt: ['ev_fin_rechnung', 'ev_fin_kontoauszug', 'ev_fin_zeuge', 'ev_fin_korrespondenz', 'ev_fin_sonstiges']
 };
 
 /* === INCIDENT CATEGORIES PER MODULE === */
@@ -1304,11 +1330,11 @@ const INCIDENT_CATS = {
   kindeswohl: 'cat_inc_kind',
   strafanzeige: 'cat_inc_str',
   mietmangel: 'cat_inc_mie',
-  ordnungsamt: 'cat_inc_str',
-  datenschutz: 'cat_inc_str',
-  gewerbe: 'cat_inc_str',
-  tier: 'cat_inc_str',
-  finanzamt: 'cat_inc_str'
+  ordnungsamt: 'cat_inc_ord',
+  datenschutz: 'cat_inc_dsgvo',
+  gewerbe: 'cat_inc_gew',
+  tier: 'cat_inc_tier',
+  finanzamt: 'cat_inc_fin'
 };
 
 /* === TIMELINE PER MODULE === */
@@ -1329,7 +1355,11 @@ const TIMELINE = {
     { stage:1, key:'tl_anzeige' }, { stage:2, key:'tl_frist_kind' }, { stage:3, key:'tl_mietminderung' },
     { stage:4, key:'tl_anwalt' }, { stage:5, key:'tl_klage_mie' }
   ],
-  ordnungsamt: [], datenschutz: [], gewerbe: [], tier: [], finanzamt: []
+  ordnungsamt: ['ev_ord_foto', 'ev_ord_zeuge', 'ev_ord_notiz', 'ev_ord_korrespondenz', 'ev_ord_sonstiges'],
+  datenschutz: ['ev_dsgvo_korrespondenz', 'ev_dsgvo_screenshot', 'ev_dsgvo_vertrag', 'ev_dsgvo_zeuge', 'ev_dsgvo_sonstiges'],
+  gewerbe: ['ev_gew_foto', 'ev_gew_zeuge', 'ev_gew_vertrag', 'ev_gew_dokumente', 'ev_gew_sonstiges'],
+  tier: ['ev_tier_foto', 'ev_tier_video', 'ev_tier_zeuge', 'ev_tier_tierarzt', 'ev_tier_sonstiges'],
+  finanzamt: ['ev_fin_rechnung', 'ev_fin_kontoauszug', 'ev_fin_zeuge', 'ev_fin_korrespondenz', 'ev_fin_sonstiges']
 };
 
 /* === MODULE-SPECIFIC FORM FIELDS === */
@@ -1490,6 +1520,101 @@ const MODULE_FIELDS = {
         <div><label data-i18n="p_mie_mietminderung_pct">Mietminderung (%)</label><input type="number" id="in-mietminderung_pct" data-bind="mietminderung_pct" min="0" max="100" step="0.1" placeholder="z.B. 20"></div>
         <div><label data-i18n="p_mie_frist_maengel">Frist zur Mängelbehebung (Tage)</label><input type="number" id="in-frist_maengel" data-bind="frist_maengel" min="1" max="60" value="14"></div>
     </div>
+  `,
+  ordnungsamt: `
+    <div class="section-title">1. Anzeigende Person</div>
+    <label>Dein Name</label><input type="text" id="in-sender" data-bind="sender">
+    <label>Deine Anschrift</label><textarea id="in-sender-addr" rows="2" data-bind="senderAddr"></textarea>
+    <div class="section-title">2. Vorfall</div>
+    <label>Fahrzeug / Objekt</label><input type="text" id="in-objekt" data-bind="objekt" placeholder="Kennzeichen, Marke, Farbe">
+    <div class="flex-row">
+        <div><label>Tatzeit</label><input type="text" id="in-tat_zeit" data-bind="tat_zeit" placeholder="Datum, Uhrzeit"></div>
+        <div><label>Tatort</label><input type="text" id="in-tat_ort" data-bind="tat_ort" placeholder="Straße, Hausnr."></div>
+    </div>
+    <label>Verstoß-Art</label>
+    <select id="in-verstoss" data-bind="verstoss">
+        <option value="">— Verstoß wählen —</option>
+        <option value="falschparker">Falschparker</option>
+        <option value="muell">Illegale Müllentsorgung</option>
+        <option value="laerm">Lärmbelästigung (öffentlich)</option>
+        <option value="sonstige">Sonstiger Verstoß</option>
+    </select>
+    <div class="section-title">3. Empfänger</div>
+    <label>Behörde</label><input type="text" id="in-receiver_name" data-bind="receiver_name" placeholder="Ordnungsamt Stadt XY">
+    <label>Anschrift Behörde</label><textarea id="in-receiver_addr" rows="2" data-bind="receiver_addr"></textarea>
+  `,
+  datenschutz: `
+    <div class="section-title">1. Betroffene Person</div>
+    <label>Dein Name</label><input type="text" id="in-sender" data-bind="sender">
+    <label>Deine Anschrift</label><textarea id="in-sender-addr" rows="2" data-bind="senderAddr"></textarea>
+    <div class="section-title">2. Datenschutz-Anliegen</div>
+    <label>Unternehmen / Verantwortlicher</label><input type="text" id="in-unternehmen" data-bind="unternehmen">
+    <div class="flex-row">
+        <div><label>Kunden- / Nutzer-ID</label><input type="text" id="in-kunden_id" data-bind="kunden_id"></div>
+        <div><label>Fristsetzung (Tage)</label><input type="number" id="in-frist_tage" data-bind="frist_tage" value="30"></div>
+    </div>
+    <label>Anliegen</label>
+    <select id="in-anliegen" data-bind="anliegen">
+        <option value="auskunft">Datenauskunft (Art. 15)</option>
+        <option value="loeschung">Datenlöschung (Art. 17)</option>
+        <option value="berichtigung">Berichtigung (Art. 16)</option>
+        <option value="widerspruch">Widerspruch (Art. 21)</option>
+    </select>
+    <div class="section-title">3. Empfänger</div>
+    <label>Empfänger (Unternehmen oder LfDI)</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
+  `,
+  gewerbe: `
+    <div class="section-title">1. Hinweisgeber</div>
+    <label>Dein Name</label><input type="text" id="in-sender" data-bind="sender">
+    <label>Deine Anschrift</label><textarea id="in-sender-addr" rows="2" data-bind="senderAddr"></textarea>
+    <div class="section-title">2. Vorfall / Verstoß</div>
+    <label>Unternehmen</label><input type="text" id="in-unternehmen" data-bind="unternehmen">
+    <label>Standort / Filiale</label><input type="text" id="in-standort" data-bind="standort">
+    <label>Art des Verstoßes</label>
+    <select id="in-verstoss_art" data-bind="verstoss_art">
+        <option value="arbeitszeit">Arbeitszeitgesetz</option>
+        <option value="arbeitsschutz">Arbeitsschutz / Sicherheit</option>
+        <option value="hygiene">Hygienevorschriften</option>
+        <option value="sonstige">Sonstiges</option>
+    </select>
+    <div class="section-title">3. Behörde</div>
+    <label>Gewerbeaufsichtsamt</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
+  `,
+  tier: `
+    <div class="section-title">1. Hinweisgeber</div>
+    <label>Dein Name</label><input type="text" id="in-sender" data-bind="sender">
+    <label>Deine Anschrift</label><textarea id="in-sender-addr" rows="2" data-bind="senderAddr"></textarea>
+    <div class="section-title">2. Vorfall / Tier</div>
+    <label>Tierart</label><input type="text" id="in-tierart" data-bind="tierart" placeholder="z.B. Hund, Katze, Pferde">
+    <label>Tierhalter (falls bekannt)</label><input type="text" id="in-tierhalter" data-bind="tierhalter">
+    <label>Ort der Haltung</label><input type="text" id="in-haltungsort" data-bind="haltungsort">
+    <label>Art der Gefährdung</label>
+    <select id="in-gefaehrdung" data-bind="gefaehrdung">
+        <option value="misshandlung">Misshandlung / Gewalt</option>
+        <option value="vernachlaessigung">Vernachlässigung (Wasser/Futter)</option>
+        <option value="platzmangel">Platzmangel / Anbindung</option>
+        <option value="krankheit">Unbehandelte Krankheit</option>
+    </select>
+    <div class="section-title">3. Behörde</div>
+    <label>Veterinäramt / Tierschutz</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
+  `,
+  finanzamt: `
+    <div class="section-title">1. Hinweisgeber</div>
+    <label>Dein Name (kann anonym bleiben)</label><input type="text" id="in-sender" data-bind="sender">
+    <label>Deine Anschrift</label><textarea id="in-sender-addr" rows="2" data-bind="senderAddr"></textarea>
+    <div class="section-title">2. Sachverhalt</div>
+    <label>Betroffene Person / Unternehmen</label><input type="text" id="in-unternehmen" data-bind="unternehmen">
+    <label>Steuernummer (falls bekannt)</label><input type="text" id="in-steuernummer" data-bind="steuernummer">
+    <label>Zeitraum der Zuwiderhandlung</label><input type="text" id="in-zeitraum" data-bind="zeitraum">
+    <label>Verstoß</label>
+    <select id="in-fin_verstoss" data-bind="fin_verstoss">
+        <option value="schwarzarbeit">Schwarzarbeit</option>
+        <option value="steuerhinterziehung">Steuerhinterziehung</option>
+        <option value="kassenmanipulation">Kassenmanipulation</option>
+        <option value="sonstige">Sonstiges</option>
+    </select>
+    <div class="section-title">3. Finanzamt / Zoll</div>
+    <label>Zuständige Behörde</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
   `
 };
 
@@ -1499,7 +1624,11 @@ const RECIPIENT_ROLES = {
   kindeswohl: ['schule','kita','nachbar','arzt','sonstiges'],
   strafanzeige: ['polizei','staatsanwalt','versicherung','zeuge','sonstiges'],
   mietmangel: ['vermieter','hausverwaltung','mieterverein','nachbar','sonstiges'],
-  ordnungsamt: ['sonstiges'], datenschutz: ['sonstiges'], gewerbe: ['sonstiges'], tier: ['sonstiges'], finanzamt: ['sonstiges']
+  ordnungsamt: ['ordnungsamt', 'polizei', 'sonstiges'],
+  datenschutz: ['datenschutzbeauftragter', 'lfdi', 'sonstiges'],
+  gewerbe: ['gewerbeaufsicht', 'berufsgenossenschaft', 'sonstiges'],
+  tier: ['veterinaeramt', 'tierschutzverein', 'polizei', 'sonstiges'],
+  finanzamt: ['finanzamt', 'zoll', 'sonstiges']
 };
 
 /* === HELPER === */
