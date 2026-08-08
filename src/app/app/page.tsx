@@ -146,10 +146,15 @@ export default function AppDashboard() {
                 )}
               </div>
 
-              <div className="card" style={{opacity: 0.5, position: 'relative'}}>
+              <div className="card glow-pink" style={{cursor: 'pointer', position: 'relative'}} onClick={() => router.push('/app/patienten-rebell')}>
                 {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
-                <h3 style={{color: 'var(--muted)'}}>🏥 Patienten-Bollwerk</h3>
-                <p>Pflegegrad, GdB, Bürgergeld. (In Entwicklung)</p>
+                <h3 style={{color: '#e11d48'}}>🏥 Patienten-Rebell</h3>
+                <p style={{color: 'white'}}>Gaslighting-Shield, Akteneinsicht und Verweigerungs-Dokumentation für Arztbesuche.</p>
+                {!loading && !isPro ? (
+                  <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
+                ) : (
+                  <div style={{marginTop: '16px', color: '#e11d48', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
+                )}
               </div>
 
               <div className="card" style={{opacity: 0.5, position: 'relative'}}>
