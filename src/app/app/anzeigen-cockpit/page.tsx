@@ -1,216 +1,267 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 import './cockpit.css';
 
-const THEMES = [
-  { id: 'theme-midnight', class: 't-midnight', label: 'Midnight Stealth' },
-  { id: 'theme-cyber', class: 't-cyber', label: 'Cyber Rebell' },
-  { id: 'theme-alert', class: 't-alert', label: 'Alert Danger' },
-  { id: 'theme-minimal', class: 't-minimal', label: 'Minimal Light' }
-];
+export default function AnzeigenCockpitNative() {
+  const initialized = useRef(false);
 
-const TEMPLATES = [
-  // Original
-  { id: 'c1', cat: 1, catName: 'Strafrecht', title: 'Strafanzeige', desc: 'Erstelle eine formelle Strafanzeige für Polizei oder Staatsanwaltschaft (z.B. bei Betrug, Stalking).' },
-  { id: 'c2', cat: 2, catName: 'Arbeitsrecht', title: 'Überlastungsanzeige', desc: 'Sichere dich bei Personalmangel rechtlich ab, um Haftung bei Fehlern zu vermeiden.' },
-  { id: 'c3', cat: 3, catName: 'Familie & Soziales', title: 'Kindeswohl-Meldung', desc: 'Formelle Meldung an das Jugendamt bei Verdacht auf Kindeswohlgefährdung.' },
-  { id: 'c4', cat: 4, catName: 'Zivilrecht', title: 'Mietmangel-Anzeige', desc: 'Offizielle Mängelanzeige an den Vermieter inkl. Mietminderungs-Androhung.' },
-  
-  // Neue Waffen
-  { id: 'c5', cat: 5, catName: 'Öffentliches Recht', title: 'Ordnungsamt-Meldung', desc: 'Anzeige wegen Falschparkern, Lärmbelästigung oder illegaler Müllentsorgung.' },
-  { id: 'c6', cat: 1, catName: 'Datenschutz', title: 'DSGVO-Beschwerde', desc: 'Beschwerde an den Landesdatenschutzbeauftragten wegen Datenmissbrauch.' },
-  { id: 'c7', cat: 2, catName: 'Arbeitsrecht', title: 'Gewerbeaufsicht-Meldung', desc: 'Anonyme Meldung von schweren Arbeitsschutzverstößen oder unbezahlten Überstunden.' },
-  { id: 'c8', cat: 5, catName: 'Öffentliches Recht', title: 'Veterinäramt-Meldung', desc: 'Offizielles Schreiben wegen Vernachlässigung oder Tierquälerei.' },
-  { id: 'c9', cat: 5, catName: 'Öffentliches Recht', title: 'Finanzamt-Tipp', desc: 'Formelle Anzeige wegen Steuerhinterziehung oder Schwarzarbeit.' }
-];
-
-export default function AnzeigenCockpit() {
-  const router = useRouter();
-  const [theme, setTheme] = useState('theme-midnight');
-  const [view, setView] = useState<'matrix' | 'form'>('matrix');
-  const [activeId, setActiveId] = useState('');
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    gegenseite: '', 
-    datum: new Date().toLocaleDateString('de-DE'),
-    sachverhalt: '',
-    forderung: '' // E.g., fristsetzung
-  });
-
-  const handleChange = (e: any) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handlePrint = () => {
-    window.print();
-  };
-
-  // Ensure body scroll is disabled for this app to allow internal layout scrolling
   useEffect(() => {
+    if (initialized.current) return;
+    initialized.current = true;
+
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = originalOverflow; };
+
+    if (!window.html2pdf) {
+      const script = document.createElement('script');
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+      document.head.appendChild(script);
+    }
+
+    import('./logic.js').then((module) => {
+      module.initCockpit();
+    });
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
   }, []);
 
-  const activeTemplate = TEMPLATES.find(t => t.id === activeId);
-
   return (
-    <div className={`cockpit-wrapper ${theme}`}>
-      
-      {/* Theme Switcher */}
-      <div className="theme-selector no-print">
-        {THEMES.map(t => (
-          <div 
-            key={t.id} 
-            className={`theme-dot ${t.class} ${theme === t.id ? 'active' : ''}`}
-            onClick={() => setTheme(t.id)}
-            title={t.label}
-          />
-        ))}
-      </div>
+    <div 
+      className="cockpit-wrapper" 
+      style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0, zIndex: 100, backgroundColor: 'var(--bg-dark)', overflow: 'hidden' }}
+      dangerouslySetInnerHTML={{ __html: `
 
-      {/* MATRIX VIEW */}
-      {view === 'matrix' && (
-        <aside className="cockpit-sidebar no-print">
-          <div className="cockpit-brand">ANZEIGEN <span>COCKPIT V4.0</span></div>
-          <button className="cockpit-btn" style={{width: '100%', marginBottom: '20px'}} onClick={() => router.push('/app')}>
-            ← ZUM DASHBOARD
-          </button>
-        </aside>
-      )}
-
-      <main className={`cockpit-main no-print ${view === 'form' ? 'form-mode' : ''}`}>
-        
-        {view === 'matrix' && (
-          <div className="matrix-container">
-            <h1 className="cockpit-brand" style={{fontSize: '42px', marginBottom: '10px'}}>Wähle deine Anzeige.</h1>
-            <p style={{color: 'var(--muted)', marginBottom: '40px', fontSize: '16px'}}>Von der Strafanzeige bis zur Gewerbeaufsicht. Rechtssicher und direkt.</p>
-            
-            <div className="matrix-grid">
-              {TEMPLATES.map(t => (
-                <div key={t.id} className="matrix-card" onClick={() => { setActiveId(t.id); setView('form'); }}>
-                  <div className="badge">{t.catName}</div>
-                  <h3>{t.title}</h3>
-                  <p>{t.desc}</p>
-                  <div style={{color: 'var(--accent)', fontSize: '11px', fontWeight: 'bold'}}>FORMULAR STARTEN →</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* SPLIT FORM VIEW */}
-        {view === 'form' && activeTemplate && (
-          <div className="split-layout">
-            <div className="split-form">
-              <div className="split-form-header">
-                <button 
-                  style={{background: 'transparent', border: 'none', color: 'var(--accent)', cursor: 'pointer', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '13px', fontWeight: 'bold'}}
-                  onClick={() => setView('matrix')}
-                >
-                  ← Zurück zur Übersicht
-                </button>
-                <h2 style={{color: 'var(--ink)', fontSize: '20px', fontFamily: 'Outfit, sans-serif'}}>{activeTemplate.title}</h2>
-              </div>
-              
-              <div className="split-form-body">
-                <div className="form-group">
-                  <label className="cockpit-label">1. Absender (Dein Name & Anschrift)</label>
-                  <textarea className="cockpit-textarea" style={{minHeight: '80px'}} name="name" value={formData.name} onChange={handleChange} placeholder="Maria Muster&#10;Musterstraße 1&#10;12345 Stadt" />
-                </div>
-                
-                <div className="form-group">
-                  <label className="cockpit-label">
-                    2. Empfänger 
-                    {activeTemplate.id === 'c1' && ' (Polizei / Staatsanwaltschaft)'}
-                    {activeTemplate.id === 'c2' && ' (Arbeitgeber / Pflegedienstleitung)'}
-                    {activeTemplate.id === 'c3' && ' (Zuständiges Jugendamt)'}
-                    {activeTemplate.id === 'c4' && ' (Vermieter / Hausverwaltung)'}
-                    {activeTemplate.id === 'c5' && ' (Ordnungsamt der Stadt)'}
-                    {activeTemplate.id === 'c6' && ' (Landesdatenschutzbeauftragter)'}
-                    {activeTemplate.id === 'c7' && ' (Gewerbeaufsichtsamt)'}
-                    {activeTemplate.id === 'c8' && ' (Veterinäramt)'}
-                    {activeTemplate.id === 'c9' && ' (Finanzamt / Zoll)'}
-                  </label>
-                  <textarea className="cockpit-textarea" style={{minHeight: '80px'}} name="gegenseite" value={formData.gegenseite} onChange={handleChange} placeholder="Behörde / Firma / Person..." />
-                </div>
-
-                <div className="form-group">
-                  <label className="cockpit-label">3. Sachverhalt (Was ist passiert?)</label>
-                  <textarea className="cockpit-textarea" style={{minHeight: '150px'}} name="sachverhalt" value={formData.sachverhalt} onChange={handleChange} placeholder="Bitte den Vorfall detailliert beschreiben (Datum, Ort, Beteiligte)..." />
-                </div>
-
-                {['c4', 'c6'].includes(activeTemplate.id) && (
-                  <div className="form-group">
-                    <label className="cockpit-label">4. Fristsetzung (Datum)</label>
-                    <input className="cockpit-input" name="forderung" value={formData.forderung} onChange={handleChange} placeholder="z.B. 14 Tage ab heute" />
-                  </div>
-                )}
-              </div>
-
-              <div className="split-form-footer">
-                <button className="cockpit-btn" style={{width: '100%'}} onClick={handlePrint}>
-                  🖨️ DIREKT DRUCKEN / PDF
-                </button>
-              </div>
-            </div>
-
-            <div className="split-preview">
-              {/* LIVE PDF PAPER */}
-              <div className="doc-paper">
-                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '40px'}}>
-                  <div style={{width: '250px', whiteSpace: 'pre-wrap'}}>{formData.name || 'Max Mustermann\nMusterstraße 1\n12345 Stadt'}</div>
-                  <div style={{textAlign: 'right'}}>{formData.datum}</div>
-                </div>
-                
-                <div style={{whiteSpace: 'pre-wrap', marginBottom: '40px', fontWeight: 'bold'}}>{formData.gegenseite || 'Empfänger / Behörde / Amt'}</div>
-                
-                {/* Custom Titles */}
-                {activeTemplate.id === 'c1' && <h1>Strafanzeige und Strafantrag</h1>}
-                {activeTemplate.id === 'c2' && <h1>Überlastungsanzeige / Gefährdungsanzeige gem. § 15 & 16 ArbSchG</h1>}
-                {activeTemplate.id === 'c3' && <h1>Meldung gem. § 8a SGB VIII - Verdacht auf Kindeswohlgefährdung</h1>}
-                {activeTemplate.id === 'c4' && <h1>Mängelanzeige und Aufforderung zur Mängelbeseitigung</h1>}
-                {activeTemplate.id === 'c5' && <h1>Anzeige einer Ordnungswidrigkeit</h1>}
-                {activeTemplate.id === 'c6' && <h1>Beschwerde wegen Verstoß gegen die DSGVO (Art. 77 DSGVO)</h1>}
-                {activeTemplate.id === 'c7' && <h1>Meldung wegen Verstoß gegen das Arbeitsschutzgesetz / Arbeitszeitgesetz</h1>}
-                {activeTemplate.id === 'c8' && <h1>Anzeige wegen Verdachts auf Verstoß gegen das Tierschutzgesetz (TierSchG)</h1>}
-                {activeTemplate.id === 'c9' && <h1>Meldung wegen Verdachts auf Steuerhinterziehung / Schwarzarbeit</h1>}
-
-                <p>Sehr geehrte Damen und Herren,</p>
-
-                {activeTemplate.id === 'c1' && <p>hiermit erstatte ich Strafanzeige gegen Unbekannt bzw. gegen die im Sachverhalt benannte Person wegen aller in Betracht kommenden Delikte und stelle vorsorglich Strafantrag.</p>}
-                {activeTemplate.id === 'c2' && <p>hiermit zeige ich formell eine konkrete Überlastungssituation an. Unter den derzeitigen Arbeitsbedingungen kann ich eine ordnungsgemäße Aufgabenerfüllung nicht mehr gewährleisten. Ich weise vorsorglich darauf hin, dass ich für daraus resultierende Fehler keine Haftung übernehme.</p>}
-                {activeTemplate.id === 'c3' && <p>hiermit melde ich einen gewichtigen Verdacht auf Kindeswohlgefährdung. Ich bitte Sie, den unten geschilderten Sachverhalt dringend zu prüfen und entsprechende Maßnahmen zum Schutz des Kindes einzuleiten.</p>}
-                {activeTemplate.id === 'c4' && <p>hiermit zeige ich formell folgende Mängel an der von mir gemieteten Mietsache an.</p>}
-                {activeTemplate.id === 'c5' && <p>hiermit erstatte ich Anzeige wegen der unten beschriebenen Ordnungswidrigkeit. Ich bitte um Prüfung und Einleitung eines Bußgeldverfahrens.</p>}
-                {activeTemplate.id === 'c6' && <p>hiermit reiche ich formell Beschwerde gegen den unten genannten Verantwortlichen ein, da dieser meine Rechte aus der Datenschutz-Grundverordnung (DSGVO) verletzt hat.</p>}
-                {activeTemplate.id === 'c7' && <p>hiermit möchte ich Sie auf gravierende Missstände hinsichtlich des Arbeitsschutzes bzw. des Arbeitszeitgesetzes in dem unten benannten Betrieb aufmerksam machen und um eine behördliche Prüfung bitten.</p>}
-                {activeTemplate.id === 'c8' && <p>hiermit erstatte ich Anzeige wegen des Verdachts auf Tierquälerei bzw. nicht artgerechter Haltung. Ich bitte Sie als zuständiges Veterinäramt um umgehende Kontrolle der Haltungsbedingungen.</p>}
-                {activeTemplate.id === 'c9' && <p>hiermit möchte ich Ihnen folgenden Sachverhalt zur Prüfung übermitteln, da ein begründeter Verdacht auf ein steuer- oder abgabenrechtliches Vergehen besteht.</p>}
-                
-                <br/>
-                <strong>Darlegung des Sachverhalts:</strong>
-                <p style={{whiteSpace: 'pre-wrap', marginTop: '10px'}}>{formData.sachverhalt || 'Der Sachverhalt wurde noch nicht beschrieben.'}</p>
-                <br/>
-
-                {activeTemplate.id === 'c1' && <p>Ich bitte um Mitteilung des Aktenzeichens und um Information über den Ausgang des Verfahrens gem. § 171 StPO.</p>}
-                {activeTemplate.id === 'c4' && <p>Ich fordere Sie auf, den Mangel bis zum <strong>{formData.forderung || 'angegebenen Datum'}</strong> zu beheben. Andernfalls behalte ich mir vor, die Miete angemessen zu mindern.</p>}
-                {activeTemplate.id === 'c6' && <p>Ich fordere Sie auf, tätig zu werden und mich über den Stand und die Ergebnisse der Beschwerde zu unterrichten. Frist zur Stellungnahme durch das Unternehmen war der <strong>{formData.forderung || '_______________'}</strong>, welche fruchtlos verstrichen ist.</p>}
-                {(activeTemplate.id === 'c7' || activeTemplate.id === 'c9') && <p>Aus Sorge vor Repressalien bitte ich darum, meine Identität gegenüber dem Beschuldigten vertraulich zu behandeln.</p>}
-
-                <br/><br/><br/>
-                <p>Mit freundlichen Grüßen</p>
-                <br/><br/><br/>
-                <p>__________________________________<br/>({formData.name ? formData.name.split('\n')[0] : 'Unterschrift'})</p>
-
-              </div>
-            </div>
-          </div>
-        )}
-      </main>
+<div class="module-strip no-print">
+    <div class="logo">⚖️ <span data-i18n="logoText">Anzeigen-Cockpit</span></div>
+    <button class="module-chip active" data-mod="ueberlastung" onclick="switchModule('ueberlastung')">🚨 <span data-i18n="modUeberlastung">Überlastung</span></button>
+    <button class="module-chip" data-mod="kindeswohl" onclick="switchModule('kindeswohl')">🛡️ <span data-i18n="modKindeswohl">Kindeswohl</span></button>
+    <button class="module-chip" data-mod="strafanzeige" onclick="switchModule('strafanzeige')">🚔 <span data-i18n="modStrafanzeige">Strafanzeige</span></button>
+    <button class="module-chip" data-mod="mietmangel" onclick="switchModule('mietmangel')">🏠 <span data-i18n="modMietmangel">Mietmangel</span></button>
+    <button class="module-chip" data-mod="ordnungsamt" onclick="switchModule('ordnungsamt')">📸 <span data-i18n="modOrdnungsamt">Ordnungsamt</span></button>
+    <button class="module-chip" data-mod="datenschutz" onclick="switchModule('datenschutz')">🛡️ <span data-i18n="modDatenschutz">DSGVO</span></button>
+    <button class="module-chip" data-mod="gewerbe" onclick="switchModule('gewerbe')">👷 <span data-i18n="modGewerbe">Gewerbeaufsicht</span></button>
+    <button class="module-chip" data-mod="tier" onclick="switchModule('tier')">🐶 <span data-i18n="modTier">Veterinäramt</span></button>
+    <button class="module-chip" data-mod="finanzamt" onclick="switchModule('finanzamt')">💸 <span data-i18n="modFinanzamt">Finanzamt</span></button>
+    <div class="spacer"></div>
+    
+    <!-- THEME SWITCHER -->
+    <div class="theme-selector">
+      <button class="theme-dot t-midnight" onclick="document.body.className='theme-midnight'" title="Midnight Stealth"></button>
+      <button class="theme-dot t-cyber" onclick="document.body.className='theme-cyber'" title="Cyber Rebell"></button>
+      <button class="theme-dot t-alert" onclick="document.body.className='theme-alert'" title="Alert Danger"></button>
+      <button class="theme-dot t-minimal" onclick="document.body.className='theme-minimal'" title="Minimal Light"></button>
     </div>
+
+    <button class="head-btn" id="langToggle" title="Sprache">DE</button>
+    <button class="head-btn" id="resetBtn" title="Reset">↺</button>
+</div>
+
+<div class="app" id="app">
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2><span class="accent" id="moduleTitleIcon">🚨</span> <span id="moduleTitleText" data-i18n="modUeberlastung">Überlastung</span> <small>· <span data-i18n="sidebarSubtitle">Gefährdungsanzeige</span></small></h2>
+    </div>
+
+    <div class="tabbar">
+        <button class="tabbtn active" data-tab="brief">📝 <span data-i18n="tabBrief">Brief</span></button>
+        <button class="tabbtn" data-tab="vorfall">⚠️ <span data-i18n="tabVorfall">Vorfälle</span></button>
+        <button class="tabbtn" data-tab="empfaenger">📬 <span data-i18n="tabRecipient">Empfänger</span></button>
+        <button class="tabbtn" data-tab="eskalation">🚨 <span data-i18n="tabEskalation">Eskalation</span></button>
+        <button class="tabbtn" data-tab="versand">📮 <span data-i18n="tabShip">Versand</span></button>
+        <button class="tabbtn" data-tab="beweis">🔍 <span data-i18n="tabEvidence">Beweise</span></button>
+    </div>
+
+    <div class="sidebar-content">
+
+        <!-- ===== BRIEF TAB (modul-spezifisch) ===== -->
+        <div class="tab-pane active" data-pane="brief">
+            <div class="alert-banner" id="briefAlert" data-i18n="alertUeberlastung">
+                💡 <b>Haftungsschutz:</b> Diese Anzeige überträgt die Verantwortung für Fehler aus Personalmangel auf den Arbeitgeber.
+            </div>
+
+            <!-- Modul-spezifische Felder werden hier dynamisch eingefügt -->
+            <div id="moduleFields"></div>
+
+            <div class="section-title" data-i18n="sectTemplate">1. Schnell-Vorlage</div>
+            <select id="template-select" onchange="loadTemplate()">
+                <option value="" data-i18n="customOpt">-- Eigene Vorlage (Leer) --</option>
+            </select>
+
+            <div class="section-title" data-i18n="sectSubject">2. Betreff</div>
+            <input type="text" id="in-subject" data-i18n-ph="subjPlaceholder" placeholder="Betreff der Anzeige">
+
+            <div class="section-title">
+                <span>3. <span data-i18n="sectBody">Haupttext</span></span>
+                <span class="help" id="bodyCounter">0 / 5000</span>
+            </div>
+            <textarea id="in-body" rows="14" data-i18n-ph="bodyPlaceholder" placeholder=""></textarea>
+
+            <div class="section-title">
+                <span>4. <span data-i18n="sectArsenal">Rechtsgrundlagen-Arsenal</span></span>
+                <span class="help" data-i18n="arsenalHelp">Klicken zum Hinzufügen</span>
+            </div>
+            <div class="info-banner" data-i18n="arsenalInfo">
+                ⚖️ Wähle die passenden Rechtsgrundlagen — sie werden automatisch in den Brief eingefügt.
+            </div>
+            <div id="arsenalContainer"></div>
+        </div>
+
+        <!-- ===== VORFÄLLE ===== -->
+        <div class="tab-pane" data-pane="vorfall">
+            <div class="info-banner" data-i18n="vorfallInfo">
+                📅 Dokumentiere jeden Vorfall — Datum, Zeit, was passiert ist, Zeugen.
+            </div>
+            <div class="section-title" data-i18n="sectNewIncident">Neuer Vorfall</div>
+            <div class="flex-row">
+                <div><label data-i18n="lblIncidentDate">Datum</label><input type="date" id="new-incident-date"></div>
+                <div><label data-i18n="lblIncidentTime">Uhrzeit</label><input type="time" id="new-incident-time"></div>
+            </div>
+            <label data-i18n="lblIncidentCategory">Kategorie</label>
+            <select id="new-incident-category"></select>
+            <label data-i18n="lblIncidentDesc">Was ist passiert?</label>
+            <textarea id="new-incident-desc" rows="3" placeholder=""></textarea>
+            <label data-i18n="lblIncidentWitness">Zeugen (optional)</label>
+            <input type="text" id="new-incident-witness">
+            <button class="btn btn-primary" onclick="addIncident()" data-i18n="btnAddIncident">＋ Vorfall dokumentieren</button>
+            <div class="section-title">
+                <span data-i18n="sectIncidentList">Dokumentierte Vorfälle</span>
+                <span class="help" id="incidentCount">(0)</span>
+            </div>
+            <div id="incidentList" class="incident-list"></div>
+            <div class="flex-row" style="margin-top:6px">
+                <button class="btn btn-ghost" onclick="incidentsToBody()" data-i18n="btnIncidentsToBody">→ In Brief übernehmen</button>
+                <button class="btn btn-ghost btn-danger" onclick="clearIncidents()" data-i18n="btnClearIncidents">Alle löschen</button>
+            </div>
+        </div>
+
+        <!-- ===== EMPFÄNGER ===== -->
+        <div class="tab-pane" data-pane="empfaenger">
+            <div class="info-banner" data-i18n="recipientInfo">
+                📬 Mehrere Empfänger verwalten — Primary wird im Brief verwendet.
+            </div>
+            <div class="section-title" data-i18n="sectRecipients">Empfänger-Liste</div>
+            <div id="recipientList"></div>
+            <div class="section-title" data-i18n="sectNewRecipient">＋ Neuer Empfänger</div>
+            <div class="flex-row">
+                <div><label data-i18n="lblRName">Name / Stelle</label><input type="text" id="new-r-name"></div>
+                <div><label data-i18n="lblRRole">Rolle</label><select id="new-r-role"></select></div>
+            </div>
+            <label data-i18n="lblRAddr">Anschrift</label>
+            <textarea id="new-r-addr" rows="2"></textarea>
+            <button class="btn btn-primary" onclick="addRecipient()" data-i18n="btnAddRecipient">＋ Empfänger hinzufügen</button>
+        </div>
+
+        <!-- ===== ESKALATION ===== -->
+        <div class="tab-pane" data-pane="eskalation">
+            <div class="alert-banner" data-i18n="eskalationInfo">
+                🚨 Eskalation nur wenn Stufen davor nicht fruchten.
+            </div>
+            <div class="section-title" data-i18n="sectTimeline">Eskalations-Timeline</div>
+            <div class="timeline" id="timelineContainer"></div>
+            <div class="section-title" data-i18n="sectReaction">Reaktionsfrist</div>
+            <div class="flex-row">
+                <div><label data-i18n="lblFrist">Frist (Tage)</label><input type="number" id="in-frist" value="5" min="1" max="30"></div>
+                <div>
+                    <label data-i18n="lblReaction">Reaktion</label>
+                    <select id="in-reaction">
+                        <option value="offen" data-i18n="reactOpen">Noch offen</option>
+                        <option value="teilweise" data-i18n="reactTeilweise">Teilweise Reaktion</option>
+                        <option value="voll" data-i18n="reactVoll">Vollständig</option>
+                        <option value="ignoriert" data-i18n="reactIgnoriert">Ignoriert</option>
+                    </select>
+                </div>
+            </div>
+            <div class="section-title" data-i18n="sectFristBerechnung">Frist-Berechnung</div>
+            <div id="fristBerechnung" class="info-banner"></div>
+        </div>
+
+        <!-- ===== VERSAND ===== -->
+        <div class="tab-pane" data-pane="versand">
+            <div class="info-banner" data-i18n="versandInfo">📮 Versand-Art entscheidet über Beweiskraft.</div>
+            <div class="section-title" data-i18n="sectShipMethod">Versand-Art wählen</div>
+            <div class="ship-grid" id="shipMethodGrid">
+                <button class="ship-card" data-ship="einschreiben" onclick="setShip(this)">
+                    <div class="icon">📮</div>
+                    <div class="name">Einschreiben</div>
+                    <div class="desc" data-i18n="shipEinschreiben">Mit Rückschein</div>
+                </button>
+                <button class="ship-card" data-ship="persoenlich" onclick="setShip(this)">
+                    <div class="icon">🤝</div>
+                    <div class="name">Persönlich</div>
+                    <div class="desc" data-i18n="shipPers">Gegen Bestätigung</div>
+                </button>
+                <button class="ship-card" data-ship="email" onclick="setShip(this)">
+                    <div class="icon">📧</div>
+                    <div class="name">E-Mail</div>
+                    <div class="desc" data-i18n="shipEmail">Schnell</div>
+                </button>
+                <button class="ship-card" data-ship="fax" onclick="setShip(this)">
+                    <div class="icon">📠</div>
+                    <div class="name">Fax</div>
+                    <div class="desc" data-i18n="shipFax">Mit Protokoll</div>
+                </button>
+            </div>
+            <div class="section-title" data-i18n="sectTracking">Sendungs-Tracking</div>
+            <div class="flex-row">
+                <div><label data-i18n="lblSendungsnr">Sendungs-Nr.</label><input type="text" id="in-tracking"></div>
+                <div><label data-i18n="lblSendDate">Versand-Datum</label><input type="text" id="in-ship-date" placeholder="TT.MM.JJJJ"></div>
+            </div>
+            <label data-i18n="lblShipNote">Notizen zum Versand</label>
+            <textarea id="in-ship-note" rows="2"></textarea>
+        </div>
+
+        <!-- ===== BEWEISE ===== -->
+        <div class="tab-pane" data-pane="beweis">
+            <div class="info-banner" data-i18n="evidenceInfo">🔍 Beweissicherung entscheidet über Erfolg.</div>
+            <div class="section-title" data-i18n="sectEvidenceChecklist">Checkliste Beweissicherung</div>
+            <div class="evidence-grid" id="evidenceList"></div>
+            <div class="section-title" data-i18n="sectAnonym">Anonymisierungs-Modus</div>
+            <div class="info-banner" data-i18n="anonymInfo">🎭 Ersetze sensible Daten im PDF.</div>
+            <label><input type="checkbox" id="in-anonymize" onchange="updatePreview()"> <span data-i18n="lblAnonym">Anonymisiertes PDF erzeugen</span></label>
+        </div>
+
+    </div>
+
+    <div class="sidebar-footer">
+        <button class="btn btn-ghost" onclick="copyLetter()" data-i18n="btnCopy">📋 Kopieren</button>
+        <button class="btn btn-primary" onclick="exportPDF()">📄 <span data-i18n="btnPdf">PDF</span></button>
+    </div>
+</aside>
+
+<main class="preview-area">
+    <div class="a4-page" id="document-preview">
+        <div class="module-stamp ueberlastung" id="moduleStamp" style="display:none">ÜBERLASTUNG</div>
+        <div class="letter-header">
+            <div class="col">
+                <div class="sender-info">
+                    <strong id="out-sender-name">—</strong><br>
+                    <span id="out-sender-addr">—</span><br>
+                    <span id="out-sender-extras" style="font-size:8pt;color:#888"></span>
+                </div>
+            </div>
+            <div class="col right">
+                <div class="receiver-info" id="out-receiver">—</div>
+            </div>
+        </div>
+        <div class="date-info" id="out-date">—</div>
+        <div class="subject-line" id="out-subject">—</div>
+        <div class="letter-body" id="out-body"></div>
+        <div class="letter-signature">
+            Mit freundlichen Grüßen<br><br><br>
+            <span id="out-sender-sign">—</span>
+        </div>
+        <div class="letter-meta" id="out-meta" style="display:none"></div>
+    </div>
+</main>
+
+</div>
+
+
+` }}
+    />
   );
 }
