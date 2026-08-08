@@ -135,6 +135,17 @@ export default function AppDashboard() {
                 )}
               </div>
               
+              <div className="card glow-teal" style={{cursor: 'pointer', position: 'relative'}} onClick={() => router.push('/app/anzeigen-cockpit')}>
+                {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
+                <h3 style={{color: '#14b8a6'}}>🚨 Anzeigen-Cockpit</h3>
+                <p style={{color: 'white'}}>Überlastungsanzeige, Strafanzeige, Mietmangel und Kindeswohl-Meldungen im Griff.</p>
+                {!loading && !isPro ? (
+                  <div style={{marginTop: '16px', color: 'var(--muted)', fontSize: '12px', fontWeight: 'bold'}}>PREMIUM WERKZEUG</div>
+                ) : (
+                  <div style={{marginTop: '16px', color: '#14b8a6', fontSize: '12px', fontWeight: 'bold'}}>JETZT STARTEN →</div>
+                )}
+              </div>
+
               <div className="card" style={{opacity: 0.5, position: 'relative'}}>
                 {!loading && !isPro && <div style={{position: 'absolute', top: 16, right: 16, fontSize: '24px'}}>🔒</div>}
                 <h3 style={{color: 'var(--muted)'}}>🏥 Patienten-Bollwerk</h3>

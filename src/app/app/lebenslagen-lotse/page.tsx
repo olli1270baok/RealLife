@@ -744,7 +744,8 @@ export default function LebenslagenLotse() {
           --radius:22px;--sidebar:278px;
           background: var(--bg);
           color: var(--ink);
-          min-height: 100vh;
+          height: 100vh;
+          overflow-y: auto;
           font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
         }
         .lotse-app-wrapper[data-palette="sand"]{--bg:#f4efe7;--paper:#fffdf9;--paper2:#f8f2e8;--ink:#30271e;--muted:#75695e;--line:#e2d7c8;--nav:#3f3127;--nav2:#604737;--accent:#b45c35;--accent2:#df9c77;--gold:#d7a53a;--good:#4f7b57;--soft:#f7e5d9}
