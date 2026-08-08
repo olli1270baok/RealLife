@@ -9,3 +9,8 @@ Das beinhaltet:
 4. **Texte & Wordings:** Kein Text, keine Erklärung und kein Button-Label darf eigenmächtig gelöscht oder "zusammengefasst" werden.
 
 Bevor ein migriertes Tool als "fertig" markiert wird, ist der Quellcode des Original-HTML-Dokuments gewissenhaft von Zeile 1 bis zum Ende abzugleichen, um sicherzustellen, dass absolut nichts vergessen wurde.
+
+# Web App Design & PDF-Export: Nativer Print-Workflow
+- **Standard-Workflow:** Nutze IMMER den nativen Browser-Druckdialog (`window.print()`) für alle Funktionen, die PDFs oder ausdruckbare Dokumente erzeugen sollen.
+- **Verbot von Drittanbieter-Bibliotheken:** Verwende KEINE Libraries wie `html2pdf.js`, da diese die Qualität verringern (Canvas-Bilder statt echten Text) und den Nutzer-Workflow blockieren/verlangsamen.
+- **CSS Setup:** Erstelle immer ein hochpräzises `@media print` CSS, das alle UI-Elemente (Sidebars, Menüs, dunkle Hintergründe, Buttons) ausblendet und ausschließlich das Ziel-Dokument auf einer weißen A4-Fläche formatiert. Der Nutzer soll bei Klick auf "Drucken / PDF" direkt den nativen Dialog seines Betriebssystems sehen.
