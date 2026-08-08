@@ -1,0 +1,575 @@
+
+        :root {
+            --bg-dark: #0f172a;
+            --bg-panel: #1e293b;
+            --bg-light: #f8fafc;
+            --text-light: #f8fafc;
+            --text-dark: #0f172a;
+            --text-muted: #94a3b8;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --accent-safe: #3b82f6;
+            --accent-warn: #f59e0b;
+            --accent-success: #10b981;
+            --accent-purple: #a855f7;
+            --border: #334155;
+            --border-light: #e2e8f0;
+            --shadow: 0 4px 15px rgba(0,0,0,0.2);
+            --radius: 8px;
+            --radius-sm: 4px;
+        }
+        [data-mode="light"] {
+            --bg-dark: #f1f5f9;
+            --bg-panel: #ffffff;
+            --text-light: #0f172a;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * { box-sizing: border-box; }
+        .cockpit-wrapper {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column;
+            height: 100vh;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        [data-mode="light"] .cockpit-wrapper { background: var(--bg-light); }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        [data-mode="light"] ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+
+        .app { display: flex; width: 100%; flex: 1; min-height: 0; }
+
+        /* === MODULE-STRIP (Top) === */
+        .module-strip {
+            background: #0b1120;
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex; align-items: center; gap: 10px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        [data-mode="light"] .module-strip { background: #e2e8f0; }
+        .module-strip .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-right: 8px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .module-chip {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            padding: 7px 13px;
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        [data-mode="light"] .module-chip { color: var(--text-dark); }
+        .module-chip:hover { border-color: var(--accent); }
+        .module-chip.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+        .module-chip[data-mod="kindeswohl"].active { background: #f59e0b; border-color: #f59e0b; }
+        .module-chip[data-mod="strafanzeige"].active { background: #a855f7; border-color: #a855f7; }
+        .module-chip[data-mod="mietmangel"].active { background: #3b82f6; border-color: #3b82f6; }
+        .module-strip .spacer { flex: 1; }
+        .module-strip .head-btn {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            padding: 5px 11px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        [data-mode="light"] .module-strip .head-btn { color: var(--text-dark); background: white; }
+        .module-strip .head-btn:hover { border-color: var(--accent); }
+
+        /* === SIDEBAR === */
+        .sidebar {
+            width: 560px;
+            background: var(--bg-dark);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            box-shadow: var(--shadow);
+            min-height: 0;
+        }
+        [data-mode="light"] .sidebar { background: var(--bg-panel); }
+
+        .sidebar-header {
+            padding: 14px 22px;
+            background: #0b1120;
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 8px;
+            flex-shrink: 0;
+        }
+        [data-mode="light"] .sidebar-header { background: #e2e8f0; }
+        .sidebar-header h2 {
+            font-family: 'Outfit', sans-serif;
+            margin: 0; font-size: 1.05rem;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .sidebar-header h2 .accent { color: var(--accent); }
+        .sidebar-header h2 .kind { color: #f59e0b; }
+        .sidebar-header h2 .str { color: #a855f7; }
+        .sidebar-header h2 .mie { color: #3b82f6; }
+        .sidebar-header h2 small { color: var(--text-muted); font-weight: 400; font-size: 0.7rem; font-family: 'Inter'; }
+
+        .tabbar {
+            display: flex;
+            background: #0b1120;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            flex-shrink: 0;
+        }
+        [data-mode="light"] .tabbar { background: #e2e8f0; }
+        .tabbtn {
+            flex: 1;
+            min-width: 78px;
+            padding: 9px 10px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            white-space: nowrap;
+        }
+        .tabbtn:hover { color: var(--text-light); background: rgba(239, 68, 68, 0.05); }
+        [data-mode="light"] .tabbtn:hover { color: var(--text-dark); }
+        .tabbtn.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(239, 68, 68, 0.08); }
+        .kindeswohl-active .tabbtn.active { color: #f59e0b; border-bottom-color: #f59e0b; }
+        .strafanzeige-active .tabbtn.active { color: #a855f7; border-bottom-color: #a855f7; }
+        .mietmangel-active .tabbtn.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+
+        .sidebar-content {
+            padding: 18px 22px;
+            overflow-y: auto;
+            flex-grow: 1;
+            min-height: 0;
+        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        .sidebar-footer {
+            padding: 14px 22px;
+            background: #0b1120;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        [data-mode="light"] .sidebar-footer { background: #e2e8f0; }
+
+        /* === FORM ELEMENTS === */
+        .section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            margin-top: 20px; margin-bottom: 10px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .section-title:first-child { margin-top: 0; }
+        .section-title .badge {
+            background: var(--accent);
+            color: white;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-size: 0.6rem;
+            margin-left: auto;
+        }
+        .kindeswohl-active .section-title .badge { background: #f59e0b; }
+        .strafanzeige-active .section-title .badge { background: #a855f7; }
+        .mietmangel-active .section-title .badge { background: #3b82f6; }
+        .section-title .help {
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-left: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        [data-mode="light"] label { color: var(--text-dark); }
+
+        .label-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .label-row label { margin: 0; }
+        .label-row .hint { font-size: 0.65rem; color: var(--text-muted); }
+
+        input, textarea, select {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #475569;
+            color: white;
+            padding: 8px 11px;
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            margin-bottom: 10px;
+            transition: 0.15s;
+        }
+        [data-mode="light"] input,
+        [data-mode="light"] textarea,
+        [data-mode="light"] select {
+            background: white; color: var(--text-dark);
+            border-color: var(--border-light);
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+        }
+        .kindeswohl-active input:focus,
+        .kindeswohl-active textarea:focus,
+        .kindeswohl-active select:focus { border-color: #f59e0b; box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15); }
+        .strafanzeige-active input:focus,
+        .strafanzeige-active textarea:focus,
+        .strafanzeige-active select:focus { border-color: #a855f7; box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.15); }
+        .mietmangel-active input:focus,
+        .mietmangel-active textarea:focus,
+        .mietmangel-active select:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15); }
+
+        textarea { resize: vertical; min-height: 90px; line-height: 1.45; }
+
+        .flex-row { display: flex; gap: 10px; }
+        .flex-row > div { flex: 1; }
+
+        /* === BUTTONS === */
+        .btn {
+            border: none;
+            padding: 10px 13px;
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-primary { background: var(--accent); color: white; flex: 1; padding: 13px; font-size: 0.92rem; }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .kindeswohl-active .btn-primary { background: #f59e0b; }
+        .kindeswohl-active .btn-primary:hover { background: #d97706; }
+        .strafanzeige-active .btn-primary { background: #a855f7; }
+        .strafanzeige-active .btn-primary:hover { background: #9333ea; }
+        .mietmangel-active .btn-primary { background: #3b82f6; }
+        .mietmangel-active .btn-primary:hover { background: #2563eb; }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        [data-mode="light"] .btn-ghost { color: var(--text-dark); }
+        .btn-ghost:hover { border-color: var(--accent); }
+        .btn-icon {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 3px 8px;
+            font-size: 0.65rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+        .btn-icon:hover { color: var(--accent); border-color: var(--accent); }
+        .btn-danger { background: #7f1d1d; color: white; }
+
+        /* === ARSENAL === */
+        .arsenal-category {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin: 10px 0 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .arsenal-category:first-child { margin-top: 0; }
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .arsenal-btn {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            padding: 9px 11px;
+            border-radius: var(--radius-sm);
+            text-align: left;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 0.74rem;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        [data-mode="light"] .arsenal-btn { color: var(--text-dark); }
+        .arsenal-btn:hover { border-color: var(--accent); background: rgba(239, 68, 68, 0.08); }
+        .kindeswohl-active .arsenal-btn:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.08); }
+        .strafanzeige-active .arsenal-btn:hover { border-color: #a855f7; background: rgba(168, 85, 247, 0.08); }
+        .mietmangel-active .arsenal-btn:hover { border-color: #3b82f6; background: rgba(59, 130, 246, 0.08); }
+        .arsenal-btn.active {
+            border-color: var(--accent);
+            background: rgba(239, 68, 68, 0.15);
+            border-left: 3px solid var(--accent);
+        }
+        .kindeswohl-active .arsenal-btn.active { border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); border-left-color: #f59e0b; }
+        .strafanzeige-active .arsenal-btn.active { border-color: #a855f7; background: rgba(168, 85, 247, 0.15); border-left-color: #a855f7; }
+        .mietmangel-active .arsenal-btn.active { border-color: #3b82f6; background: rgba(59, 130, 246, 0.15); border-left-color: #3b82f6; }
+        .arsenal-btn .title {
+            font-weight: 700; color: white; font-size: 0.8rem; display: flex; align-items: center; gap: 5px;
+        }
+        [data-mode="light"] .arsenal-btn .title { color: var(--text-dark); }
+        .arsenal-btn .preview {
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-style: italic;
+        }
+        .arsenal-btn.active .preview { color: var(--text-light); }
+        [data-mode="light"] .arsenal-btn.active .preview { color: var(--text-dark); }
+
+        /* === PREVIEW === */
+        .preview-area {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: #94a3b8;
+            min-height: 0;
+        }
+        [data-mode="light"] .preview-area { background: #cbd5e1; }
+
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            color: black;
+            padding: 22mm 22mm 22mm 22mm;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            font-family: 'Arial', sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            position: relative;
+        }
+        .letter-header { display: flex; justify-content: space-between; margin-bottom: 8mm; font-size: 9pt; }
+        .letter-header .col { flex: 1; }
+        .letter-header .col.right { text-align: right; }
+        .letter-header strong { font-size: 11pt; }
+        .sender-info { font-size: 9pt; color: #555; margin-bottom: 1mm; }
+        .receiver-info { white-space: pre-line; }
+        .date-info { text-align: right; margin-bottom: 6mm; }
+        .subject-line {
+            font-weight: bold; font-size: 12pt;
+            margin-bottom: 6mm;
+            padding: 3mm 0;
+            border-top: 1.5pt solid #000;
+            border-bottom: 0.5pt solid #000;
+        }
+        .letter-.cockpit-wrapper { white-space: pre-line; margin-bottom: 8mm; }
+        .letter-signature { margin-top: 12mm; }
+        .module-stamp {
+            position: absolute;
+            top: 12mm; right: 12mm;
+            color: white;
+            padding: 4px 10px;
+            font-family: 'Arial', sans-serif;
+            font-size: 9pt; font-weight: 700;
+            transform: rotate(3deg);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border-radius: 2px;
+        }
+        .module-stamp.ueberlastung { background: var(--accent); }
+        .module-stamp.kindeswohl { background: #f59e0b; }
+        .module-stamp.strafanzeige { background: #a855f7; }
+        .module-stamp.mietmangel { background: #3b82f6; }
+        .letter-meta {
+            font-size: 8pt; color: #888;
+            margin-top: 10mm;
+            padding-top: 3mm;
+            border-top: 0.3pt dashed #aaa;
+        }
+
+        .alert-banner {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent);
+            padding: 8px 11px;
+            border-radius: var(--radius-sm);
+            font-size: 0.74rem;
+            margin-bottom: 12px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            line-height: 1.45;
+        }
+        .kindeswohl-active .alert-banner { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); }
+        .strafanzeige-active .alert-banner { background: rgba(168, 85, 247, 0.1); color: #c4b5fd; border-color: rgba(168, 85, 247, 0.3); }
+        .mietmangel-active .alert-banner { background: rgba(59, 130, 246, 0.1); color: #93c5fd; border-color: rgba(59, 130, 246, 0.3); }
+        .alert-banner b { color: white; }
+        [data-mode="light"] .alert-banner b { color: var(--text-dark); }
+        .info-banner {
+            background: rgba(59, 130, 246, 0.1);
+            color: #93c5fd;
+            padding: 8px 11px;
+            border-radius: var(--radius-sm);
+            font-size: 0.74rem;
+            margin-bottom: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .incident-item {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: var(--radius-sm);
+            padding: 9px 11px;
+            margin-bottom: 7px;
+        }
+        .kindeswohl-active .incident-item { border-left-color: #f59e0b; }
+        .strafanzeige-active .incident-item { border-left-color: #a855f7; }
+        .mietmangel-active .incident-item { border-left-color: #3b82f6; }
+        .incident-item .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 3px; }
+        .incident-item .date { font-size: 0.66rem; color: var(--text-muted); font-weight: 600; }
+        .incident-item .actions { display: flex; gap: 4px; }
+        .incident-item .desc { font-size: 0.78rem; line-height: 1.4; }
+
+        .empty-state {
+            text-align: center;
+            padding: 24px 18px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-sm);
+        }
+
+        .recipient-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 8px 10px;
+            margin-bottom: 6px;
+        }
+        .recipient-card .head { display: flex; justify-content: space-between; align-items: center; }
+        .recipient-card .name { font-weight: 700; font-size: 0.8rem; }
+        .recipient-card .role { font-size: 0.66rem; color: var(--text-muted); }
+        .recipient-card .addr { font-size: 0.74rem; margin-top: 2px; white-space: pre-line; color: var(--text-muted); }
+        .recipient-card .primary { color: var(--accent); font-size: 0.65rem; font-weight: 700; }
+        .kindeswohl-active .recipient-card .primary { color: #f59e0b; }
+        .strafanzeige-active .recipient-card .primary { color: #a855f7; }
+        .mietmangel-active .recipient-card .primary { color: #3b82f6; }
+
+        .evidence-grid { display: grid; grid-template-columns: 1fr; gap: 5px; margin-bottom: 10px; }
+        .evidence-item {
+            display: flex; align-items: center; gap: 7px;
+            padding: 7px 9px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.78rem;
+        }
+        .evidence-item input { width: auto; margin: 0; }
+        .evidence-item.done { opacity: 0.5; }
+        .evidence-item.done .label { text-decoration: line-through; }
+
+        .timeline { position: relative; padding-left: 22px; margin: 6px 0; }
+        .timeline::before {
+            content: ''; position: absolute;
+            left: 7px; top: 5px; bottom: 5px;
+            width: 2px; background: var(--border);
+        }
+        .timeline-event { position: relative; padding: 5px 0 12px 0; }
+        .timeline-event::before {
+            content: ''; position: absolute;
+            left: -18px; top: 8px;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-dark);
+        }
+        .kindeswohl-active .timeline-event::before { background: #f59e0b; }
+        .strafanzeige-active .timeline-event::before { background: #a855f7; }
+        .mietmangel-active .timeline-event::before { background: #3b82f6; }
+        .timeline-event.done::before { background: var(--accent-success) !important; }
+        .timeline-event .title { font-weight: 600; font-size: 0.8rem; }
+        .timeline-event .meta { font-size: 0.66rem; color: var(--text-muted); margin-top: 2px; }
+
+        .ship-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px; }
+        .ship-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 9px;
+            cursor: pointer;
+            transition: 0.15s;
+            text-align: left;
+            font-family: inherit;
+            color: inherit;
+        }
+        .ship-card:hover { border-color: var(--accent-safe); }
+        .ship-card.active { border-color: var(--accent-safe); background: rgba(59, 130, 246, 0.1); }
+        .ship-card .icon { font-size: 1.2rem; }
+        .ship-card .name { font-weight: 700; font-size: 0.78rem; margin-top: 3px; }
+        .ship-card .desc { font-size: 0.66rem; color: var(--text-muted); margin-top: 2px; }
+
+        .toast {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--bg-panel);
+            border: 1px solid var(--accent);
+            border-left: 3px solid var(--accent);
+            color: white;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            animation: toastIn 0.2s ease-out;
+        }
+        .toast.success { border-color: var(--accent-success); }
+        .toast.warn { border-color: var(--accent-warn); }
+        @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+        @media (max-width: 1100px) {
+            .app { flex-direction: column; }
+            .sidebar { width: 100%; height: 55vh; }
+            .preview-area { height: 45vh; padding: 12px; }
+            .a4-page { padding: 12mm; }
+        }
+    
