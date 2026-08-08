@@ -1542,6 +1542,11 @@ const MODULE_FIELDS = {
     <div class="section-title">3. Empfänger</div>
     <label>Behörde</label><input type="text" id="in-receiver_name" data-bind="receiver_name" placeholder="Ordnungsamt Stadt XY">
     <label>Anschrift Behörde</label><textarea id="in-receiver_addr" rows="2" data-bind="receiver_addr"></textarea>
+    <label data-i18n="lblReceiver">Empfänger-Block (für Briefkopf)</label>
+    <textarea id="in-receiver" rows="3" data-bind="receiver" placeholder="Wird automatisch ausgefüllt"></textarea>
+    <div class="flex-row">
+        <div><label data-i18n="lblDate">Ort & Datum</label><input type="text" id="in-date" data-bind="date"></div>
+    </div>
   `,
   datenschutz: `
     <div class="section-title">1. Betroffene Person</div>
@@ -1562,6 +1567,11 @@ const MODULE_FIELDS = {
     </select>
     <div class="section-title">3. Empfänger</div>
     <label>Empfänger (Unternehmen oder LfDI)</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
+    <label data-i18n="lblReceiver">Empfänger-Block (für Briefkopf)</label>
+    <textarea id="in-receiver" rows="3" data-bind="receiver" placeholder="Wird automatisch ausgefüllt"></textarea>
+    <div class="flex-row">
+        <div><label data-i18n="lblDate">Ort & Datum</label><input type="text" id="in-date" data-bind="date"></div>
+    </div>
   `,
   gewerbe: `
     <div class="section-title">1. Hinweisgeber</div>
@@ -1579,6 +1589,11 @@ const MODULE_FIELDS = {
     </select>
     <div class="section-title">3. Behörde</div>
     <label>Gewerbeaufsichtsamt</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
+    <label data-i18n="lblReceiver">Empfänger-Block (für Briefkopf)</label>
+    <textarea id="in-receiver" rows="3" data-bind="receiver" placeholder="Wird automatisch ausgefüllt"></textarea>
+    <div class="flex-row">
+        <div><label data-i18n="lblDate">Ort & Datum</label><input type="text" id="in-date" data-bind="date"></div>
+    </div>
   `,
   tier: `
     <div class="section-title">1. Hinweisgeber</div>
@@ -1597,6 +1612,11 @@ const MODULE_FIELDS = {
     </select>
     <div class="section-title">3. Behörde</div>
     <label>Veterinäramt / Tierschutz</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
+    <label data-i18n="lblReceiver">Empfänger-Block (für Briefkopf)</label>
+    <textarea id="in-receiver" rows="3" data-bind="receiver" placeholder="Wird automatisch ausgefüllt"></textarea>
+    <div class="flex-row">
+        <div><label data-i18n="lblDate">Ort & Datum</label><input type="text" id="in-date" data-bind="date"></div>
+    </div>
   `,
   finanzamt: `
     <div class="section-title">1. Hinweisgeber</div>
@@ -1615,6 +1635,11 @@ const MODULE_FIELDS = {
     </select>
     <div class="section-title">3. Finanzamt / Zoll</div>
     <label>Zuständige Behörde</label><textarea id="in-receiver_addr" rows="3" data-bind="receiver_addr"></textarea>
+    <label data-i18n="lblReceiver">Empfänger-Block (für Briefkopf)</label>
+    <textarea id="in-receiver" rows="3" data-bind="receiver" placeholder="Wird automatisch ausgefüllt"></textarea>
+    <div class="flex-row">
+        <div><label data-i18n="lblDate">Ort & Datum</label><input type="text" id="in-date" data-bind="date"></div>
+    </div>
   `
 };
 
@@ -1650,7 +1675,7 @@ function init() {
   restoreInputs();
   if (cur() && cur().inputs && !cur().inputs.date) {
     cur().inputs.date = `Musterstadt, den ${new Date().toLocaleDateString('de-DE')}`;
-    $('#in-date').value = cur().inputs.date;
+    if ($('#in-date')) $('#in-date').value = cur().inputs.date;
   }
   activeWeapons = new Set((cur() && cur().arsenal) || []);
   currentShipMethod = (cur() && cur().ship && cur().ship.method) || 'einschreiben';
@@ -1663,22 +1688,6 @@ function init() {
 
 function buildModuleUI() {
   let html = MODULE_FIELDS[currentModule] || '';
-  if (['ordnungsamt', 'datenschutz', 'gewerbe', 'tier', 'finanzamt'].includes(currentModule)) {
-    html = `
-      <div class="form-group">
-        <label><span data-i18n="p_all_sender">Dein Name</span> <span class="req">*</span></label>
-        <input type="text" id="in-sender" data-bind="sender">
-      </div>
-      <div class="form-group">
-        <label data-i18n="p_all_senderAddr">Deine Anschrift</label>
-        <textarea id="in-senderAddr" data-bind="senderAddr" rows="2"></textarea>
-      </div>
-      <div class="form-group">
-        <label><span data-i18n="p_all_receiver">Empfänger (Behörde/Amt)</span> <span class="req">*</span></label>
-        <textarea id="in-receiver" data-bind="receiver" rows="2"></textarea>
-      </div>
-    `;
-  }
 
   $('#moduleFields').innerHTML = html;
   bindInputs();
