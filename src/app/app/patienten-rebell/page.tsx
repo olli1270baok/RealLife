@@ -1,34 +1,67 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './rebell.css';
 
+const TEMPLATES = [
+  // Kat 1: Arzt & Diagnose
+  { id: 't1', cat: 1, catName: 'Arzt & Diagnose', title: 'Symptom-Dossier', desc: 'Professioneller Vorbericht, um nicht als "hysterisch" abgestempelt zu werden.' },
+  { id: 't2', cat: 1, catName: 'Arzt & Diagnose', title: 'Diagnostik-Verweigerung', desc: 'Zwingt den Arzt, eine abgelehnte Untersuchung haftbar zu begründen.' },
+  { id: 't3', cat: 1, catName: 'Arzt & Diagnose', title: 'Akteneinsicht', desc: 'Anforderung der kompletten Patientenakte gem. § 630g BGB.' },
+  { id: 't4', cat: 1, catName: 'Arzt & Diagnose', title: 'Zweitmeinungs-Forderung', desc: 'Offizielle Anforderung nach § 27b SGB V bei riskanten Eingriffen.' },
+  { id: 't5', cat: 1, catName: 'Arzt & Diagnose', title: 'IGeL-Abwehr', desc: 'Formelle Ablehnung von aufgedrängten Selbstzahler-Leistungen.' },
+  { id: 't6', cat: 1, catName: 'Arzt & Diagnose', title: 'Notaufnahme-Abweisung', desc: 'Zwingt das Krankenhaus, die Abweisung schriftlich zu übernehmen.' },
+  { id: 't7', cat: 1, catName: 'Arzt & Diagnose', title: 'Geburtsbericht', desc: 'Spezifische Anforderung aller Protokolle und CTGs nach Geburt.' },
+  
+  // Kat 2: Kasse
+  { id: 't8', cat: 2, catName: 'Krankenkasse', title: 'Krankenkassen-Widerspruch', desc: 'Härteste Frist-Wahrung gegen abgelehnte Hilfsmittel/Therapien.' },
+  { id: 't9', cat: 2, catName: 'Krankenkasse', title: 'Krankengeld-Retter', desc: 'Widerspruch gegen die "Wunderheilung nach Aktenlage" (MDK).' },
+  { id: 't10', cat: 2, catName: 'Krankenkasse', title: 'Mutter-Kind-Kur Widerspruch', desc: 'Zerschießt die Standard-Ablehnung der Krankenkassen.' },
+  { id: 't11', cat: 2, catName: 'Krankenkasse', title: 'Reha-Antrag Widerspruch', desc: 'Juristischer Hebel gegen abgelehnte Reha-Maßnahmen.' },
+  { id: 't12', cat: 2, catName: 'Krankenkasse', title: 'Zuzahlungsbefreiung', desc: 'Härtefall-Antrag auf Befreiung von Kassen-Zuzahlungen.' },
+  { id: 't13', cat: 2, catName: 'Krankenkasse', title: 'Off-Label-Use', desc: 'Antrag auf Kostenübernahme von Medikamenten ohne Standardzulassung.' },
+  { id: 't14', cat: 2, catName: 'Krankenkasse', title: 'Fahrtkosten-Erstattung', desc: 'Forderung der Kostenübernahme für Krankentransporte.' },
+  
+  // Kat 3: Fehler & Beschwerden
+  { id: 't15', cat: 3, catName: 'Beschwerden & Fehler', title: 'Ärztekammer-Beschwerde', desc: 'Formelle Meldung wegen unethischem/diskriminierendem Verhalten.' },
+  { id: 't16', cat: 3, catName: 'Beschwerden & Fehler', title: 'AGG-Diskriminierungs-Rüge', desc: 'Offizielle Beschwerde bei Fatshaming oder Women-Shaming.' },
+  { id: 't17', cat: 3, catName: 'Beschwerden & Fehler', title: 'Gedächtnisprotokoll', desc: 'Gerichtsfeste Dokumentation direkt nach einem Behandlungsfehler.' },
+  { id: 't18', cat: 3, catName: 'Beschwerden & Fehler', title: 'Gutachterkommission', desc: 'Antrag an die Schlichtungsstelle wegen vermutetem Ärztepfusch.' },
+  { id: 't19', cat: 3, catName: 'Beschwerden & Fehler', title: 'Zahnarzt-Nachbesserung', desc: 'Aufforderung zur kostenlosen Behebung von mangelhaftem Zahnersatz.' },
+  
+  // Kat 4: Vorsorge
+  { id: 't20', cat: 4, catName: 'Vorsorge', title: 'Patientenverfügung (Express)', desc: 'Schneller, rechtssicherer Generator für den absoluten Notfall.' }
+];
+
 export default function PatientenRebell() {
-  const [view, setView] = useState('dossier');
+  const [view, setView] = useState<'matrix' | 'form'>('matrix');
+  const [activeId, setActiveId] = useState('');
+  
+  // Generic form data
+  const [formData, setFormData] = useState({
+    name: '',
+    address: '',
+    gegenseite: '', // Arzt, Krankenhaus, Kasse
+    datum: new Date().toLocaleDateString('de-DE'),
+    versichertennummer: '',
+    text1: '', // Flexible fields depending on template
+    text2: '',
+    text3: ''
+  });
 
-  // Form states - Dossier
-  const [name, setName] = useState('');
-  const [arzt, setArzt] = useState('');
-  const [symptome, setSymptome] = useState('');
-  const [dauer, setDauer] = useState('');
-  const [schmerzSkala, setSchmerzSkala] = useState('5');
-  const [alltag, setAlltag] = useState('');
-  const [bisher, setBisher] = useState('');
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  // Form states - Verweigerung
-  const [diagnostik, setDiagnostik] = useState('MRT / Bildgebung');
-  const [begruendungArzt, setBegruendungArzt] = useState('Ist nicht nötig');
-
-  // Print function using html2pdf if available, fallback to window.print
-  const handlePrint = (elementId: string, filename: string) => {
-    const el = document.getElementById(elementId);
+  const handlePrint = () => {
+    const el = document.getElementById(`pdf-${activeId}`);
     if (!el) return;
     
     // @ts-ignore
     if (window.html2pdf) {
       const opt = {
         margin:       10,
-        filename:     filename,
+        filename:     `${activeId}_Rebell_Dokument.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -43,20 +76,16 @@ export default function PatientenRebell() {
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
     // @ts-ignore
     if (!window.html2pdf) {
       const script = document.createElement('script');
       script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
       document.head.appendChild(script);
     }
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
+    return () => { document.body.style.overflow = originalOverflow; };
   }, []);
 
-  const today = new Date().toLocaleDateString('de-DE');
+  const activeTemplate = TEMPLATES.find(t => t.id === activeId);
 
   return (
     <div className="rebell-wrapper">
@@ -64,261 +93,163 @@ export default function PatientenRebell() {
       <div className="graffiti-tag tag-2">REBELL<br/>01</div>
 
       <aside className="rebell-sidebar no-print">
-        <div className="rebell-brand">
-          PATIENTEN <span>REBELL v1.0</span>
-        </div>
-
-        <button 
-          className={`rebell-navbtn ${view === 'dossier' ? 'active' : ''}`}
-          onClick={() => setView('dossier')}
-        >
-          📝 Symptom-Dossier
+        <div className="rebell-brand">PATIENTEN <span>REBELL v2.0</span></div>
+        <button className="rebell-navbtn active" onClick={() => setView('matrix')}>
+          ⚔️ Das Arsenal (Alle 20)
         </button>
-        <button 
-          className={`rebell-navbtn ${view === 'doku' ? 'active' : ''}`}
-          onClick={() => setView('doku')}
-        >
-          🛑 Verweigerungs-Doku
-        </button>
-        <button 
-          className={`rebell-navbtn ${view === 'akte' ? 'active' : ''}`}
-          onClick={() => setView('akte')}
-        >
-          📂 Akteneinsicht
-        </button>
+        {activeTemplate && view === 'form' && (
+          <div style={{marginTop: '20px', padding: '15px', background: 'var(--panel)', borderRadius: '8px', border: '1px solid var(--accent)'}}>
+            <h4 style={{color: '#fff', marginBottom: '5px', fontSize: '13px'}}>Aktuelle Waffe:</h4>
+            <p style={{color: 'var(--accent)', fontSize: '12px', fontWeight: 'bold'}}>{activeTemplate.title}</p>
+          </div>
+        )}
       </aside>
 
       <main className="rebell-main no-print">
         
-        {/* DOSSIER VIEW */}
-        <div className={`rebell-view ${view === 'dossier' ? 'active' : ''}`}>
-          <h1 className="rebell-title">Symptom-Dossier</h1>
-          <p className="rebell-subtitle">
-            Ärzte haben oft wenig Zeit und neigen dazu, Symptome als "Stress" abzutun. 
-            Präsentiere deine Leiden als hochprofessionellen, schriftlichen Bericht, um Medical Gaslighting zu verhindern.
-          </p>
-
-          <div className="rebell-panel">
-            <div className="form-row">
-              <div className="form-group">
-                <label className="rebell-label">Dein Name</label>
-                <input className="rebell-input" value={name} onChange={e => setName(e.target.value)} placeholder="Maria Muster" />
+        {/* MATRIX VIEW */}
+        {view === 'matrix' && (
+          <div>
+            <h1 className="rebell-title">Wähle deine Waffe.</h1>
+            <p className="rebell-subtitle">20 juristische Generatoren für Ärzte, Kliniken und Krankenkassen. Keine Kompromisse mehr.</p>
+            
+            {[1, 2, 3, 4].map(cat => (
+              <div key={cat} style={{marginBottom: '40px'}}>
+                <div className="category-label">
+                  {cat === 1 && 'Arzt & Diagnose'}
+                  {cat === 2 && 'Krankenkasse & MDK'}
+                  {cat === 3 && 'Behandlungsfehler & Beschwerden'}
+                  {cat === 4 && 'Vorsorge & Vollmachten'}
+                </div>
+                <div className="matrix-grid">
+                  {TEMPLATES.filter(t => t.cat === cat).map(t => (
+                    <div key={t.id} className="matrix-card" onClick={() => { setActiveId(t.id); setView('form'); }}>
+                      <div className={`badge cat${cat}`}>{t.catName}</div>
+                      <h3 style={{marginTop: '15px'}}>{t.title}</h3>
+                      <p>{t.desc}</p>
+                      <div style={{color: 'var(--accent)', fontSize: '11px', fontWeight: 'bold'}}>GENERATOR STARTEN →</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="form-group">
-                <label className="rebell-label">Name des Arztes / Praxis</label>
-                <input className="rebell-input" value={arzt} onChange={e => setArzt(e.target.value)} placeholder="Dr. Med. Ignorant" />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label className="rebell-label">Hauptsymptome (Faktenbasiert)</label>
-              <textarea className="rebell-textarea" value={symptome} onChange={e => setSymptome(e.target.value)} placeholder="Z.B. Extreme Schmerzen im Unterleib, ausstrahlend in den Rücken. Blutdruckabfall." />
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="rebell-label">Dauer der Beschwerden</label>
-                <input className="rebell-input" value={dauer} onChange={e => setDauer(e.target.value)} placeholder="Seit 6 Monaten durchgehend" />
-              </div>
-              <div className="form-group">
-                <label className="rebell-label">Schmerzskala (1-10)</label>
-                <select className="rebell-select" value={schmerzSkala} onChange={e => setSchmerzSkala(e.target.value)}>
-                  {[1,2,3,4,5,6,7,8,9,10].map(n => <option key={n} value={n}>{n} / 10</option>)}
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label className="rebell-label">Einschränkung im Alltag</label>
-              <textarea className="rebell-textarea" value={alltag} onChange={e => setAlltag(e.target.value)} placeholder="Z.B. Ich kann an 3 Tagen im Monat nicht arbeiten. Schmerzmittel wirken nicht mehr." />
-            </div>
-
-            <div className="form-group">
-              <label className="rebell-label">Bisherige (erfolglose) Behandlungsansätze / Arzt-Aussagen</label>
-              <textarea className="rebell-textarea" value={bisher} onChange={e => setBisher(e.target.value)} placeholder="Mir wurde gesagt, es sei nur Stress. Ibuprofen hilft nicht." />
-            </div>
-
-            <button className="rebell-btn" onClick={() => handlePrint('pdf-dossier', 'Symptom_Dossier.pdf')}>
-              🖨️ PDF Dossier Erzeugen
-            </button>
+            ))}
           </div>
-        </div>
+        )}
 
-        {/* DOKU VIEW */}
-        <div className={`rebell-view ${view === 'doku' ? 'active' : ''}`}>
-          <h1 className="rebell-title">Aufforderung zur Dokumentation</h1>
-          <p className="rebell-subtitle">
-            Dein Arzt weigert sich, ein MRT, Blutbild oder einen Spezialisten anzuordnen? 
-            Zwinge ihn dazu, diese Verweigerung formell in deiner Akte zu dokumentieren. Das ändert oft schlagartig die Meinung.
-          </p>
-
-          <div className="rebell-panel">
-            <div className="form-row">
-              <div className="form-group">
-                <label className="rebell-label">Dein Name</label>
-                <input className="rebell-input" value={name} onChange={e => setName(e.target.value)} />
-              </div>
-              <div className="form-group">
-                <label className="rebell-label">Name des Arztes</label>
-                <input className="rebell-input" value={arzt} onChange={e => setArzt(e.target.value)} />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label className="rebell-label">Verweigerte Diagnostik</label>
-              <input className="rebell-input" value={diagnostik} onChange={e => setDiagnostik(e.target.value)} placeholder="z.B. MRT des Beckens" />
-            </div>
-
-            <div className="form-group">
-              <label className="rebell-label">Begründung des Arztes</label>
-              <input className="rebell-input" value={begruendungArzt} onChange={e => setBegruendungArzt(e.target.value)} placeholder="z.B. 'Dafür sind Sie zu jung'" />
-            </div>
-
-            <button className="rebell-btn toxic" onClick={() => handlePrint('pdf-doku', 'Forderung_Dokumentation.pdf')}>
-              ⚠️ PDF Forderung Erzeugen
+        {/* FORM VIEW */}
+        {view === 'form' && activeTemplate && (
+          <div>
+            <button 
+              style={{background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '5px'}}
+              onClick={() => setView('matrix')}
+            >
+              ← Zurück zum Arsenal
             </button>
-          </div>
-        </div>
+            <h1 className="rebell-title">{activeTemplate.title}</h1>
+            <p className="rebell-subtitle">{activeTemplate.desc}</p>
 
-        {/* AKTE VIEW */}
-        <div className={`rebell-view ${view === 'akte' ? 'active' : ''}`}>
-          <h1 className="rebell-title">Akteneinsicht</h1>
-          <p className="rebell-subtitle">
-            Gemäß § 630g BGB hast du das Recht, jederzeit eine vollständige Kopie deiner Patientenakte anzufordern, um zu prüfen, was Ärzte über dich notiert haben (oft verharmlosend).
-          </p>
+            <div className="rebell-panel">
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="rebell-label">Dein Name & Anschrift</label>
+                  <textarea className="rebell-textarea" style={{minHeight: '80px'}} name="name" value={formData.name} onChange={handleChange} placeholder="Maria Muster&#10;Musterstraße 1&#10;12345 Stadt" />
+                </div>
+                <div className="form-group">
+                  <label className="rebell-label">Gegenseite (Arzt / Kasse / Kammer)</label>
+                  <textarea className="rebell-textarea" style={{minHeight: '80px'}} name="gegenseite" value={formData.gegenseite} onChange={handleChange} placeholder="Dr. Med. Mustermann&#10;Krankenkasse XY" />
+                </div>
+              </div>
 
-          <div className="rebell-panel">
-            <div className="form-row">
+              {activeTemplate.cat === 2 && (
+                <div className="form-group">
+                  <label className="rebell-label">Versichertennummer</label>
+                  <input className="rebell-input" name="versichertennummer" value={formData.versichertennummer} onChange={handleChange} />
+                </div>
+              )}
+
+              {/* Dynamic specific fields */}
               <div className="form-group">
-                <label className="rebell-label">Dein Name</label>
-                <input className="rebell-input" value={name} onChange={e => setName(e.target.value)} />
+                <label className="rebell-label">
+                  {activeTemplate.id === 't1' ? 'Symptome & Auswirkungen' : 
+                   activeTemplate.id === 't2' ? 'Welche Untersuchung wurde mit welcher Begründung verweigert?' :
+                   activeTemplate.id === 't17' ? 'Was ist exakt passiert?' :
+                   activeTemplate.id === 't8' ? 'Welche Leistung wurde abgelehnt (Aktenzeichen)?' :
+                   'Kern-Fakten / Begründung für dieses Schreiben'}
+                </label>
+                <textarea className="rebell-textarea" name="text1" value={formData.text1} onChange={handleChange} placeholder="Bitte ausführlich beschreiben..." />
               </div>
-              <div className="form-group">
-                <label className="rebell-label">Praxis</label>
-                <input className="rebell-input" value={arzt} onChange={e => setArzt(e.target.value)} />
-              </div>
+
+              <button className="rebell-btn" onClick={handlePrint}>
+                🖨️ {activeTemplate.title} PDF Erzeugen
+              </button>
             </div>
-
-            <button className="rebell-btn" onClick={() => handlePrint('pdf-akte', 'Anforderung_Patientenakte.pdf')}>
-              🖨️ PDF Akteneinsicht Erzeugen
-            </button>
           </div>
-        </div>
+        )}
       </main>
 
-      {/* OFF-SCREEN PDF TEMPLATES (Hidden in UI, rendered in PDF) */}
+      {/* OFF-SCREEN PDF TEMPLATES (Hidden in UI) */}
       <div style={{ position: 'absolute', top: '-10000px', left: '-10000px' }}>
         
-        {/* PDF 1: Dossier */}
-        <div id="pdf-dossier" className="doc-paper">
-          <div className="header">
-            <div className="header-title">Patienten-Dossier & Symptom-Bericht</div>
-            <div style={{textAlign: 'right'}}>
-              <strong>Stand:</strong> {today}<br/>
-              <strong>Patientin:</strong> {name || '______________________'}
+        {TEMPLATES.map(t => (
+          <div key={`pdf-${t.id}`} id={`pdf-${t.id}`} className="doc-paper">
+            
+            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '40px'}}>
+              <div style={{width: '250px', whiteSpace: 'pre-wrap'}}>{formData.name || 'Max Mustermann\nMusterstraße 1\n12345 Stadt'}</div>
+              <div style={{textAlign: 'right'}}>{formData.datum}</div>
             </div>
+            
+            <div style={{whiteSpace: 'pre-wrap', marginBottom: '40px', fontWeight: 'bold'}}>{formData.gegenseite || 'Empfänger / Praxis / Krankenkasse'}</div>
+            
+            {t.cat === 2 && (
+              <div style={{marginBottom: '20px'}}><strong>Versichertennummer:</strong> {formData.versichertennummer || '______________________'}</div>
+            )}
+
+            {/* Custom Titles and Body per template */}
+            {t.id === 't1' && <h1>Symptom-Dossier & Vorbericht</h1>}
+            {t.id === 't2' && <h1>Formelle Aufforderung zur Dokumentation einer verweigerten Diagnostik</h1>}
+            {t.id === 't3' && <h1>Geltendmachung des Rechts auf Akteneinsicht gem. § 630g BGB</h1>}
+            {t.id === 't4' && <h1>Anforderung einer ärztlichen Zweitmeinung gem. § 27b SGB V</h1>}
+            {t.id === 't5' && <h1>Ablehnung von Individuellen Gesundheitsleistungen (IGeL)</h1>}
+            {t.id === 't6' && <h1>Forderung einer schriftlichen Bestätigung der Abweisung (Notaufnahme/Facharzt)</h1>}
+            {t.id === 't7' && <h1>Akteneinsicht: Anforderung des vollständigen Geburtsberichts & CTG-Protokolle</h1>}
+            {t.id === 't8' && <h1>Widerspruch gegen den Ablehnungsbescheid</h1>}
+            {t.id === 't9' && <h1>Widerspruch gegen die Einstellung der Krankengeldzahlung (MDK-Aktenlage)</h1>}
+            {t.id === 't10' && <h1>Widerspruch gegen die Ablehnung der Mutter-Kind-Kur / Vater-Kind-Kur</h1>}
+            {t.id === 't11' && <h1>Widerspruch gegen die Ablehnung der Rehabilitationsmaßnahme</h1>}
+            {t.id === 't12' && <h1>Antrag auf Härtefall-Zuzahlungsbefreiung</h1>}
+            {t.id === 't13' && <h1>Antrag auf Kostenübernahme im Off-Label-Use</h1>}
+            {t.id === 't14' && <h1>Antrag auf Erstattung von Fahrkosten gem. § 60 SGB V</h1>}
+            {t.id === 't15' && <h1>Offizielle Beschwerde bei der zuständigen Ärztekammer</h1>}
+            {t.id === 't16' && <h1>Rüge wegen Verdachts auf Verstoß gegen das AGG (Diskriminierung)</h1>}
+            {t.id === 't17' && <h1>Gedächtnisprotokoll: Verdacht auf Behandlungsfehler</h1>}
+            {t.id === 't18' && <h1>Antrag auf Durchführung eines Schlichtungsverfahrens bei der Gutachterkommission</h1>}
+            {t.id === 't19' && <h1>Aufforderung zur kostenlosen Nachbesserung (Mängel beim Zahnersatz)</h1>}
+            {t.id === 't20' && <h1>Patientenverfügung & Vorsorgevollmacht (Express-Dokumentation)</h1>}
+
+            <p>Sehr geehrte Damen und Herren,</p>
+
+            {/* Template Specific Body Logic */}
+            {t.id === 't1' && <p>zur Vorbereitung auf die Behandlung / Diagnostik überreiche ich Ihnen hiermit mein Symptom-Dossier, um eine evidenzbasierte und effiziente Anamnese zu gewährleisten.</p>}
+            {t.id === 't2' && <p>ich fordere Sie hiermit nachdrücklich auf, gem. § 630f BGB Ihre Verweigerung der gewünschten Diagnostik haftbar in meiner Patientenakte zu dokumentieren.</p>}
+            {t.id === 't3' && <p>ich mache hiermit von meinem gesetzlichen Recht auf Akteneinsicht gem. § 630g BGB (sowie Art. 15 DSGVO) Gebrauch und fordere eine vollständige, kostenlose Kopie meiner Behandlungsdokumentation.</p>}
+            {(t.cat === 2 && t.id !== 't12' && t.id !== 't13' && t.id !== 't14') && <p>hiermit lege ich fristgerecht Widerspruch gegen Ihren Ablehnungsbescheid ein.</p>}
+            
+            <br/>
+            <strong>Sachverhalt / Begründung:</strong>
+            <p style={{whiteSpace: 'pre-wrap', marginTop: '10px'}}>{formData.text1 || 'Es wurde kein spezifischer Sachverhalt angegeben.'}</p>
+            <br/>
+
+            {t.id === 't17' && <p>Dieses Protokoll wurde zeitnah und nach bestem Wissen und Gewissen erstellt, um den Sachverhalt gerichtsfest zu dokumentieren.</p>}
+            
+            {(t.id === 't8' || t.id === 't9' || t.id === 't10' || t.id === 't11') && <p>Ich fordere eine erneute Prüfung unter Einbeziehung des Medizinischen Dienstes (MD) in Form einer persönlichen Begutachtung, da eine Entscheidung rein nach "Aktenlage" meiner komplexen gesundheitlichen Situation nicht gerecht wird.</p>}
+
+            <br/><br/><br/>
+            <p>Mit freundlichen Grüßen</p>
+            <br/><br/><br/>
+            <p>__________________________________<br/>({formData.name ? formData.name.split('\n')[0] : 'Unterschrift'})</p>
+
           </div>
-
-          <div className="meta-grid">
-            <div className="meta-item"><strong>Behandelnde Praxis:</strong> {arzt || '______________________'}</div>
-            <div className="meta-item"><strong>Dauer der Beschwerden:</strong> {dauer || '______________________'}</div>
-            <div className="meta-item"><strong>Schmerz-Level (1-10):</strong> {schmerzSkala} / 10</div>
-          </div>
-
-          <h2>1. Hauptsymptome & Klinisches Bild</h2>
-          <p style={{whiteSpace: 'pre-wrap', minHeight: '80px'}}>
-            {symptome || 'Es wurden noch keine spezifischen Symptome formuliert.'}
-          </p>
-
-          <h2>2. Einschränkungen der Lebensqualität & Alltagsfähigkeit</h2>
-          <p style={{whiteSpace: 'pre-wrap', minHeight: '80px'}}>
-            {alltag || 'Auswirkungen auf den Alltag nicht spezifiziert.'}
-          </p>
-
-          <h2>3. Bisherige Therapieversuche & ärztliche Aussagen</h2>
-          <p style={{whiteSpace: 'pre-wrap', minHeight: '80px'}}>
-            {bisher || 'Keine vorherigen Behandlungen dokumentiert.'}
-          </p>
-
-          <div style={{marginTop: '50px', fontSize: '10pt', color: '#555', borderTop: '1px solid #ccc', paddingTop: '10px'}}>
-            <em>Dieses Dossier dient der objektiven, schriftlichen Dokumentation der Beschwerden und ist der Patientenakte gem. § 630f BGB beizufügen. 
-            Es soll sicherstellen, dass die Schwere der Einschränkungen nicht subjektiv abgewertet, sondern evidenzbasiert und leitliniengerecht behandelt wird.</em>
-          </div>
-        </div>
-
-        {/* PDF 2: Doku Verweigerung */}
-        <div id="pdf-doku" className="doc-paper">
-          <p style={{textAlign: 'right'}}>{today}</p>
-          <p>
-            <strong>Von:</strong> {name || '______________________'}<br/>
-            <strong>An:</strong> {arzt || '______________________'}
-          </p>
-          <br/><br/>
-          <h1 style={{fontSize: '14pt', textAlign: 'left'}}>Formelle Aufforderung zur Dokumentation einer verweigerten Diagnostik / Behandlung</h1>
-          <br/>
-          <p>Sehr geehrte Damen und Herren,</p>
-          <p>hiermit beziehe ich mich auf unser Gespräch bzw. die Behandlung vom {today}.</p>
-          <p>
-            In diesem Rahmen habe ich ausdrücklich um die Durchführung bzw. Überweisung für folgende Diagnostik/Behandlung gebeten:<br/><br/>
-            <strong>{diagnostik || '__________________________________'}</strong>
-          </p>
-          <p>
-            Diese Bitte wurde von Ihnen mit folgender Begründung abgelehnt:<br/><br/>
-            <strong>"{begruendungArzt || '__________________________________'}"</strong>
-          </p>
-          <p>
-            Gemäß § 630f BGB ist der Behandelnde verpflichtet, sämtliche aus fachlicher Sicht für die derzeitige und künftige Behandlung wesentlichen Maßnahmen und deren Ergebnisse in der Patientenakte aufzuzeichnen. Da ich unter anhaltenden Beschwerden leide und Sie eine weiterführende Abklärung ablehnen, ist dies ein wesentlicher Bestandteil der Behandlungshistorie.
-          </p>
-          <p>
-            <strong>Ich fordere Sie hiermit höflich, aber bestimmt dazu auf, meine explizite Bitte nach der o.g. Diagnostik sowie Ihre Verweigerung inklusive Ihrer ärztlichen Begründung formell in meiner Patientenakte zu dokumentieren.</strong>
-          </p>
-          <p>
-            Ich behalte mir vor, zeitnah eine Kopie meiner Patientenakte gem. § 630g BGB anzufordern, um die erfolgte Dokumentation zu prüfen.
-          </p>
-          <br/><br/>
-          <p>Mit freundlichen Grüßen</p>
-          <br/><br/>
-          <p>__________________________________<br/>({name || 'Unterschrift'})</p>
-        </div>
-
-        {/* PDF 3: Akteneinsicht */}
-        <div id="pdf-akte" className="doc-paper">
-          <p style={{textAlign: 'right'}}>{today}</p>
-          <p>
-            <strong>Von:</strong> {name || '______________________'}<br/>
-            <strong>An:</strong> {arzt || '______________________'}
-          </p>
-          <br/><br/>
-          <h1 style={{fontSize: '14pt', textAlign: 'left'}}>Geltendmachung des Rechts auf Akteneinsicht gem. § 630g BGB</h1>
-          <br/>
-          <p>Sehr geehrte Damen und Herren,</p>
-          <p>
-            hiermit mache ich von meinem gesetzlichen Recht auf Akteneinsicht gemäß § 630g Abs. 1 BGB sowie Art. 15 Abs. 1 DSGVO Gebrauch.
-          </p>
-          <p>
-            Ich fordere Sie auf, mir <strong>unverzüglich, spätestens jedoch innerhalb einer Frist von vier Wochen</strong> nach Eingang dieses Schreibens, eine vollständige Kopie meiner gesamten Behandlungsdokumentation (Patientenakte) zur Verfügung zu stellen.
-          </p>
-          <p>
-            Dies umfasst sämtliche in der Akte befindlichen Unterlagen, insbesondere:
-          </p>
-          <ul>
-            <li>Anamnesen, Diagnosen und Befunde</li>
-            <li>Therapiepläne und Arztbriefe</li>
-            <li>Pflegeberichte und Gesprächsnotizen</li>
-            <li>Laborwerte, EKG, Röntgen-, CT- oder MRT-Befunde</li>
-          </ul>
-          <p>
-            Gemäß Art. 15 Abs. 3 DSGVO ist die erste Kopie der Patientenakte für mich <strong>kostenfrei</strong> zur Verfügung zu stellen (bestätigt durch EuGH, Urt. v. 26.10.2023, Az. C-307/22).
-          </p>
-          <p>
-            Bitte senden Sie mir die Unterlagen vorzugsweise digital als PDF oder andernfalls postalisch an meine bei Ihnen hinterlegte Adresse zu.
-          </p>
-          <br/><br/>
-          <p>Mit freundlichen Grüßen</p>
-          <br/><br/>
-          <p>__________________________________<br/>({name || 'Unterschrift'})</p>
-        </div>
-
+        ))}
       </div>
     </div>
   );
