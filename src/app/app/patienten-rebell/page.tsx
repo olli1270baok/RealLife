@@ -53,23 +53,9 @@ export default function PatientenRebell() {
   };
 
   const handlePrint = () => {
-    const el = document.getElementById('pdf-active-preview');
-    if (!el) return;
-    
-    // @ts-ignore
-    if (window.html2pdf) {
-      const opt = {
-        margin:       0,
-        filename:     `${activeId}_Rebell_Dokument.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-      // @ts-ignore
-      window.html2pdf().set(opt).from(el).save();
-    } else {
-      window.print();
-    }
+    // Ruft den nativen Browser-Druckdialog auf, was ein viel direkterer Workflow ist.
+    // Nutzer können dort direkt auf den Drucker gehen oder "Als PDF speichern" wählen.
+    window.print();
   };
 
   useEffect(() => {
@@ -176,7 +162,7 @@ export default function PatientenRebell() {
 
               <div className="split-form-footer">
                 <button className="rebell-btn" style={{width: '100%', justifyContent: 'center'}} onClick={handlePrint}>
-                  🖨️ PDF ERZEUGEN
+                  🖨️ DIREKT DRUCKEN / PDF
                 </button>
               </div>
             </div>
