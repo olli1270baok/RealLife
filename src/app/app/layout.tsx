@@ -48,8 +48,8 @@ export default function AppLayout({
       }
 
       if (!pro) {
-        // Has account but hasn't paid → send to dashboard with paywall banner
-        router.push('/app');
+        // Just let it load. The sub-routes will handle the soft paywall overlay themselves.
+        setLoading(false);
         return;
       }
 
@@ -82,21 +82,7 @@ export default function AppLayout({
     );
   }
 
-  // HARD BLOCK for sub-routes if user is not pro
-  if (!isDashboard && !isPro) {
-    return (
-      <div style={{
-        display: 'flex', flexDirection: 'column',
-        justifyContent: 'center', alignItems: 'center',
-        minHeight: '100vh', backgroundColor: '#fdf8f3', gap: '16px'
-      }}>
-        <div style={{ fontSize: '40px' }}>🔒</div>
-        <p style={{ color: '#64748b', fontFamily: 'Inter, sans-serif', fontSize: '16px' }}>
-          Premium-Werkzeug. Zugriff verweigert.
-        </p>
-      </div>
-    );
-  }
+
 
   return <>{children}</>;
 }
