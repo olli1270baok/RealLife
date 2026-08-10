@@ -1,9 +1,23 @@
 "use client";
+import { supabase } from "@/lib/supabaseClient";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './cockpit.css';
 
 export default function AnzeigenCockpitNative() {
+
+  const [isPro, setIsPro] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(true);
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        setIsPro(session.user.app_metadata?.is_pro === true);
+      }
+      setLoadingUser(false);
+    };
+    checkUser();
+  }, []);
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -35,6 +49,19 @@ export default function AnzeigenCockpitNative() {
       dangerouslySetInnerHTML={{ __html: `
 
 <div class="module-strip no-print">
+      {!loadingUser && !isPro && (
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(3, 7, 18, 0.8)', zIndex: 9999, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
+          <div style={{ background: '#1d2f47', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)', backdropFilter: 'blur(16px)' }}>
+            <div style={{ fontSize: '64px', margin: '0 auto 20px' }}>🔒</div>
+            <h2 style={{ marginBottom: '20px', color: 'white', fontFamily: 'Inter, sans-serif' }}>Premium-Werkzeug gesperrt</h2>
+            <p style={{ color: '#a8b3c2', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang frei.</p>
+            <a href="/app" style={{ display: 'inline-block', width: '100%', padding: '20px', fontSize: '18px', background: '#c65d32', color: 'white', textDecoration: 'none', borderRadius: '8px', fontWeight: 'bold' }}>
+              ZURÜCK ZUM COCKPIT
+            </a>
+          </div>
+        </div>
+      )}
+
     <div class="logo">⚖️ <span data-i18n="logoText">Anzeigen-Cockpit</span></div>
     <button class="module-chip active" data-mod="ueberlastung" onclick="switchModule('ueberlastung')">🚨 <span data-i18n="modUeberlastung">Überlastung</span></button>
     <button class="module-chip" data-mod="kindeswohl" onclick="switchModule('kindeswohl')">🛡️ <span data-i18n="modKindeswohl">Kindeswohl</span></button>

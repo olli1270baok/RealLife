@@ -1035,7 +1035,7 @@ export default function LebenslagenLotse() {
           <main className="main" style={{ position: 'relative' }}>
             
             {/* Paywall Master Pass Cover */}
-            {!loadingUser && !isPro && activeView !== 'dashboard' && activeView !== 'sources' && activeView !== 'settings' && (
+            {!loadingUser && !isPro && (
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--bg)', opacity: 0.98, zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh' }}>
                 <div className="card" style={{ maxWidth: '560px', textAlign: 'center', padding: '40px', border: '1px solid var(--line)', borderRadius: '24px' }}>
                   <div style={{ fontSize: '50px', marginBottom: '14px' }}>🔒</div>
