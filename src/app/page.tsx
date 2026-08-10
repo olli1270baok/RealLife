@@ -10,163 +10,266 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="main-content" style={{ padding: '0', flex: 1, overflowY: 'auto', backgroundColor: '#0d1117' }}>
-      
-      {/* Hero Section */}
-      <section style={{ 
-        padding: '120px 20px', 
-        textAlign: 'center', 
+    <div style={{ fontFamily: "'Inter', sans-serif", background: '#fdf8f3', color: '#1a2233', overflowX: 'hidden' }}>
+
+      {/* ── HERO ── */}
+      <section style={{
+        background: 'linear-gradient(160deg, #e8f4fd 0%, #fef3e2 55%, #fdf8f3 100%)',
+        padding: '60px 20px 80px',
+        textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
-        background: 'radial-gradient(ellipse at top, rgba(255, 30, 86, 0.15) 0%, #0d1117 70%)' 
       }}>
-        <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', width: '800px', height: '400px', background: 'rgba(255,30,86,0.1)', filter: 'blur(150px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-        
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: '1000px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-block', background: 'rgba(255, 255, 255, 0.05)', color: 'white', padding: '8px 20px', borderRadius: '50px', fontSize: '14px', fontWeight: 'bold', letterSpacing: '2px', marginBottom: '32px', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', textTransform: 'uppercase' }}>
-            <span style={{ color: 'var(--accent-red)' }}>NEU:</span> Legal-Tech für den Alltag
+        {/* Decorative blobs */}
+        <div style={{ position: 'absolute', top: '-60px', right: '-80px', width: '300px', height: '300px', borderRadius: '50%', background: 'rgba(251,146,60,0.12)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-40px', left: '-60px', width: '250px', height: '250px', borderRadius: '50%', background: 'rgba(59,130,246,0.10)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '680px', margin: '0 auto' }}>
+          {/* Badge */}
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            background: '#fff', color: '#f97316',
+            padding: '8px 18px', borderRadius: '50px',
+            fontSize: '13px', fontWeight: 700, letterSpacing: '0.5px',
+            marginBottom: '28px', boxShadow: '0 2px 12px rgba(249,115,22,0.15)',
+            border: '1px solid rgba(249,115,22,0.2)'
+          }}>
+            ✨ Legal-Tech für den deutschen Alltag
           </div>
-          
-          <h1 style={{ fontSize: '72px', margin: '0 auto 24px', lineHeight: '1.05', fontWeight: 900, letterSpacing: '-2px' }}>
-            Lass dich nicht länger <br/> 
-            <span style={{ 
-              background: 'linear-gradient(90deg, #ff1e56 0%, #ff8a00 100%)', 
-              WebkitBackgroundClip: 'text', 
-              WebkitTextFillColor: 'transparent' 
-            }}>hinhalten.</span>
+
+          <h1 style={{
+            fontSize: 'clamp(32px, 8vw, 58px)',
+            fontWeight: 900, lineHeight: 1.1,
+            marginBottom: '20px', letterSpacing: '-1px',
+            color: '#0f172a'
+          }}>
+            Dein Recht.<br />
+            <span style={{ background: 'linear-gradient(90deg, #3b82f6 0%, #f97316 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Einfach gemacht.
+            </span>
           </h1>
-          
-          <p style={{ fontSize: '22px', color: 'var(--muted)', maxWidth: '650px', margin: '0 auto 40px', lineHeight: '1.6' }}>
-            Behörden wimmeln dich ab. Konzerne behalten dein Geld. E-Commerce Giganten sperren deinen Account. Es ist Zeit, mit juristischer Härte zurückzuschlagen.
+
+          <p style={{
+            fontSize: 'clamp(15px, 4vw, 19px)', color: '#64748b',
+            maxWidth: '540px', margin: '0 auto 36px', lineHeight: 1.7
+          }}>
+            Fertige Schreiben, Rechtsgrundlagen und PDF-Generatoren –
+            für Flugentschädigungen, Mängel, Datenschutz und mehr.
+            Kein Anwalt nötig.
           </p>
-          
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-            <button 
-              onClick={handleCheckout} 
-              className="btn btn-primary" 
-              style={{ padding: '18px 40px', fontSize: '18px', fontWeight: 600, letterSpacing: '1px', boxShadow: '0 0 30px rgba(255,30,86,0.4)', transition: 'all 0.3s ease' }}
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center' }}>
+            <button
+              onClick={handleCheckout}
+              style={{
+                width: '100%', maxWidth: '360px',
+                padding: '18px 32px', fontSize: '17px', fontWeight: 700,
+                background: 'linear-gradient(90deg, #3b82f6 0%, #2563eb 100%)',
+                color: '#fff', border: 'none', borderRadius: '16px',
+                cursor: 'pointer', boxShadow: '0 8px 24px rgba(59,130,246,0.35)',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(59,130,246,0.45)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(59,130,246,0.35)'; }}
             >
-              Jetzt Arsenal freischalten
+              Kostenlos starten →
             </button>
-            <button 
-              onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} 
-              className="btn" 
-              style={{ padding: '18px 40px', fontSize: '18px', fontWeight: 600, backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+            <button
+              onClick={() => document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{
+                background: 'transparent', border: 'none',
+                color: '#94a3b8', fontSize: '14px', cursor: 'pointer',
+                textDecoration: 'underline', textDecorationColor: 'transparent',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={e => e.currentTarget.style.color = '#64748b'}
+              onMouseLeave={e => e.currentTarget.style.color = '#94a3b8'}
             >
-              So funktioniert's ↓
+              Alle Tools ansehen ↓
             </button>
           </div>
         </div>
       </section>
 
-      {/* Stats / Trust Banner */}
-      <section style={{ borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', padding: '40px 20px', flexWrap: 'wrap', gap: '40px' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '40px', marginBottom: '12px', opacity: 0.8 }}>⚡</div>
-            <strong style={{ display: 'block', fontSize: '24px', letterSpacing: '-1px' }}>Vollautomatisch</strong>
-            <span style={{ color: 'var(--muted)', fontSize: '15px' }}>KI & dynamische PDF-Generatoren</span>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '40px', marginBottom: '12px', opacity: 0.8 }}>⚖️</div>
-            <strong style={{ display: 'block', fontSize: '24px', letterSpacing: '-1px' }}>Rechtssicher</strong>
-            <span style={{ color: 'var(--muted)', fontSize: '15px' }}>BGB, DSGVO & StGB gestützt</span>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '40px', marginBottom: '12px', opacity: 0.8 }}>💎</div>
-            <strong style={{ display: 'block', fontSize: '24px', letterSpacing: '-1px' }}>100% Abo-frei</strong>
-            <span style={{ color: 'var(--muted)', fontSize: '15px' }}>Einmalig zahlen, Lifetime nutzen</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Section */}
-      <section id="features" style={{ padding: '120px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-          <h2 style={{ fontSize: '48px', fontWeight: 800, letterSpacing: '-1px', marginBottom: '20px' }}>Deine neuen Superkräfte</h2>
-          <p style={{ color: 'var(--muted)', fontSize: '20px', maxWidth: '600px', margin: '0 auto' }}>Zugriff auf 36 spezialisierte Module, um deine Rechte knallhart durchzusetzen.</p>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '30px' }}>
-          <div onClick={() => router.push('/app/retouren-rebell')} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s, borderColor 0.3s', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent-red)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>📦</div>
-            <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Retouren-Rebell</h3>
-            <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>Paketverlust beim Rückversand? Der Händler weigert sich? Zerstöre den "Zusteller-Trick" sofort mit § 475 BGB und erzwinge deine Erstattung per PDF-Generator.</p>
-          </div>
-
-          <div onClick={() => router.push('/app/bahn-rebell')} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s, borderColor 0.3s', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent-red)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🚄</div>
-            <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Bahn-Rebell</h3>
-            <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>60€ Strafe trotz Ticket im DB Navigator? Verpasster Flug (Rail&Fly)? Hol dir mit 9 fertigen juristischen Schreiben dein Geld von der Bahn zurück.</p>
-          </div>
-
-          <div onClick={() => router.push('/app/flug-rebell')} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s, borderColor 0.3s', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent-red)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>✈️</div>
-            <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Flug-Rebell</h3>
-            <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>Flugverspätung oder Annullierung? Koffer weg? Zerstöre Ausreden der Airline (Wetter, Streik) mit der integrierten EuGH-Datenbank und forder 600€ ein.</p>
-          </div>
-          
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s', cursor: 'default' }}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🛒</div>
-            <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Amazon-Spezial</h3>
-            <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>Konto grundlos gesperrt? Gutscheinguthaben eingefroren? Wehre dich erfolgreich gegen KI-Sperrungen mit harten DSGVO-Forderungen.</p>
-          </div>
-
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '40px', transition: 'transform 0.3s', cursor: 'default' }}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🏥</div>
-            <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Patienten-Bollwerk</h3>
-            <p style={{ color: 'var(--muted)', lineHeight: '1.6', fontSize: '16px' }}>Pflegegrad oder GdB abgelehnt? Nutze medizinisch-juristisch optimierte Widersprüche, die den MDK und Versorgungsämter einknicken lassen.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA / Pricing Box */}
-      <section style={{ padding: '80px 20px 140px', maxWidth: '1000px', margin: '0 auto' }}>
-        <div style={{ 
-          background: 'linear-gradient(145deg, rgba(255,30,86,0.1) 0%, rgba(20,10,15,0.8) 100%)', 
-          border: '1px solid rgba(255,30,86,0.3)', 
-          borderRadius: '32px', 
-          padding: '60px', 
-          textAlign: 'center',
-          boxShadow: '0 40px 100px -20px rgba(255,30,86,0.2)',
-          position: 'relative',
-          overflow: 'hidden'
+      {/* ── TRUST STRIP ── */}
+      <section style={{ background: '#fff', borderTop: '1px solid #f1f5f9', borderBottom: '1px solid #f1f5f9', padding: '28px 20px' }}>
+        <div style={{
+          maxWidth: '900px', margin: '0 auto',
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+          gap: '24px', textAlign: 'center'
         }}>
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, transparent, var(--accent-red), transparent)' }}></div>
-          <h2 style={{ fontSize: '40px', fontWeight: 800, marginBottom: '16px' }}>Werde zum Master-User</h2>
-          <p style={{ fontSize: '20px', color: 'var(--muted)', marginBottom: '40px' }}>
-            Hör auf, dich wehrlos zu fühlen. Einmaliger Preis. Keine Abofalle.
+          {[
+            { icon: '⚡', label: 'In 60 Sekunden fertig', sub: 'Kein Warten, kein Suchen' },
+            { icon: '⚖️', label: 'Rechtssicher', sub: 'BGB, DSGVO & EU-Recht' },
+            { icon: '💰', label: 'Einmalpreis', sub: 'Lifetime – kein Abo' },
+            { icon: '📱', label: 'Mobil & Offline', sub: 'Läuft als App auf dem Handy' },
+          ].map((item, i) => (
+            <div key={i}>
+              <div style={{ fontSize: '28px', marginBottom: '6px' }}>{item.icon}</div>
+              <strong style={{ display: 'block', fontSize: '14px', color: '#0f172a', marginBottom: '4px' }}>{item.label}</strong>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>{item.sub}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── TOOLS ── */}
+      <section id="tools" style={{ padding: '72px 20px', maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <h2 style={{ fontSize: 'clamp(24px, 6vw, 40px)', fontWeight: 800, color: '#0f172a', marginBottom: '14px' }}>
+            Deine Werkzeuge
+          </h2>
+          <p style={{ color: '#64748b', fontSize: '16px', maxWidth: '520px', margin: '0 auto' }}>
+            Spezialisierte Tools für die häufigsten Alltagsprobleme – sofort einsatzbereit.
           </p>
-          
-          <div style={{ fontSize: '64px', fontWeight: 900, marginBottom: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px' }}>
-            19 <span style={{ fontSize: '32px', color: 'var(--muted)' }}>€</span>
-            <span style={{ background: 'rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '12px', fontSize: '14px', alignSelf: 'center', color: '#fff' }}>Lifetime</span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          {[
+            { icon: '✈️', name: 'Flug-Rebell', desc: 'Bis zu 600 € Entschädigung für Verspätung & Annullierung. Airline-Ausreden widerlegen mit EuGH-Urteilen.', path: '/app/flug-rebell', color: '#3b82f6' },
+            { icon: '🚄', name: 'Bahn-Rebell', desc: 'Strafzettel trotz App-Ticket? Verpassten Anschluss? 9 fertige Schreiben für jede Bahn-Situation.', path: '/app/bahn-rebell', color: '#f97316' },
+            { icon: '📦', name: 'Retouren-Rebell', desc: 'Paketverlust beim Rückversand? Händler weigert sich? Erstattung erzwingen mit § 475 BGB.', path: '/app/retouren-rebell', color: '#10b981' },
+            { icon: '📋', name: 'Anzeigen-Cockpit', desc: 'Professionelle Anzeigen & Beschwerden für Ordnungsamt, Finanzamt, DSGVO und mehr.', path: '/app/anzeigen-cockpit', color: '#8b5cf6' },
+            { icon: '🛡️', name: 'Digital-Schutzschild', desc: 'Account gesperrt, Datenpanne, Spam-Mails. Deine digitalen Rechte mit einem Klick durchsetzen.', path: '/app/digital-schutzschild', color: '#ec4899' },
+            { icon: '🏥', name: 'Patienten-Rebell', desc: 'Pflegegrad abgelehnt? Widerspruch gegen MDK-Bescheide mit medizinisch-juristisch optimierten Texten.', path: '/app/patienten-rebell', color: '#14b8a6' },
+          ].map((tool, i) => (
+            <div
+              key={i}
+              onClick={() => router.push(tool.path)}
+              style={{
+                background: '#fff', border: '1px solid #f1f5f9',
+                borderRadius: '20px', padding: '28px',
+                cursor: 'pointer', transition: 'all 0.25s',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = `0 12px 32px rgba(0,0,0,0.10)`;
+                e.currentTarget.style.transform = 'translateY(-3px)';
+                e.currentTarget.style.borderColor = tool.color;
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = '#f1f5f9';
+              }}
+            >
+              <div style={{
+                width: '52px', height: '52px', borderRadius: '14px',
+                background: `${tool.color}18`, display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                fontSize: '28px', marginBottom: '18px'
+              }}>
+                {tool.icon}
+              </div>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', marginBottom: '10px' }}>{tool.name}</h3>
+              <p style={{ fontSize: '14px', color: '#64748b', lineHeight: 1.6 }}>{tool.desc}</p>
+              <div style={{ marginTop: '18px', color: tool.color, fontSize: '13px', fontWeight: 600 }}>
+                Tool öffnen →
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── HOW IT WORKS ── */}
+      <section style={{ background: 'linear-gradient(135deg, #eff6ff 0%, #fff7ed 100%)', padding: '72px 20px' }}>
+        <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{ fontSize: 'clamp(22px, 5vw, 36px)', fontWeight: 800, color: '#0f172a', marginBottom: '48px' }}>
+            So einfach geht's
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', textAlign: 'left' }}>
+            {[
+              { step: '1', icon: '🎯', title: 'Tool wählen', desc: 'Wähle das passende Tool für dein Anliegen – Flug, Bahn, Datenschutz und mehr.' },
+              { step: '2', icon: '✍️', title: 'Formular ausfüllen', desc: 'Fülle in 2 Minuten das geführte Formular aus. Kein juristisches Vorwissen nötig.' },
+              { step: '3', icon: '📄', title: 'PDF generieren', desc: 'Lade dein rechtssicheres Schreiben als PDF herunter – fertig zum Absenden.' },
+            ].map((step, i) => (
+              <div key={i} style={{
+                display: 'flex', gap: '20px', alignItems: 'flex-start',
+                background: '#fff', borderRadius: '18px', padding: '24px',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.06)'
+              }}>
+                <div style={{
+                  width: '48px', height: '48px', borderRadius: '12px', flexShrink: 0,
+                  background: 'linear-gradient(135deg, #3b82f6, #f97316)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#fff', fontWeight: 900, fontSize: '18px'
+                }}>
+                  {step.step}
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
+                    {step.icon} {step.title}
+                  </h3>
+                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: 1.6 }}>{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PRICING CTA ── */}
+      <section style={{ padding: '72px 20px', textAlign: 'center' }}>
+        <div style={{
+          maxWidth: '480px', margin: '0 auto',
+          background: '#fff', borderRadius: '28px',
+          padding: '48px 32px', boxShadow: '0 24px 64px rgba(59,130,246,0.12)',
+          border: '1px solid #e0eaff'
+        }}>
+          <div style={{ fontSize: '40px', marginBottom: '12px' }}>🎉</div>
+          <h2 style={{ fontSize: 'clamp(22px, 5vw, 32px)', fontWeight: 800, color: '#0f172a', marginBottom: '12px' }}>
+            Starte heute
+          </h2>
+          <p style={{ color: '#64748b', fontSize: '15px', marginBottom: '32px', lineHeight: 1.6 }}>
+            Einmaliger Preis. Kein Abo. Kein Kleingedrucktes.<br />Lifetime-Zugang zu allen Tools.
+          </p>
+
+          <div style={{ marginBottom: '28px' }}>
+            <span style={{ fontSize: '56px', fontWeight: 900, color: '#0f172a', letterSpacing: '-2px' }}>19</span>
+            <span style={{ fontSize: '24px', color: '#64748b', marginLeft: '4px' }}>€</span>
+            <div style={{
+              display: 'inline-block', marginLeft: '12px',
+              background: '#fef3c7', color: '#d97706',
+              padding: '4px 12px', borderRadius: '30px', fontSize: '12px', fontWeight: 700
+            }}>
+              Lifetime
+            </div>
           </div>
 
-          <button 
+          <button
             onClick={handleCheckout}
-            className="btn btn-primary" 
-            style={{ padding: '24px 60px', fontSize: '20px', fontWeight: 700, borderRadius: '100px', width: '100%', maxWidth: '400px' }}
+            style={{
+              width: '100%', padding: '18px 24px', fontSize: '17px', fontWeight: 700,
+              background: 'linear-gradient(90deg, #3b82f6 0%, #2563eb 100%)',
+              color: '#fff', border: 'none', borderRadius: '14px',
+              cursor: 'pointer', boxShadow: '0 8px 24px rgba(59,130,246,0.30)',
+              marginBottom: '16px'
+            }}
           >
-            Jetzt Account erstellen
+            Account erstellen →
           </button>
-          
-          <p style={{ marginTop: '24px', color: 'var(--muted)', fontSize: '14px' }}>
-            Sichere Bezahlung über Stripe. Vollautomatischer Zugang.
+          <p style={{ color: '#94a3b8', fontSize: '12px' }}>
+            🔒 Sichere Zahlung via Stripe · Sofort-Zugang
           </p>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '40px 20px', textAlign: 'center', background: 'rgba(0,0,0,0.3)' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', flexWrap: 'wrap', marginBottom: '16px' }}>
-          <a href="/impressum" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px' }}>Impressum</a>
-          <a href="/datenschutz" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px' }}>Datenschutz</a>
-          <a href="/agb" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px' }}>AGB & Widerruf</a>
+      {/* ── FOOTER ── */}
+      <footer style={{
+        background: '#f8fafc', borderTop: '1px solid #e2e8f0',
+        padding: '32px 20px', textAlign: 'center'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', flexWrap: 'wrap', marginBottom: '14px' }}>
+          {[['Impressum', '/impressum'], ['Datenschutz', '/datenschutz'], ['AGB & Widerruf', '/agb']].map(([label, href]) => (
+            <a key={href} href={href} style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '13px' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#64748b'}
+              onMouseLeave={e => e.currentTarget.style.color = '#94a3b8'}
+            >{label}</a>
+          ))}
         </div>
-        <div style={{ color: 'var(--muted)', fontSize: '12px', opacity: 0.6 }}>
-          © {new Date().getFullYear()} Baokmedia. Alle Rechte vorbehalten. Die bereitgestellten Generatoren und Vorlagen ersetzen keine individuelle Rechtsberatung.
-        </div>
+        <p style={{ color: '#cbd5e1', fontSize: '12px' }}>
+          © {new Date().getFullYear()} Baokmedia · Die Vorlagen ersetzen keine individuelle Rechtsberatung.
+        </p>
       </footer>
 
     </div>
