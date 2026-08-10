@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function AppLayout({
   children,
@@ -11,19 +11,42 @@ export default function AppLayout({
 }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+
+  // The /app root (dashboard) handles its own paywall banner.
+  // Only sub-routes need the hard pro-check.
+  const isDashboard = pathname === '/app' || pathname === '/app/';
 
   useEffect(() => {
-    const checkUser = async () => {
+    const checkAccess = async () => {
+      // Step 1: Check if logged in
       const { data: { session } } = await supabase.auth.getSession();
-      
       if (!session) {
         router.push('/login');
-      } else {
-        setLoading(false);
+        return;
       }
+
+      // If we're on the dashboard, just let it through (it has its own paywall UI)
+      if (isDashboard) {
+        setLoading(false);
+        return;
+      }
+
+      // Step 2: Refresh session to get latest app_metadata (catches post-payment state)
+      const { data: refreshed } = await supabase.auth.refreshSession();
+      const user = refreshed?.session?.user;
+      const pro = user?.app_metadata?.is_pro === true;
+
+      if (!pro) {
+        // Has account but hasn't paid → send to dashboard with paywall banner
+        router.push('/app');
+        return;
+      }
+
+      setLoading(false);
     };
 
-    checkUser();
+    checkAccess();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
@@ -32,19 +55,22 @@ export default function AppLayout({
     });
 
     return () => subscription.unsubscribe();
-  }, [router]);
+  }, [router, isDashboard]);
 
-  if (loading) {
+  if (loading && !isDashboard) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'var(--bg)' }}>
-        <p style={{ color: 'var(--muted)' }}>Lade Vorlagenbude...</p>
+      <div style={{
+        display: 'flex', flexDirection: 'column',
+        justifyContent: 'center', alignItems: 'center',
+        minHeight: '100vh', backgroundColor: '#fdf8f3', gap: '16px'
+      }}>
+        <div style={{ fontSize: '40px' }}>🔒</div>
+        <p style={{ color: '#64748b', fontFamily: 'Inter, sans-serif', fontSize: '16px' }}>
+          Zugang wird geprüft…
+        </p>
       </div>
     );
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
