@@ -57,7 +57,7 @@ export default function AppLayout({
     return () => subscription.unsubscribe();
   }, [router, isDashboard]);
 
-  if (loading && !isDashboard) {
+  if (loading) {
     return (
       <div style={{
         display: 'flex', flexDirection: 'column',
@@ -67,6 +67,22 @@ export default function AppLayout({
         <div style={{ fontSize: '40px' }}>🔒</div>
         <p style={{ color: '#64748b', fontFamily: 'Inter, sans-serif', fontSize: '16px' }}>
           Zugang wird geprüft…
+        </p>
+      </div>
+    );
+  }
+
+  // HARD BLOCK for sub-routes if user is not pro
+  if (!isDashboard && !isPro) {
+    return (
+      <div style={{
+        display: 'flex', flexDirection: 'column',
+        justifyContent: 'center', alignItems: 'center',
+        minHeight: '100vh', backgroundColor: '#fdf8f3', gap: '16px'
+      }}>
+        <div style={{ fontSize: '40px' }}>🔒</div>
+        <p style={{ color: '#64748b', fontFamily: 'Inter, sans-serif', fontSize: '16px' }}>
+          Premium-Werkzeug. Zugriff verweigert.
         </p>
       </div>
     );
