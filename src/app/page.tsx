@@ -134,6 +134,22 @@ export default function Homepage() {
                 <button onClick={() => router.push('/abo-killer')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
                   Abo-Killer ansehen
                 </button>
+
+                {/* APP SCREENSHOTS */}
+                <div className="mt-8 pt-8 border-t border-blue-100/50">
+                  <h4 className="text-sm font-semibold text-blue-900 mb-4 uppercase tracking-wider">Einblick in die App</h4>
+                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x hide-scrollbar">
+                    {[1, 2, 3, 4].map((num) => (
+                      <div key={num} className="snap-start shrink-0 w-32 aspect-[9/16] bg-blue-50 rounded-xl border border-blue-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow relative">
+                        {/* src={`/images/screenshots/abo-killer-${num}.jpg`} */}
+                        <div className="w-full h-full flex flex-col items-center justify-center text-blue-300 p-2 text-center">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-2 opacity-50"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          <span className="text-[10px] font-medium">Screenshot {num}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -184,6 +200,22 @@ export default function Homepage() {
                     Kostenlos ausprobieren
                   </button>
                 </div>
+
+                {/* APP SCREENSHOTS */}
+                <div className="mt-8 pt-8 border-t border-blue-100/50">
+                  <h4 className="text-sm font-semibold text-blue-900 mb-4 uppercase tracking-wider">Einblick in die App</h4>
+                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x hide-scrollbar">
+                    {[1, 2, 3, 4].map((num) => (
+                      <div key={num} className="snap-start shrink-0 w-32 aspect-[9/16] bg-blue-50 rounded-xl border border-blue-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow relative">
+                        {/* src={`/images/screenshots/bahn-rebell-${num}.jpg`} */}
+                        <div className="w-full h-full flex flex-col items-center justify-center text-blue-300 p-2 text-center">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-2 opacity-50"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          <span className="text-[10px] font-medium">Screenshot {num}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -229,6 +261,22 @@ export default function Homepage() {
                 <button onClick={() => router.push('/nebenkosten-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
                   Nebenkosten-Rebell ansehen
                 </button>
+
+                {/* APP SCREENSHOTS */}
+                <div className="mt-8 pt-8 border-t border-blue-100/50">
+                  <h4 className="text-sm font-semibold text-blue-900 mb-4 uppercase tracking-wider">Einblick in die App</h4>
+                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x hide-scrollbar">
+                    {[1, 2, 3, 4].map((num) => (
+                      <div key={num} className="snap-start shrink-0 w-32 aspect-[9/16] bg-blue-50 rounded-xl border border-blue-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow relative">
+                        {/* src={`/images/screenshots/nebenkosten-rebell-${num}.jpg`} */}
+                        <div className="w-full h-full flex flex-col items-center justify-center text-blue-300 p-2 text-center">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-2 opacity-50"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          <span className="text-[10px] font-medium">Screenshot {num}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -274,6 +322,22 @@ export default function Homepage() {
                 <button onClick={() => router.push('/flug-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
                   Flug-Rebell ansehen
                 </button>
+
+                {/* APP SCREENSHOTS */}
+                <div className="mt-8 pt-8 border-t border-blue-100/50">
+                  <h4 className="text-sm font-semibold text-blue-900 mb-4 uppercase tracking-wider">Einblick in die App</h4>
+                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x hide-scrollbar">
+                    {[1, 2, 3, 4].map((num) => (
+                      <div key={num} className="snap-start shrink-0 w-32 aspect-[9/16] bg-blue-50 rounded-xl border border-blue-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow relative">
+                        {/* src={`/images/screenshots/flug-rebell-${num}.jpg`} */}
+                        <div className="w-full h-full flex flex-col items-center justify-center text-blue-300 p-2 text-center">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-2 opacity-50"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          <span className="text-[10px] font-medium">Screenshot {num}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
