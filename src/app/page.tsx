@@ -59,38 +59,19 @@ export default function Homepage() {
           </div>
 
           <div className="lg:w-1/2 w-full">
-            {/* HERO BROWSER WINDOW - DOM UI SCREENSHOT */}
+            {/* HERO BROWSER WINDOW */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#93c5fd] to-[#fed7aa] rounded-[1.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
               <div className="relative aspect-[4/3] md:aspect-[16/10] bg-[#eff6ff] rounded-2xl shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-10 bg-white border-b border-[#dbeafe] flex items-center px-4 gap-2">
+                <div className="h-10 bg-white border-b border-[#dbeafe] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="ml-4 flex-1 h-5 bg-[#eff6ff] rounded-md border border-[#dbeafe]"></div>
                 </div>
                 
-                {/* Dashboard-like UI */}
-                <div className="flex-1 bg-white relative p-6 flex flex-col gap-4 overflow-hidden">
-                   <div className="flex justify-between items-center mb-2">
-                      <div className="w-32 h-6 bg-[#eff6ff] rounded-md"></div>
-                      <div className="w-10 h-10 rounded-full bg-[#bfdbfe]/30"></div>
-                   </div>
-                   <div className="grid grid-cols-2 gap-4">
-                      <div className="h-24 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-4 flex flex-col justify-between">
-                         <div className="w-12 h-4 bg-[#e2e8f0] rounded"></div>
-                         <div className="w-20 h-6 bg-[#1e3a8a] rounded"></div>
-                      </div>
-                      <div className="h-24 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-4 flex flex-col justify-between">
-                         <div className="w-12 h-4 bg-[#e2e8f0] rounded"></div>
-                         <div className="w-20 h-6 bg-[#ea580c] rounded"></div>
-                      </div>
-                   </div>
-                   <div className="flex-1 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl mt-2 p-4">
-                      <div className="w-full h-4 bg-[#e2e8f0] rounded mb-4"></div>
-                      <div className="w-3/4 h-4 bg-[#e2e8f0] rounded mb-4"></div>
-                      <div className="w-5/6 h-4 bg-[#e2e8f0] rounded"></div>
-                   </div>
+                {/* REAL SCREENSHOT INSTEAD OF DOM */}
+                <div className="flex-1 bg-white relative">
+                   <img src="/images/app-abo-killer.jpg" alt="Abo-Killer App Ansicht" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
             </div>
@@ -114,45 +95,15 @@ export default function Homepage() {
             {/* ABO-KILLER */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
-                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Abo-Killer</div>
                 </div>
-                {/* DOM UI SCREENSHOT: Abo-Killer */}
-                <div className="flex-1 bg-[#f8fafc] p-6 relative">
-                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
-                    <div className="flex justify-between items-end mb-6">
-                       <div>
-                          <div className="text-xs font-bold text-[#64748b] mb-1">Monatliche Kosten</div>
-                          <div className="text-3xl font-black text-[#1e3a8a]">89,95 <span className="text-lg text-[#94a3b8]">€</span></div>
-                       </div>
-                       <div className="bg-[#eff6ff] text-[#1e40af] px-3 py-1 rounded-full text-xs font-bold border border-[#bfdbfe]">6 Aktive Abos</div>
-                    </div>
-                    <div className="space-y-3">
-                       <div className="flex justify-between items-center p-3 rounded-lg bg-[#f8fafc] border border-[#e2e8f0]">
-                          <div className="flex items-center gap-3">
-                             <div className="w-8 h-8 rounded-md bg-red-100 flex items-center justify-center text-red-600 font-bold text-xs">N</div>
-                             <div>
-                                <div className="text-sm font-bold text-[#1e3a8a]">Netflix</div>
-                                <div className="text-[10px] text-[#64748b]">Monatlich</div>
-                             </div>
-                          </div>
-                          <div className="text-sm font-bold text-[#ea580c]">17,99 €</div>
-                       </div>
-                       <div className="flex justify-between items-center p-3 rounded-lg bg-[#f8fafc] border border-[#e2e8f0]">
-                          <div className="flex items-center gap-3">
-                             <div className="w-8 h-8 rounded-md bg-green-100 flex items-center justify-center text-green-600 font-bold text-xs">S</div>
-                             <div>
-                                <div className="text-sm font-bold text-[#1e3a8a]">Spotify</div>
-                                <div className="text-[10px] text-[#64748b]">Monatlich</div>
-                             </div>
-                          </div>
-                          <div className="text-sm font-bold text-[#ea580c]">14,99 €</div>
-                       </div>
-                    </div>
-                  </div>
+                {/* REAL SCREENSHOT */}
+                <div className="flex-1 relative">
+                  <img src="/images/app-abo-killer.jpg" alt="Abo-Killer App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -189,31 +140,15 @@ export default function Homepage() {
             {/* BAHN-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
-                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Bahn-Rebell</div>
                 </div>
-                {/* DOM UI SCREENSHOT: Bahn-Rebell */}
-                <div className="flex-1 bg-[#f8fafc] p-6 relative">
-                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
-                    <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f1f5f9]">
-                       <div className="w-10 h-10 rounded-full bg-[#eff6ff] text-[#1e40af] flex items-center justify-center font-bold">ICE</div>
-                       <div>
-                          <div className="text-sm font-bold text-[#1e3a8a]">München Hbf → Berlin Hbf</div>
-                          <div className="text-xs text-[#ea580c] font-bold">+ 145 Min. Verspätung</div>
-                       </div>
-                    </div>
-                    <div className="bg-[#eff6ff] border border-[#bfdbfe] rounded-lg p-4 mb-4">
-                       <div className="text-xs font-bold text-[#1e40af] mb-1">Mögliche Entschädigung</div>
-                       <div className="text-2xl font-black text-[#1e3a8a]">50% <span className="text-sm font-normal text-[#3b82f6]">des Ticketpreises</span></div>
-                    </div>
-                    <div className="flex gap-2 mt-auto">
-                       <div className="flex-1 h-8 bg-[#1e3a8a] rounded-lg opacity-90"></div>
-                       <div className="w-1/3 h-8 bg-[#e2e8f0] rounded-lg"></div>
-                    </div>
-                  </div>
+                {/* REAL SCREENSHOT */}
+                <div className="flex-1 relative">
+                  <img src="/images/app-bahn-rebell.jpg" alt="Bahn-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -255,36 +190,15 @@ export default function Homepage() {
             {/* NEBENKOSTEN-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
-                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Nebenkosten-Rebell</div>
                 </div>
-                {/* DOM UI SCREENSHOT: Nebenkosten */}
-                <div className="flex-1 bg-[#f8fafc] p-6 relative">
-                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                       <div className="p-3 bg-red-50 rounded-lg border border-red-100">
-                          <div className="text-[10px] font-bold text-red-600 uppercase">Nachzahlung</div>
-                          <div className="text-lg font-black text-red-700">482,50 €</div>
-                       </div>
-                       <div className="p-3 bg-[#eff6ff] rounded-lg border border-[#bfdbfe]">
-                          <div className="text-[10px] font-bold text-[#1e40af] uppercase">Vorauszahlung</div>
-                          <div className="text-lg font-black text-[#1e3a8a]">1.200,00 €</div>
-                       </div>
-                    </div>
-                    <div className="space-y-2">
-                       <div className="flex justify-between items-center text-xs p-2 bg-[#f8fafc] rounded border border-[#e2e8f0]">
-                          <span className="font-bold text-[#334155]">Heizkosten</span>
-                          <span className="font-bold text-[#ea580c]">+ 15%</span>
-                       </div>
-                       <div className="flex justify-between items-center text-xs p-2 bg-[#f8fafc] rounded border border-[#e2e8f0]">
-                          <span className="font-bold text-[#334155]">Kaltwasser</span>
-                          <span className="font-bold text-green-600">- 4%</span>
-                       </div>
-                    </div>
-                  </div>
+                {/* REAL SCREENSHOT */}
+                <div className="flex-1 relative">
+                  <img src="/images/app-nebenkosten.jpg" alt="Nebenkosten-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -321,26 +235,15 @@ export default function Homepage() {
             {/* FLUG-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
-                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Flug-Rebell</div>
                 </div>
-                {/* DOM UI SCREENSHOT: Flug-Rebell */}
-                <div className="flex-1 bg-[#f8fafc] p-6 relative">
-                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
-                    <div className="flex justify-between items-center mb-4">
-                       <div className="text-2xl font-black text-[#1e3a8a]">FRA</div>
-                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#94a3b8]"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.6L3 8l6 4-4 4-2.8-.9c-.4-.1-.8.1-1 .5L1 17l5 2 2 5c.4-.2.6-.6.5-1l-.9-2.8 4-4 4 6l1.2-.7c.4-.2.7-.6.6-1.1z"></path></svg>
-                       <div className="text-2xl font-black text-[#1e3a8a]">JFK</div>
-                    </div>
-                    <div className="text-center text-xs font-bold text-red-600 bg-red-50 py-2 rounded-lg border border-red-100 mb-4">Flug gestrichen</div>
-                    <div className="space-y-2 mt-auto">
-                       <div className="h-6 w-full bg-[#f8fafc] rounded border border-[#e2e8f0]"></div>
-                       <div className="h-6 w-3/4 bg-[#f8fafc] rounded border border-[#e2e8f0]"></div>
-                    </div>
-                  </div>
+                {/* REAL SCREENSHOT */}
+                <div className="flex-1 relative">
+                  <img src="/images/app-flug-rebell.jpg" alt="Flug-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
