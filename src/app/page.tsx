@@ -62,7 +62,7 @@ export default function Homepage() {
             {/* HERO BROWSER WINDOW */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#93c5fd] to-[#fed7aa] rounded-[1.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-              <div className="relative aspect-[4/3] md:aspect-[16/10] bg-[#eff6ff] rounded-2xl shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
+              <div className="relative bg-[#eff6ff] rounded-2xl shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
                 <div className="h-10 bg-white border-b border-[#dbeafe] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
@@ -70,8 +70,8 @@ export default function Homepage() {
                 </div>
                 
                 {/* REAL SCREENSHOT INSTEAD OF DOM */}
-                <div className="flex-1 bg-white relative">
-                   <img src="/images/hp-bilder/img10.png" alt="Vorlagenbude" className="absolute inset-0 w-full h-full object-cover object-top" />
+                <div className="bg-white">
+                   <img src="/images/hp-bilder/img10.png" alt="Vorlagenbude" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function Homepage() {
             
             {/* ABO-KILLER */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+              <div className="relative bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
                 <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
@@ -102,8 +102,8 @@ export default function Homepage() {
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Abo-Killer</div>
                 </div>
                 {/* REAL SCREENSHOT */}
-                <div className="flex-1 relative">
-                  <img src="/images/hp-bilder/img3.png" alt="Abo-Killer App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                <div className="bg-white">
+                  <img src="/images/hp-bilder/img3.png" alt="Abo-Killer App" className="w-full h-auto block" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -139,7 +139,7 @@ export default function Homepage() {
 
             {/* BAHN-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+              <div className="relative bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
                 <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
@@ -147,8 +147,8 @@ export default function Homepage() {
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Bahn-Rebell</div>
                 </div>
                 {/* REAL SCREENSHOT */}
-                <div className="flex-1 relative">
-                  <img src="/images/hp-bilder/img4.png" alt="Bahn-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                <div className="bg-white">
+                  <img src="/images/hp-bilder/img4.png" alt="Bahn-Rebell App" className="w-full h-auto block" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -189,7 +189,7 @@ export default function Homepage() {
 
             {/* NEBENKOSTEN-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+              <div className="relative bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
                 <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
@@ -197,8 +197,8 @@ export default function Homepage() {
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Nebenkosten-Rebell</div>
                 </div>
                 {/* REAL SCREENSHOT */}
-                <div className="flex-1 relative">
-                  <img src="/images/hp-bilder/img11.png" alt="Nebenkosten-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                <div className="bg-white">
+                  <img src="/images/hp-bilder/img11.png" alt="Nebenkosten-Rebell App" className="w-full h-auto block" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -234,7 +234,7 @@ export default function Homepage() {
 
             {/* FLUG-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+              <div className="relative bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
                 <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2 relative z-10">
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
@@ -242,8 +242,8 @@ export default function Homepage() {
                   <div className="ml-4 text-[10px] font-bold text-[#64748b]">Flug-Rebell</div>
                 </div>
                 {/* REAL SCREENSHOT */}
-                <div className="flex-1 relative">
-                  <img src="/images/hp-bilder/img5.png" alt="Flug-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                <div className="bg-white">
+                  <img src="/images/hp-bilder/img5.png" alt="Flug-Rebell App" className="w-full h-auto block" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
