@@ -71,7 +71,7 @@ export default function Homepage() {
                 
                 {/* REAL SCREENSHOT INSTEAD OF DOM */}
                 <div className="flex-1 bg-white relative">
-                   <img src="/images/app-abo-killer.jpg" alt="Abo-Killer App Ansicht" className="absolute inset-0 w-full h-full object-cover object-top" />
+                   <img src="/images/hp-bilder/img10.png" alt="Vorlagenbude" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function Homepage() {
                 </div>
                 {/* REAL SCREENSHOT */}
                 <div className="flex-1 relative">
-                  <img src="/images/app-abo-killer.jpg" alt="Abo-Killer App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                  <img src="/images/hp-bilder/img3.png" alt="Abo-Killer App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -148,7 +148,7 @@ export default function Homepage() {
                 </div>
                 {/* REAL SCREENSHOT */}
                 <div className="flex-1 relative">
-                  <img src="/images/app-bahn-rebell.jpg" alt="Bahn-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                  <img src="/images/hp-bilder/img4.png" alt="Bahn-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -198,7 +198,7 @@ export default function Homepage() {
                 </div>
                 {/* REAL SCREENSHOT */}
                 <div className="flex-1 relative">
-                  <img src="/images/app-nebenkosten.jpg" alt="Nebenkosten-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                  <img src="/images/hp-bilder/img11.png" alt="Nebenkosten-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -243,7 +243,7 @@ export default function Homepage() {
                 </div>
                 {/* REAL SCREENSHOT */}
                 <div className="flex-1 relative">
-                  <img src="/images/app-flug-rebell.jpg" alt="Flug-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
+                  <img src="/images/hp-bilder/img5.png" alt="Flug-Rebell App" className="absolute inset-0 w-full h-full object-cover object-top" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
