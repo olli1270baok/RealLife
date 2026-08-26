@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700&display=swap');
 
 :root {
-  --bg: #030712; /* Extreme dark */
-  --card: rgba(255, 255, 255, 0.02); /* Translucent glass */
-  --card-hover: rgba(255, 255, 255, 0.05);
-  --accent-red: #EC0016; /* Deutsche Bahn Traffic Red */
-  --accent-blue: #00f0ff;
-  --accent-purple: #c040ff;
-  --brown: #cfa17d;
-  --text: #f3f4f6;
-  --muted: #6b7280;
-  --border: rgba(255, 255, 255, 0.06);
+  --bg: #F5F4F0; /* Sand / Warm Neutral */
+  --bg-dark: #0B1221; /* Navy / Dunkelblau */
+  --bg-dark-hover: #131d33;
+  --card: #FFFFFF;
+  --card-hover: #FAFAFA;
+  --accent-orange: #EA580C; /* Orange Akzent */
+  --accent-orange-hover: #C2410C;
+  --text-dark: #0F172A;
+  --text-light: #F8FAFC;
+  --muted-dark: #64748B;
+  --muted-light: #94A3B8;
+  --border: #E2E8F0;
+  --border-dark: #1E293B;
   --font-main: 'Inter', sans-serif;
   --font-head: 'Space Grotesk', sans-serif;
 }
@@ -23,15 +26,16 @@
 
 body {
   background: var(--bg);
-  color: var(--text);
+  color: var(--text-dark);
   font-family: var(--font-main);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
+  -webkit-font-smoothing: antialiased;
 }
 
 header {
@@ -446,219 +450,6 @@ input:focus, select:focus, textarea:focus {
     padding: 20px;
     font-size: 10pt;
   }
-}
-
-/* Custom Premium Animations & Glows (SaaS 3.0) */
-@keyframes float {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, 40px) scale(1.1); }
-  100% { transform: translate(-30px, -20px) scale(0.95); }
-}
-
-@keyframes drawPath {
-  0% { stroke-dashoffset: 600; }
-  100% { stroke-dashoffset: 0; }
-}
-
-@keyframes lightTrace {
-  0% { offset-distance: 0%; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.25; filter: drop-shadow(0 0 5px currentColor); }
-  50% { opacity: 0.8; filter: drop-shadow(0 0 15px currentColor); }
-}
-
-@keyframes holoRotate {
-  0% { transform: rotateX(60deg) rotateZ(0deg); }
-  100% { transform: rotateX(60deg) rotateZ(360deg); }
-}
-
-@keyframes holoScan {
-  0%, 100% { transform: translateY(-20px); opacity: 0.1; }
-  50% { transform: translateY(40px); opacity: 0.8; }
-}
-
-@keyframes scanProgress {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-
-/* Background Blobs */
-.bg-blob-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  z-index: -1;
-  pointer-events: none;
-  background: #030712;
-}
-
-.bg-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.14;
-  animation: float 20s infinite ease-in-out alternate;
-}
-
-.bg-blob-1 {
-  top: -10%;
-  left: -5%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--accent-red) 0%, transparent 85%);
-  animation-duration: 25s;
-}
-
-.bg-blob-2 {
-  bottom: -15%;
-  right: -5%;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, var(--accent-blue) 0%, transparent 85%);
-  animation-duration: 30s;
-}
-
-.bg-blob-3 {
-  top: 30%;
-  left: 40%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--accent-purple) 0%, transparent 85%);
-  animation-duration: 22s;
-}
-
-/* Gradient text */
-.gradient-title {
-  background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
-}
-
-/* Redesigned animations container */
-.tech-anim-container {
-  position: relative;
-  width: 100%;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Timeline/Route Path styles */
-.timeline-path {
-  stroke-dasharray: 6;
-  animation: drawPath 30s linear infinite;
-}
-
-.timeline-dot {
-  animation: pulseGlow 2s infinite ease-in-out;
-}
-
-/* Flight route light trace */
-.flight-path-line {
-  stroke-dasharray: 4 4;
-}
-
-.flight-trace-dot {
-  animation: lightTrace 6s infinite linear;
-  offset-path: path("M 20 80 Q 200 10 400 80 T 780 80");
-}
-
-/* Hologram Box Scanner styles */
-.holo-stage {
-  perspective: 400px;
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.holo-grid {
-  width: 80px;
-  height: 80px;
-  border: 1px solid rgba(236, 0, 22, 0.3);
-  background: radial-gradient(circle, rgba(236, 0, 22, 0.05) 0%, transparent 80%);
-  transform-style: preserve-3d;
-  animation: holoRotate 8s linear infinite;
-}
-
-.holo-line {
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background: var(--accent-red);
-  box-shadow: 0 0 12px var(--accent-red);
-  animation: holoScan 3s ease-in-out infinite;
-}
-
-/* Glow Borders */
-.glow-red:hover {
-  box-shadow: 0 0 30px rgba(236, 0, 22, 0.15);
-  border-color: rgba(236, 0, 22, 0.4) !important;
-}
-
-.glow-blue:hover {
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
-  border-color: rgba(0, 240, 255, 0.4) !important;
-}
-
-.glow-purple:hover {
-  box-shadow: 0 0 30px rgba(192, 64, 255, 0.15);
-  border-color: rgba(192, 64, 255, 0.4) !important;
-}
-
-.brief-scanner-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(3, 7, 18, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Emerald Styles */
-.glow-emerald:hover {
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.4) !important;
-}
-
-.text-emerald {
-  color: #10b981 !important;
-}
-
-.gradient-title-emerald {
-  background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
-}
-
-.gradient-title-db {
-  background: linear-gradient(135deg, #ffffff 40%, #ff8c94 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
 }
 
 /* Theme: Bahn-Rebell (Warm-White & DB-Rot) */

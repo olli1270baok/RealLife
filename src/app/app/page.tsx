@@ -57,13 +57,16 @@ export default function AppDashboard() {
                     Dein Account ist aktuell limitiert. Schalte alle 36 Werkzeuge dauerhaft frei (Lifetime) und entfessele die volle Power der Vorlagenbude.
                   </p>
                 </div>
-                <a 
-                  href={`https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01?client_reference_id=${userId}`}
+                <button 
+                  onClick={async () => {
+                    const { startCheckout } = await import('@/lib/commerce/checkout');
+                    await startCheckout('masterPass');
+                  }}
                   className="btn btn-primary"
-                  style={{ textDecoration: 'none', padding: '12px 24px', whiteSpace: 'nowrap' }}
+                  style={{ textDecoration: 'none', padding: '12px 24px', whiteSpace: 'nowrap', border: 'none', cursor: 'pointer' }}
                 >
                   Jetzt Master-Pass sichern (19€)
-                </a>
+                </button>
               </div>
             )}
 

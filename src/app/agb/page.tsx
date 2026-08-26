@@ -7,7 +7,7 @@ export default function AGBPage() {
         <div style={{ color: 'var(--muted)', lineHeight: '1.8' }}>
           <h2 style={{ fontSize: '20px', color: 'var(--text)', marginTop: '24px', marginBottom: '12px' }}>1. Geltungsbereich</h2>
           <p>
-            Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge über den Kauf von digitalen Produkten (wie Zugänge zu Online-Generatoren, "Master-Pass"), die zwischen Baokmedia und dem Kunden über die Webseite templatebude.shop geschlossen werden.
+            Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge über den Kauf von digitalen Produkten (wie Zugänge zu Online-Generatoren, "Master-Pass"), die zwischen Baokmedia und dem Kunden über die Webseite vorlagenbude.de geschlossen werden.
           </p>
 
           <h2 style={{ fontSize: '20px', color: 'var(--text)', marginTop: '24px', marginBottom: '12px' }}>2. Vertragsschluss</h2>

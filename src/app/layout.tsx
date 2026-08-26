@@ -10,7 +10,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "VORLAGENBUDE | Dein rechtlicher Schutzschild",
-  description: "E-Commerce, Behörden & Konzerne in die Schranken weisen.",
+  description: "Komplizierte Dinge einfacher machen.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -36,7 +36,7 @@ export default function RootLayout({
           <div className="bg-blob bg-blob-3"></div>
         </div>
         <header className="no-print">
-          <div className="logo">VORLAGENBUDE <span>// SaaS</span></div>
+          <div className="logo">VORLAGENBUDE <span>{"// SaaS"}</span></div>
           <div className="badge">100% ABO-FREI</div>
         </header>
 

@@ -1044,9 +1044,16 @@ export default function LebenslagenLotse() {
                     Der Lebenslagen-Lotse Pro ist ein Premium-Werkzeug der Vorlagenbude. Schalte alle Planer, Register und Vorlagen mit dem Master-Pass dauerhaft frei.
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <a href={`https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01?client_reference_id=${userId}`} className="btn primary" style={{ textDecoration: 'none', textAlign: 'center' }}>
+                    <button 
+                      onClick={async () => {
+                        const { startCheckout } = await import('@/lib/commerce/checkout');
+                        await startCheckout('masterPass');
+                      }}
+                      className="btn primary" 
+                      style={{ textDecoration: 'none', textAlign: 'center', border: 'none', cursor: 'pointer' }}
+                    >
                       Jetzt Master-Pass sichern (19€)
-                    </a>
+                    </button>
                     <button className="btn" onClick={() => setActiveView('dashboard')}>Zurück zur Übersicht</button>
                   </div>
                 </div>

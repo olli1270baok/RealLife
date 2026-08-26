@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Vorlagenbude SaaS Suite',
     short_name: 'Vorlagenbude',
-    description: 'Dein juristischer Schutzschild gegen Konzerne und Behörden.',
+    description: 'Komplizierte Dinge einfacher machen.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0A1128',
