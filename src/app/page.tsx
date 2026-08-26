@@ -198,7 +198,7 @@ export default function Homepage() {
                 </div>
                 {/* REAL SCREENSHOT */}
                 <div className="bg-white">
-                  <img src="/images/hp-bilder/img11.png" alt="Nebenkosten-Rebell App" className="w-full h-auto block" />
+                  <img src="/images/hp-bilder/nebenkosten_neu.jpg" alt="Nebenkosten-Rebell App" className="w-full h-auto block" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
