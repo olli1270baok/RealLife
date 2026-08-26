@@ -89,56 +89,22 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* 3. KERN-APPS (Z-PATTERN, HIGH-END) */}
-      <section id="kern-apps" className="bg-white relative">
-        <div className="py-24 px-6 lg:px-12 max-w-screen-xl mx-auto text-center border-t border-[#dbeafe]">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] mb-6">
-            <span className="text-xs font-bold text-[#1e40af] uppercase tracking-widest">UNSERE APPS</span>
-          </div>
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-[#1e3a8a] tracking-tight mb-6" style={{ fontFamily: 'var(--font-head)' }}>Welche App hilft dir gerade?</h2>
-          <p className="text-xl text-[#3b82f6] max-w-2xl mx-auto">Wähle das Thema, das du gerade erledigen möchtest. Jede App ist spezialisiert auf ein konkretes Alltagsproblem.</p>
-        </div>
-
-        {/* ABO-KILLER (Text Links, Bild Rechts) */}
-        <div className="relative py-28 border-y border-[#dbeafe] bg-[#eff6ff] overflow-hidden">
-          {/* Subtle Background Accent */}
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#bfdbfe]/30 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
-
-          <div className="relative px-6 lg:px-12 max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-20 items-center z-10">
-            <div className="lg:w-5/12 w-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-white border border-[#bfdbfe] shadow-sm flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Abo-Killer</div>
-              </div>
-              
-              <h3 className="text-3xl md:text-4xl font-extrabold text-[#1e3a8a] tracking-tight mb-6 leading-[1.15]">
-                Zu viele Abos und keine Ahnung, was sie zusammen kosten?
-              </h3>
-              <p className="text-[#1e40af] text-lg mb-10 leading-relaxed">
-                Abo-Killer bringt deine laufenden Abos, Kosten, Fristen und Kündigungen an einen Ort. Statt zwischen E-Mails, Kontoauszügen und einzelnen Kundenkonten zu suchen, bekommst du eine zentrale Übersicht über deine laufenden Verträge.
-              </p>
-              
-              <ul className="grid grid-cols-1 gap-4 mb-10">
-                {['Abos erfassen und verwalten', 'Monatliche & jährliche Kosten überblicken', 'Laufzeiten & Kündigungsfristen im Blick', 'Kündigungen strukturiert vorbereiten'].map((text, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <span className="text-[#1e3a8a] font-medium">{text}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <button onClick={() => router.push('/abo-killer')} className="bg-[#1e3a8a] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-lg shadow-[#1e3a8a]/20 hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                Abo-Killer ansehen
-              </button>
+      {/* 3. KERN-APPS (HIGH-END 2x2 GRID) */}
+      <section id="kern-apps" className="bg-white relative py-24 px-6 lg:px-12 border-t border-[#dbeafe]">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] mb-6">
+              <span className="text-xs font-bold text-[#1e40af] uppercase tracking-widest">UNSERE APPS</span>
             </div>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-[#1e3a8a] tracking-tight" style={{ fontFamily: 'var(--font-head)' }}>Welche App hilft dir gerade?</h2>
+          </div>
 
-            <div className="lg:w-7/12 w-full">
-              <div className="relative aspect-[4/3] bg-white rounded-[2rem] shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-12 bg-white border-b border-[#eff6ff] flex items-center px-6 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+            
+            {/* ABO-KILLER */}
+            <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
+                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
@@ -151,49 +117,39 @@ export default function Homepage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* BAHN-REBELL (Bild Links, Text Rechts) */}
-        <div className="relative py-28 bg-white overflow-hidden">
-          <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[#bfdbfe]/30 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
-
-          <div className="relative px-6 lg:px-12 max-w-screen-2xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center z-10">
-            <div className="lg:w-5/12 w-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-[#eff6ff] border border-[#dbeafe] shadow-sm flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><path d="M4 14h16"></path><path d="M4 10h16"></path></svg>
+              <div className="p-8 lg:p-10 flex-1 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-white border border-[#bfdbfe] shadow-sm flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  </div>
+                  <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Abo-Killer</div>
                 </div>
-                <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Bahn-Rebell</div>
+                <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
+                  Zu viele Abos und keine Ahnung, was sie zusammen kosten?
+                </h3>
+                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
+                  Bringe deine laufenden Abos, Kosten und Kündigungsfristen an einen Ort. Erhalte eine zentrale Übersicht statt Chaos in Postfach und Kontoauszug.
+                </p>
+                <ul className="space-y-3 mb-10 flex-1">
+                  {['Abos und Kosten zentral verwalten', 'Laufzeiten & Kündigungsfristen überwachen', 'Kündigungen strukturiert vorbereiten'].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <span className="text-[#1e3a8a] font-medium">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => router.push('/abo-killer')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
+                  Abo-Killer ansehen
+                </button>
               </div>
-
-              <h3 className="text-3xl md:text-4xl font-extrabold text-[#1e3a8a] tracking-tight mb-6 leading-[1.15]">
-                Zug verspätet, ausgefallen oder Anschluss verpasst?
-              </h3>
-              <p className="text-[#1e40af] text-lg mb-10 leading-relaxed">
-                Bahn-Rebell hilft dir, deinen Bahnfall strukturiert zu erfassen, eine mögliche Fahrpreisentschädigung einzuordnen und die nächsten Schritte vorzubereiten. Fahrtdaten, Berechnung und Unterlagen bleiben übersichtlich an einem Ort.
-              </p>
-              
-              <ul className="grid grid-cols-1 gap-4 mb-10">
-                {['Fälle bzw. Fahrten erfassen', 'Mögliche Fahrpreisentschädigung berechnen', 'Relevante Angaben speichern', 'Schreiben bzw. Unterlagen vorbereiten'].map((text, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <span className="text-[#1e3a8a] font-medium">{text}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <button onClick={() => router.push('/bahn-rebell')} className="bg-[#1e3a8a] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-lg shadow-[#1e3a8a]/20 hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                Bahn-Rebell ansehen
-              </button>
             </div>
 
-            <div className="lg:w-7/12 w-full">
-              <div className="relative aspect-[4/3] bg-white rounded-[2rem] shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-12 bg-white border-b border-[#eff6ff] flex items-center px-6 gap-2">
+            {/* BAHN-REBELL */}
+            <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
+                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
@@ -206,49 +162,39 @@ export default function Homepage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* NEBENKOSTEN-REBELL (Text Links, Bild Rechts) */}
-        <div className="relative py-28 border-y border-[#dbeafe] bg-[#eff6ff] overflow-hidden">
-          <div className="absolute top-1/2 right-1/4 w-[600px] h-[600px] bg-[#bfdbfe]/30 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"></div>
-
-          <div className="relative px-6 lg:px-12 max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-20 items-center z-10">
-            <div className="lg:w-5/12 w-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-white border border-[#bfdbfe] shadow-sm flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+              <div className="p-8 lg:p-10 flex-1 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-[#eff6ff] border border-[#dbeafe] shadow-sm flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><path d="M4 14h16"></path><path d="M4 10h16"></path></svg>
+                  </div>
+                  <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Bahn-Rebell</div>
                 </div>
-                <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Nebenkosten-Rebell</div>
+                <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
+                  Zug verspätet, ausgefallen oder Anschluss verpasst?
+                </h3>
+                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
+                  Erfasse deinen Bahnfall strukturiert. Alle Fahrtdaten, Entschädigungsberechnungen und Unterlagen bleiben übersichtlich an einem Ort.
+                </p>
+                <ul className="space-y-3 mb-10 flex-1">
+                  {['Fahrten & Fälle dokumentieren', 'Mögliche Entschädigung berechnen', 'Unterlagen direkt vorbereiten'].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <span className="text-[#1e3a8a] font-medium">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => router.push('/bahn-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
+                  Bahn-Rebell ansehen
+                </button>
               </div>
-
-              <h3 className="text-3xl md:text-4xl font-extrabold text-[#1e3a8a] tracking-tight mb-6 leading-[1.15]">
-                Nebenkostenabrechnung kaum nachvollziehbar?
-              </h3>
-              <p className="text-[#1e40af] text-lg mb-10 leading-relaxed">
-                Nebenkosten-Rebell hilft dir, deine Abrechnung strukturiert auseinanderzunehmen. Kostenpositionen, Vorauszahlungen und Veränderungen werden übersichtlich aufbereitet, damit du besser nachvollziehen kannst, wie sich das Ergebnis zusammensetzt.
-              </p>
-              
-              <ul className="grid grid-cols-1 gap-4 mb-10">
-                {['Abrechnungsdaten erfassen', 'Kostenpositionen strukturieren', 'Vorauszahlungen & Gesamtkosten vergleichen', 'Veränderungen nachvollziehen'].map((text, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <span className="text-[#1e3a8a] font-medium">{text}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <button onClick={() => router.push('/nebenkosten-rebell')} className="bg-[#1e3a8a] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-lg shadow-[#1e3a8a]/20 hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                Nebenkosten-Rebell ansehen
-              </button>
             </div>
 
-            <div className="lg:w-7/12 w-full">
-              <div className="relative aspect-[4/3] bg-white rounded-[2rem] shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-12 bg-white border-b border-[#eff6ff] flex items-center px-6 gap-2">
+            {/* NEBENKOSTEN-REBELL */}
+            <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
+                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
@@ -261,47 +207,39 @@ export default function Homepage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* FLUG-REBELL (Bild Links, Text Rechts) */}
-        <div className="relative py-28 bg-white border-b border-[#dbeafe] overflow-hidden">
-          <div className="relative px-6 lg:px-12 max-w-screen-2xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center z-10">
-            <div className="lg:w-5/12 w-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-[#eff6ff] border border-[#dbeafe] shadow-sm flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.6L3 8l6 4-4 4-2.8-.9c-.4-.1-.8.1-1 .5L1 17l5 2 2 5c.4-.2.6-.6.5-1l-.9-2.8 4-4 4 6l1.2-.7c.4-.2.7-.6.6-1.1z"></path></svg>
+              <div className="p-8 lg:p-10 flex-1 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-white border border-[#bfdbfe] shadow-sm flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                  </div>
+                  <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Nebenkosten-Rebell</div>
                 </div>
-                <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Flug-Rebell</div>
+                <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
+                  Nebenkostenabrechnung kaum nachvollziehbar?
+                </h3>
+                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
+                  Nimm deine Abrechnung strukturiert auseinander. Vergleiche Kostenpositionen und Vorauszahlungen, um Nachzahlungen genau nachzuvollziehen.
+                </p>
+                <ul className="space-y-3 mb-10 flex-1">
+                  {['Kostenpositionen strukturieren', 'Vorauszahlungen & Gesamtkosten vergleichen', 'Veränderungen zum Vorjahr nachvollziehen'].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <span className="text-[#1e3a8a] font-medium">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => router.push('/nebenkosten-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
+                  Nebenkosten-Rebell ansehen
+                </button>
               </div>
-
-              <h3 className="text-3xl md:text-4xl font-extrabold text-[#1e3a8a] tracking-tight mb-6 leading-[1.15]">
-                Flug verspätet, gestrichen oder Anschluss verpasst?
-              </h3>
-              <p className="text-[#1e40af] text-lg mb-10 leading-relaxed">
-                Flug-Rebell hilft dir, deinen Fall strukturiert einzuordnen und die nächsten Schritte vorzubereiten. Flugdaten, mögliche Entschädigung, zusätzliche Kosten und Schreiben lassen sich in einem nachvollziehbaren Ablauf organisieren.
-              </p>
-              
-              <ul className="grid grid-cols-1 gap-4 mb-10">
-                {['Flugdaten und Fall erfassen', 'Mögliche Entschädigung einordnen', 'Zusatzkosten dokumentieren', 'Schreiben vorbereiten'].map((text, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <span className="text-[#1e3a8a] font-medium">{text}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <button onClick={() => router.push('/flug-rebell')} className="bg-[#1e3a8a] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-lg shadow-[#1e3a8a]/20 hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                Flug-Rebell ansehen
-              </button>
             </div>
 
-            <div className="lg:w-7/12 w-full">
-              <div className="relative aspect-[4/3] bg-white rounded-[2rem] shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-12 bg-white border-b border-[#eff6ff] flex items-center px-6 gap-2">
+            {/* FLUG-REBELL */}
+            <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
+                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
@@ -314,14 +252,41 @@ export default function Homepage() {
                   </div>
                 </div>
               </div>
+              <div className="p-8 lg:p-10 flex-1 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-[#eff6ff] border border-[#dbeafe] shadow-sm flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#1e3a8a]"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.6L3 8l6 4-4 4-2.8-.9c-.4-.1-.8.1-1 .5L1 17l5 2 2 5c.4-.2.6-.6.5-1l-.9-2.8 4-4 4 6l1.2-.7c.4-.2.7-.6.6-1.1z"></path></svg>
+                  </div>
+                  <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Flug-Rebell</div>
+                </div>
+                <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
+                  Flug verspätet, gestrichen oder Anschluss verpasst?
+                </h3>
+                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
+                  Ordne deinen Flug-Fall strukturiert ein. Dokumentiere Zusatzkosten, Flugdaten und bereite nächste Schritte in einem logischen Ablauf vor.
+                </p>
+                <ul className="space-y-3 mb-10 flex-1">
+                  {['Flugdaten und Fall einordnen', 'Mögliche Entschädigung prüfen', 'Zusatzkosten dokumentieren'].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <span className="text-[#1e3a8a] font-medium">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => router.push('/flug-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
+                  Flug-Rebell ansehen
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
-
       </section>
 
       {/* 4. WEITERE APPS */}
-      <section className="py-24 px-6 lg:px-12 max-w-screen-2xl mx-auto bg-white">
+      <section className="py-24 px-6 lg:px-12 max-w-screen-2xl mx-auto bg-white border-t border-[#dbeafe]">
         <h2 className="text-3xl lg:text-4xl font-extrabold text-[#1e3a8a] tracking-tight mb-12 text-center" style={{ fontFamily: 'var(--font-head)' }}>Weitere digitale Helfer</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
