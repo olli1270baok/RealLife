@@ -1,39 +1,48 @@
 export default function ImpressumPage() {
   return (
-    <div className="main-content" style={{ padding: '60px 20px', backgroundColor: '#0d1117', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto', background: 'rgba(255,255,255,0.02)', padding: '40px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
-        <h1 style={{ fontSize: '32px', marginBottom: '24px', fontWeight: 700 }}>Impressum</h1>
+    <div className="bg-[#F5F4F0] min-h-screen py-20 px-6">
+      <div className="max-w-3xl mx-auto bg-white p-10 md:p-16 rounded-3xl shadow-sm border border-[#E2E8F0]">
+        <h1 className="text-4xl font-extrabold text-[#1e3a8a] mb-8 tracking-tight" style={{ fontFamily: 'var(--font-head)' }}>Impressum</h1>
         
-        <div style={{ color: 'var(--muted)', lineHeight: '1.8' }}>
-          <h2 style={{ fontSize: '20px', color: 'var(--text)', marginTop: '24px', marginBottom: '12px' }}>Angaben gemäß § 5 DDG</h2>
-          <p>
-            Baokmedia©<br />
-            c/o Impressumservice Dein-Impressum<br />
-            Stettiner Straße 41<br />
-            35410 Hungen
-          </p>
+        <div className="text-[#334155] leading-relaxed space-y-6">
+          <div>
+            <h2 className="text-xl font-bold text-[#0F172A] mb-2">Angaben gemäß § 5 DDG</h2>
+            <p>
+              Baokmedia<br />
+              c/o Impressumservice Dein-Impressum<br />
+              Stettiner Straße 41<br />
+              35410 Hungen
+            </p>
+          </div>
 
-          <h2 style={{ fontSize: '20px', color: 'var(--text)', marginTop: '24px', marginBottom: '12px' }}>Vertreten durch:</h2>
-          <p>
-            O. Balko
-          </p>
+          <div>
+            <h2 className="text-xl font-bold text-[#0F172A] mb-2">Vertreten durch:</h2>
+            <p>
+              O. Balko
+            </p>
+          </div>
 
-          <h2 style={{ fontSize: '20px', color: 'var(--text)', marginTop: '24px', marginBottom: '12px' }}>Kontakt:</h2>
-          <p>
-            E-Mail: [HIER E-MAIL EINTRAGEN]<br />
-            Telefon: [HIER TELEFON EINTRAGEN - OPTIONAL]
-          </p>
+          <div>
+            <h2 className="text-xl font-bold text-[#0F172A] mb-2">Kontakt:</h2>
+            <p>
+              E-Mail: info@vorlagenbude.de
+            </p>
+          </div>
 
-          <h2 style={{ fontSize: '20px', color: 'var(--text)', marginTop: '24px', marginBottom: '12px' }}>EU-Streitschlichtung</h2>
-          <p>
-            Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-blue)' }}>https://ec.europa.eu/consumers/odr/</a>.<br />
-            Unsere E-Mail-Adresse finden Sie oben im Impressum.
-          </p>
+          <div>
+            <h2 className="text-xl font-bold text-[#0F172A] mb-2">EU-Streitschlichtung</h2>
+            <p>
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-[#EA580C] hover:underline">https://ec.europa.eu/consumers/odr/</a>.<br />
+              Unsere E-Mail-Adresse finden Sie oben im Impressum.
+            </p>
+          </div>
 
-          <h2 style={{ fontSize: '20px', color: 'var(--text)', marginTop: '24px', marginBottom: '12px' }}>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
-          <p>
-            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
-          </p>
+          <div>
+            <h2 className="text-xl font-bold text-[#0F172A] mb-2">Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
+            <p>
+              Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+            </p>
+          </div>
         </div>
       </div>
     </div>
