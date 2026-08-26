@@ -11,7 +11,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "Vorlagenbude – Komplizierte Dinge einfacher machen",
-  description: "Digitale Helfer für Bahnverspätungen, Nebenkosten, Abos, Flugprobleme und komplizierten Alltagskram. Direkt nutzbar und einfach verständlich.",
+  description: "Digitale Apps für Bahnärger, Nebenkosten, Abos, Flugprobleme und anderen Alltagskram. Nicht nur nachschlagen oder ausrechnen – organisieren, dokumentieren und weiterarbeiten.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -38,13 +38,13 @@ export default function RootLayout({
             </Link>
             
             <nav className="hidden md:flex gap-8 text-sm font-semibold text-[#64748B]">
-              <Link href="/#loesungen" className="hover:text-[#0F172A] transition-colors">Lösungen</Link>
+              <Link href="/#showcases" className="hover:text-[#0F172A] transition-colors">Apps</Link>
+              <Link href="/#schnellcheck" className="hover:text-[#0F172A] transition-colors">Kostenlos testen</Link>
               <Link href="/#so-funktionierts" className="hover:text-[#0F172A] transition-colors">So funktioniert's</Link>
-              <Link href="/#apps" className="hover:text-[#0F172A] transition-colors">Apps</Link>
             </nav>
 
-            <Link href="/#loesungen" className="bg-[#0B1221] text-white px-5 py-2.5 rounded text-sm font-bold hover:bg-[#1E293B] transition-colors">
-              Kostenlos ausprobieren
+            <Link href="/#schnellcheck" className="bg-[#0B1221] text-white px-5 py-2.5 rounded text-sm font-bold hover:bg-[#1E293B] transition-colors">
+              Apps entdecken
             </Link>
           </div>
         </header>
