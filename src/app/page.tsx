@@ -103,7 +103,7 @@ export default function Homepage() {
                 </div>
                 {/* REAL SCREENSHOT */}
                 <div className="bg-white">
-                  <img src="/images/hp-bilder/img3.png" alt="Abo-Killer App" className="w-full h-auto block" />
+                  <img src="/images/hp-bilder/abo_killer_frau.jpg" alt="Abo-Killer App" className="w-full h-auto block" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
@@ -243,7 +243,7 @@ export default function Homepage() {
                 </div>
                 {/* REAL SCREENSHOT */}
                 <div className="bg-white">
-                  <img src="/images/hp-bilder/img5.png" alt="Flug-Rebell App" className="w-full h-auto block" />
+                  <img src="/images/hp-bilder/flug_rebell_frau.jpg" alt="Flug-Rebell App" className="w-full h-auto block" />
                 </div>
               </div>
               <div className="p-8 lg:p-10 flex-1 flex flex-col">
