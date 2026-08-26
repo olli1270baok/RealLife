@@ -59,29 +59,39 @@ export default function Homepage() {
           </div>
 
           <div className="lg:w-1/2 w-full">
-            {/* HIGH-END MAC-STYLE BROWSER WINDOW PLACEHOLDER */}
+            {/* HERO BROWSER WINDOW - DOM UI SCREENSHOT */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#93c5fd] to-[#fed7aa] rounded-[1.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-              <div className="relative aspect-[4/3] md:aspect-[16/10] bg-white rounded-2xl shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
+              <div className="relative aspect-[4/3] md:aspect-[16/10] bg-[#eff6ff] rounded-2xl shadow-2xl border border-[#dbeafe] overflow-hidden flex flex-col">
+                <div className="h-10 bg-white border-b border-[#dbeafe] flex items-center px-4 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+                  <div className="ml-4 flex-1 h-5 bg-[#eff6ff] rounded-md border border-[#dbeafe]"></div>
+                </div>
                 
-                {/* Browser Chrome */}
-                <div className="h-10 bg-[#eff6ff] border-b border-[#dbeafe] flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+                {/* Dashboard-like UI */}
+                <div className="flex-1 bg-white relative p-6 flex flex-col gap-4 overflow-hidden">
+                   <div className="flex justify-between items-center mb-2">
+                      <div className="w-32 h-6 bg-[#eff6ff] rounded-md"></div>
+                      <div className="w-10 h-10 rounded-full bg-[#bfdbfe]/30"></div>
+                   </div>
+                   <div className="grid grid-cols-2 gap-4">
+                      <div className="h-24 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-4 flex flex-col justify-between">
+                         <div className="w-12 h-4 bg-[#e2e8f0] rounded"></div>
+                         <div className="w-20 h-6 bg-[#1e3a8a] rounded"></div>
+                      </div>
+                      <div className="h-24 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl p-4 flex flex-col justify-between">
+                         <div className="w-12 h-4 bg-[#e2e8f0] rounded"></div>
+                         <div className="w-20 h-6 bg-[#ea580c] rounded"></div>
+                      </div>
+                   </div>
+                   <div className="flex-1 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl mt-2 p-4">
+                      <div className="w-full h-4 bg-[#e2e8f0] rounded mb-4"></div>
+                      <div className="w-3/4 h-4 bg-[#e2e8f0] rounded mb-4"></div>
+                      <div className="w-5/6 h-4 bg-[#e2e8f0] rounded"></div>
+                   </div>
                 </div>
-
-                {/* Content Area / Image Target */}
-                <div className="flex-1 bg-white relative flex items-center justify-center bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
-                  
-                  {/* <img src="/images/hero-abo-killer.jpg" alt="Abo-Killer App Ansicht" className="absolute inset-0 w-full h-full object-cover" /> */}
-                  
-                  <div className="text-[#3b82f6] font-bold flex flex-col items-center gap-4 bg-white/90 px-6 py-4 rounded-xl backdrop-blur-md border border-[#bfdbfe] shadow-sm">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#93c5fd]"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    <span>Platzhalter: Hero App-Visual (Bild)</span>
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
@@ -103,17 +113,45 @@ export default function Homepage() {
             
             {/* ABO-KILLER */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="ml-4 text-[10px] font-bold text-[#64748b]">Abo-Killer</div>
                 </div>
-                <div className="flex-1 bg-[#eff6ff] relative flex items-center justify-center">
-                  {/* <img src="/images/app-abo-killer.jpg" alt="Abo-Killer App" className="absolute inset-0 w-full h-full object-cover" /> */}
-                  <div className="text-[#3b82f6] font-bold flex flex-col items-center gap-3">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#93c5fd]"><image href="" /></svg>
-                    <span>Bild: Abo-Killer</span>
+                {/* DOM UI SCREENSHOT: Abo-Killer */}
+                <div className="flex-1 bg-[#f8fafc] p-6 relative">
+                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
+                    <div className="flex justify-between items-end mb-6">
+                       <div>
+                          <div className="text-xs font-bold text-[#64748b] mb-1">Monatliche Kosten</div>
+                          <div className="text-3xl font-black text-[#1e3a8a]">89,95 <span className="text-lg text-[#94a3b8]">€</span></div>
+                       </div>
+                       <div className="bg-[#eff6ff] text-[#1e40af] px-3 py-1 rounded-full text-xs font-bold border border-[#bfdbfe]">6 Aktive Abos</div>
+                    </div>
+                    <div className="space-y-3">
+                       <div className="flex justify-between items-center p-3 rounded-lg bg-[#f8fafc] border border-[#e2e8f0]">
+                          <div className="flex items-center gap-3">
+                             <div className="w-8 h-8 rounded-md bg-red-100 flex items-center justify-center text-red-600 font-bold text-xs">N</div>
+                             <div>
+                                <div className="text-sm font-bold text-[#1e3a8a]">Netflix</div>
+                                <div className="text-[10px] text-[#64748b]">Monatlich</div>
+                             </div>
+                          </div>
+                          <div className="text-sm font-bold text-[#ea580c]">17,99 €</div>
+                       </div>
+                       <div className="flex justify-between items-center p-3 rounded-lg bg-[#f8fafc] border border-[#e2e8f0]">
+                          <div className="flex items-center gap-3">
+                             <div className="w-8 h-8 rounded-md bg-green-100 flex items-center justify-center text-green-600 font-bold text-xs">S</div>
+                             <div>
+                                <div className="text-sm font-bold text-[#1e3a8a]">Spotify</div>
+                                <div className="text-[10px] text-[#64748b]">Monatlich</div>
+                             </div>
+                          </div>
+                          <div className="text-sm font-bold text-[#ea580c]">14,99 €</div>
+                       </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -127,11 +165,13 @@ export default function Homepage() {
                 <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
                   Zu viele Abos und keine Ahnung, was sie zusammen kosten?
                 </h3>
-                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
-                  Bringe deine laufenden Abos, Kosten und Kündigungsfristen an einen Ort. Erhalte eine zentrale Übersicht statt Chaos in Postfach und Kontoauszug.
+                <p className="text-[#1e40af] text-base mb-2 leading-relaxed">
+                  Abo-Killer bringt deine laufenden Abos, Kosten, Fristen und Kündigungen an einen Ort. Statt zwischen E-Mails, Kontoauszügen und einzelnen Kundenkonten zu suchen, bekommst du eine klare Übersicht über alles, was noch läuft.
                 </p>
+                <p className="text-[#ea580c] font-bold text-sm mb-6">Damit du nicht erst auf der Abrechnung merkst, was eigentlich alles noch aktiv ist.</p>
+                
                 <ul className="space-y-3 mb-10 flex-1">
-                  {['Abos und Kosten zentral verwalten', 'Laufzeiten & Kündigungsfristen überwachen', 'Kündigungen strukturiert vorbereiten'].map((text, i) => (
+                  {['Abos übersichtlich erfassen und verwalten', 'monatliche und jährliche Gesamtkosten im Blick behalten', 'Laufzeiten und Kündigungsfristen besser organisieren', 'Daten speichern, sichern und später weiterbearbeiten'].map((text, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -148,17 +188,31 @@ export default function Homepage() {
 
             {/* BAHN-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="ml-4 text-[10px] font-bold text-[#64748b]">Bahn-Rebell</div>
                 </div>
-                <div className="flex-1 bg-[#eff6ff] relative flex items-center justify-center">
-                  {/* <img src="/images/app-bahn-rebell.jpg" alt="Bahn-Rebell App" className="absolute inset-0 w-full h-full object-cover" /> */}
-                  <div className="text-[#3b82f6] font-bold flex flex-col items-center gap-3">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#93c5fd]"><image href="" /></svg>
-                    <span>Bild: Bahn-Rebell</span>
+                {/* DOM UI SCREENSHOT: Bahn-Rebell */}
+                <div className="flex-1 bg-[#f8fafc] p-6 relative">
+                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
+                    <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f1f5f9]">
+                       <div className="w-10 h-10 rounded-full bg-[#eff6ff] text-[#1e40af] flex items-center justify-center font-bold">ICE</div>
+                       <div>
+                          <div className="text-sm font-bold text-[#1e3a8a]">München Hbf → Berlin Hbf</div>
+                          <div className="text-xs text-[#ea580c] font-bold">+ 145 Min. Verspätung</div>
+                       </div>
+                    </div>
+                    <div className="bg-[#eff6ff] border border-[#bfdbfe] rounded-lg p-4 mb-4">
+                       <div className="text-xs font-bold text-[#1e40af] mb-1">Mögliche Entschädigung</div>
+                       <div className="text-2xl font-black text-[#1e3a8a]">50% <span className="text-sm font-normal text-[#3b82f6]">des Ticketpreises</span></div>
+                    </div>
+                    <div className="flex gap-2 mt-auto">
+                       <div className="flex-1 h-8 bg-[#1e3a8a] rounded-lg opacity-90"></div>
+                       <div className="w-1/3 h-8 bg-[#e2e8f0] rounded-lg"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -172,11 +226,13 @@ export default function Homepage() {
                 <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
                   Zug verspätet, ausgefallen oder Anschluss verpasst?
                 </h3>
-                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
-                  Erfasse deinen Bahnfall strukturiert. Alle Fahrtdaten, Entschädigungsberechnungen und Unterlagen bleiben übersichtlich an einem Ort.
+                <p className="text-[#1e40af] text-base mb-2 leading-relaxed">
+                  Bahn-Rebell hilft dir, deinen Bahnfall strukturiert zu erfassen, eine mögliche Fahrpreisentschädigung einzuordnen und die nächsten Schritte vorzubereiten. Fahrtdaten, Berechnung und Unterlagen bleiben dabei übersichtlich an einem Ort.
                 </p>
+                <p className="text-[#ea580c] font-bold text-sm mb-6">Aus Bahnärger wird ein klarer nächster Schritt.</p>
+
                 <ul className="space-y-3 mb-10 flex-1">
-                  {['Fahrten & Fälle dokumentieren', 'Mögliche Entschädigung berechnen', 'Unterlagen direkt vorbereiten'].map((text, i) => (
+                  {['mögliche Fahrpreisentschädigung prüfen', 'Fahrten bzw. Fälle erfassen und speichern', 'relevante Angaben und Zusatzinfos übersichtlich sammeln', 'Schreiben vorbereiten, kopieren, drucken oder exportieren'].map((text, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -185,25 +241,49 @@ export default function Homepage() {
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => router.push('/bahn-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
-                  Bahn-Rebell ansehen
-                </button>
+                <div className="flex flex-col gap-3">
+                  <button onClick={() => router.push('/bahn-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
+                    Bahn-Rebell ansehen
+                  </button>
+                  <button onClick={() => document.getElementById('kostenlos-testen')?.scrollIntoView({ behavior: 'smooth' })} className="bg-white text-[#1e3a8a] border border-[#dbeafe] px-6 py-4 rounded-xl font-bold hover:bg-[#eff6ff] transition-all text-center w-full">
+                    Kostenlos ausprobieren
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* NEBENKOSTEN-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="ml-4 text-[10px] font-bold text-[#64748b]">Nebenkosten-Rebell</div>
                 </div>
-                <div className="flex-1 bg-[#eff6ff] relative flex items-center justify-center">
-                  {/* <img src="/images/app-nebenkosten.jpg" alt="Nebenkosten-Rebell App" className="absolute inset-0 w-full h-full object-cover" /> */}
-                  <div className="text-[#3b82f6] font-bold flex flex-col items-center gap-3">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#93c5fd]"><image href="" /></svg>
-                    <span>Bild: Nebenkosten-Rebell</span>
+                {/* DOM UI SCREENSHOT: Nebenkosten */}
+                <div className="flex-1 bg-[#f8fafc] p-6 relative">
+                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                       <div className="p-3 bg-red-50 rounded-lg border border-red-100">
+                          <div className="text-[10px] font-bold text-red-600 uppercase">Nachzahlung</div>
+                          <div className="text-lg font-black text-red-700">482,50 €</div>
+                       </div>
+                       <div className="p-3 bg-[#eff6ff] rounded-lg border border-[#bfdbfe]">
+                          <div className="text-[10px] font-bold text-[#1e40af] uppercase">Vorauszahlung</div>
+                          <div className="text-lg font-black text-[#1e3a8a]">1.200,00 €</div>
+                       </div>
+                    </div>
+                    <div className="space-y-2">
+                       <div className="flex justify-between items-center text-xs p-2 bg-[#f8fafc] rounded border border-[#e2e8f0]">
+                          <span className="font-bold text-[#334155]">Heizkosten</span>
+                          <span className="font-bold text-[#ea580c]">+ 15%</span>
+                       </div>
+                       <div className="flex justify-between items-center text-xs p-2 bg-[#f8fafc] rounded border border-[#e2e8f0]">
+                          <span className="font-bold text-[#334155]">Kaltwasser</span>
+                          <span className="font-bold text-green-600">- 4%</span>
+                       </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -215,13 +295,15 @@ export default function Homepage() {
                   <div className="text-sm font-bold text-[#1e3a8a] uppercase tracking-widest">Nebenkosten-Rebell</div>
                 </div>
                 <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
-                  Nebenkostenabrechnung kaum nachvollziehbar?
+                  Nebenkostenabrechnung bekommen – aber kaum nachvollziehbar, woher die Nachzahlung kommt?
                 </h3>
-                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
-                  Nimm deine Abrechnung strukturiert auseinander. Vergleiche Kostenpositionen und Vorauszahlungen, um Nachzahlungen genau nachzuvollziehen.
+                <p className="text-[#1e40af] text-base mb-2 leading-relaxed">
+                  Nebenkosten-Rebell hilft dir, deine Abrechnung strukturiert auseinanderzunehmen. Kostenpositionen, Vorauszahlungen und Veränderungen werden übersichtlicher dargestellt, damit du besser nachvollziehen kannst, wie sich das Ergebnis zusammensetzt.
                 </p>
+                <p className="text-[#ea580c] font-bold text-sm mb-6">Nicht nur sehen, was du nachzahlen sollst. Verstehen, wie die Abrechnung zustande kommt.</p>
+
                 <ul className="space-y-3 mb-10 flex-1">
-                  {['Kostenpositionen strukturieren', 'Vorauszahlungen & Gesamtkosten vergleichen', 'Veränderungen zum Vorjahr nachvollziehen'].map((text, i) => (
+                  {['Abrechnungsdaten strukturiert erfassen', 'Kostenpositionen übersichtlich prüfen', 'Vorauszahlungen und Gesamtkosten gegenüberstellen', 'Veränderungen und offene Punkte nachvollziehbar festhalten'].map((text, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -238,17 +320,26 @@ export default function Homepage() {
 
             {/* FLUG-REBELL */}
             <div className="flex flex-col group bg-white border border-[#dbeafe] rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] bg-[#eff6ff] border-b border-[#dbeafe] overflow-hidden flex flex-col">
-                <div className="h-10 bg-white border-b border-[#eff6ff] flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#bfdbfe]"></div>
+              <div className="relative aspect-[16/10] bg-[#eff6ff] overflow-hidden flex flex-col border-b border-[#dbeafe]">
+                <div className="h-10 bg-[#f8fafc] border-b border-[#e2e8f0] flex items-center px-4 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#cbd5e1]"></div>
+                  <div className="ml-4 text-[10px] font-bold text-[#64748b]">Flug-Rebell</div>
                 </div>
-                <div className="flex-1 bg-[#eff6ff] relative flex items-center justify-center">
-                  {/* <img src="/images/app-flug-rebell.jpg" alt="Flug-Rebell App" className="absolute inset-0 w-full h-full object-cover" /> */}
-                  <div className="text-[#3b82f6] font-bold flex flex-col items-center gap-3">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#93c5fd]"><image href="" /></svg>
-                    <span>Bild: Flug-Rebell</span>
+                {/* DOM UI SCREENSHOT: Flug-Rebell */}
+                <div className="flex-1 bg-[#f8fafc] p-6 relative">
+                  <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 h-full flex flex-col">
+                    <div className="flex justify-between items-center mb-4">
+                       <div className="text-2xl font-black text-[#1e3a8a]">FRA</div>
+                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#94a3b8]"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.6L3 8l6 4-4 4-2.8-.9c-.4-.1-.8.1-1 .5L1 17l5 2 2 5c.4-.2.6-.6.5-1l-.9-2.8 4-4 4 6l1.2-.7c.4-.2.7-.6.6-1.1z"></path></svg>
+                       <div className="text-2xl font-black text-[#1e3a8a]">JFK</div>
+                    </div>
+                    <div className="text-center text-xs font-bold text-red-600 bg-red-50 py-2 rounded-lg border border-red-100 mb-4">Flug gestrichen</div>
+                    <div className="space-y-2 mt-auto">
+                       <div className="h-6 w-full bg-[#f8fafc] rounded border border-[#e2e8f0]"></div>
+                       <div className="h-6 w-3/4 bg-[#f8fafc] rounded border border-[#e2e8f0]"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -262,11 +353,13 @@ export default function Homepage() {
                 <h3 className="text-2xl lg:text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4 leading-snug">
                   Flug verspätet, gestrichen oder Anschluss verpasst?
                 </h3>
-                <p className="text-[#1e40af] text-base mb-8 leading-relaxed">
-                  Ordne deinen Flug-Fall strukturiert ein. Dokumentiere Zusatzkosten, Flugdaten und bereite nächste Schritte in einem logischen Ablauf vor.
+                <p className="text-[#1e40af] text-base mb-2 leading-relaxed">
+                  Flug-Rebell hilft dir, deinen Fall strukturiert einzuordnen und die nächsten Schritte vorzubereiten. Flugdaten, mögliche Entschädigung, zusätzliche Kosten und Schreiben lassen sich in einem nachvollziehbaren Ablauf organisieren.
                 </p>
+                <p className="text-[#ea580c] font-bold text-sm mb-6">Flug vorbei. Papierkram noch nicht.</p>
+
                 <ul className="space-y-3 mb-10 flex-1">
-                  {['Flugdaten und Fall einordnen', 'Mögliche Entschädigung prüfen', 'Zusatzkosten dokumentieren'].map((text, i) => (
+                  {['Flugdaten und Fall erfassen', 'mögliche Entschädigung einordnen', 'zusätzliche Kosten dokumentieren', 'Schreiben bzw. Mahnstufen strukturiert weiterverwenden'].map((text, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[#EA580C]/10 flex items-center justify-center">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -292,23 +385,30 @@ export default function Homepage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="group bg-[#eff6ff] border border-[#dbeafe] p-8 rounded-2xl flex flex-col hover:bg-white hover:shadow-xl hover:border-[#bfdbfe] transition-all hover:-translate-y-1">
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Retouren-Rebell</h3>
-            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Rücksendungen, Paketverluste und Erstattungen übersichtlich organisieren.</p>
-            <Link href="/retouren-rebell" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Retoure abgeschickt – aber die Erstattung lässt auf sich warten?</div>
+            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Retouren-Rebell hilft dir, Rücksendungen, offene Erstattungen und den weiteren Vorgang übersichtlich zu organisieren. So bleibt nachvollziehbar, was zurückgeschickt wurde und was noch offen ist.</p>
+            <Link href="/retouren-rebell" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Retouren-Rebell ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
+          
           <div className="group bg-[#eff6ff] border border-[#dbeafe] p-8 rounded-2xl flex flex-col hover:bg-white hover:shadow-xl hover:border-[#bfdbfe] transition-all hover:-translate-y-1">
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Behörden Shield</h3>
-            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Behördenvorgänge strukturieren und nächste Schritte vorbereiten.</p>
-            <Link href="/behoerden-shield" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Behördenpost bekommen und erstmal nicht wissen, was jetzt zu tun ist?</div>
+            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Behörden Shield hilft dir, Vorgänge übersichtlicher zu strukturieren und passende nächste Schritte oder Schreiben vorzubereiten. So bleibt ein Fall nachvollziehbar, statt im Papierchaos unterzugehen.</p>
+            <Link href="/behoerden-shield" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Behörden Shield ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
+          
           <div className="group bg-[#eff6ff] border border-[#dbeafe] p-8 rounded-2xl flex flex-col hover:bg-white hover:shadow-xl hover:border-[#bfdbfe] transition-all hover:-translate-y-1">
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Digitales Schutzschild</h3>
-            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Datenschutzanfragen und Löschungen an Anbieter senden.</p>
-            <Link href="/digital-schutzschild" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Wichtige Themen an einem Ort.</div>
+            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Ein digitaler Helfer, der wichtige Informationen, Vorgänge oder Schutz-Themen strukturiert an einem Ort zusammenführt.</p>
+            <Link href="/digital-schutzschild" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Digitales Schutzschild ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
+          
           <div className="group bg-[#eff6ff] border border-[#dbeafe] p-8 rounded-2xl flex flex-col hover:bg-white hover:shadow-xl hover:border-[#bfdbfe] transition-all hover:-translate-y-1">
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Lebenslagen-Lotse</h3>
-            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Komplexe Alltagssituationen in Aufgaben und Fristen zerlegen.</p>
-            <Link href="/lebenslagen-lotse" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Alltag in Aufgaben zerlegen.</div>
+            <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Ein digitaler Helfer, der komplexere Alltagssituationen in klare Aufgaben und nächste Schritte zerlegt.</p>
+            <Link href="/lebenslagen-lotse" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Lebenslagen-Lotse ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
         </div>
       </section>
