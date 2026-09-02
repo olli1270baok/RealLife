@@ -95,23 +95,6 @@ export default function FlugRebell() {
     window.scrollTo(0, 0);
   };
 
-  const handleCheckout = async () => {
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Checkout error');
-    }
-  };
-
   const calculateClaim = () => {
     const delay = parseInt(cDelay);
     const dist = parseInt(cDist);
@@ -348,7 +331,7 @@ export default function FlugRebell() {
               <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
               <h2 className="gradient-title" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
               <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.</p>
-              <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
+              <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={() => import('@/lib/commerce/checkout').then(m => m.startCheckout('flugRebell'))}>
                 JETZT MASTER-PASS KAUFEN (19€)
               </button>
             </div>

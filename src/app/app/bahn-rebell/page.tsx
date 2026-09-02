@@ -93,22 +93,6 @@ export default function BahnRebell() {
     window.scrollTo(0, 0);
   };
 
-  const handleCheckout = async () => {
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Checkout error');
-    }
-  };
 
   const calculateTrainClaim = () => {
     const delay = parseInt(cDelay);
