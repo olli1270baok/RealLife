@@ -1,6 +1,10 @@
+import GlobalHeader from "@/components/GlobalHeader";
+
 export default function AGBPage() {
   return (
-    <div className="bg-[#F5F4F0] min-h-screen py-20 px-6">
+    <>
+      <GlobalHeader />
+      <div className="bg-[#F5F4F0] min-h-screen py-20 px-6">
       <div className="max-w-3xl mx-auto bg-white p-10 md:p-16 rounded-3xl shadow-sm border border-[#E2E8F0]">
         <h1 className="text-4xl font-extrabold text-[#1e3a8a] mb-8 tracking-tight" style={{ fontFamily: 'var(--font-head)' }}>AGB & Widerrufsbelehrung</h1>
         
@@ -44,5 +48,6 @@ export default function AGBPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

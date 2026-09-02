@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { hasEntitlement } from '@/lib/commerce/entitlements';
 import { ProductId } from '@/lib/commerce/config';
+import GlobalHeader from '@/components/GlobalHeader';
 
 interface AppStatus {
   id: ProductId;
@@ -49,6 +50,8 @@ export default function MeineApps() {
   }
 
   return (
+    <>
+    <GlobalHeader />
     <div className="min-h-screen bg-[#F5F4F0] text-[#0F172A] py-12 px-6">
       <div className="max-w-4xl mx-auto">
         <header className="mb-12 flex justify-between items-center">
@@ -99,5 +102,6 @@ export default function MeineApps() {
         </div>
       </div>
     </div>
+    </>
   );
 }

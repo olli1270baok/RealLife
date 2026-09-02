@@ -1,16 +1,6 @@
-"use client";
-
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export default function GlobalHeader() {
-  const pathname = usePathname();
-  const hiddenPaths = ['/abo-killer', '/bahn-rebell', '/flug-rebell', '/nebenkosten-rebell'];
-
-  if (hiddenPaths.includes(pathname)) {
-    return null;
-  }
-
   return (
     <header className="border-b border-[#E2E8F0] bg-[#F5F4F0] sticky top-0 z-50">
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">

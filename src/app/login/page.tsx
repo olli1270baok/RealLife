@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import GlobalHeader from '@/components/GlobalHeader';
 
 function LoginForm() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -165,8 +166,11 @@ function LoginForm() {
 
 export default function Login() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#0F172A] flex items-center justify-center text-white">Lade...</div>}>
-      <LoginForm />
-    </Suspense>
+    <>
+      <GlobalHeader />
+      <Suspense fallback={<div className="min-h-screen bg-[#0F172A] flex items-center justify-center text-white">Lade...</div>}>
+        <LoginForm />
+      </Suspense>
+    </>
   );
 }

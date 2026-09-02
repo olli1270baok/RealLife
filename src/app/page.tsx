@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import GlobalHeader from '@/components/GlobalHeader';
 
 export default function Homepage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function Homepage() {
 
   return (
     <div className="min-h-screen font-sans text-[#1e3a8a] bg-[#F5F4F0] overflow-hidden">
+      <GlobalHeader />
       
       {/* 2. PREMIUM HERO */}
       <section className="relative pt-24 pb-32 px-6 lg:px-12 max-w-screen-2xl mx-auto">
