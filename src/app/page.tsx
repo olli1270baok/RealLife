@@ -434,7 +434,7 @@ export default function Homepage() {
               <div className="text-6xl font-black text-[#1e3a8a] tracking-tighter mb-8">
                 {compensation.toFixed(2).replace('.', ',')} <span className="text-[#93c5fd]">€</span>
               </div>
-              <button onClick={() => router.push('/bahn-rebell')} className="bg-[#EA580C] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#C2410C] shadow-lg shadow-[#EA580C]/20 hover:shadow-xl transition-all w-full sm:w-auto text-lg">
+              <button onClick={() => router.push('/app/bahn-rebell')} className="bg-[#EA580C] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#C2410C] shadow-lg shadow-[#EA580C]/20 hover:shadow-xl transition-all w-full sm:w-auto text-lg">
                 Kostenlos prüfen
               </button>
             </div>

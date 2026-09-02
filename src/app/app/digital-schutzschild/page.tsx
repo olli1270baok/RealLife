@@ -49,7 +49,7 @@ export default function DigitalSchutzschildNative() {
             <div style={{ fontSize: '64px', margin: '0 auto 20px' }}>🔒</div>
             <h2 style={{ marginBottom: '20px', color: 'white', fontFamily: 'Inter, sans-serif' }}>Premium-Werkzeug gesperrt</h2>
             <p style={{ color: '#a8b3c2', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang frei.</p>
-            <a href="/app" style={{ display: 'inline-block', width: '100%', padding: '20px', fontSize: '18px', background: '#c65d32', color: 'white', textDecoration: 'none', borderRadius: '8px', fontWeight: 'bold' }}>
+            <a href="/meine-apps" style={{ display: 'inline-block', width: '100%', padding: '20px', fontSize: '18px', background: '#c65d32', color: 'white', textDecoration: 'none', borderRadius: '8px', fontWeight: 'bold' }}>
               ZURÜCK ZUM COCKPIT
             </a>
           </div>
