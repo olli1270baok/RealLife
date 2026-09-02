@@ -355,28 +355,28 @@ export default function Homepage() {
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Retouren-Rebell</h3>
             <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Retoure abgeschickt – aber die Erstattung lässt auf sich warten?</div>
             <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Retouren-Rebell hilft dir, Rücksendungen, offene Erstattungen und den weiteren Vorgang übersichtlich zu organisieren. So bleibt nachvollziehbar, was zurückgeschickt wurde und was noch offen ist.</p>
-            <Link href="/retouren-rebell" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Retouren-Rebell ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <Link href="/app/retouren-rebell" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Retouren-Rebell ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
           
           <div className="group bg-[#eff6ff] border border-[#dbeafe] p-8 rounded-2xl flex flex-col hover:bg-white hover:shadow-xl hover:border-[#bfdbfe] transition-all hover:-translate-y-1">
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Behörden Shield</h3>
             <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Behördenpost bekommen und erstmal nicht wissen, was jetzt zu tun ist?</div>
             <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Behörden Shield hilft dir, Vorgänge übersichtlicher zu strukturieren und passende nächste Schritte oder Schreiben vorzubereiten. So bleibt ein Fall nachvollziehbar, statt im Papierchaos unterzugehen.</p>
-            <Link href="/behoerden-shield" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Behörden Shield ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <Link href="/app/behoerden-shield" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Behörden Shield ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
           
           <div className="group bg-[#eff6ff] border border-[#dbeafe] p-8 rounded-2xl flex flex-col hover:bg-white hover:shadow-xl hover:border-[#bfdbfe] transition-all hover:-translate-y-1">
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Digitales Schutzschild</h3>
             <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Wichtige Themen an einem Ort.</div>
             <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Ein digitaler Helfer, der wichtige Informationen, Vorgänge oder Schutz-Themen strukturiert an einem Ort zusammenführt.</p>
-            <Link href="/digital-schutzschild" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Digitales Schutzschild ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <Link href="/app/digital-schutzschild" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Digitales Schutzschild ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
           
           <div className="group bg-[#eff6ff] border border-[#dbeafe] p-8 rounded-2xl flex flex-col hover:bg-white hover:shadow-xl hover:border-[#bfdbfe] transition-all hover:-translate-y-1">
             <h3 className="font-bold text-xl mb-3 text-[#1e3a8a]">Lebenslagen-Lotse</h3>
             <div className="font-bold text-sm text-[#ea580c] mb-2 leading-snug">Alltag in Aufgaben zerlegen.</div>
             <p className="text-[#1e40af] text-sm mb-8 flex-1 leading-relaxed">Ein digitaler Helfer, der komplexere Alltagssituationen in klare Aufgaben und nächste Schritte zerlegt.</p>
-            <Link href="/lebenslagen-lotse" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Lebenslagen-Lotse ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
+            <Link href="/app/lebenslagen-lotse" className="text-[#1e3a8a] font-bold text-sm inline-flex items-center gap-1 group-hover:text-[#EA580C] transition-colors">Lebenslagen-Lotse ansehen <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link>
           </div>
         </div>
       </section>
