@@ -51,12 +51,6 @@ export default function Homepage() {
               >
                 Apps entdecken
               </button>
-              <button 
-                onClick={() => document.getElementById('kostenlos-testen')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-[#1e3a8a] bg-white/50 backdrop-blur-sm border border-[#bfdbfe] px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:shadow-sm transition-all w-full sm:w-auto text-center"
-              >
-                Kostenlos testen
-              </button>
             </div>
           </div>
 
@@ -193,9 +187,6 @@ export default function Homepage() {
                 <div className="flex flex-col gap-3">
                   <button onClick={() => router.push('/bahn-rebell')} className="bg-[#1e3a8a] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#172554] shadow-md shadow-[#1e3a8a]/10 transition-all text-center w-full">
                     Bahn-Rebell ansehen
-                  </button>
-                  <button onClick={() => document.getElementById('kostenlos-testen')?.scrollIntoView({ behavior: 'smooth' })} className="bg-white text-[#1e3a8a] border border-[#dbeafe] px-6 py-4 rounded-xl font-bold hover:bg-[#eff6ff] transition-all text-center w-full">
-                    Kostenlos ausprobieren
                   </button>
                 </div>
 
@@ -381,66 +372,6 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* 5. KOSTENLOS TESTEN (HIGH END) */}
-      <section id="kostenlos-testen" className="py-24 bg-[#eff6ff] border-t border-[#dbeafe] relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-[#bfdbfe]/40 rounded-full blur-[80px] pointer-events-none"></div>
-
-        <div className="max-w-screen-md mx-auto px-6 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#dbeafe] mb-6 shadow-sm">
-            <span className="text-xs font-bold text-[#EA580C] uppercase tracking-widest">KOSTENLOS TESTEN</span>
-          </div>
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-[#1e3a8a] tracking-tight mb-6" style={{ fontFamily: 'var(--font-head)' }}>Erst mal ausprobieren?</h2>
-          <p className="text-xl text-[#3b82f6] mb-12">
-            Mit Bahn-Rebell Free kannst du kostenlos eine erste mögliche Fahrpreisentschädigung prüfen.
-          </p>
-
-          <div className="glass-card rounded-[2rem] p-8 lg:p-12 text-left relative overflow-hidden border-[#bfdbfe]">
-            
-            <div className="flex justify-between items-center mb-10 pb-6 border-b border-[#dbeafe]/50">
-              <div className="font-bold text-[#1e3a8a] text-xl">Bahn-Rebell Schnellcheck</div>
-              <div className="text-xs font-bold text-[#EA580C] bg-[#EA580C]/10 px-3 py-1.5 rounded-full uppercase tracking-wider border border-[#EA580C]/20">Gratis Check</div>
-            </div>
-
-            <div className="space-y-8 mb-12">
-              <div>
-                <label className="block font-bold text-[#1e40af] mb-3 text-sm uppercase tracking-wide">Ticketpreis (Einzelfahrt)</label>
-                <div className="flex items-center">
-                  <input 
-                    type="number" 
-                    value={ticketPrice} 
-                    onChange={e => setTicketPrice(parseFloat(e.target.value))}
-                    className="w-full max-w-[200px] bg-white border border-[#bfdbfe] p-4 rounded-xl font-bold text-[#1e3a8a] text-xl shadow-sm focus:border-[#EA580C] focus:ring-1 focus:ring-[#EA580C] outline-none transition-all"
-                  />
-                  <span className="ml-4 font-bold text-[#93c5fd] text-xl">€</span>
-                </div>
-              </div>
-              <div>
-                <label className="block font-bold text-[#1e40af] mb-3 text-sm uppercase tracking-wide">Verspätung am Zielort</label>
-                <div className="flex items-center gap-6 bg-white p-4 rounded-xl border border-[#bfdbfe] shadow-sm">
-                  <input 
-                    type="range" 
-                    min="0" max="180" step="15"
-                    value={delay} 
-                    onChange={e => setDelay(parseInt(e.target.value))}
-                    className="flex-1"
-                  />
-                  <div className="w-24 text-right font-bold text-[#1e3a8a] text-xl border-l border-[#dbeafe] pl-4">{delay} Min</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white border border-[#bfdbfe] p-8 rounded-2xl text-center shadow-sm">
-              <div className="text-sm font-bold text-[#1e40af] mb-3 uppercase tracking-wide">Mögliche Fahrpreisentschädigung</div>
-              <div className="text-6xl font-black text-[#1e3a8a] tracking-tighter mb-8">
-                {compensation.toFixed(2).replace('.', ',')} <span className="text-[#93c5fd]">€</span>
-              </div>
-              <button onClick={() => router.push('/app/bahn-rebell')} className="bg-[#EA580C] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#C2410C] shadow-lg shadow-[#EA580C]/20 hover:shadow-xl transition-all w-full sm:w-auto text-lg">
-                Kostenlos prüfen
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 6. WARUM VORLAGENBUDE */}
       <section id="warum-vorlagenbude" className="py-24 bg-white border-t border-[#dbeafe]">

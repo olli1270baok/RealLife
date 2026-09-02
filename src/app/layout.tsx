@@ -39,7 +39,7 @@ export default function RootLayout({
             
             <nav className="hidden md:flex gap-8 text-sm font-semibold text-[#0F172A] items-center">
               <Link href="/#kern-apps" className="hover:text-[#EA580C] transition-colors">Apps</Link>
-              <Link href="/#kostenlos-testen" className="hover:text-[#EA580C] transition-colors">Kostenlos testen</Link>
+
               <Link href="/#warum-vorlagenbude" className="hover:text-[#EA580C] transition-colors">So funktioniert's</Link>
 
             </nav>
