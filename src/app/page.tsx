@@ -261,12 +261,8 @@ export default function Homepage() {
                   <h4 className="text-sm font-semibold text-blue-900 mb-4 uppercase tracking-wider">Einblick in die App</h4>
                   <div className="flex gap-4 overflow-x-auto pb-4 snap-x hide-scrollbar pr-8 after:content-[''] after:w-4 after:shrink-0">
                     {[1, 2, 3, 4].map((num) => (
-                      <div key={num} className="snap-start shrink-0 w-72 aspect-[16/10] bg-blue-50 rounded-xl border border-blue-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow relative cursor-pointer" onClick={() => alert("Screenshots für Nebenkosten-Rebell folgen in Kürze!")}>
-                        {/* src={`/images/screenshots/nebenkosten-rebell-${num}.png`} */}
-                        <div className="w-full h-full flex flex-col items-center justify-center text-blue-300 p-2 text-center hover:bg-blue-100 transition-colors">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-2 opacity-50"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                          <span className="text-[10px] font-medium">Screenshot {num}</span>
-                        </div>
+                      <div key={num} className="snap-start shrink-0 w-72 aspect-[16/10] bg-blue-50 rounded-xl border border-blue-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow relative">
+                        <img src={`/images/screenshots/nebenkosten-rebell-${num}.png`} alt={`Nebenkosten-Rebell Screenshot ${num}`} className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300" onClick={() => setLightboxImage(`/images/screenshots/nebenkosten-rebell-${num}.png`)} />
                       </div>
                     ))}
                   </div>
