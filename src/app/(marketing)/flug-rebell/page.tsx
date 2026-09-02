@@ -239,40 +239,6 @@ export default function FlugRebellMarketingPage() {
         </div>
       </section>
 
-      {/* 8. KAUFBLOCK */}
-      <section id="pro-section" className="py-24 bg-[#1E293B] border-y border-[#334155]">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="bg-[#0F172A] border border-[#F97316]/30 rounded-2xl p-8 md:p-12 shadow-[0_0_40px_rgba(249,115,22,0.1)] relative overflow-hidden">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl font-bold mb-2 text-[#F8FAFC]">Flug-Rebell</h2>
-                <p className="text-[#94A3B8] text-lg mb-8">Einmal kaufen. Den gesamten Vorgang strukturiert bearbeiten.</p>
-                <ul className="space-y-3 mb-8 md:mb-0">
-                  <li className="flex items-center text-[#E2E8F0]"><span className="text-[#F97316] mr-3">✔</span> Flugfall erfassen</li>
-                  <li className="flex items-center text-[#E2E8F0]"><span className="text-[#F97316] mr-3">✔</span> mögliche Entschädigung einordnen</li>
-                  <li className="flex items-center text-[#E2E8F0]"><span className="text-[#F97316] mr-3">✔</span> Zusatzkosten dokumentieren</li>
-                  <li className="flex items-center text-[#E2E8F0]"><span className="text-[#F97316] mr-3">✔</span> Schreiben vorbereiten</li>
-                  <li className="flex items-center text-[#E2E8F0]"><span className="text-[#F97316] mr-3">✔</span> 3 Mahnstufen nutzen</li>
-                  <li className="flex items-center text-[#E2E8F0]"><span className="text-[#F97316] mr-3">✔</span> Daten speichern / exportieren</li>
-                </ul>
-              </div>
-              
-              <div className="bg-[#1E293B] rounded-xl p-8 text-center border border-[#334155]">
-                <div className="text-sm font-bold text-[#94A3B8] uppercase tracking-wider mb-2">Einmalzahlung</div>
-                <div className="text-5xl font-black text-[#F8FAFC] mb-6">19€</div>
-                <button 
-                  onClick={() => startCheckout('flugRebell')}
-                  className="w-full bg-[#F97316] text-white px-8 py-4 rounded font-bold text-lg hover:bg-[#EA580C] transition-colors mb-4"
-                >
-                  Flug-Rebell kaufen
-                </button>
-                <p className="text-xs text-[#64748B]">Nach dem Klick wirst du zum Shopify-Checkout weitergeleitet.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 9. FAQ */}
       <section className="py-24">
         <div className="max-w-3xl mx-auto px-6">
