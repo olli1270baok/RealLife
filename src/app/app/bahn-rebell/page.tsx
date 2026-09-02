@@ -58,13 +58,11 @@ export default function BahnRebell() {
     document.body.className = 'theme-bahn';
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        router.push('/login');
-        return;
-      }
-      setUserId(session.user.id);
-      if (session.user.app_metadata?.is_pro) {
-        setIsPro(true);
+      if (session) {
+        setUserId(session.user.id);
+        if (session.user.app_metadata?.is_pro) {
+          setIsPro(true);
+        }
       }
       setLoadingUser(false);
     };

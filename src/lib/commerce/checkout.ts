@@ -24,19 +24,25 @@ export async function startCheckout(productId: ProductId) {
 
   // Fallback to existing Stripe implementation (temporarily)
   if (config.stripePaymentLink) {
-    // We fetch the user internally here so the UI doesn't have to worry about Stripe-specific identity passing
-    let finalUrl = config.stripePaymentLink;
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        finalUrl = `${finalUrl}?client_reference_id=${user.id}`;
+        // We fetch the user internally here so the UI doesn't have to worry about Stripe-specific identity passing
+        const finalUrl = `${config.stripePaymentLink}?client_reference_id=${user.id}`;
+        window.location.href = finalUrl;
+        return;
+      } else {
+        // Stripe flow currently requires user ID.
+        // Alert the user, then push to login with a checkout param.
+        alert("Für die Freischaltung über unseren Zahlungsanbieter benötigen wir vorab einen Zugang.");
+        window.location.href = `/login?checkout=${productId}`;
+        return;
       }
     } catch (err) {
       console.warn('Failed to fetch user for checkout reference', err);
+      window.location.href = config.stripePaymentLink;
+      return;
     }
-    
-    window.location.href = finalUrl;
-    return;
   }
 
   console.error('No checkout URL configured for this product.');

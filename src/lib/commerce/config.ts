@@ -1,4 +1,4 @@
-export type ProductId = 'masterPass';
+export type ProductId = 'masterPass' | 'aboKiller' | 'bahnRebell' | 'nebenkostenRebell' | 'flugRebell';
 
 export interface ProductConfig {
   id: ProductId;
@@ -9,9 +9,27 @@ export interface ProductConfig {
 export const COMMERCE_CONFIG: Record<ProductId, ProductConfig> = {
   masterPass: {
     id: 'masterPass',
-    // Current active Stripe Payment Link
     stripePaymentLink: 'https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01',
-    // Placeholder - DO NOT invent URLs here, wait for Shopify setup
+    shopifyCheckoutUrl: '',
+  },
+  aboKiller: {
+    id: 'aboKiller',
+    stripePaymentLink: 'https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01', // TODO: replace with individual link
+    shopifyCheckoutUrl: '',
+  },
+  bahnRebell: {
+    id: 'bahnRebell',
+    stripePaymentLink: 'https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01',
+    shopifyCheckoutUrl: '',
+  },
+  nebenkostenRebell: {
+    id: 'nebenkostenRebell',
+    stripePaymentLink: 'https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01',
+    shopifyCheckoutUrl: '',
+  },
+  flugRebell: {
+    id: 'flugRebell',
+    stripePaymentLink: 'https://buy.stripe.com/4gM5kx8JhcR31ER9Gh4Ni01',
     shopifyCheckoutUrl: '',
   }
 };

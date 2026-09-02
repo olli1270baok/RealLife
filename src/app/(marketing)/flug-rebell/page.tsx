@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { startCheckout } from "@/lib/commerce/checkout";
 
 export default function FlugRebellMarketingPage() {
   const router = useRouter();
@@ -14,10 +15,10 @@ export default function FlugRebellMarketingPage() {
           VORLAGENBUDE
         </Link>
         <button
-          onClick={() => router.push("/app/flug-rebell")}
+          onClick={() => startCheckout('flugRebell')}
           className="bg-[#F97316] text-white px-6 py-2 rounded font-semibold hover:bg-[#EA580C] transition-colors"
         >
-          Zum Tool
+          App freischalten
         </button>
       </header>
 
@@ -34,15 +35,15 @@ export default function FlugRebellMarketingPage() {
         </p>
 
         <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-8 max-w-lg mx-auto mb-12 shadow-2xl">
-          <h2 className="text-2xl font-bold mb-4 text-[#F8FAFC]">Flug-Check</h2>
+          <h2 className="text-2xl font-bold mb-4 text-[#F8FAFC]">Vollzugriff erhalten</h2>
           <p className="text-[#94A3B8] mb-6 text-sm">
-            Orientierung: Je nach Flugstrecke und Verspätung stehen dir zwischen 250€ und 600€ zu. Finde es jetzt heraus.
+            Schalte die App frei, um alle Funktionen uneingeschränkt zu nutzen.
           </p>
           <button 
-            onClick={() => router.push("/app/flug-rebell")}
+            onClick={() => startCheckout('flugRebell')}
             className="w-full bg-[#F97316] text-white py-4 rounded font-bold text-lg hover:bg-[#EA580C] transition-colors"
           >
-            Anspruch prüfen
+            Flug-Rebell kaufen
           </button>
         </div>
         

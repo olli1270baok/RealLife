@@ -37,14 +37,16 @@ export default function RootLayout({
               vorlagen<span className="text-[#EA580C]">b</span>ude
             </Link>
             
-            <nav className="hidden md:flex gap-8 text-sm font-semibold text-[#0F172A]">
+            <nav className="hidden md:flex gap-8 text-sm font-semibold text-[#0F172A] items-center">
               <Link href="/#kern-apps" className="hover:text-[#EA580C] transition-colors">Apps</Link>
               <Link href="/#kostenlos-testen" className="hover:text-[#EA580C] transition-colors">Kostenlos testen</Link>
               <Link href="/#warum-vorlagenbude" className="hover:text-[#EA580C] transition-colors">So funktioniert's</Link>
+              <Link href="/meine-apps" className="bg-[#1e3a8a] text-white px-4 py-2 rounded font-bold hover:bg-[#172554] transition-colors ml-4">Meine Apps</Link>
             </nav>
             
-            <div className="md:hidden">
+            <div className="md:hidden flex gap-4 items-center">
               <Link href="/#kern-apps" className="text-sm font-semibold text-[#0F172A]">Apps</Link>
+              <Link href="/meine-apps" className="text-sm font-semibold text-[#1e3a8a]">Meine Apps</Link>
             </div>
           </div>
         </header>

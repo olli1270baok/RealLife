@@ -17,7 +17,7 @@ export default function BahnRebellMarketingPage() {
           onClick={() => router.push("/app/bahn-rebell")}
           className="bg-[#F97316] text-white px-6 py-2 rounded font-semibold hover:bg-[#EA580C] transition-colors"
         >
-          Zum Tool
+          Kostenlos ausprobieren
         </button>
       </header>
 
@@ -42,7 +42,7 @@ export default function BahnRebellMarketingPage() {
             onClick={() => router.push("/app/bahn-rebell")}
             className="w-full bg-[#F97316] text-white py-4 rounded font-bold text-lg hover:bg-[#EA580C] transition-colors"
           >
-            Jetzt Fall prüfen
+            Kostenlos ausprobieren
           </button>
         </div>
         

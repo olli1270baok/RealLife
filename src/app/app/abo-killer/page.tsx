@@ -342,6 +342,29 @@ export default function AboKiller() {
     return acc;
   }, {});
 
+  if (loadingUser) return null;
+
+  if (!isPro) {
+    return (
+      <div className="min-h-screen bg-[#F5F4F0] flex items-center justify-center p-6 text-center">
+        <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+          <h2 className="text-2xl font-bold text-[#0F172A] mb-4">Zugriff verweigert</h2>
+          <p className="text-gray-600 mb-8">Diese App ist für deinen Zugang noch nicht freigeschaltet.</p>
+          <div className="flex flex-col gap-4">
+            <button onClick={() => router.push('/abo-killer')} className="bg-gray-100 text-[#1e3a8a] py-3 rounded-lg font-bold hover:bg-gray-200 transition-colors w-full">
+              App ansehen
+            </button>
+            <button onClick={() => {
+              import('@/lib/commerce/checkout').then(m => m.startCheckout('aboKiller'));
+            }} className="bg-[#1e3a8a] text-white py-3 rounded-lg font-bold hover:bg-[#172554] transition-colors w-full">
+              Abo-Killer kaufen
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="app-container">
       <aside className="sidebar no-print">
