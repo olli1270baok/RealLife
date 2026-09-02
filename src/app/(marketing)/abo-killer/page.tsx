@@ -18,7 +18,7 @@ export default function AboKillerMarketingPage() {
           onClick={() => startCheckout('aboKiller')}
           className="bg-[#F97316] text-white px-6 py-2 rounded font-semibold hover:bg-[#EA580C] transition-colors"
         >
-          App freischalten
+          Abo-Killer kaufen
         </button>
       </header>
 

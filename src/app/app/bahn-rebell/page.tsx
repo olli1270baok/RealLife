@@ -411,21 +411,22 @@ export default function BahnRebell() {
           <span className="nav-label">Einstellungen</span>
           <button className={`nav-item ${activeView === 'settings' ? 'active' : ''}`} onClick={() => switchView('settings')}><span className="nav-icon">⚙️</span> Backup & Restore</button>
         </div>
+
+        {!isPro && (
+          <div className="nav-group" style={{ marginTop: '20px' }}>
+            <button 
+              className="btn btn-primary" 
+              style={{ width: '100%', background: '#F97316', border: 'none', padding: '12px' }}
+              onClick={() => import('@/lib/commerce/checkout').then(m => m.startCheckout('bahnRebell'))}
+            >
+              Bahn-Rebell Pro kaufen
+            </button>
+          </div>
+        )}
       </aside>
 
       <main className="main-content relative">
-        {!loadingUser && !isPro && (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(3, 7, 18, 0.8)', backdropFilter: 'blur(20px)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '60px 40px', maxWidth: '600px', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.5)', backdropFilter: 'blur(16px)' }}>
-              <div style={{ fontSize: '64px', marginBottom: '20px' }}>🔒</div>
-              <h2 className="gradient-title-db" style={{ marginBottom: '20px' }}>Premium-Werkzeug gesperrt</h2>
-              <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '40px' }}>Dieses Werkzeug ist aktuell gesperrt. Schalte jetzt den vollen Funktionsumfang der Vorlagenbude frei – Lifetime, ohne Abo.</p>
-              <button className="btn btn-primary" style={{ width: '100%', padding: '20px', fontSize: '18px' }} onClick={handleCheckout}>
-                JETZT MASTER-PASS KAUFEN (19€)
-              </button>
-            </div>
-          </div>
-        )}
+
 
         <div className="content-wrapper">
           {/* DASHBOARD */}
