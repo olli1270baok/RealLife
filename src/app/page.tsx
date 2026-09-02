@@ -332,7 +332,22 @@ export default function Homepage() {
       </section>
 
       {/* 4. WEITERE APPS */}
-      <section className="py-24 px-6 lg:px-12 max-w-screen-2xl mx-auto bg-white border-t border-[#dbeafe]">
+      <section className="relative py-24 px-6 lg:px-12 max-w-screen-2xl mx-auto bg-white border-t border-[#dbeafe] overflow-hidden">
+        
+        {/* UNDER CONSTRUCTION OVERLAY */}
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/30 backdrop-blur-[2px] pointer-events-none">
+          <div 
+            className="transform -rotate-6 md:-rotate-12 bg-[#fbbf24] text-black font-black text-3xl md:text-5xl py-4 px-[150%] shadow-2xl border-y-4 border-black flex items-center gap-8 tracking-widest uppercase"
+            style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(0,0,0,0.15) 40px, rgba(0,0,0,0.15) 80px)' }}
+          >
+            <span>Under Construction</span>
+            <span>🚧</span>
+            <span>Under Construction</span>
+            <span>🚧</span>
+            <span>Under Construction</span>
+          </div>
+        </div>
+
         <h2 className="text-3xl lg:text-4xl font-extrabold text-[#1e3a8a] tracking-tight mb-12 text-center" style={{ fontFamily: 'var(--font-head)' }}>Weitere digitale Helfer</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
